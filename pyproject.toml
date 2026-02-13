@@ -1,0 +1,54 @@
+[project]
+name = "ahrefs-python"
+version = "0.1.0"
+description = "Python client for the Ahrefs API"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.11"
+authors = [
+    {name = "Gerwyn Ng", email = "gerwyn.ng@ahrefs.com"},
+]
+
+dependencies = [
+    "httpx>=0.25.0",
+    "pydantic>=2.0.0",
+]
+
+[project.urls]
+Homepage = "https://ahrefs.com"
+Repository = "https://github.com/ahrefs/ahrefs-python"
+Documentation = "https://docs.ahrefs.com/docs/api/v3/"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.23",
+    "respx>=0.21",
+    "mypy>=1.10",
+    "ruff>=0.5",
+]
+
+[build-system]
+requires = ["poetry-core>=2.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+packages = [{ include = "ahrefs", from = "src" }]
+
+[tool.mypy]
+plugins = ["pydantic.mypy"]
+strict = true
+
+[tool.ruff]
+target-version = "py311"
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "integration: requires AHREFS_API_KEY and live API access",
+]
+asyncio_mode = "auto"
