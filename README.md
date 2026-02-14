@@ -15,6 +15,7 @@ Python client for the [Ahrefs API](https://ahrefs.com/api). Typed request and re
 - [Usage](#usage)
   - [Request Styles](#request-styles)
   - [Working with Responses](#working-with-responses)
+  - [Common Examples](#common-examples)
   - [Error Handling](#error-handling)
   - [Configuration](#configuration)
   - [Automatic Retries](#automatic-retries)
@@ -98,6 +99,56 @@ response = client.site_explorer_organic_keywords(
 
 for item in response.data:
     print(item.keyword, item.volume, item.best_position)
+```
+
+### Common Examples
+
+**Domain metrics with country filter:**
+
+```python
+response = client.site_explorer_metrics(
+    target="ahrefs.com",
+    date="2025-01-15",
+    country="us",
+)
+print(response.data.org_traffic, response.data.paid_traffic)
+```
+
+**Time-series history:**
+
+```python
+response = client.site_explorer_metrics_history(
+    target="ahrefs.com",
+    date_from="2024-01-01",
+    date_to="2025-01-01",
+)
+for point in response.data:
+    print(point.date, point.org_traffic)
+```
+
+**Referring domains with filtering and sorting:**
+
+```python
+response = client.site_explorer_refdomains(
+    target="ahrefs.com",
+    select="domain,domain_rating,traffic_domain",
+    limit=20,
+    order_by="domain_rating:desc",
+)
+for rd in response.data:
+    print(rd.domain, rd.domain_rating, rd.traffic_domain)
+```
+
+**Keywords Explorer:**
+
+```python
+response = client.keywords_explorer_overview(
+    select="keyword,volume,difficulty",
+    country="us",
+    keywords="python sdk,ahrefs api",
+)
+for kw in response.data:
+    print(kw.keyword, kw.volume, kw.difficulty)
 ```
 
 ### Error Handling
@@ -203,16 +254,76 @@ Or call `.close()` manually when done.
 
 ## API Sections
 
-| Section | Example method | Description |
-|---------|---------------|-------------|
-| Site Explorer | `site_explorer_domain_rating()` | Domain metrics, backlinks, organic keywords, competitors |
-| Keywords Explorer | `keywords_explorer_overview()` | Keyword metrics, search volume, related terms |
-| Brand Radar | `brand_radar_ai_responses()` | Brand monitoring, mentions, share of voice |
-| Rank Tracker | `rank_tracker_overview()` | SERP tracking, competitor rankings |
-| Site Audit | `site_audit_issues()` | Technical SEO issues, page analysis |
-| SERP Overview | `serp_overview_serp_overview()` | SERP analysis for keywords |
+See the [full API reference](docs/api-reference.md) for parameters, types, and response fields.
 
-See the [full API reference](https://docs.ahrefs.com/docs/api/v3/) for all available endpoints and parameters.
+<!-- METHOD_INDEX_START -->
+**Brand Radar** (6 methods)
+
+- `brand_radar_ai_responses()`
+- `brand_radar_impressions_history()`
+- `brand_radar_impressions_overview()`
+- `brand_radar_mentions_history()`
+- `brand_radar_mentions_overview()`
+- `brand_radar_sov_overview()`
+
+**Keywords Explorer** (6 methods)
+
+- `keywords_explorer_matching_terms()`
+- `keywords_explorer_overview()`
+- `keywords_explorer_related_terms()`
+- `keywords_explorer_search_suggestions()`
+- `keywords_explorer_volume_by_country()`
+- `keywords_explorer_volume_history()`
+
+**Rank Tracker** (5 methods)
+
+- `rank_tracker_competitors_overview()`
+- `rank_tracker_competitors_pages()`
+- `rank_tracker_competitors_stats()`
+- `rank_tracker_overview()`
+- `rank_tracker_serp_overview()`
+
+**Serp Overview** (1 method)
+
+- `serp_overview_serp_overview()`
+
+**Site Audit** (4 methods)
+
+- `site_audit_issues()`
+- `site_audit_page_content()`
+- `site_audit_page_explorer()`
+- `site_audit_projects()`
+
+**Site Explorer** (26 methods)
+
+- `site_explorer_all_backlinks()`
+- `site_explorer_anchors()`
+- `site_explorer_backlinks_stats()`
+- `site_explorer_best_by_external_links()`
+- `site_explorer_best_by_internal_links()`
+- `site_explorer_broken_backlinks()`
+- `site_explorer_domain_rating()`
+- `site_explorer_domain_rating_history()`
+- `site_explorer_keywords_history()`
+- `site_explorer_linked_anchors_external()`
+- `site_explorer_linked_anchors_internal()`
+- `site_explorer_linkeddomains()`
+- `site_explorer_metrics()`
+- `site_explorer_metrics_by_country()`
+- `site_explorer_metrics_history()`
+- `site_explorer_organic_competitors()`
+- `site_explorer_organic_keywords()`
+- `site_explorer_outlinks_stats()`
+- `site_explorer_pages_by_traffic()`
+- `site_explorer_pages_history()`
+- `site_explorer_paid_pages()`
+- `site_explorer_refdomains()`
+- `site_explorer_refdomains_history()`
+- `site_explorer_top_pages()`
+- `site_explorer_total_search_volume_history()`
+- `site_explorer_url_rating_history()`
+
+<!-- METHOD_INDEX_END -->
 
 ## License
 
