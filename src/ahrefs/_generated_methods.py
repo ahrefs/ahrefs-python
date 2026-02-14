@@ -11,25 +11,19 @@ from pydantic import BaseModel
 from ahrefs.types._coercions import DateStr, SelectStr  # noqa: F401
 from ahrefs.types._generated import *  # noqa: F401,F403
 
-T = TypeVar("T", bound=BaseModel)
+T = TypeVar('T', bound=BaseModel)
 
 
 class GeneratedMethodsMixin:
     """Async endpoint methods. Mixed into AsyncAhrefsClient."""
 
     async def _request(
-        self,
-        api_section: str,
-        endpoint: str,
-        request_model: BaseModel,
-        response_model_class: type[T],
-        *,
-        exclude_none: bool = False,
+        self, api_section: str, endpoint: str, request_model: BaseModel,
+        response_model_class: type[T], *, exclude_none: bool = False,
     ) -> T:
         raise NotImplementedError
 
     # fmt: off
-    # Batch Analysis API methods
     # Brand Radar API methods
     async def brand_radar_ai_responses(
         self,
@@ -56,7 +50,6 @@ class GeneratedMethodsMixin:
                 limit (int, optional): The number of results to return. Default: 1000.
                 where (str, optional): The filter expression. The following column id...
                 select (str, required): A comma-separated list of columns to return. ...
-                limit (int, optional): The number of results to return. Default: None.
                 date (str, optional): The date to search for in YYYY-MM-DD format. De...
                 country (CountryEnum, optional): A two-letter country code (ISO 3166-...
                 order_by (OrderByEnum, optional): The order by field. Default: 'relev...
@@ -2384,18 +2377,12 @@ class GeneratedSyncMethodsMixin:
     """Sync endpoint methods. Mixed into AhrefsClient."""
 
     def _request(
-        self,
-        api_section: str,
-        endpoint: str,
-        request_model: BaseModel,
-        response_model_class: type[T],
-        *,
-        exclude_none: bool = False,
+        self, api_section: str, endpoint: str, request_model: BaseModel,
+        response_model_class: type[T], *, exclude_none: bool = False,
     ) -> T:
         raise NotImplementedError
 
     # fmt: off
-    # Batch Analysis API methods
     # Brand Radar API methods
     def brand_radar_ai_responses(
         self,
@@ -2422,7 +2409,6 @@ class GeneratedSyncMethodsMixin:
                 limit (int, optional): The number of results to return. Default: 1000.
                 where (str, optional): The filter expression. The following column id...
                 select (str, required): A comma-separated list of columns to return. ...
-                limit (int, optional): The number of results to return. Default: None.
                 date (str, optional): The date to search for in YYYY-MM-DD format. De...
                 country (CountryEnum, optional): A two-letter country code (ISO 3166-...
                 order_by (OrderByEnum, optional): The order by field. Default: 'relev...

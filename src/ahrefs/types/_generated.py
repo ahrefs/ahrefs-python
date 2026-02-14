@@ -741,7 +741,6 @@ class VolumeModeEnum(StrEnum):
 
 # ============== Brand Radar API ==============
 
-
 # Models for brand-radar/ai-responses
 class BrandRadarAiResponsesRequest(BaseModel):
     """Request model for BrandRadarAiResponsesRequest."""
@@ -944,7 +943,6 @@ class BrandRadarSovOverviewResponse(BaseModel):
 
 
 # ============== Keywords Explorer API ==============
-
 
 # Models for keywords-explorer/matching-terms
 class KeywordsExplorerMatchingTermsRequest(BaseModel):
@@ -1201,7 +1199,6 @@ class KeywordsExplorerVolumeHistoryResponse(BaseModel):
 
 # ============== Rank Tracker API ==============
 
-
 # Models for rank-tracker/competitors-overview
 class RankTrackerCompetitorsOverviewRequest(BaseModel):
     """Request model for RankTrackerCompetitorsOverviewRequest."""
@@ -1285,9 +1282,7 @@ class RankTrackerCompetitorsPagesData(BaseModel):
 class RankTrackerCompetitorsPagesResponse(BaseModel):
     """Response model for /competitors-pages endpoint"""
 
-    competitors_pages: list[RankTrackerCompetitorsPagesData] | None = Field(
-        default=None, alias="competitors-pages"
-    )
+    competitors_pages: list[RankTrackerCompetitorsPagesData] | None = Field(default=None, alias="competitors-pages")
 
     @property
     def data(self) -> list[RankTrackerCompetitorsPagesData]:
@@ -1338,9 +1333,7 @@ class RankTrackerCompetitorsStatsData(BaseModel):
 class RankTrackerCompetitorsStatsResponse(BaseModel):
     """Response model for /competitors-stats endpoint"""
 
-    competitors_metrics: list[RankTrackerCompetitorsStatsData] | None = Field(
-        default=None, alias="competitors-metrics"
-    )
+    competitors_metrics: list[RankTrackerCompetitorsStatsData] | None = Field(default=None, alias="competitors-metrics")
 
     @property
     def data(self) -> list[RankTrackerCompetitorsStatsData]:
@@ -1478,7 +1471,6 @@ class RankTrackerSerpOverviewResponse(BaseModel):
 
 # ============== Serp Overview API ==============
 
-
 # Models for serp-overview/serp-overview
 class SerpOverviewSerpOverviewRequest(BaseModel):
     """Request model for SerpOverviewSerpOverviewRequest."""
@@ -1522,7 +1514,6 @@ class SerpOverviewSerpOverviewResponse(BaseModel):
 
 
 # ============== Site Audit API ==============
-
 
 # Models for site-audit/issues
 class SiteAuditIssuesRequest(BaseModel):
@@ -1582,9 +1573,7 @@ class SiteAuditPageContentData(BaseModel):
 class SiteAuditPageContentResponse(BaseModel):
     """Response model for /page-content endpoint"""
 
-    page_content: SiteAuditPageContentData | None = Field(
-        default=None, alias="page-content"
-    )
+    page_content: SiteAuditPageContentData | None = Field(default=None, alias="page-content")
 
     @property
     def data(self) -> SiteAuditPageContentData | None:
@@ -1600,9 +1589,7 @@ class SiteAuditPageExplorerRequest(BaseModel):
     limit: int = Field(default=1000, description="The number of results to return.")
     order_by: str | None = Field(default=None, description="A column to order resul...")
     where: str | None = Field(default=None, description="The filter expression. The...")
-    select: SelectStr = Field(
-        default="page_rating,url,is_rendered,http_code,content_type,title,meta_description,h1,traffic,canonical,canonical_code,redirect,redirect_code,compliant,page_is_noindex,page_is_nofollow,incoming_all_links,links_count_internal,links_count_external,links_count_internal4xx,links_count_external4xx,hreflang_issues,psi_crux_cls_category,psi_crux_lcp_category,psi_crux_inp_category,jsonld_schema_types,jsonld_validation_kinds,origin,depth"
-    )
+    select: SelectStr = Field(default="page_rating,url,is_rendered,http_code,content_type,title,meta_description,h1,traffic,canonical,canonical_code,redirect,redirect_code,compliant,page_is_noindex,page_is_nofollow,incoming_all_links,links_count_internal,links_count_external,links_count_internal4xx,links_count_external4xx,hreflang_issues,psi_crux_cls_category,psi_crux_lcp_category,psi_crux_inp_category,jsonld_schema_types,jsonld_validation_kinds,origin,depth")
     filter_mode: FilterModeEnum | None = Field(default=None, description="Indicates...")
     issue_id: str | None = Field(default=None, description="The unique identifier o...")
     date_compared: str | None = Field(default=None, description="A timestamp in `YY...")
@@ -1691,17 +1678,11 @@ class SiteAuditPageExplorerData(BaseModel):
     external_link_domain: list[str | None] | None = Field(default=None)
     external_link_domain_prev: list[str | None] | None = Field(default=None)
     external_links: list[str | None] | None = Field(default=None, description="The ...")
-    external_links_is_canonical: list[dict[str, Any] | None] | None = Field(
-        default=None
-    )
-    external_links_is_canonical_prev: list[dict[str, Any] | None] | None = Field(
-        default=None
-    )
+    external_links_is_canonical: list[dict[str, Any] | None] | None = Field(default=None)
+    external_links_is_canonical_prev: list[dict[str, Any] | None] | None = Field(default=None)
     external_links_prev: list[str | None] | None = Field(default=None)
     external_no_crawl_reason: list[dict[str, Any] | None] | None = Field(default=None)
-    external_no_crawl_reason_prev: list[dict[str, Any] | None] | None = Field(
-        default=None
-    )
+    external_no_crawl_reason_prev: list[dict[str, Any] | None] | None = Field(default=None)
     external_scheme: list[str | None] | None = Field(default=None, description="The...")
     external_scheme_prev: list[str | None] | None = Field(default=None)
     final_redirect: str | None = Field(default=None, description="The destination o...")
@@ -1728,9 +1709,7 @@ class SiteAuditPageExplorerData(BaseModel):
     hash_titles: list[int | None] | None = Field(default=None, description="The pag...")
     hreflang: list[dict[str, Any] | None] | None = Field(default=None)
     hreflang_code_is_valid: list[dict[str, Any] | None] | None = Field(default=None)
-    hreflang_code_is_valid_prev: list[dict[str, Any] | None] | None = Field(
-        default=None
-    )
+    hreflang_code_is_valid_prev: list[dict[str, Any] | None] | None = Field(default=None)
     hreflang_country: list[dict[str, Any] | None] | None = Field(default=None)
     hreflang_country_prev: list[dict[str, Any] | None] | None = Field(default=None)
     hreflang_group_hash: int | None = Field(default=None, description="The ID of th...")
@@ -1742,14 +1721,10 @@ class SiteAuditPageExplorerData(BaseModel):
     hreflang_language_prev: list[dict[str, Any] | None] | None = Field(default=None)
     hreflang_link: list[str | None] | None = Field(default=None, description="The l...")
     hreflang_link_is_canonical: list[dict[str, Any] | None] | None = Field(default=None)
-    hreflang_link_is_canonical_prev: list[dict[str, Any] | None] | None = Field(
-        default=None
-    )
+    hreflang_link_is_canonical_prev: list[dict[str, Any] | None] | None = Field(default=None)
     hreflang_link_prev: list[str | None] | None = Field(default=None)
     hreflang_no_crawl_reason: list[dict[str, Any] | None] | None = Field(default=None)
-    hreflang_no_crawl_reason_prev: list[dict[str, Any] | None] | None = Field(
-        default=None
-    )
+    hreflang_no_crawl_reason_prev: list[dict[str, Any] | None] | None = Field(default=None)
     hreflang_pages_urls: list[str | None] | None = Field(default=None)
     hreflang_pages_urls_count: int | None = Field(default=None, description="Count ...")
     hreflang_pages_urls_count_diff: int | None = Field(default=None, description="C...")
@@ -1773,9 +1748,7 @@ class SiteAuditPageExplorerData(BaseModel):
     http_headers_size_diff: int | None = Field(default=None, description="The size ...")
     http_headers_size_prev: int | None = Field(default=None, description="The size ...")
     images_no_crawl_reason: list[dict[str, Any] | None] | None = Field(default=None)
-    images_no_crawl_reason_prev: list[dict[str, Any] | None] | None = Field(
-        default=None
-    )
+    images_no_crawl_reason_prev: list[dict[str, Any] | None] | None = Field(default=None)
     incoming_all_links: int | None = Field(default=None, description="The number of...")
     incoming_all_links_diff: int | None = Field(default=None, description="The numb...")
     incoming_all_links_prev: int | None = Field(default=None, description="The numb...")
@@ -1825,17 +1798,11 @@ class SiteAuditPageExplorerData(BaseModel):
     internal_link_domain: list[str | None] | None = Field(default=None)
     internal_link_domain_prev: list[str | None] | None = Field(default=None)
     internal_links: list[str | None] | None = Field(default=None, description="The ...")
-    internal_links_is_canonical: list[dict[str, Any] | None] | None = Field(
-        default=None
-    )
-    internal_links_is_canonical_prev: list[dict[str, Any] | None] | None = Field(
-        default=None
-    )
+    internal_links_is_canonical: list[dict[str, Any] | None] | None = Field(default=None)
+    internal_links_is_canonical_prev: list[dict[str, Any] | None] | None = Field(default=None)
     internal_links_prev: list[str | None] | None = Field(default=None)
     internal_no_crawl_reason: list[dict[str, Any] | None] | None = Field(default=None)
-    internal_no_crawl_reason_prev: list[dict[str, Any] | None] | None = Field(
-        default=None
-    )
+    internal_no_crawl_reason_prev: list[dict[str, Any] | None] | None = Field(default=None)
     internal_scheme: list[str | None] | None = Field(default=None, description="The...")
     internal_scheme_prev: list[str | None] | None = Field(default=None)
     is_html: bool | None = Field(default=None, description="Indicates that the cont...")
@@ -2091,45 +2058,29 @@ class SiteAuditPageExplorerData(BaseModel):
     positions_top3_prev: int | None = Field(default=None, description="The number o...")
     psi_crux_cls_category: str | None = Field(default=None, description="Your CLS c...")
     psi_crux_cls_category_prev: str | None = Field(default=None, description="Your ...")
-    psi_crux_cls_distributions_proportion: list[dict[str, Any] | None] | None = Field(
-        default=None
-    )
-    psi_crux_cls_distributions_proportion_prev: list[dict[str, Any] | None] | None = (
-        Field(default=None)
-    )
+    psi_crux_cls_distributions_proportion: list[dict[str, Any] | None] | None = Field(default=None)
+    psi_crux_cls_distributions_proportion_prev: list[dict[str, Any] | None] | None = Field(default=None)
     psi_crux_cls_percentile: float | None = Field(default=None, description="Cumula...")
     psi_crux_cls_percentile_diff: int | None = Field(default=None, description="Cum...")
     psi_crux_cls_percentile_prev: float | None = Field(default=None, description="C...")
     psi_crux_fid_category: str | None = Field(default=None, description="Your FID c...")
     psi_crux_fid_category_prev: str | None = Field(default=None, description="Your ...")
-    psi_crux_fid_distributions_proportion: list[dict[str, Any] | None] | None = Field(
-        default=None
-    )
-    psi_crux_fid_distributions_proportion_prev: list[dict[str, Any] | None] | None = (
-        Field(default=None)
-    )
+    psi_crux_fid_distributions_proportion: list[dict[str, Any] | None] | None = Field(default=None)
+    psi_crux_fid_distributions_proportion_prev: list[dict[str, Any] | None] | None = Field(default=None)
     psi_crux_fid_percentile: float | None = Field(default=None, description="First ...")
     psi_crux_fid_percentile_diff: int | None = Field(default=None, description="Fir...")
     psi_crux_fid_percentile_prev: float | None = Field(default=None, description="F...")
     psi_crux_inp_category: str | None = Field(default=None, description="Your INP c...")
     psi_crux_inp_category_prev: str | None = Field(default=None, description="Your ...")
-    psi_crux_inp_distributions_proportion: list[dict[str, Any] | None] | None = Field(
-        default=None
-    )
-    psi_crux_inp_distributions_proportion_prev: list[dict[str, Any] | None] | None = (
-        Field(default=None)
-    )
+    psi_crux_inp_distributions_proportion: list[dict[str, Any] | None] | None = Field(default=None)
+    psi_crux_inp_distributions_proportion_prev: list[dict[str, Any] | None] | None = Field(default=None)
     psi_crux_inp_percentile: float | None = Field(default=None, description="Intera...")
     psi_crux_inp_percentile_diff: int | None = Field(default=None, description="Int...")
     psi_crux_inp_percentile_prev: float | None = Field(default=None, description="I...")
     psi_crux_lcp_category: str | None = Field(default=None, description="Your LCP c...")
     psi_crux_lcp_category_prev: str | None = Field(default=None, description="Your ...")
-    psi_crux_lcp_distributions_proportion: list[dict[str, Any] | None] | None = Field(
-        default=None
-    )
-    psi_crux_lcp_distributions_proportion_prev: list[dict[str, Any] | None] | None = (
-        Field(default=None)
-    )
+    psi_crux_lcp_distributions_proportion: list[dict[str, Any] | None] | None = Field(default=None)
+    psi_crux_lcp_distributions_proportion_prev: list[dict[str, Any] | None] | None = Field(default=None)
     psi_crux_lcp_percentile: float | None = Field(default=None, description="Larges...")
     psi_crux_lcp_percentile_diff: int | None = Field(default=None, description="Lar...")
     psi_crux_lcp_percentile_prev: float | None = Field(default=None, description="L...")
@@ -2162,12 +2113,8 @@ class SiteAuditPageExplorerData(BaseModel):
     redirect: str | None = Field(default=None, description="The destination of the ...")
     redirect_chain_urls: list[str | None] | None = Field(default=None)
     redirect_chain_urls_code: list[dict[str, Any] | None] | None = Field(default=None)
-    redirect_chain_urls_no_crawl_reason: list[dict[str, Any] | None] | None = Field(
-        default=None
-    )
-    redirect_chain_urls_no_crawl_reason_prev: list[dict[str, Any] | None] | None = (
-        Field(default=None)
-    )
+    redirect_chain_urls_no_crawl_reason: list[dict[str, Any] | None] | None = Field(default=None)
+    redirect_chain_urls_no_crawl_reason_prev: list[dict[str, Any] | None] | None = Field(default=None)
     redirect_chain_urls_prev: list[str | None] | None = Field(default=None)
     redirect_code: int | None = Field(default=None, description="The HTTP status co...")
     redirect_counts: int | None = Field(default=None, description="The number of in...")
@@ -2212,18 +2159,12 @@ class SiteAuditPageExplorerData(BaseModel):
     self_canonical: bool | None = Field(default=None, description="Indicates that t...")
     self_canonical_prev: bool | None = Field(default=None, description="Indicates t...")
     self_hreflang: list[dict[str, Any] | None] | None = Field(default=None)
-    self_hreflang_code_is_valid: list[dict[str, Any] | None] | None = Field(
-        default=None
-    )
-    self_hreflang_code_is_valid_prev: list[dict[str, Any] | None] | None = Field(
-        default=None
-    )
+    self_hreflang_code_is_valid: list[dict[str, Any] | None] | None = Field(default=None)
+    self_hreflang_code_is_valid_prev: list[dict[str, Any] | None] | None = Field(default=None)
     self_hreflang_country: list[dict[str, Any] | None] | None = Field(default=None)
     self_hreflang_country_prev: list[dict[str, Any] | None] | None = Field(default=None)
     self_hreflang_language: list[dict[str, Any] | None] | None = Field(default=None)
-    self_hreflang_language_prev: list[dict[str, Any] | None] | None = Field(
-        default=None
-    )
+    self_hreflang_language_prev: list[dict[str, Any] | None] | None = Field(default=None)
     self_hreflang_prev: list[dict[str, Any] | None] | None = Field(default=None)
     serp_title: str | None = Field(default=None, description="The title displayed f...")
     serp_title_prev: str | None = Field(default=None, description="The title displa...")
@@ -2314,7 +2255,6 @@ class SiteAuditProjectsResponse(BaseModel):
 
 
 # ============== Site Explorer API ==============
-
 
 # Models for site-explorer/all-backlinks
 class SiteExplorerAllBacklinksRequest(BaseModel):
@@ -2748,9 +2688,7 @@ class SiteExplorerDomainRatingHistoryData(BaseModel):
 class SiteExplorerDomainRatingHistoryResponse(BaseModel):
     """Response model for /domain-rating-history endpoint"""
 
-    domain_ratings: list[SiteExplorerDomainRatingHistoryData] | None = Field(
-        default=None
-    )
+    domain_ratings: list[SiteExplorerDomainRatingHistoryData] | None = Field(default=None)
 
     @property
     def data(self) -> list[SiteExplorerDomainRatingHistoryData]:
@@ -2823,9 +2761,7 @@ class SiteExplorerLinkedAnchorsExternalData(BaseModel):
 class SiteExplorerLinkedAnchorsExternalResponse(BaseModel):
     """Response model for /linked-anchors-external endpoint"""
 
-    linkedanchors: list[SiteExplorerLinkedAnchorsExternalData] | None = Field(
-        default=None
-    )
+    linkedanchors: list[SiteExplorerLinkedAnchorsExternalData] | None = Field(default=None)
 
     @property
     def data(self) -> list[SiteExplorerLinkedAnchorsExternalData]:
@@ -2860,9 +2796,7 @@ class SiteExplorerLinkedAnchorsInternalData(BaseModel):
 class SiteExplorerLinkedAnchorsInternalResponse(BaseModel):
     """Response model for /linked-anchors-internal endpoint"""
 
-    linkedanchors: list[SiteExplorerLinkedAnchorsInternalData] | None = Field(
-        default=None
-    )
+    linkedanchors: list[SiteExplorerLinkedAnchorsInternalData] | None = Field(default=None)
 
     @property
     def data(self) -> list[SiteExplorerLinkedAnchorsInternalData]:
@@ -2950,9 +2884,7 @@ class SiteExplorerMetricsResponse(BaseModel):
 class SiteExplorerMetricsByCountryRequest(BaseModel):
     """Request model for SiteExplorerMetricsByCountryRequest."""
 
-    select: SelectStr = Field(
-        default="paid_cost,paid_keywords,org_cost,paid_pages,org_keywords_1_3,org_keywords,org_traffic,paid_traffic,country"
-    )
+    select: SelectStr = Field(default="paid_cost,paid_keywords,org_cost,paid_pages,org_keywords_1_3,org_keywords,org_traffic,paid_traffic,country")
     volume_mode: VolumeModeEnum = Field(default=VolumeModeEnum.MONTHLY)
     protocol: ProtocolEnum = Field(default=ProtocolEnum.BOTH, description="The prot...")
     target: str = Field(..., description="The target of the search: a domain or a URL.")
@@ -2989,9 +2921,7 @@ class SiteExplorerMetricsByCountryResponse(BaseModel):
 class SiteExplorerMetricsHistoryRequest(BaseModel):
     """Request model for SiteExplorerMetricsHistoryRequest."""
 
-    select: SelectStr = Field(
-        default="date,org_cost,org_traffic,paid_cost,paid_traffic"
-    )
+    select: SelectStr = Field(default="date,org_cost,org_traffic,paid_cost,paid_traffic")
     volume_mode: VolumeModeEnum = Field(default=VolumeModeEnum.MONTHLY)
     history_grouping: HistoryGroupingEnum = Field(default=HistoryGroupingEnum.MONTHLY)
     date_to: DateStr | None = Field(default=None, description="The end date of the ...")
@@ -3144,9 +3074,7 @@ class SiteExplorerOrganicKeywordsData(BaseModel):
     serp_features: list[SerpFeaturesItemEnum1 | None] | None = Field(default=None)
     serp_features_count: int | None = Field(default=None, description="The number o...")
     serp_features_count_prev: int | None = Field(default=None, description="The num...")
-    serp_features_merged: list[SerpFeaturesItemEnum1 | None] | None = Field(
-        default=None
-    )
+    serp_features_merged: list[SerpFeaturesItemEnum1 | None] | None = Field(default=None)
     serp_features_prev: list[SerpFeaturesItemEnum1 | None] | None = Field(default=None)
     serp_target_main_positions_count: int | None = Field(default=None)
     serp_target_main_positions_count_prev: int | None = Field(default=None)
@@ -3318,9 +3246,7 @@ class SiteExplorerPaidPagesData(BaseModel):
     top_keyword_best_position: int | None = Field(default=None, description="The ra...")
     top_keyword_best_position_diff: int | None = Field(default=None, description="T...")
     top_keyword_best_position_kind: BestPositionKindEnum | None = Field(default=None)
-    top_keyword_best_position_kind_prev: BestPositionKindEnum | None = Field(
-        default=None
-    )
+    top_keyword_best_position_kind_prev: BestPositionKindEnum | None = Field(default=None)
     top_keyword_best_position_prev: int | None = Field(default=None, description="T...")
     top_keyword_best_position_title: str | None = Field(default=None)
     top_keyword_best_position_title_prev: str | None = Field(default=None)
@@ -3465,9 +3391,7 @@ class SiteExplorerTopPagesData(BaseModel):
     top_keyword_best_position: int | None = Field(default=None, description="The ra...")
     top_keyword_best_position_diff: int | None = Field(default=None, description="T...")
     top_keyword_best_position_kind: BestPositionKindEnum | None = Field(default=None)
-    top_keyword_best_position_kind_prev: BestPositionKindEnum | None = Field(
-        default=None
-    )
+    top_keyword_best_position_kind_prev: BestPositionKindEnum | None = Field(default=None)
     top_keyword_best_position_prev: int | None = Field(default=None, description="T...")
     top_keyword_best_position_title: str | None = Field(default=None)
     top_keyword_best_position_title_prev: str | None = Field(default=None)
@@ -3558,3 +3482,4 @@ class SiteExplorerUrlRatingHistoryResponse(BaseModel):
     def data(self) -> list[SiteExplorerUrlRatingHistoryData]:
         """Unwrap the response payload."""
         return self.url_ratings or []
+

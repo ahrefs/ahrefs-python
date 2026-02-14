@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import os
 import random
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 from ahrefs._exceptions import AuthenticationError
 from ahrefs._version import __version__
@@ -18,7 +18,7 @@ DEFAULT_MAX_RETRIES = 2
 class ClientConfig:
     """Immutable configuration for the Ahrefs client."""
 
-    api_key: str
+    api_key: str = field(repr=False)
     base_url: str = DEFAULT_BASE_URL
     timeout: float = DEFAULT_TIMEOUT
     max_retries: int = DEFAULT_MAX_RETRIES

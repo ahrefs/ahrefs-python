@@ -99,7 +99,7 @@ class AsyncAhrefsClient(GeneratedMethodsMixin):
             except httpx.TimeoutException as exc:
                 last_exc = APITimeoutError(str(exc))
                 last_exc.__cause__ = exc
-            except httpx.ConnectError as exc:
+            except httpx.NetworkError as exc:
                 last_exc = APIConnectionError(str(exc))
                 last_exc.__cause__ = exc
 

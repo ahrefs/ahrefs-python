@@ -30,7 +30,7 @@ Homepage = "https://ahrefs.com"
 Repository = "https://github.com/ahrefs/ahrefs-python"
 Documentation = "https://docs.ahrefs.com/docs/api/v3/"
 Issues = "https://github.com/ahrefs/ahrefs-python/issues"
-Changelog = "https://github.com/ahrefs/ahrefs-python/blob/main/CHANGELOG.md"
+Changelog = "https://github.com/ahrefs/ahrefs-python/blob/master/CHANGELOG.md"
 
 [project.optional-dependencies]
 dev = [
