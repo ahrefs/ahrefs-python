@@ -11,15 +11,20 @@ from pydantic import BaseModel
 from ahrefs.types._coercions import DateStr, SelectStr  # noqa: F401
 from ahrefs.types._generated import *  # noqa: F401,F403
 
-T = TypeVar('T', bound=BaseModel)
+T = TypeVar("T", bound=BaseModel)
 
 
 class GeneratedMethodsMixin:
     """Async endpoint methods. Mixed into AsyncAhrefsClient."""
 
     async def _request(
-        self, api_section: str, endpoint: str, request_model: BaseModel,
-        response_model_class: type[T], *, exclude_none: bool = False,
+        self,
+        api_section: str,
+        endpoint: str,
+        request_model: BaseModel,
+        response_model_class: type[T],
+        *,
+        exclude_none: bool = False,
     ) -> T:
         raise NotImplementedError
 
@@ -2379,8 +2384,13 @@ class GeneratedSyncMethodsMixin:
     """Sync endpoint methods. Mixed into AhrefsClient."""
 
     def _request(
-        self, api_section: str, endpoint: str, request_model: BaseModel,
-        response_model_class: type[T], *, exclude_none: bool = False,
+        self,
+        api_section: str,
+        endpoint: str,
+        request_model: BaseModel,
+        response_model_class: type[T],
+        *,
+        exclude_none: bool = False,
     ) -> T:
         raise NotImplementedError
 

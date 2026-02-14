@@ -54,9 +54,9 @@ def main() -> None:
         resp = client.site_explorer_domain_rating(target=TARGET, date=DATE)
         data = resp.data
         assert data is not None, "data is None"
-        assert isinstance(
-            data.domain_rating, float
-        ), f"expected float, got {type(data.domain_rating)}"
+        assert isinstance(data.domain_rating, float), (
+            f"expected float, got {type(data.domain_rating)}"
+        )
         assert data.domain_rating > 0, f"expected positive DR, got {data.domain_rating}"
 
     run_test("site_explorer_domain_rating", test_domain_rating)

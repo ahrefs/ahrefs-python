@@ -1,4 +1,4 @@
-"""Tests for namespace exports and deprecation warnings."""
+"""Tests for namespace exports."""
 
 import warnings
 
@@ -14,19 +14,24 @@ class TestTypesNamespace:
 
             assert SiteExplorerDomainRatingRequest is not None
 
-    def test_import_from_top_level_emits_deprecation(self) -> None:
-        """Importing a type from top-level 'ahrefs' should emit DeprecationWarning."""
-        with pytest.warns(DeprecationWarning, match="from ahrefs.types"):
-            import ahrefs
+    def test_top_level_type_import_raises(self) -> None:
+        """'from ahrefs import <GeneratedType>' should raise ImportError."""
+        with pytest.raises(ImportError):
+            exec("from ahrefs import SiteExplorerDomainRatingRequest")  # noqa: S102
 
-            _ = ahrefs.SiteExplorerDomainRatingRequest
+    def test_top_level_type_attribute_raises(self) -> None:
+        """'ahrefs.<GeneratedType>' should raise AttributeError."""
+        import ahrefs
+
+        with pytest.raises(AttributeError):
+            ahrefs.SiteExplorerDomainRatingRequest  # noqa: B018
 
     def test_top_level_non_existent_raises(self) -> None:
         """Accessing a non-existent attribute on ahrefs should raise AttributeError."""
         import ahrefs
 
-        with pytest.raises(AttributeError, match="has no attribute"):
-            _ = ahrefs.TotallyFakeClassName
+        with pytest.raises(AttributeError):
+            ahrefs.TotallyFakeClassName  # noqa: B018
 
     def test_client_exports_no_warning(self) -> None:
         """Accessing client classes should not emit warnings."""

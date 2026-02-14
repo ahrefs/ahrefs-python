@@ -55,6 +55,17 @@ class TestRetryAfterParsing:
             raise_for_status(response)
         assert exc_info.value.retry_after is None
 
+    def test_429_retry_after_capped_at_60(self) -> None:
+        response = httpx.Response(
+            status_code=429,
+            text="Too Many Requests",
+            headers={"Retry-After": "999999"},
+            request=httpx.Request("GET", "https://api.ahrefs.com/v3/test"),
+        )
+        with pytest.raises(RateLimitError) as exc_info:
+            raise_for_status(response)
+        assert exc_info.value.retry_after == 60.0
+
     def test_429_with_non_numeric_retry_after(self) -> None:
         response = httpx.Response(
             status_code=429,

@@ -1,6 +1,7 @@
 """Tests for keyword-argument convenience on generated client methods."""
 
 from typing import cast
+
 import httpx
 import pytest
 import respx
@@ -15,9 +16,7 @@ _DR_OK = {"domain_rating": {"domain_rating": 85.5, "ahrefs_rank": 123}}
 class TestKwargsOnly:
     @respx.mock
     def test_call_with_kwargs(self) -> None:
-        route = respx.get(_DR_URL).mock(
-            return_value=httpx.Response(200, json=_DR_OK)
-        )
+        route = respx.get(_DR_URL).mock(return_value=httpx.Response(200, json=_DR_OK))
         client = AhrefsClient(api_key="test-key", max_retries=0)
         resp = client.site_explorer_domain_rating(
             target="ahrefs.com", date="2025-01-15"
@@ -29,9 +28,7 @@ class TestKwargsOnly:
 
     @respx.mock
     def test_optional_kwargs_default_when_omitted(self) -> None:
-        route = respx.get(_DR_URL).mock(
-            return_value=httpx.Response(200, json=_DR_OK)
-        )
+        route = respx.get(_DR_URL).mock(return_value=httpx.Response(200, json=_DR_OK))
         client = AhrefsClient(api_key="test-key", max_retries=0)
         resp = client.site_explorer_domain_rating(
             target="ahrefs.com", date="2025-01-15"
@@ -48,12 +45,8 @@ class TestKwargsOnly:
 class TestRequestObject:
     @respx.mock
     def test_call_with_request_object(self) -> None:
-        route = respx.get(_DR_URL).mock(
-            return_value=httpx.Response(200, json=_DR_OK)
-        )
-        req = SiteExplorerDomainRatingRequest(
-            target="ahrefs.com", date="2025-01-15"
-        )
+        route = respx.get(_DR_URL).mock(return_value=httpx.Response(200, json=_DR_OK))
+        req = SiteExplorerDomainRatingRequest(target="ahrefs.com", date="2025-01-15")
         client = AhrefsClient(api_key="test-key", max_retries=0)
         resp = client.site_explorer_domain_rating(req)
         assert resp.data is not None
@@ -63,12 +56,8 @@ class TestRequestObject:
 
     @respx.mock
     def test_request_object_takes_precedence_over_kwargs(self) -> None:
-        route = respx.get(_DR_URL).mock(
-            return_value=httpx.Response(200, json=_DR_OK)
-        )
-        req = SiteExplorerDomainRatingRequest(
-            target="ahrefs.com", date="2025-01-15"
-        )
+        route = respx.get(_DR_URL).mock(return_value=httpx.Response(200, json=_DR_OK))
+        req = SiteExplorerDomainRatingRequest(target="ahrefs.com", date="2025-01-15")
         client = AhrefsClient(api_key="test-key", max_retries=0)
         client.site_explorer_domain_rating(req, target="other.com")
         # Should use req's target, not the kwarg

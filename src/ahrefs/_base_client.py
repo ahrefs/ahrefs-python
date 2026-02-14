@@ -60,6 +60,6 @@ def calculate_backoff(attempt: int, base: float = 0.5, max_delay: float = 8.0) -
 
     delay = min(base * 2^attempt, max_delay) + random jitter [0, base)
     """
-    delay: float = min(base * (2 ** attempt), max_delay)
+    delay: float = min(base * (2**attempt), max_delay)
     jitter: float = random.random() * base
     return delay + jitter

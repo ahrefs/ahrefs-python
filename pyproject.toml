@@ -8,6 +8,17 @@ requires-python = ">=3.11"
 authors = [
     {name = "Gerwyn Ng", email = "gerwyn.ng@ahrefs.com"},
 ]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Typing :: Typed",
+]
+keywords = ["ahrefs", "seo", "api", "backlinks", "keywords"]
 
 dependencies = [
     "httpx>=0.25.0",
@@ -18,6 +29,8 @@ dependencies = [
 Homepage = "https://ahrefs.com"
 Repository = "https://github.com/ahrefs/ahrefs-python"
 Documentation = "https://docs.ahrefs.com/docs/api/v3/"
+Issues = "https://github.com/ahrefs/ahrefs-python/issues"
+Changelog = "https://github.com/ahrefs/ahrefs-python/blob/main/CHANGELOG.md"
 
 [project.optional-dependencies]
 dev = [
@@ -26,6 +39,8 @@ dev = [
     "respx>=0.21",
     "mypy>=1.10",
     "ruff>=0.5",
+    "build>=1.0",
+    "twine>=5.0",
 ]
 
 [build-system]

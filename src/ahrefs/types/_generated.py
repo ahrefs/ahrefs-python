@@ -17,6 +17,7 @@ class AggregationEnum(StrEnum):
     _1_PER_DOMAIN = "1_per_domain"
     ALL = "all"
 
+
 class BestPositionKindEnum(StrEnum):
     PAID_TOP = "paid_top"
     PAID_BOTTOM = "paid_bottom"
@@ -43,11 +44,13 @@ class BestPositionKindEnum(StrEnum):
     AI_OVERVIEW_SITELINK = "ai_overview_sitelink"
     ORGANIC_SHOPPING = "organic_shopping"
 
+
 class BestPositionSetEnum(StrEnum):
     TOP_3 = "top_3"
     TOP_4_10 = "top_4_10"
     TOP_11_50 = "top_11_50"
     TOP_51_MORE = "top_51_more"
+
 
 class BrokenRedirectReasonEnum(StrEnum):
     DROPPEDMANUAL = "droppedmanual"
@@ -61,6 +64,7 @@ class BrokenRedirectReasonEnum(StrEnum):
     NOMORECANONICAL = "nomorecanonical"
     ISNOWPARKED = "isnowparked"
     TARGETCHANGED = "targetchanged"
+
 
 class CountryEnum(StrEnum):
     AD = "ad"
@@ -273,6 +277,7 @@ class CountryEnum(StrEnum):
     ZA = "za"
     ZM = "zm"
     ZW = "zw"
+
 
 class CountryEnum1(StrEnum):
     AD = "AD"
@@ -526,6 +531,7 @@ class CountryEnum1(StrEnum):
     ZM = "ZM"
     ZW = "ZW"
 
+
 class DataSourceEnum(StrEnum):
     GOOGLE_AI_OVERVIEWS = "google_ai_overviews"
     GOOGLE_AI_MODE = "google_ai_mode"
@@ -534,14 +540,17 @@ class DataSourceEnum(StrEnum):
     PERPLEXITY = "perplexity"
     COPILOT = "copilot"
 
+
 class DeviceEnum(StrEnum):
     DESKTOP = "desktop"
     MOBILE = "mobile"
+
 
 class DiscoveredStatusEnum(StrEnum):
     PAGEFOUND = "pagefound"
     LINKFOUND = "linkfound"
     LINKRESTORED = "linkrestored"
+
 
 class DropReasonEnum(StrEnum):
     MANUAL = "manual"
@@ -557,6 +566,7 @@ class DropReasonEnum(StrEnum):
     DISALLOWED = "disallowed"
     UNLINKED = "unlinked"
 
+
 class FilterModeEnum(StrEnum):
     ADDED = "added"
     NEW = "new"
@@ -564,14 +574,17 @@ class FilterModeEnum(StrEnum):
     MISSING = "missing"
     NO_CHANGE = "no_change"
 
+
 class GroupModeEnum(StrEnum):
     DOMAINS = "domains"
     PAGES = "pages"
+
 
 class HistoryGroupingEnum(StrEnum):
     DAILY = "daily"
     WEEKLY = "weekly"
     MONTHLY = "monthly"
+
 
 class LinkTypeEnum(StrEnum):
     REDIRECT = "redirect"
@@ -583,6 +596,7 @@ class LinkTypeEnum(StrEnum):
     RSS = "rss"
     IMAGE = "image"
 
+
 class LostReasonEnum(StrEnum):
     REMOVEDFROMHTML = "removedfromhtml"
     NOTCANONICAL = "notcanonical"
@@ -592,9 +606,11 @@ class LostReasonEnum(StrEnum):
     LOSTREDIRECT = "lostredirect"
     NOTFOUND = "notfound"
 
+
 class MatchModeEnum(StrEnum):
     TERMS = "terms"
     PHRASE = "phrase"
+
 
 class ModeEnum(StrEnum):
     EXACT = "exact"
@@ -602,9 +618,11 @@ class ModeEnum(StrEnum):
     DOMAIN = "domain"
     SUBDOMAINS = "subdomains"
 
+
 class OrderByEnum(StrEnum):
     RELEVANCE = "relevance"
     VOLUME = "volume"
+
 
 class OutputEnum(StrEnum):
     JSON = "json"
@@ -612,17 +630,21 @@ class OutputEnum(StrEnum):
     XML = "xml"
     PHP = "php"
 
+
 class OutputJsonPhpEnum(StrEnum):
     JSON = "json"
     PHP = "php"
+
 
 class ProtocolEnum(StrEnum):
     BOTH = "both"
     HTTP = "http"
     HTTPS = "https"
 
+
 class SearchEngineEnum(StrEnum):
     GOOGLE = "google"
+
 
 class SerpFeaturesItemEnum(StrEnum):
     AI_OVERVIEW_SITELINK = "ai_overview_sitelink"
@@ -645,6 +667,7 @@ class SerpFeaturesItemEnum(StrEnum):
     IMAGE_TH = "image_th"
     VIDEO_TH = "video_th"
     ORGANIC_SHOPPING = "organic_shopping"
+
 
 class SerpFeaturesItemEnum1(StrEnum):
     PAID_TOP = "paid_top"
@@ -675,40 +698,49 @@ class SerpFeaturesItemEnum1(StrEnum):
     VIDEO_TH = "video_th"
     AI_OVERVIEW_FOUND = "ai_overview_found"
 
+
 class StatusEnum(StrEnum):
     LEFT = "left"
     RIGHT = "right"
     BOTH = "both"
 
+
 class TargetPositionEnum(StrEnum):
     IN_TOP10 = "in_top10"
     IN_TOP100 = "in_top100"
 
+
 class TermsEnum(StrEnum):
     ALL = "all"
     QUESTIONS = "questions"
+
 
 class TermsEnum1(StrEnum):
     ALSO_RANK_FOR = "also_rank_for"
     ALSO_TALK_ABOUT = "also_talk_about"
     ALL = "all"
 
+
 class TldClassSourceEnum(StrEnum):
     GOV = "gov"
     EDU = "edu"
     NORMAL = "normal"
 
+
 class ViewForEnum(StrEnum):
     TOP_10 = "top_10"
     TOP_100 = "top_100"
+
 
 class VolumeModeEnum(StrEnum):
     MONTHLY = "monthly"
     AVERAGE = "average"
 
+
 # ============== Batch Analysis API ==============
 
 # ============== Brand Radar API ==============
+
 
 # Models for brand-radar/ai-responses
 class BrandRadarAiResponsesRequest(BaseModel):
@@ -726,6 +758,7 @@ class BrandRadarAiResponsesRequest(BaseModel):
     competitors: str = Field(default="[]", description="A comma-separated list of c...")
     brand: str = Field(default="[]", description="A comma-separated list of brands ...")
 
+
 class BrandRadarAiResponsesData(BaseModel):
     """Individual data item for /ai-responses endpoint"""
 
@@ -734,6 +767,7 @@ class BrandRadarAiResponsesData(BaseModel):
     question: str | None = Field(default=None, description="The question asked by t...")
     response: str | None = Field(default=None, description="(10 units) The response...")
     volume: int | None = Field(default=None, description="(10 units) Estimated mont...")
+
 
 class BrandRadarAiResponsesResponse(BaseModel):
     """Response model for /ai-responses endpoint"""
@@ -758,11 +792,13 @@ class BrandRadarImpressionsHistoryRequest(BaseModel):
     market: str = Field(default="[]", description="A comma-separated list of the ni...")
     brand: str = Field(..., description="The brand to search for.")
 
+
 class BrandRadarImpressionsHistoryData(BaseModel):
     """Individual data item for /impressions-history endpoint"""
 
     date: str | None = Field(default=None, description="date")
     impressions: int | None = Field(default=None, description="impressions")
+
 
 class BrandRadarImpressionsHistoryResponse(BaseModel):
     """Response model for /impressions-history endpoint"""
@@ -787,6 +823,7 @@ class BrandRadarImpressionsOverviewRequest(BaseModel):
     competitors: str = Field(default="[]", description="A comma-separated list of c...")
     brand: str = Field(default="[]", description="A comma-separated list of brands ...")
 
+
 class BrandRadarImpressionsOverviewData(BaseModel):
     """Individual data item for /impressions-overview endpoint"""
 
@@ -796,6 +833,7 @@ class BrandRadarImpressionsOverviewData(BaseModel):
     only_target_brand: int | None = Field(default=None, description="Estimated impr...")
     target_and_competitors_brands: int | None = Field(default=None, description="Es...")
     total: int | None = Field(default=None, description="Total estimated impression...")
+
 
 class BrandRadarImpressionsOverviewResponse(BaseModel):
     """Response model for /impressions-overview endpoint"""
@@ -820,11 +858,13 @@ class BrandRadarMentionsHistoryRequest(BaseModel):
     market: str = Field(default="[]", description="A comma-separated list of the ni...")
     brand: str = Field(..., description="The brand to search for.")
 
+
 class BrandRadarMentionsHistoryData(BaseModel):
     """Individual data item for /mentions-history endpoint"""
 
     date: str | None = Field(default=None, description="date")
     mentions: int | None = Field(default=None, description="mentions")
+
 
 class BrandRadarMentionsHistoryResponse(BaseModel):
     """Response model for /mentions-history endpoint"""
@@ -849,6 +889,7 @@ class BrandRadarMentionsOverviewRequest(BaseModel):
     competitors: str = Field(default="[]", description="A comma-separated list of c...")
     brand: str = Field(default="[]", description="A comma-separated list of brands ...")
 
+
 class BrandRadarMentionsOverviewData(BaseModel):
     """Individual data item for /mentions-overview endpoint"""
 
@@ -858,6 +899,7 @@ class BrandRadarMentionsOverviewData(BaseModel):
     only_target_brand: int | None = Field(default=None, description="Estimated ment...")
     target_and_competitors_brands: int | None = Field(default=None, description="Es...")
     total: int | None = Field(default=None, description="Total estimated mentions f...")
+
 
 class BrandRadarMentionsOverviewResponse(BaseModel):
     """Response model for /mentions-overview endpoint"""
@@ -882,11 +924,13 @@ class BrandRadarSovOverviewRequest(BaseModel):
     competitors: str = Field(default="[]", description="A comma-separated list of c...")
     brand: str = Field(default="[]", description="A comma-separated list of brands ...")
 
+
 class BrandRadarSovOverviewData(BaseModel):
     """Individual data item for /sov-overview endpoint"""
 
     brand: str | None = Field(default=None, description="Brand name (either your br...")
     share_of_voice: float | None = Field(default=None, description="Estimated share...")
+
 
 class BrandRadarSovOverviewResponse(BaseModel):
     """Response model for /sov-overview endpoint"""
@@ -900,6 +944,7 @@ class BrandRadarSovOverviewResponse(BaseModel):
 
 
 # ============== Keywords Explorer API ==============
+
 
 # Models for keywords-explorer/matching-terms
 class KeywordsExplorerMatchingTermsRequest(BaseModel):
@@ -916,6 +961,7 @@ class KeywordsExplorerMatchingTermsRequest(BaseModel):
     keyword_list_id: int | None = Field(default=None, description="The id of an exi...")
     match_mode: MatchModeEnum = Field(default=MatchModeEnum.TERMS, description="Key...")
     terms: TermsEnum = Field(default=TermsEnum.ALL, description="All keywords ideas...")
+
 
 class KeywordsExplorerMatchingTermsData(BaseModel):
     """Individual data item for /matching-terms endpoint"""
@@ -935,6 +981,7 @@ class KeywordsExplorerMatchingTermsData(BaseModel):
     volume_desktop_pct: float | None = Field(default=None, description="The percent...")
     volume_mobile_pct: float | None = Field(default=None, description="The percenta...")
     volume_monthly: int | None = Field(default=None, description="(10 units) An est...")
+
 
 class KeywordsExplorerMatchingTermsResponse(BaseModel):
     """Response model for /matching-terms endpoint"""
@@ -966,6 +1013,7 @@ class KeywordsExplorerOverviewRequest(BaseModel):
     keywords: str | None = Field(default=None, description="A comma-separated list ...")
     keyword_list_id: int | None = Field(default=None, description="The id of an exi...")
 
+
 class KeywordsExplorerOverviewData(BaseModel):
     """Individual data item for /overview endpoint"""
 
@@ -990,6 +1038,7 @@ class KeywordsExplorerOverviewData(BaseModel):
     volume_mobile_pct: float | None = Field(default=None, description="The percenta...")
     volume_monthly: int | None = Field(default=None, description="(10 units) An est...")
     volume_monthly_history: list[dict[str, Any] | None] | None = Field(default=None)
+
 
 class KeywordsExplorerOverviewResponse(BaseModel):
     """Response model for /overview endpoint"""
@@ -1017,6 +1066,7 @@ class KeywordsExplorerRelatedTermsRequest(BaseModel):
     view_for: ViewForEnum = Field(default=ViewForEnum.TOP_10, description="View key...")
     terms: TermsEnum1 = Field(default=TermsEnum1.ALL, description="Related keywords...")
 
+
 class KeywordsExplorerRelatedTermsData(BaseModel):
     """Individual data item for /related-terms endpoint"""
 
@@ -1035,6 +1085,7 @@ class KeywordsExplorerRelatedTermsData(BaseModel):
     volume_desktop_pct: float | None = Field(default=None, description="The percent...")
     volume_mobile_pct: float | None = Field(default=None, description="The percenta...")
     volume_monthly: int | None = Field(default=None, description="(10 units) An est...")
+
 
 class KeywordsExplorerRelatedTermsResponse(BaseModel):
     """Response model for /related-terms endpoint"""
@@ -1061,6 +1112,7 @@ class KeywordsExplorerSearchSuggestionsRequest(BaseModel):
     keywords: str | None = Field(default=None, description="A comma-separated list ...")
     keyword_list_id: int | None = Field(default=None, description="The id of an exi...")
 
+
 class KeywordsExplorerSearchSuggestionsData(BaseModel):
     """Individual data item for /search-suggestions endpoint"""
 
@@ -1079,6 +1131,7 @@ class KeywordsExplorerSearchSuggestionsData(BaseModel):
     volume_desktop_pct: float | None = Field(default=None, description="The percent...")
     volume_mobile_pct: float | None = Field(default=None, description="The percenta...")
     volume_monthly: int | None = Field(default=None, description="(10 units) An est...")
+
 
 class KeywordsExplorerSearchSuggestionsResponse(BaseModel):
     """Response model for /search-suggestions endpoint"""
@@ -1099,11 +1152,13 @@ class KeywordsExplorerVolumeByCountryRequest(BaseModel):
     search_engine: SearchEngineEnum = Field(default=SearchEngineEnum.GOOGLE)
     keyword: str = Field(..., description="The keyword to show metrics for.")
 
+
 class KeywordsExplorerVolumeByCountryData(BaseModel):
     """Individual data item for /volume-by-country endpoint"""
 
     country: str | None = Field(default=None, description="The country field")
     volume: int | None = Field(default=None, description="(10 units) An estimation ...")
+
 
 class KeywordsExplorerVolumeByCountryResponse(BaseModel):
     """Response model for /volume-by-country endpoint"""
@@ -1125,11 +1180,13 @@ class KeywordsExplorerVolumeHistoryRequest(BaseModel):
     country: CountryEnum = Field(..., description="A two-letter country code (ISO 3...")
     keyword: str = Field(..., description="The keyword to show metrics for.")
 
+
 class KeywordsExplorerVolumeHistoryData(BaseModel):
     """Individual data item for /volume-history endpoint"""
 
     date: str | None = Field(default=None, description="The date field")
     volume: int | None = Field(default=None, description="An estimation of the numb...")
+
 
 class KeywordsExplorerVolumeHistoryResponse(BaseModel):
     """Response model for /volume-history endpoint"""
@@ -1143,6 +1200,7 @@ class KeywordsExplorerVolumeHistoryResponse(BaseModel):
 
 
 # ============== Rank Tracker API ==============
+
 
 # Models for rank-tracker/competitors-overview
 class RankTrackerCompetitorsOverviewRequest(BaseModel):
@@ -1158,6 +1216,7 @@ class RankTrackerCompetitorsOverviewRequest(BaseModel):
     device: DeviceEnum = Field(..., description="Choose between mobile and desktop ...")
     project_id: int = Field(..., description="The unique identifier of the project....")
     volume_mode: VolumeModeEnum = Field(default=VolumeModeEnum.MONTHLY)
+
 
 class RankTrackerCompetitorsOverviewData(BaseModel):
     """Individual data item for /competitors-overview endpoint"""
@@ -1175,6 +1234,7 @@ class RankTrackerCompetitorsOverviewData(BaseModel):
     serp_updated_prev: str | None = Field(default=None, description="The date when ...")
     tags: list[str | None] | None = Field(default=None, description="A list of tags...")
     volume: int | None = Field(default=None, description="An estimation of the aver...")
+
 
 class RankTrackerCompetitorsOverviewResponse(BaseModel):
     """Response model for /competitors-overview endpoint"""
@@ -1203,6 +1263,7 @@ class RankTrackerCompetitorsPagesRequest(BaseModel):
     project_id: int = Field(..., description="The unique identifier of the project....")
     volume_mode: VolumeModeEnum = Field(default=VolumeModeEnum.MONTHLY)
 
+
 class RankTrackerCompetitorsPagesData(BaseModel):
     """Individual data item for /competitors-pages endpoint"""
 
@@ -1220,10 +1281,13 @@ class RankTrackerCompetitorsPagesData(BaseModel):
     traffic_value_prev: int | None = Field(default=None, description="The traffic v...")
     url: str | None = Field(default=None, description="The page URL.")
 
+
 class RankTrackerCompetitorsPagesResponse(BaseModel):
     """Response model for /competitors-pages endpoint"""
 
-    competitors_pages: list[RankTrackerCompetitorsPagesData] | None = Field(default=None, alias="competitors-pages")
+    competitors_pages: list[RankTrackerCompetitorsPagesData] | None = Field(
+        default=None, alias="competitors-pages"
+    )
 
     @property
     def data(self) -> list[RankTrackerCompetitorsPagesData]:
@@ -1240,6 +1304,7 @@ class RankTrackerCompetitorsStatsRequest(BaseModel):
     device: DeviceEnum = Field(..., description="Choose between mobile and desktop ...")
     project_id: int = Field(..., description="The unique identifier of the project....")
     volume_mode: VolumeModeEnum = Field(default=VolumeModeEnum.MONTHLY)
+
 
 class RankTrackerCompetitorsStatsData(BaseModel):
     """Individual data item for /competitors-stats endpoint"""
@@ -1269,10 +1334,13 @@ class RankTrackerCompetitorsStatsData(BaseModel):
     videos_count: int | None = Field(default=None, description="The total number of...")
     x_count: int | None = Field(default=None, description="The total number of trac...")
 
+
 class RankTrackerCompetitorsStatsResponse(BaseModel):
     """Response model for /competitors-stats endpoint"""
 
-    competitors_metrics: list[RankTrackerCompetitorsStatsData] | None = Field(default=None, alias="competitors-metrics")
+    competitors_metrics: list[RankTrackerCompetitorsStatsData] | None = Field(
+        default=None, alias="competitors-metrics"
+    )
 
     @property
     def data(self) -> list[RankTrackerCompetitorsStatsData]:
@@ -1294,6 +1362,7 @@ class RankTrackerOverviewRequest(BaseModel):
     device: DeviceEnum = Field(..., description="Choose between mobile and desktop ...")
     project_id: int = Field(..., description="The unique identifier of the project....")
     volume_mode: VolumeModeEnum = Field(default=VolumeModeEnum.MONTHLY)
+
 
 class RankTrackerOverviewData(BaseModel):
     """Individual data item for /overview endpoint"""
@@ -1349,6 +1418,7 @@ class RankTrackerOverviewData(BaseModel):
     volume_desktop_pct: float | None = Field(default=None, description="The percent...")
     volume_mobile_pct: float | None = Field(default=None, description="The percenta...")
 
+
 class RankTrackerOverviewResponse(BaseModel):
     """Response model for /overview endpoint"""
 
@@ -1373,6 +1443,7 @@ class RankTrackerSerpOverviewRequest(BaseModel):
     keyword: str = Field(..., description="The keyword to return SERP Overview for.")
     project_id: int = Field(..., description="The unique identifier of the project....")
 
+
 class RankTrackerSerpOverviewData(BaseModel):
     """Individual data item for /serp-overview endpoint"""
 
@@ -1393,6 +1464,7 @@ class RankTrackerSerpOverviewData(BaseModel):
     top_keyword: str | None = Field(default=None, description="The keyword that bri...")
     top_keyword_volume: int | None = Field(default=None, description="An estimation...")
 
+
 class RankTrackerSerpOverviewResponse(BaseModel):
     """Response model for /serp-overview endpoint"""
 
@@ -1406,6 +1478,7 @@ class RankTrackerSerpOverviewResponse(BaseModel):
 
 # ============== Serp Overview API ==============
 
+
 # Models for serp-overview/serp-overview
 class SerpOverviewSerpOverviewRequest(BaseModel):
     """Request model for SerpOverviewSerpOverviewRequest."""
@@ -1415,6 +1488,7 @@ class SerpOverviewSerpOverviewRequest(BaseModel):
     date: str | None = Field(default=None, description="A timestamp on which the la...")
     country: CountryEnum = Field(..., description="A two-letter country code (ISO 3...")
     keyword: str = Field(..., description="The keyword to return SERP Overview for.")
+
 
 class SerpOverviewSerpOverviewData(BaseModel):
     """Individual data item for /serp-overview endpoint"""
@@ -1435,6 +1509,7 @@ class SerpOverviewSerpOverviewData(BaseModel):
     url_rating: float | None = Field(default=None, description="The strength of a p...")
     value: int | None = Field(default=None, description="(10 units) The estimated v...")
 
+
 class SerpOverviewSerpOverviewResponse(BaseModel):
     """Response model for /serp-overview endpoint"""
 
@@ -1448,6 +1523,7 @@ class SerpOverviewSerpOverviewResponse(BaseModel):
 
 # ============== Site Audit API ==============
 
+
 # Models for site-audit/issues
 class SiteAuditIssuesRequest(BaseModel):
     """Request model for SiteAuditIssuesRequest."""
@@ -1455,6 +1531,7 @@ class SiteAuditIssuesRequest(BaseModel):
     date_compared: str | None = Field(default=None, description="A timestamp in `YY...")
     date: str | None = Field(default=None, description="A timestamp in `YYYY-MM-DDT...")
     project_id: int = Field(..., description="The unique identifier of the project....")
+
 
 class SiteAuditIssuesData(BaseModel):
     """Individual data item for /issues endpoint"""
@@ -1470,6 +1547,7 @@ class SiteAuditIssuesData(BaseModel):
     new: int | None = Field(default=None, description="Number of newly discovered U...")
     removed: int | None = Field(default=None, description="Number of URLs that had ...")
     missing: int | None = Field(default=None, description="Number of URLs that had ...")
+
 
 class SiteAuditIssuesResponse(BaseModel):
     """Response model for /issues endpoint"""
@@ -1491,6 +1569,7 @@ class SiteAuditPageContentRequest(BaseModel):
     target_url: str = Field(..., description="The URL of the page to retrieve conte...")
     project_id: int = Field(..., description="The unique identifier of the project....")
 
+
 class SiteAuditPageContentData(BaseModel):
     """Individual data item for /page-content endpoint"""
 
@@ -1499,10 +1578,13 @@ class SiteAuditPageContentData(BaseModel):
     raw_html: str | None = Field(default=None, description="The raw HTML of the page.")
     rendered_html: str | None = Field(default=None, description="The rendered HTML ...")
 
+
 class SiteAuditPageContentResponse(BaseModel):
     """Response model for /page-content endpoint"""
 
-    page_content: SiteAuditPageContentData | None = Field(default=None, alias="page-content")
+    page_content: SiteAuditPageContentData | None = Field(
+        default=None, alias="page-content"
+    )
 
     @property
     def data(self) -> SiteAuditPageContentData | None:
@@ -1518,12 +1600,15 @@ class SiteAuditPageExplorerRequest(BaseModel):
     limit: int = Field(default=1000, description="The number of results to return.")
     order_by: str | None = Field(default=None, description="A column to order resul...")
     where: str | None = Field(default=None, description="The filter expression. The...")
-    select: SelectStr = Field(default="page_rating,url,is_rendered,http_code,content_type,title,meta_description,h1,traffic,canonical,canonical_code,redirect,redirect_code,compliant,page_is_noindex,page_is_nofollow,incoming_all_links,links_count_internal,links_count_external,links_count_internal4xx,links_count_external4xx,hreflang_issues,psi_crux_cls_category,psi_crux_lcp_category,psi_crux_inp_category,jsonld_schema_types,jsonld_validation_kinds,origin,depth")
+    select: SelectStr = Field(
+        default="page_rating,url,is_rendered,http_code,content_type,title,meta_description,h1,traffic,canonical,canonical_code,redirect,redirect_code,compliant,page_is_noindex,page_is_nofollow,incoming_all_links,links_count_internal,links_count_external,links_count_internal4xx,links_count_external4xx,hreflang_issues,psi_crux_cls_category,psi_crux_lcp_category,psi_crux_inp_category,jsonld_schema_types,jsonld_validation_kinds,origin,depth"
+    )
     filter_mode: FilterModeEnum | None = Field(default=None, description="Indicates...")
     issue_id: str | None = Field(default=None, description="The unique identifier o...")
     date_compared: str | None = Field(default=None, description="A timestamp in `YY...")
     date: str | None = Field(default=None, description="A timestamp in `YYYY-MM-DDT...")
     project_id: int = Field(..., description="The unique identifier of the project....")
+
 
 class SiteAuditPageExplorerData(BaseModel):
     """Individual data item for /page-explorer endpoint"""
@@ -1606,11 +1691,17 @@ class SiteAuditPageExplorerData(BaseModel):
     external_link_domain: list[str | None] | None = Field(default=None)
     external_link_domain_prev: list[str | None] | None = Field(default=None)
     external_links: list[str | None] | None = Field(default=None, description="The ...")
-    external_links_is_canonical: list[dict[str, Any] | None] | None = Field(default=None)
-    external_links_is_canonical_prev: list[dict[str, Any] | None] | None = Field(default=None)
+    external_links_is_canonical: list[dict[str, Any] | None] | None = Field(
+        default=None
+    )
+    external_links_is_canonical_prev: list[dict[str, Any] | None] | None = Field(
+        default=None
+    )
     external_links_prev: list[str | None] | None = Field(default=None)
     external_no_crawl_reason: list[dict[str, Any] | None] | None = Field(default=None)
-    external_no_crawl_reason_prev: list[dict[str, Any] | None] | None = Field(default=None)
+    external_no_crawl_reason_prev: list[dict[str, Any] | None] | None = Field(
+        default=None
+    )
     external_scheme: list[str | None] | None = Field(default=None, description="The...")
     external_scheme_prev: list[str | None] | None = Field(default=None)
     final_redirect: str | None = Field(default=None, description="The destination o...")
@@ -1637,7 +1728,9 @@ class SiteAuditPageExplorerData(BaseModel):
     hash_titles: list[int | None] | None = Field(default=None, description="The pag...")
     hreflang: list[dict[str, Any] | None] | None = Field(default=None)
     hreflang_code_is_valid: list[dict[str, Any] | None] | None = Field(default=None)
-    hreflang_code_is_valid_prev: list[dict[str, Any] | None] | None = Field(default=None)
+    hreflang_code_is_valid_prev: list[dict[str, Any] | None] | None = Field(
+        default=None
+    )
     hreflang_country: list[dict[str, Any] | None] | None = Field(default=None)
     hreflang_country_prev: list[dict[str, Any] | None] | None = Field(default=None)
     hreflang_group_hash: int | None = Field(default=None, description="The ID of th...")
@@ -1649,10 +1742,14 @@ class SiteAuditPageExplorerData(BaseModel):
     hreflang_language_prev: list[dict[str, Any] | None] | None = Field(default=None)
     hreflang_link: list[str | None] | None = Field(default=None, description="The l...")
     hreflang_link_is_canonical: list[dict[str, Any] | None] | None = Field(default=None)
-    hreflang_link_is_canonical_prev: list[dict[str, Any] | None] | None = Field(default=None)
+    hreflang_link_is_canonical_prev: list[dict[str, Any] | None] | None = Field(
+        default=None
+    )
     hreflang_link_prev: list[str | None] | None = Field(default=None)
     hreflang_no_crawl_reason: list[dict[str, Any] | None] | None = Field(default=None)
-    hreflang_no_crawl_reason_prev: list[dict[str, Any] | None] | None = Field(default=None)
+    hreflang_no_crawl_reason_prev: list[dict[str, Any] | None] | None = Field(
+        default=None
+    )
     hreflang_pages_urls: list[str | None] | None = Field(default=None)
     hreflang_pages_urls_count: int | None = Field(default=None, description="Count ...")
     hreflang_pages_urls_count_diff: int | None = Field(default=None, description="C...")
@@ -1676,7 +1773,9 @@ class SiteAuditPageExplorerData(BaseModel):
     http_headers_size_diff: int | None = Field(default=None, description="The size ...")
     http_headers_size_prev: int | None = Field(default=None, description="The size ...")
     images_no_crawl_reason: list[dict[str, Any] | None] | None = Field(default=None)
-    images_no_crawl_reason_prev: list[dict[str, Any] | None] | None = Field(default=None)
+    images_no_crawl_reason_prev: list[dict[str, Any] | None] | None = Field(
+        default=None
+    )
     incoming_all_links: int | None = Field(default=None, description="The number of...")
     incoming_all_links_diff: int | None = Field(default=None, description="The numb...")
     incoming_all_links_prev: int | None = Field(default=None, description="The numb...")
@@ -1726,11 +1825,17 @@ class SiteAuditPageExplorerData(BaseModel):
     internal_link_domain: list[str | None] | None = Field(default=None)
     internal_link_domain_prev: list[str | None] | None = Field(default=None)
     internal_links: list[str | None] | None = Field(default=None, description="The ...")
-    internal_links_is_canonical: list[dict[str, Any] | None] | None = Field(default=None)
-    internal_links_is_canonical_prev: list[dict[str, Any] | None] | None = Field(default=None)
+    internal_links_is_canonical: list[dict[str, Any] | None] | None = Field(
+        default=None
+    )
+    internal_links_is_canonical_prev: list[dict[str, Any] | None] | None = Field(
+        default=None
+    )
     internal_links_prev: list[str | None] | None = Field(default=None)
     internal_no_crawl_reason: list[dict[str, Any] | None] | None = Field(default=None)
-    internal_no_crawl_reason_prev: list[dict[str, Any] | None] | None = Field(default=None)
+    internal_no_crawl_reason_prev: list[dict[str, Any] | None] | None = Field(
+        default=None
+    )
     internal_scheme: list[str | None] | None = Field(default=None, description="The...")
     internal_scheme_prev: list[str | None] | None = Field(default=None)
     is_html: bool | None = Field(default=None, description="Indicates that the cont...")
@@ -1986,29 +2091,45 @@ class SiteAuditPageExplorerData(BaseModel):
     positions_top3_prev: int | None = Field(default=None, description="The number o...")
     psi_crux_cls_category: str | None = Field(default=None, description="Your CLS c...")
     psi_crux_cls_category_prev: str | None = Field(default=None, description="Your ...")
-    psi_crux_cls_distributions_proportion: list[dict[str, Any] | None] | None = Field(default=None)
-    psi_crux_cls_distributions_proportion_prev: list[dict[str, Any] | None] | None = Field(default=None)
+    psi_crux_cls_distributions_proportion: list[dict[str, Any] | None] | None = Field(
+        default=None
+    )
+    psi_crux_cls_distributions_proportion_prev: list[dict[str, Any] | None] | None = (
+        Field(default=None)
+    )
     psi_crux_cls_percentile: float | None = Field(default=None, description="Cumula...")
     psi_crux_cls_percentile_diff: int | None = Field(default=None, description="Cum...")
     psi_crux_cls_percentile_prev: float | None = Field(default=None, description="C...")
     psi_crux_fid_category: str | None = Field(default=None, description="Your FID c...")
     psi_crux_fid_category_prev: str | None = Field(default=None, description="Your ...")
-    psi_crux_fid_distributions_proportion: list[dict[str, Any] | None] | None = Field(default=None)
-    psi_crux_fid_distributions_proportion_prev: list[dict[str, Any] | None] | None = Field(default=None)
+    psi_crux_fid_distributions_proportion: list[dict[str, Any] | None] | None = Field(
+        default=None
+    )
+    psi_crux_fid_distributions_proportion_prev: list[dict[str, Any] | None] | None = (
+        Field(default=None)
+    )
     psi_crux_fid_percentile: float | None = Field(default=None, description="First ...")
     psi_crux_fid_percentile_diff: int | None = Field(default=None, description="Fir...")
     psi_crux_fid_percentile_prev: float | None = Field(default=None, description="F...")
     psi_crux_inp_category: str | None = Field(default=None, description="Your INP c...")
     psi_crux_inp_category_prev: str | None = Field(default=None, description="Your ...")
-    psi_crux_inp_distributions_proportion: list[dict[str, Any] | None] | None = Field(default=None)
-    psi_crux_inp_distributions_proportion_prev: list[dict[str, Any] | None] | None = Field(default=None)
+    psi_crux_inp_distributions_proportion: list[dict[str, Any] | None] | None = Field(
+        default=None
+    )
+    psi_crux_inp_distributions_proportion_prev: list[dict[str, Any] | None] | None = (
+        Field(default=None)
+    )
     psi_crux_inp_percentile: float | None = Field(default=None, description="Intera...")
     psi_crux_inp_percentile_diff: int | None = Field(default=None, description="Int...")
     psi_crux_inp_percentile_prev: float | None = Field(default=None, description="I...")
     psi_crux_lcp_category: str | None = Field(default=None, description="Your LCP c...")
     psi_crux_lcp_category_prev: str | None = Field(default=None, description="Your ...")
-    psi_crux_lcp_distributions_proportion: list[dict[str, Any] | None] | None = Field(default=None)
-    psi_crux_lcp_distributions_proportion_prev: list[dict[str, Any] | None] | None = Field(default=None)
+    psi_crux_lcp_distributions_proportion: list[dict[str, Any] | None] | None = Field(
+        default=None
+    )
+    psi_crux_lcp_distributions_proportion_prev: list[dict[str, Any] | None] | None = (
+        Field(default=None)
+    )
     psi_crux_lcp_percentile: float | None = Field(default=None, description="Larges...")
     psi_crux_lcp_percentile_diff: int | None = Field(default=None, description="Lar...")
     psi_crux_lcp_percentile_prev: float | None = Field(default=None, description="L...")
@@ -2041,8 +2162,12 @@ class SiteAuditPageExplorerData(BaseModel):
     redirect: str | None = Field(default=None, description="The destination of the ...")
     redirect_chain_urls: list[str | None] | None = Field(default=None)
     redirect_chain_urls_code: list[dict[str, Any] | None] | None = Field(default=None)
-    redirect_chain_urls_no_crawl_reason: list[dict[str, Any] | None] | None = Field(default=None)
-    redirect_chain_urls_no_crawl_reason_prev: list[dict[str, Any] | None] | None = Field(default=None)
+    redirect_chain_urls_no_crawl_reason: list[dict[str, Any] | None] | None = Field(
+        default=None
+    )
+    redirect_chain_urls_no_crawl_reason_prev: list[dict[str, Any] | None] | None = (
+        Field(default=None)
+    )
     redirect_chain_urls_prev: list[str | None] | None = Field(default=None)
     redirect_code: int | None = Field(default=None, description="The HTTP status co...")
     redirect_counts: int | None = Field(default=None, description="The number of in...")
@@ -2087,12 +2212,18 @@ class SiteAuditPageExplorerData(BaseModel):
     self_canonical: bool | None = Field(default=None, description="Indicates that t...")
     self_canonical_prev: bool | None = Field(default=None, description="Indicates t...")
     self_hreflang: list[dict[str, Any] | None] | None = Field(default=None)
-    self_hreflang_code_is_valid: list[dict[str, Any] | None] | None = Field(default=None)
-    self_hreflang_code_is_valid_prev: list[dict[str, Any] | None] | None = Field(default=None)
+    self_hreflang_code_is_valid: list[dict[str, Any] | None] | None = Field(
+        default=None
+    )
+    self_hreflang_code_is_valid_prev: list[dict[str, Any] | None] | None = Field(
+        default=None
+    )
     self_hreflang_country: list[dict[str, Any] | None] | None = Field(default=None)
     self_hreflang_country_prev: list[dict[str, Any] | None] | None = Field(default=None)
     self_hreflang_language: list[dict[str, Any] | None] | None = Field(default=None)
-    self_hreflang_language_prev: list[dict[str, Any] | None] | None = Field(default=None)
+    self_hreflang_language_prev: list[dict[str, Any] | None] | None = Field(
+        default=None
+    )
     self_hreflang_prev: list[dict[str, Any] | None] | None = Field(default=None)
     serp_title: str | None = Field(default=None, description="The title displayed f...")
     serp_title_prev: str | None = Field(default=None, description="The title displa...")
@@ -2134,6 +2265,7 @@ class SiteAuditPageExplorerData(BaseModel):
     url: str | None = Field(default=None, description="The web address of the page ...")
     url_prev: str | None = Field(default=None, description="The web address of the ...")
 
+
 class SiteAuditPageExplorerResponse(BaseModel):
     """Response model for /page-explorer endpoint"""
 
@@ -2152,6 +2284,7 @@ class SiteAuditProjectsRequest(BaseModel):
     date: str | None = Field(default=None, description="A timestamp in `YYYY-MM-DDT...")
     project_id: int | None = Field(default=None, description="The unique identifier...")
 
+
 class SiteAuditProjectsData(BaseModel):
     """Individual data item for /projects endpoint"""
 
@@ -2168,6 +2301,7 @@ class SiteAuditProjectsData(BaseModel):
     urls_with_notices: int | None = Field(default=None, description="Number of inte...")
     total: int | None = Field(default=None, description="Number of total crawled in...")
 
+
 class SiteAuditProjectsResponse(BaseModel):
     """Response model for /projects endpoint"""
 
@@ -2180,6 +2314,7 @@ class SiteAuditProjectsResponse(BaseModel):
 
 
 # ============== Site Explorer API ==============
+
 
 # Models for site-explorer/all-backlinks
 class SiteExplorerAllBacklinksRequest(BaseModel):
@@ -2195,6 +2330,7 @@ class SiteExplorerAllBacklinksRequest(BaseModel):
     mode: ModeEnum = Field(default=ModeEnum.SUBDOMAINS, description="The scope of t...")
     aggregation: AggregationEnum = Field(default=AggregationEnum.SIMILAR_LINKS)
     history: str = Field(default="all_time", description="A time frame to add lost ...")
+
 
 class SiteExplorerAllBacklinksData(BaseModel):
     """Individual data item for /all-backlinks endpoint"""
@@ -2280,6 +2416,7 @@ class SiteExplorerAllBacklinksData(BaseModel):
     url_to: str | None = Field(default=None, description="The URL the backlink poin...")
     url_to_plain: str | None = Field(default=None, description="The target page URL...")
 
+
 class SiteExplorerAllBacklinksResponse(BaseModel):
     """Response model for /all-backlinks endpoint"""
 
@@ -2305,6 +2442,7 @@ class SiteExplorerAnchorsRequest(BaseModel):
     mode: ModeEnum = Field(default=ModeEnum.SUBDOMAINS, description="The scope of t...")
     history: str = Field(default="all_time", description="A time frame to add lost ...")
 
+
 class SiteExplorerAnchorsData(BaseModel):
     """Individual data item for /anchors endpoint"""
 
@@ -2319,6 +2457,7 @@ class SiteExplorerAnchorsData(BaseModel):
     refdomains: int | None = Field(default=None, description="(5 units) The number ...")
     refpages: int | None = Field(default=None, description="The number of pages con...")
     top_domain_rating: float | None = Field(default=None, description="The highest ...")
+
 
 class SiteExplorerAnchorsResponse(BaseModel):
     """Response model for /anchors endpoint"""
@@ -2340,6 +2479,7 @@ class SiteExplorerBacklinksStatsRequest(BaseModel):
     mode: ModeEnum = Field(default=ModeEnum.SUBDOMAINS, description="The scope of t...")
     date: DateStr = Field(..., description="A date to report metrics on in YYYY-MM-...")
 
+
 class SiteExplorerBacklinksStatsData(BaseModel):
     """Individual data item for /backlinks-stats endpoint"""
 
@@ -2347,6 +2487,7 @@ class SiteExplorerBacklinksStatsData(BaseModel):
     all_time: int | None = Field(default=None, description="The total number of lin...")
     live_refdomains: int | None = Field(default=None, description="(5 units) The to...")
     all_time_refdomains: int | None = Field(default=None, description="(5 units) Th...")
+
 
 class SiteExplorerBacklinksStatsResponse(BaseModel):
     """Response model for /backlinks-stats endpoint"""
@@ -2373,6 +2514,7 @@ class SiteExplorerBestByExternalLinksRequest(BaseModel):
     mode: ModeEnum = Field(default=ModeEnum.SUBDOMAINS, description="The scope of t...")
     history: str = Field(default="all_time", description="A time frame to add lost ...")
 
+
 class SiteExplorerBestByExternalLinksData(BaseModel):
     """Individual data item for /best-by-external-links endpoint"""
 
@@ -2398,6 +2540,7 @@ class SiteExplorerBestByExternalLinksData(BaseModel):
     url_to: str | None = Field(default=None, description="The URL the backlink poin...")
     url_to_plain: str | None = Field(default=None, description="The target page URL...")
 
+
 class SiteExplorerBestByExternalLinksResponse(BaseModel):
     """Response model for /best-by-external-links endpoint"""
 
@@ -2422,6 +2565,7 @@ class SiteExplorerBestByInternalLinksRequest(BaseModel):
     target: str = Field(..., description="The target of the search: a domain or a URL.")
     mode: ModeEnum = Field(default=ModeEnum.SUBDOMAINS, description="The scope of t...")
 
+
 class SiteExplorerBestByInternalLinksData(BaseModel):
     """Individual data item for /best-by-internal-links endpoint"""
 
@@ -2442,6 +2586,7 @@ class SiteExplorerBestByInternalLinksData(BaseModel):
     url_rating_target: float | None = Field(default=None, description="The strength...")
     url_to: str | None = Field(default=None, description="The URL the backlink poin...")
     url_to_plain: str | None = Field(default=None, description="The target page URL...")
+
 
 class SiteExplorerBestByInternalLinksResponse(BaseModel):
     """Response model for /best-by-internal-links endpoint"""
@@ -2467,6 +2612,7 @@ class SiteExplorerBrokenBacklinksRequest(BaseModel):
     target: str = Field(..., description="The target of the search: a domain or a URL.")
     mode: ModeEnum = Field(default=ModeEnum.SUBDOMAINS, description="The scope of t...")
     aggregation: AggregationEnum = Field(default=AggregationEnum.SIMILAR_LINKS)
+
 
 class SiteExplorerBrokenBacklinksData(BaseModel):
     """Individual data item for /broken-backlinks endpoint"""
@@ -2543,6 +2689,7 @@ class SiteExplorerBrokenBacklinksData(BaseModel):
     url_to: str | None = Field(default=None, description="The URL the backlink poin...")
     url_to_plain: str | None = Field(default=None, description="The target page URL...")
 
+
 class SiteExplorerBrokenBacklinksResponse(BaseModel):
     """Response model for /broken-backlinks endpoint"""
 
@@ -2562,11 +2709,13 @@ class SiteExplorerDomainRatingRequest(BaseModel):
     target: str = Field(..., description="The target of the search: a domain or a URL.")
     date: DateStr = Field(..., description="A date to report metrics on in YYYY-MM-...")
 
+
 class SiteExplorerDomainRatingData(BaseModel):
     """Individual data item for /domain-rating endpoint"""
 
     domain_rating: float | None = Field(default=None, description="The strength of ...")
     ahrefs_rank: int | None = Field(default=None, description="The strength of your...")
+
 
 class SiteExplorerDomainRatingResponse(BaseModel):
     """Response model for /domain-rating endpoint"""
@@ -2588,16 +2737,20 @@ class SiteExplorerDomainRatingHistoryRequest(BaseModel):
     date_from: DateStr = Field(..., description="The start date of the historical p...")
     target: str = Field(..., description="The target of the search: a domain or a URL.")
 
+
 class SiteExplorerDomainRatingHistoryData(BaseModel):
     """Individual data item for /domain-rating-history endpoint"""
 
     date: str | None = Field(default=None, description="The date field")
     domain_rating: float | None = Field(default=None, description="The strength of ...")
 
+
 class SiteExplorerDomainRatingHistoryResponse(BaseModel):
     """Response model for /domain-rating-history endpoint"""
 
-    domain_ratings: list[SiteExplorerDomainRatingHistoryData] | None = Field(default=None)
+    domain_ratings: list[SiteExplorerDomainRatingHistoryData] | None = Field(
+        default=None
+    )
 
     @property
     def data(self) -> list[SiteExplorerDomainRatingHistoryData]:
@@ -2618,6 +2771,7 @@ class SiteExplorerKeywordsHistoryRequest(BaseModel):
     target: str = Field(..., description="The target of the search: a domain or a URL.")
     mode: ModeEnum = Field(default=ModeEnum.SUBDOMAINS, description="The scope of t...")
 
+
 class SiteExplorerKeywordsHistoryData(BaseModel):
     """Individual data item for /keywords-history endpoint"""
 
@@ -2628,6 +2782,7 @@ class SiteExplorerKeywordsHistoryData(BaseModel):
     top3: int | None = Field(default=None, description="The total number of keyword...")
     top4_10: int | None = Field(default=None, description="The total number of keyw...")
     top51_plus: int | None = Field(default=None, description="The total number of k...")
+
 
 class SiteExplorerKeywordsHistoryResponse(BaseModel):
     """Response model for /keywords-history endpoint"""
@@ -2653,6 +2808,7 @@ class SiteExplorerLinkedAnchorsExternalRequest(BaseModel):
     target: str = Field(..., description="The target of the search: a domain or a URL.")
     mode: ModeEnum = Field(default=ModeEnum.SUBDOMAINS, description="The scope of t...")
 
+
 class SiteExplorerLinkedAnchorsExternalData(BaseModel):
     """Individual data item for /linked-anchors-external endpoint"""
 
@@ -2663,10 +2819,13 @@ class SiteExplorerLinkedAnchorsExternalData(BaseModel):
     linked_pages: int | None = Field(default=None, description="The number of uniqu...")
     links_from_target: int | None = Field(default=None, description="The number of ...")
 
+
 class SiteExplorerLinkedAnchorsExternalResponse(BaseModel):
     """Response model for /linked-anchors-external endpoint"""
 
-    linkedanchors: list[SiteExplorerLinkedAnchorsExternalData] | None = Field(default=None)
+    linkedanchors: list[SiteExplorerLinkedAnchorsExternalData] | None = Field(
+        default=None
+    )
 
     @property
     def data(self) -> list[SiteExplorerLinkedAnchorsExternalData]:
@@ -2687,6 +2846,7 @@ class SiteExplorerLinkedAnchorsInternalRequest(BaseModel):
     target: str = Field(..., description="The target of the search: a domain or a URL.")
     mode: ModeEnum = Field(default=ModeEnum.SUBDOMAINS, description="The scope of t...")
 
+
 class SiteExplorerLinkedAnchorsInternalData(BaseModel):
     """Individual data item for /linked-anchors-internal endpoint"""
 
@@ -2696,10 +2856,13 @@ class SiteExplorerLinkedAnchorsInternalData(BaseModel):
     linked_pages: int | None = Field(default=None, description="The number of uniqu...")
     links_from_target: int | None = Field(default=None, description="The number of ...")
 
+
 class SiteExplorerLinkedAnchorsInternalResponse(BaseModel):
     """Response model for /linked-anchors-internal endpoint"""
 
-    linkedanchors: list[SiteExplorerLinkedAnchorsInternalData] | None = Field(default=None)
+    linkedanchors: list[SiteExplorerLinkedAnchorsInternalData] | None = Field(
+        default=None
+    )
 
     @property
     def data(self) -> list[SiteExplorerLinkedAnchorsInternalData]:
@@ -2720,6 +2883,7 @@ class SiteExplorerLinkeddomainsRequest(BaseModel):
     target: str = Field(..., description="The target of the search: a domain or a URL.")
     mode: ModeEnum = Field(default=ModeEnum.SUBDOMAINS, description="The scope of t...")
 
+
 class SiteExplorerLinkeddomainsData(BaseModel):
     """Individual data item for /linkeddomains endpoint"""
 
@@ -2733,6 +2897,7 @@ class SiteExplorerLinkeddomainsData(BaseModel):
     linked_domain_traffic: int | None = Field(default=None, description="(10 units)...")
     linked_pages: int | None = Field(default=None, description="The number of the d...")
     links_from_target: int | None = Field(default=None, description="The number of ...")
+
 
 class SiteExplorerLinkeddomainsResponse(BaseModel):
     """Response model for /linkeddomains endpoint"""
@@ -2756,6 +2921,7 @@ class SiteExplorerMetricsRequest(BaseModel):
     mode: ModeEnum = Field(default=ModeEnum.SUBDOMAINS, description="The scope of t...")
     date: DateStr = Field(..., description="A date to report metrics on in YYYY-MM-...")
 
+
 class SiteExplorerMetricsData(BaseModel):
     """Individual data item for /metrics endpoint"""
 
@@ -2767,6 +2933,7 @@ class SiteExplorerMetricsData(BaseModel):
     paid_traffic: int | None = Field(default=None, description="(10 units) The esti...")
     paid_cost: int | None = Field(default=None, description="(10 units) The estimat...")
     paid_pages: int | None = Field(default=None, description="The total number of p...")
+
 
 class SiteExplorerMetricsResponse(BaseModel):
     """Response model for /metrics endpoint"""
@@ -2783,12 +2950,15 @@ class SiteExplorerMetricsResponse(BaseModel):
 class SiteExplorerMetricsByCountryRequest(BaseModel):
     """Request model for SiteExplorerMetricsByCountryRequest."""
 
-    select: SelectStr = Field(default="paid_cost,paid_keywords,org_cost,paid_pages,org_keywords_1_3,org_keywords,org_traffic,paid_traffic,country")
+    select: SelectStr = Field(
+        default="paid_cost,paid_keywords,org_cost,paid_pages,org_keywords_1_3,org_keywords,org_traffic,paid_traffic,country"
+    )
     volume_mode: VolumeModeEnum = Field(default=VolumeModeEnum.MONTHLY)
     protocol: ProtocolEnum = Field(default=ProtocolEnum.BOTH, description="The prot...")
     target: str = Field(..., description="The target of the search: a domain or a URL.")
     mode: ModeEnum = Field(default=ModeEnum.SUBDOMAINS, description="The scope of t...")
     date: DateStr = Field(..., description="A date to report metrics on in YYYY-MM-...")
+
 
 class SiteExplorerMetricsByCountryData(BaseModel):
     """Individual data item for /metrics-by-country endpoint"""
@@ -2802,6 +2972,7 @@ class SiteExplorerMetricsByCountryData(BaseModel):
     paid_keywords: int | None = Field(default=None, description="The total number o...")
     paid_pages: int | None = Field(default=None, description="The total number of p...")
     paid_traffic: int | None = Field(default=None, description="(10 units) The esti...")
+
 
 class SiteExplorerMetricsByCountryResponse(BaseModel):
     """Response model for /metrics-by-country endpoint"""
@@ -2818,7 +2989,9 @@ class SiteExplorerMetricsByCountryResponse(BaseModel):
 class SiteExplorerMetricsHistoryRequest(BaseModel):
     """Request model for SiteExplorerMetricsHistoryRequest."""
 
-    select: SelectStr = Field(default="date,org_cost,org_traffic,paid_cost,paid_traffic")
+    select: SelectStr = Field(
+        default="date,org_cost,org_traffic,paid_cost,paid_traffic"
+    )
     volume_mode: VolumeModeEnum = Field(default=VolumeModeEnum.MONTHLY)
     history_grouping: HistoryGroupingEnum = Field(default=HistoryGroupingEnum.MONTHLY)
     date_to: DateStr | None = Field(default=None, description="The end date of the ...")
@@ -2828,6 +3001,7 @@ class SiteExplorerMetricsHistoryRequest(BaseModel):
     target: str = Field(..., description="The target of the search: a domain or a URL.")
     mode: ModeEnum = Field(default=ModeEnum.SUBDOMAINS, description="The scope of t...")
 
+
 class SiteExplorerMetricsHistoryData(BaseModel):
     """Individual data item for /metrics-history endpoint"""
 
@@ -2836,6 +3010,7 @@ class SiteExplorerMetricsHistoryData(BaseModel):
     org_traffic: int | None = Field(default=None, description="(10 units) The estim...")
     paid_cost: int | None = Field(default=None, description="(10 units) The estimat...")
     paid_traffic: int | None = Field(default=None, description="(10 units) The esti...")
+
 
 class SiteExplorerMetricsHistoryResponse(BaseModel):
     """Response model for /metrics-history endpoint"""
@@ -2865,6 +3040,7 @@ class SiteExplorerOrganicCompetitorsRequest(BaseModel):
     date: DateStr = Field(..., description="A date to report metrics on in YYYY-MM-...")
     volume_mode: VolumeModeEnum = Field(default=VolumeModeEnum.MONTHLY)
 
+
 class SiteExplorerOrganicCompetitorsData(BaseModel):
     """Individual data item for /organic-competitors endpoint"""
 
@@ -2888,6 +3064,7 @@ class SiteExplorerOrganicCompetitorsData(BaseModel):
     value_diff: int | None = Field(default=None, description="The change in value b...")
     value_merged: int | None = Field(default=None, description="(10 units) The valu...")
     value_prev: int | None = Field(default=None, description="(10 units) The estima...")
+
 
 class SiteExplorerOrganicCompetitorsResponse(BaseModel):
     """Response model for /organic-competitors endpoint"""
@@ -2916,6 +3093,7 @@ class SiteExplorerOrganicKeywordsRequest(BaseModel):
     date_compared: DateStr | None = Field(default=None, description="A date to comp...")
     date: DateStr = Field(..., description="A date to report metrics on in YYYY-MM-...")
     volume_mode: VolumeModeEnum = Field(default=VolumeModeEnum.MONTHLY)
+
 
 class SiteExplorerOrganicKeywordsData(BaseModel):
     """Individual data item for /organic-keywords endpoint"""
@@ -2966,7 +3144,9 @@ class SiteExplorerOrganicKeywordsData(BaseModel):
     serp_features: list[SerpFeaturesItemEnum1 | None] | None = Field(default=None)
     serp_features_count: int | None = Field(default=None, description="The number o...")
     serp_features_count_prev: int | None = Field(default=None, description="The num...")
-    serp_features_merged: list[SerpFeaturesItemEnum1 | None] | None = Field(default=None)
+    serp_features_merged: list[SerpFeaturesItemEnum1 | None] | None = Field(
+        default=None
+    )
     serp_features_prev: list[SerpFeaturesItemEnum1 | None] | None = Field(default=None)
     serp_target_main_positions_count: int | None = Field(default=None)
     serp_target_main_positions_count_prev: int | None = Field(default=None)
@@ -2988,6 +3168,7 @@ class SiteExplorerOrganicKeywordsData(BaseModel):
     words_merged: int | None = Field(default=None, description="The number of words...")
     words_prev: int | None = Field(default=None, description="The number of words i...")
 
+
 class SiteExplorerOrganicKeywordsResponse(BaseModel):
     """Response model for /organic-keywords endpoint"""
 
@@ -3007,6 +3188,7 @@ class SiteExplorerOutlinksStatsRequest(BaseModel):
     mode: ModeEnum = Field(default=ModeEnum.SUBDOMAINS, description="The scope of t...")
     target: str = Field(..., description="The target of the search: a domain or a URL.")
 
+
 class SiteExplorerOutlinksStatsData(BaseModel):
     """Individual data item for /outlinks-stats endpoint"""
 
@@ -3014,6 +3196,7 @@ class SiteExplorerOutlinksStatsData(BaseModel):
     outgoing_links_dofollow: int | None = Field(default=None, description="The numb...")
     linked_domains: int | None = Field(default=None, description="The number of uni...")
     linked_domains_dofollow: int | None = Field(default=None, description="The numb...")
+
 
 class SiteExplorerOutlinksStatsResponse(BaseModel):
     """Response model for /outlinks-stats endpoint"""
@@ -3036,6 +3219,7 @@ class SiteExplorerPagesByTrafficRequest(BaseModel):
     target: str = Field(..., description="The target of the search: a domain or a URL.")
     mode: ModeEnum = Field(default=ModeEnum.SUBDOMAINS, description="The scope of t...")
 
+
 class SiteExplorerPagesByTrafficData(BaseModel):
     """Individual data item for /pages-by-traffic endpoint"""
 
@@ -3050,6 +3234,7 @@ class SiteExplorerPagesByTrafficData(BaseModel):
     range10k_pages: int | None = Field(default=None, description="The total number ...")
     range10k_plus_traffic: int | None = Field(default=None, description="(10 units)...")
     range10k_plus_pages: int | None = Field(default=None, description="The total nu...")
+
 
 class SiteExplorerPagesByTrafficResponse(BaseModel):
     """Response model for /pages-by-traffic endpoint"""
@@ -3074,11 +3259,13 @@ class SiteExplorerPagesHistoryRequest(BaseModel):
     target: str = Field(..., description="The target of the search: a domain or a URL.")
     mode: ModeEnum = Field(default=ModeEnum.SUBDOMAINS, description="The scope of t...")
 
+
 class SiteExplorerPagesHistoryData(BaseModel):
     """Individual data item for /pages-history endpoint"""
 
     date: str | None = Field(default=None, description="The date field")
     pages: int | None = Field(default=None, description="The total number of pages ...")
+
 
 class SiteExplorerPagesHistoryResponse(BaseModel):
     """Response model for /pages-history endpoint"""
@@ -3108,6 +3295,7 @@ class SiteExplorerPaidPagesRequest(BaseModel):
     date: DateStr = Field(..., description="A date to report metrics on in YYYY-MM-...")
     volume_mode: VolumeModeEnum = Field(default=VolumeModeEnum.MONTHLY)
 
+
 class SiteExplorerPaidPagesData(BaseModel):
     """Individual data item for /paid-pages endpoint"""
 
@@ -3130,7 +3318,9 @@ class SiteExplorerPaidPagesData(BaseModel):
     top_keyword_best_position: int | None = Field(default=None, description="The ra...")
     top_keyword_best_position_diff: int | None = Field(default=None, description="T...")
     top_keyword_best_position_kind: BestPositionKindEnum | None = Field(default=None)
-    top_keyword_best_position_kind_prev: BestPositionKindEnum | None = Field(default=None)
+    top_keyword_best_position_kind_prev: BestPositionKindEnum | None = Field(
+        default=None
+    )
     top_keyword_best_position_prev: int | None = Field(default=None, description="T...")
     top_keyword_best_position_title: str | None = Field(default=None)
     top_keyword_best_position_title_prev: str | None = Field(default=None)
@@ -3149,6 +3339,7 @@ class SiteExplorerPaidPagesData(BaseModel):
     value_diff_percent: int | None = Field(default=None, description="The change in...")
     value_merged: int | None = Field(default=None, description="(10 units) The traf...")
     value_prev: int | None = Field(default=None, description="(10 units) The traffi...")
+
 
 class SiteExplorerPaidPagesResponse(BaseModel):
     """Response model for /paid-pages endpoint"""
@@ -3175,6 +3366,7 @@ class SiteExplorerRefdomainsRequest(BaseModel):
     mode: ModeEnum = Field(default=ModeEnum.SUBDOMAINS, description="The scope of t...")
     history: str = Field(default="all_time", description="A time frame to add lost ...")
 
+
 class SiteExplorerRefdomainsData(BaseModel):
     """Individual data item for /refdomains endpoint"""
 
@@ -3193,6 +3385,7 @@ class SiteExplorerRefdomainsData(BaseModel):
     new_links: int | None = Field(default=None, description="The number of new back...")
     positions_source_domain: int | None = Field(default=None, description="The numb...")
     traffic_domain: int | None = Field(default=None, description="(10 units) The re...")
+
 
 class SiteExplorerRefdomainsResponse(BaseModel):
     """Response model for /refdomains endpoint"""
@@ -3216,11 +3409,13 @@ class SiteExplorerRefdomainsHistoryRequest(BaseModel):
     target: str = Field(..., description="The target of the search: a domain or a URL.")
     mode: ModeEnum = Field(default=ModeEnum.SUBDOMAINS, description="The scope of t...")
 
+
 class SiteExplorerRefdomainsHistoryData(BaseModel):
     """Individual data item for /refdomains-history endpoint"""
 
     date: str | None = Field(default=None, description="The date field")
     refdomains: int | None = Field(default=None, description="(5 units) The total n...")
+
 
 class SiteExplorerRefdomainsHistoryResponse(BaseModel):
     """Response model for /refdomains-history endpoint"""
@@ -3250,6 +3445,7 @@ class SiteExplorerTopPagesRequest(BaseModel):
     date: DateStr = Field(..., description="A date to report metrics on in YYYY-MM-...")
     volume_mode: VolumeModeEnum = Field(default=VolumeModeEnum.MONTHLY)
 
+
 class SiteExplorerTopPagesData(BaseModel):
     """Individual data item for /top-pages endpoint"""
 
@@ -3269,7 +3465,9 @@ class SiteExplorerTopPagesData(BaseModel):
     top_keyword_best_position: int | None = Field(default=None, description="The ra...")
     top_keyword_best_position_diff: int | None = Field(default=None, description="T...")
     top_keyword_best_position_kind: BestPositionKindEnum | None = Field(default=None)
-    top_keyword_best_position_kind_prev: BestPositionKindEnum | None = Field(default=None)
+    top_keyword_best_position_kind_prev: BestPositionKindEnum | None = Field(
+        default=None
+    )
     top_keyword_best_position_prev: int | None = Field(default=None, description="T...")
     top_keyword_best_position_title: str | None = Field(default=None)
     top_keyword_best_position_title_prev: str | None = Field(default=None)
@@ -3288,6 +3486,7 @@ class SiteExplorerTopPagesData(BaseModel):
     value_diff_percent: int | None = Field(default=None, description="The change in...")
     value_merged: int | None = Field(default=None, description="(10 units) The traf...")
     value_prev: int | None = Field(default=None, description="(10 units) The traffi...")
+
 
 class SiteExplorerTopPagesResponse(BaseModel):
     """Response model for /top-pages endpoint"""
@@ -3314,11 +3513,13 @@ class SiteExplorerTotalSearchVolumeHistoryRequest(BaseModel):
     target: str = Field(..., description="The target of the search: a domain or a URL.")
     mode: ModeEnum = Field(default=ModeEnum.SUBDOMAINS, description="The scope of t...")
 
+
 class SiteExplorerTotalSearchVolumeHistoryData(BaseModel):
     """Individual data item for /total-search-volume-history endpoint"""
 
     date: str | None = Field(default=None, description="The date field")
     total_search_volume: int | None = Field(default=None, description="(10 units) T...")
+
 
 class SiteExplorerTotalSearchVolumeHistoryResponse(BaseModel):
     """Response model for /total-search-volume-history endpoint"""
@@ -3340,11 +3541,13 @@ class SiteExplorerUrlRatingHistoryRequest(BaseModel):
     date_from: DateStr = Field(..., description="The start date of the historical p...")
     target: str = Field(..., description="The target of the search: a domain or a URL.")
 
+
 class SiteExplorerUrlRatingHistoryData(BaseModel):
     """Individual data item for /url-rating-history endpoint"""
 
     date: str | None = Field(default=None, description="The date field")
     url_rating: float | None = Field(default=None, description="The strength of you...")
+
 
 class SiteExplorerUrlRatingHistoryResponse(BaseModel):
     """Response model for /url-rating-history endpoint"""
@@ -3355,4 +3558,3 @@ class SiteExplorerUrlRatingHistoryResponse(BaseModel):
     def data(self) -> list[SiteExplorerUrlRatingHistoryData]:
         """Unwrap the response payload."""
         return self.url_ratings or []
-

@@ -1,5 +1,6 @@
 # Ahrefs Python SDK
 
+[![CI](https://github.com/ahrefs/ahrefs-python/actions/workflows/ci.yml/badge.svg)](https://github.com/ahrefs/ahrefs-python/actions/workflows/ci.yml)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 

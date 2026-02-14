@@ -80,7 +80,7 @@ def _parse_retry_after(response: httpx.Response) -> float | None:
     if value is None:
         return None
     try:
-        return float(value)
+        return min(float(value), 60.0)
     except ValueError:
         return None
 
