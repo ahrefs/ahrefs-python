@@ -11,6 +11,7 @@ Python client for the [Ahrefs API](https://ahrefs.com/api). Typed request and re
 ## Table of Contents
 
 - [Installation](#installation)
+- [AI Coding Assistant](#ai-coding-assistant)
 - [Quick Start](#quick-start)
 - [Usage](#usage)
   - [Request Styles](#request-styles)
@@ -23,7 +24,6 @@ Python client for the [Ahrefs API](https://ahrefs.com/api). Typed request and re
   - [Custom HTTP Client](#custom-http-client)
   - [Resource Cleanup](#resource-cleanup)
 - [API Sections](#api-sections)
-- [AI Coding Assistant](#ai-coding-assistant)
 - [License](#license)
 
 ## Installation
@@ -37,6 +37,16 @@ pip install git+https://github.com/ahrefs/ahrefs-python.git
 ```
 
 Requires Python 3.11+.
+
+## AI Coding Assistant
+
+If you use [Claude Code](https://docs.anthropic.com/en/docs/claude-code), install the companion skill to teach it the SDK patterns and all available methods:
+
+```sh
+npx skills add ahrefs/ahrefs-api-skills --skill ahrefs-python --global
+```
+
+See [ahrefs/ahrefs-api-skills](https://github.com/ahrefs/ahrefs-api-skills) for details.
 
 ## Quick Start
 
@@ -325,16 +335,6 @@ See the [full API reference](docs/api-reference.md) for parameters, types, and r
 - `site_explorer_url_rating_history()`
 
 <!-- METHOD_INDEX_END -->
-
-## AI Coding Assistant
-
-If you use [Claude Code](https://docs.anthropic.com/en/docs/claude-code), install the companion skill to teach it the SDK patterns and all available methods:
-
-```sh
-npx skills add ahrefs/ahrefs-api-skills --skill ahrefs-python --global
-```
-
-See [ahrefs/ahrefs-api-skills](https://github.com/ahrefs/ahrefs-api-skills) for details.
 
 ## License
 
