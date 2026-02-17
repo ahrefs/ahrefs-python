@@ -38,9 +38,9 @@ pip install git+https://github.com/ahrefs/ahrefs-python.git
 
 Requires Python 3.11+.
 
-## AI Coding Assistant
+## AI Coding Agent
 
-If you use [Claude Code](https://docs.anthropic.com/en/docs/claude-code), install the companion skill to teach it the SDK patterns and all available methods:
+Install the companion skill so that Claude Code and other AI coding agents can use the SDK patterns and all available methods:
 
 ```sh
 npx skills add ahrefs/ahrefs-api-skills --skill ahrefs-python --global
