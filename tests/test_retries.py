@@ -93,9 +93,9 @@ class TestSyncRetries:
             ]
         )
         client = AhrefsClient(api_key="test-key", max_retries=2)
-        response = client.site_explorer_domain_rating(_DR_REQ)
-        assert response.domain_rating is not None
-        assert response.domain_rating.domain_rating == 85.5
+        data = client.site_explorer_domain_rating(_DR_REQ)
+        assert data is not None
+        assert data.domain_rating == 85.5
         assert route.call_count == 2
         client.close()
 
@@ -108,8 +108,8 @@ class TestSyncRetries:
             ]
         )
         client = AhrefsClient(api_key="test-key", max_retries=2)
-        response = client.site_explorer_domain_rating(_DR_REQ)
-        assert response.domain_rating is not None
+        data = client.site_explorer_domain_rating(_DR_REQ)
+        assert data is not None
         assert route.call_count == 2
         client.close()
 
@@ -193,8 +193,8 @@ class TestAsyncRetries:
             ]
         )
         async with AsyncAhrefsClient(api_key="test-key", max_retries=2) as client:
-            response = await client.site_explorer_domain_rating(_DR_REQ)
-        assert response.domain_rating is not None
+            data = await client.site_explorer_domain_rating(_DR_REQ)
+        assert data is not None
         assert route.call_count == 2
 
     @respx.mock
@@ -206,8 +206,8 @@ class TestAsyncRetries:
             ]
         )
         async with AsyncAhrefsClient(api_key="test-key", max_retries=2) as client:
-            response = await client.site_explorer_domain_rating(_DR_REQ)
-        assert response.domain_rating is not None
+            data = await client.site_explorer_domain_rating(_DR_REQ)
+        assert data is not None
         assert route.call_count == 2
 
     @respx.mock

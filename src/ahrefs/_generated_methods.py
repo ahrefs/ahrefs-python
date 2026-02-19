@@ -40,7 +40,7 @@ class GeneratedMethodsMixin:
         market: str | None = None,
         competitors: str | None = None,
         brand: str | None = None,
-    ) -> BrandRadarAiResponsesResponse:
+    ) -> list[BrandRadarAiResponsesData]:
         """
         AI Responses.
 
@@ -59,7 +59,7 @@ class GeneratedMethodsMixin:
                 brand (str, optional): A comma-separated list of brands to search for. At least one of brand, competitors, market or where should not be empty. Default: '[]'.
 
         Returns:
-            BrandRadarAiResponsesResponse containing BrandRadarAiResponsesData:
+            list[BrandRadarAiResponsesData]:
                 country (str): The country of the question.
                 links (list[dict[str, Any] | None]): (10 units) The links used for the response.
                 question (str): The question asked by the user.
@@ -71,7 +71,8 @@ class GeneratedMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = BrandRadarAiResponsesRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("where", where), ("select", select), ("date", date), ("country", country), ("order_by", order_by), ("data_source", data_source), ("market", market), ("competitors", competitors), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return await self._request("brand-radar", "ai-responses", request, BrandRadarAiResponsesResponse, exclude_none=True)
+        _resp = await self._request("brand-radar", "ai-responses", request, BrandRadarAiResponsesResponse, exclude_none=True)
+        return _resp.data
 
     async def brand_radar_impressions_history(
         self,
@@ -84,7 +85,7 @@ class GeneratedMethodsMixin:
         data_source: DataSourceEnum | None = None,
         market: str | None = None,
         brand: str | None = None,
-    ) -> BrandRadarImpressionsHistoryResponse:
+    ) -> list[BrandRadarImpressionsHistoryData]:
         """
         Overview history - Impressions.
 
@@ -99,7 +100,7 @@ class GeneratedMethodsMixin:
                 brand (str, required): The brand to search for.
 
         Returns:
-            BrandRadarImpressionsHistoryResponse containing BrandRadarImpressionsHistoryData:
+            list[BrandRadarImpressionsHistoryData]:
                 date (str): date
                 impressions (int): impressions
         """
@@ -108,7 +109,8 @@ class GeneratedMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = BrandRadarImpressionsHistoryRequest(**{k: v for k, v in [("where", where), ("date_to", date_to), ("date_from", date_from), ("country", country), ("data_source", data_source), ("market", market), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return await self._request("brand-radar", "impressions-history", request, BrandRadarImpressionsHistoryResponse, exclude_none=True)
+        _resp = await self._request("brand-radar", "impressions-history", request, BrandRadarImpressionsHistoryResponse, exclude_none=True)
+        return _resp.data
 
     async def brand_radar_impressions_overview(
         self,
@@ -121,7 +123,7 @@ class GeneratedMethodsMixin:
         market: str | None = None,
         competitors: str | None = None,
         brand: str | None = None,
-    ) -> BrandRadarImpressionsOverviewResponse:
+    ) -> list[BrandRadarImpressionsOverviewData]:
         """
         Overview - Impressions.
 
@@ -136,7 +138,7 @@ class GeneratedMethodsMixin:
                 brand (str, optional): A comma-separated list of brands to search for. At least one of brand or competitors should not be empty. Default: '[]'.
 
         Returns:
-            BrandRadarImpressionsOverviewResponse containing BrandRadarImpressionsOverviewData:
+            list[BrandRadarImpressionsOverviewData]:
                 brand (str): Brand name (either your brand or a competitor provided in the request).
                 no_tracked_brands (int): Estimated impressions from responses related to the specified market that do not mention any provided brands (value is zero when `market` is not specified).
                 only_competitors_brands (int): Estimated impressions from responses mentioning only competitor brands.
@@ -149,7 +151,8 @@ class GeneratedMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = BrandRadarImpressionsOverviewRequest(**{k: v for k, v in [("where", where), ("select", select), ("country", country), ("data_source", data_source), ("market", market), ("competitors", competitors), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return await self._request("brand-radar", "impressions-overview", request, BrandRadarImpressionsOverviewResponse, exclude_none=True)
+        _resp = await self._request("brand-radar", "impressions-overview", request, BrandRadarImpressionsOverviewResponse, exclude_none=True)
+        return _resp.data
 
     async def brand_radar_mentions_history(
         self,
@@ -162,7 +165,7 @@ class GeneratedMethodsMixin:
         data_source: DataSourceEnum | None = None,
         market: str | None = None,
         brand: str | None = None,
-    ) -> BrandRadarMentionsHistoryResponse:
+    ) -> list[BrandRadarMentionsHistoryData]:
         """
         Overview history - Mentions.
 
@@ -177,7 +180,7 @@ class GeneratedMethodsMixin:
                 brand (str, required): The brand to search for.
 
         Returns:
-            BrandRadarMentionsHistoryResponse containing BrandRadarMentionsHistoryData:
+            list[BrandRadarMentionsHistoryData]:
                 date (str): date
                 mentions (int): mentions
         """
@@ -186,7 +189,8 @@ class GeneratedMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = BrandRadarMentionsHistoryRequest(**{k: v for k, v in [("where", where), ("date_to", date_to), ("date_from", date_from), ("country", country), ("data_source", data_source), ("market", market), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return await self._request("brand-radar", "mentions-history", request, BrandRadarMentionsHistoryResponse, exclude_none=True)
+        _resp = await self._request("brand-radar", "mentions-history", request, BrandRadarMentionsHistoryResponse, exclude_none=True)
+        return _resp.data
 
     async def brand_radar_mentions_overview(
         self,
@@ -199,7 +203,7 @@ class GeneratedMethodsMixin:
         market: str | None = None,
         competitors: str | None = None,
         brand: str | None = None,
-    ) -> BrandRadarMentionsOverviewResponse:
+    ) -> list[BrandRadarMentionsOverviewData]:
         """
         Overview - Mentions.
 
@@ -214,7 +218,7 @@ class GeneratedMethodsMixin:
                 brand (str, optional): A comma-separated list of brands to search for. At least one of brand or competitors should not be empty. Default: '[]'.
 
         Returns:
-            BrandRadarMentionsOverviewResponse containing BrandRadarMentionsOverviewData:
+            list[BrandRadarMentionsOverviewData]:
                 brand (str): Brand name (either your brand or a competitor provided in the request).
                 no_tracked_brands (int): Estimated mentions from responses related to the specified market that do not mention any provided brands (value is zero when `market` is not specified).
                 only_competitors_brands (int): Estimated mentions from responses mentioning only competitor brands.
@@ -227,7 +231,8 @@ class GeneratedMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = BrandRadarMentionsOverviewRequest(**{k: v for k, v in [("where", where), ("select", select), ("country", country), ("data_source", data_source), ("market", market), ("competitors", competitors), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return await self._request("brand-radar", "mentions-overview", request, BrandRadarMentionsOverviewResponse, exclude_none=True)
+        _resp = await self._request("brand-radar", "mentions-overview", request, BrandRadarMentionsOverviewResponse, exclude_none=True)
+        return _resp.data
 
     async def brand_radar_sov_overview(
         self,
@@ -240,7 +245,7 @@ class GeneratedMethodsMixin:
         market: str | None = None,
         competitors: str | None = None,
         brand: str | None = None,
-    ) -> BrandRadarSovOverviewResponse:
+    ) -> list[BrandRadarSovOverviewData]:
         """
         Overview - Share of Voice.
 
@@ -255,7 +260,7 @@ class GeneratedMethodsMixin:
                 brand (str, optional): A comma-separated list of brands to search for. At least one of brand or competitors should not be empty. Default: '[]'.
 
         Returns:
-            BrandRadarSovOverviewResponse containing BrandRadarSovOverviewData:
+            list[BrandRadarSovOverviewData]:
                 brand (str): Brand name (either your brand or a competitor provided in the request).
                 share_of_voice (float): Estimated share of voice for your brand.
         """
@@ -264,7 +269,8 @@ class GeneratedMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = BrandRadarSovOverviewRequest(**{k: v for k, v in [("where", where), ("select", select), ("country", country), ("data_source", data_source), ("market", market), ("competitors", competitors), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return await self._request("brand-radar", "sov-overview", request, BrandRadarSovOverviewResponse, exclude_none=True)
+        _resp = await self._request("brand-radar", "sov-overview", request, BrandRadarSovOverviewResponse, exclude_none=True)
+        return _resp.data
 
     # Keywords Explorer API methods
     async def keywords_explorer_matching_terms(
@@ -282,7 +288,7 @@ class GeneratedMethodsMixin:
         keyword_list_id: int | None = None,
         match_mode: MatchModeEnum | None = None,
         terms: TermsEnum | None = None,
-    ) -> KeywordsExplorerMatchingTermsResponse:
+    ) -> list[KeywordsExplorerMatchingTermsData]:
         """
         Matching terms.
 
@@ -301,7 +307,7 @@ class GeneratedMethodsMixin:
                 terms (TermsEnum, optional): All keywords ideas or keywords ideas phrased as questions. Default: 'all'.
 
         Returns:
-            KeywordsExplorerMatchingTermsResponse containing KeywordsExplorerMatchingTermsData:
+            list[KeywordsExplorerMatchingTermsData]:
                 cpc (int | None): Cost Per Click shows the average price that advertisers pay for each ad click in paid search results for a keyword, in USD cents.
                 cps (float | None): Clicks Per Search (or CPS) is the ratio of Clicks to Keyword Search volume. It shows how many different search results get clicked, on average, when people search for the target keyword in a given country.
                 difficulty (int | None): (10 units) An estimation of how hard it is to rank in the top 10 organic search results for a keyword on a 100-point scale.
@@ -323,7 +329,8 @@ class GeneratedMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = KeywordsExplorerMatchingTermsRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("order_by", order_by), ("where", where), ("select", select), ("country", country), ("search_engine", search_engine), ("keywords", keywords), ("keyword_list_id", keyword_list_id), ("match_mode", match_mode), ("terms", terms)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return await self._request("keywords-explorer", "matching-terms", request, KeywordsExplorerMatchingTermsResponse, exclude_none=True)
+        _resp = await self._request("keywords-explorer", "matching-terms", request, KeywordsExplorerMatchingTermsResponse, exclude_none=True)
+        return _resp.data
 
     async def keywords_explorer_overview(
         self,
@@ -343,7 +350,7 @@ class GeneratedMethodsMixin:
         search_engine: SearchEngineEnum | None = None,
         keywords: str | None = None,
         keyword_list_id: int | None = None,
-    ) -> KeywordsExplorerOverviewResponse:
+    ) -> list[KeywordsExplorerOverviewData]:
         """
         Overview.
 
@@ -367,7 +374,7 @@ class GeneratedMethodsMixin:
                 keyword_list_id (int, optional): The id of an existing keyword list to show metrics for. Default: None.
 
         Returns:
-            KeywordsExplorerOverviewResponse containing KeywordsExplorerOverviewData:
+            list[KeywordsExplorerOverviewData]:
                 clicks (int | None): The average monthly number of clicks on the search results that people make while searching for the target keyword.
                 cpc (int | None): Cost Per Click shows the average price that advertisers pay for each ad click in paid search results for a keyword, in USD cents.
                 cps (float | None): Clicks Per Search (or CPS) is the ratio of Clicks to Keyword Search volume. It shows how many different search results get clicked, on average, when people search for the target keyword in a given country.
@@ -395,7 +402,8 @@ class GeneratedMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = KeywordsExplorerOverviewRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("order_by", order_by), ("where", where), ("select", select), ("volume_monthly_date_to", volume_monthly_date_to), ("volume_monthly_date_from", volume_monthly_date_from), ("target_mode", target_mode), ("target", target), ("target_position", target_position), ("country", country), ("search_engine", search_engine), ("keywords", keywords), ("keyword_list_id", keyword_list_id)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return await self._request("keywords-explorer", "overview", request, KeywordsExplorerOverviewResponse, exclude_none=True)
+        _resp = await self._request("keywords-explorer", "overview", request, KeywordsExplorerOverviewResponse, exclude_none=True)
+        return _resp.data
 
     async def keywords_explorer_related_terms(
         self,
@@ -411,7 +419,7 @@ class GeneratedMethodsMixin:
         keyword_list_id: int | None = None,
         view_for: ViewForEnum | None = None,
         terms: TermsEnum1 | None = None,
-    ) -> KeywordsExplorerRelatedTermsResponse:
+    ) -> list[KeywordsExplorerRelatedTermsData]:
         """
         Related terms.
 
@@ -429,7 +437,7 @@ class GeneratedMethodsMixin:
                 terms (TermsEnum1, optional): Related keywords which top-ranking pages also rank for (`also_rank_for`), additional keywords frequently mentioned in top-ranking pages (`also_talk_about`), or combination of both (`all`). Default: 'all'.
 
         Returns:
-            KeywordsExplorerRelatedTermsResponse containing KeywordsExplorerRelatedTermsData:
+            list[KeywordsExplorerRelatedTermsData]:
                 cpc (int | None): Cost Per Click shows the average price that advertisers pay for each ad click in paid search results for a keyword, in USD cents.
                 cps (float | None): Clicks Per Search (or CPS) is the ratio of Clicks to Keyword Search volume. It shows how many different search results get clicked, on average, when people search for the target keyword in a given country.
                 difficulty (int | None): (10 units) An estimation of how hard it is to rank in the top 10 organic search results for a keyword on a 100-point scale.
@@ -451,7 +459,8 @@ class GeneratedMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = KeywordsExplorerRelatedTermsRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("order_by", order_by), ("where", where), ("select", select), ("country", country), ("keywords", keywords), ("keyword_list_id", keyword_list_id), ("view_for", view_for), ("terms", terms)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return await self._request("keywords-explorer", "related-terms", request, KeywordsExplorerRelatedTermsResponse, exclude_none=True)
+        _resp = await self._request("keywords-explorer", "related-terms", request, KeywordsExplorerRelatedTermsResponse, exclude_none=True)
+        return _resp.data
 
     async def keywords_explorer_search_suggestions(
         self,
@@ -466,7 +475,7 @@ class GeneratedMethodsMixin:
         search_engine: SearchEngineEnum | None = None,
         keywords: str | None = None,
         keyword_list_id: int | None = None,
-    ) -> KeywordsExplorerSearchSuggestionsResponse:
+    ) -> list[KeywordsExplorerSearchSuggestionsData]:
         """
         Search suggestions.
 
@@ -483,7 +492,7 @@ class GeneratedMethodsMixin:
                 keyword_list_id (int, optional): The id of an existing keyword list to show metrics for. Default: None.
 
         Returns:
-            KeywordsExplorerSearchSuggestionsResponse containing KeywordsExplorerSearchSuggestionsData:
+            list[KeywordsExplorerSearchSuggestionsData]:
                 cpc (int | None): Cost Per Click shows the average price that advertisers pay for each ad click in paid search results for a keyword, in USD cents.
                 cps (float | None): Clicks Per Search (or CPS) is the ratio of Clicks to Keyword Search volume. It shows how many different search results get clicked, on average, when people search for the target keyword in a given country.
                 difficulty (int | None): (10 units) An estimation of how hard it is to rank in the top 10 organic search results for a keyword on a 100-point scale.
@@ -505,7 +514,8 @@ class GeneratedMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = KeywordsExplorerSearchSuggestionsRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("order_by", order_by), ("where", where), ("select", select), ("country", country), ("search_engine", search_engine), ("keywords", keywords), ("keyword_list_id", keyword_list_id)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return await self._request("keywords-explorer", "search-suggestions", request, KeywordsExplorerSearchSuggestionsResponse, exclude_none=True)
+        _resp = await self._request("keywords-explorer", "search-suggestions", request, KeywordsExplorerSearchSuggestionsResponse, exclude_none=True)
+        return _resp.data
 
     async def keywords_explorer_volume_by_country(
         self,
@@ -514,7 +524,7 @@ class GeneratedMethodsMixin:
         limit: int | None = None,
         search_engine: SearchEngineEnum | None = None,
         keyword: str | None = None,
-    ) -> KeywordsExplorerVolumeByCountryResponse:
+    ) -> list[KeywordsExplorerVolumeByCountryData]:
         """
         Volume by country.
 
@@ -525,7 +535,7 @@ class GeneratedMethodsMixin:
                 keyword (str, required): The keyword to show metrics for.
 
         Returns:
-            KeywordsExplorerVolumeByCountryResponse containing KeywordsExplorerVolumeByCountryData:
+            list[KeywordsExplorerVolumeByCountryData]:
                 country (str)
                 volume (int): (10 units) An estimation of the average monthly number of searches for a keyword in a given country.
         """
@@ -534,7 +544,8 @@ class GeneratedMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = KeywordsExplorerVolumeByCountryRequest(**{k: v for k, v in [("limit", limit), ("search_engine", search_engine), ("keyword", keyword)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return await self._request("keywords-explorer", "volume-by-country", request, KeywordsExplorerVolumeByCountryResponse, exclude_none=True)
+        _resp = await self._request("keywords-explorer", "volume-by-country", request, KeywordsExplorerVolumeByCountryResponse, exclude_none=True)
+        return _resp.data
 
     async def keywords_explorer_volume_history(
         self,
@@ -544,7 +555,7 @@ class GeneratedMethodsMixin:
         date_from: DateStr | None = None,
         country: CountryEnum | None = None,
         keyword: str | None = None,
-    ) -> KeywordsExplorerVolumeHistoryResponse:
+    ) -> list[KeywordsExplorerVolumeHistoryData]:
         """
         Volume history.
 
@@ -556,7 +567,7 @@ class GeneratedMethodsMixin:
                 keyword (str, required): The keyword to show metrics for.
 
         Returns:
-            KeywordsExplorerVolumeHistoryResponse containing KeywordsExplorerVolumeHistoryData:
+            list[KeywordsExplorerVolumeHistoryData]:
                 date (str)
                 volume (int): An estimation of the number of searches for a keyword over a given month.
         """
@@ -565,7 +576,8 @@ class GeneratedMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = KeywordsExplorerVolumeHistoryRequest(**{k: v for k, v in [("date_to", date_to), ("date_from", date_from), ("country", country), ("keyword", keyword)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return await self._request("keywords-explorer", "volume-history", request, KeywordsExplorerVolumeHistoryResponse, exclude_none=True)
+        _resp = await self._request("keywords-explorer", "volume-history", request, KeywordsExplorerVolumeHistoryResponse, exclude_none=True)
+        return _resp.data
 
     # Rank Tracker API methods
     async def rank_tracker_competitors_overview(
@@ -582,7 +594,7 @@ class GeneratedMethodsMixin:
         device: DeviceEnum | None = None,
         project_id: int | None = None,
         volume_mode: VolumeModeEnum | None = None,
-    ) -> RankTrackerCompetitorsOverviewResponse:
+    ) -> list[RankTrackerCompetitorsOverviewData]:
         """
         Competitors overview.
 
@@ -602,7 +614,7 @@ class GeneratedMethodsMixin:
                 volume_mode (VolumeModeEnum, optional): The search volume calculation mode: monthly or average. It affects volume, traffic, and traffic value. Default: 'monthly'.
 
         Returns:
-            RankTrackerCompetitorsOverviewResponse containing RankTrackerCompetitorsOverviewData:
+            list[RankTrackerCompetitorsOverviewData]:
                 competitors_list (list[dict[str, Any] | None]): Competitors information for a given keyword. The following fields are included: `url`, `url_prev`, `position`, `position_prev`, `best_position_kind`, `best_position_kind`, `traffic`, `traffic_prev`, `value`, `value_prev`. Fields ending in `prev` are included only in the compared view.
                 country (CountryEnum1): The country that a given keyword is being tracked in. A two-letter country code (ISO 3166-1 alpha-2).
                 keyword (str): The keyword your target ranks for.
@@ -622,7 +634,8 @@ class GeneratedMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = RankTrackerCompetitorsOverviewRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("order_by", order_by), ("where", where), ("select", select), ("date_compared", date_compared), ("date", date), ("device", device), ("project_id", project_id), ("volume_mode", volume_mode)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return await self._request("rank-tracker", "competitors-overview", request, RankTrackerCompetitorsOverviewResponse, exclude_none=True)
+        _resp = await self._request("rank-tracker", "competitors-overview", request, RankTrackerCompetitorsOverviewResponse, exclude_none=True)
+        return _resp.data
 
     async def rank_tracker_competitors_pages(
         self,
@@ -639,7 +652,7 @@ class GeneratedMethodsMixin:
         device: DeviceEnum | None = None,
         project_id: int | None = None,
         volume_mode: VolumeModeEnum | None = None,
-    ) -> RankTrackerCompetitorsPagesResponse:
+    ) -> list[RankTrackerCompetitorsPagesData]:
         """
         Competitors pages.
 
@@ -660,7 +673,7 @@ class GeneratedMethodsMixin:
                 volume_mode (VolumeModeEnum, optional): The search volume calculation mode: monthly or average. It affects volume, traffic, and traffic value. Default: 'monthly'.
 
         Returns:
-            RankTrackerCompetitorsPagesResponse containing RankTrackerCompetitorsPagesData:
+            list[RankTrackerCompetitorsPagesData]:
                 keywords (int): The total number of keywords that your target ranks for in the top 100 organic search results.
                 share_of_traffic_value (float): The share of your target's organic search traffic value compared to the total organic search traffic value for all tracked keywords.
                 share_of_traffic_value_prev (float): The share of traffic value on the comparison date.
@@ -680,7 +693,8 @@ class GeneratedMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = RankTrackerCompetitorsPagesRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("order_by", order_by), ("where", where), ("select", select), ("target_and_tracked_competitors_only", target_and_tracked_competitors_only), ("date_compared", date_compared), ("date", date), ("device", device), ("project_id", project_id), ("volume_mode", volume_mode)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return await self._request("rank-tracker", "competitors-pages", request, RankTrackerCompetitorsPagesResponse, exclude_none=True)
+        _resp = await self._request("rank-tracker", "competitors-pages", request, RankTrackerCompetitorsPagesResponse, exclude_none=True)
+        return _resp.data
 
     async def rank_tracker_competitors_stats(
         self,
@@ -691,7 +705,7 @@ class GeneratedMethodsMixin:
         device: DeviceEnum | None = None,
         project_id: int | None = None,
         volume_mode: VolumeModeEnum | None = None,
-    ) -> RankTrackerCompetitorsStatsResponse:
+    ) -> list[RankTrackerCompetitorsStatsData]:
         """
         Competitors metrics.
 
@@ -706,7 +720,7 @@ class GeneratedMethodsMixin:
                 volume_mode (VolumeModeEnum, optional): The search volume calculation mode: monthly or average. It affects volume, traffic, and traffic value. Default: 'monthly'.
 
         Returns:
-            RankTrackerCompetitorsStatsResponse containing RankTrackerCompetitorsStatsData:
+            list[RankTrackerCompetitorsStatsData]:
                 ai_overview_count (int): The total number of tracked keywords for which your target ranks in an AI Overview.
                 average_position (float | None): The average of your target's top organic positions across all tracked keywords.
                 competitor (str): Competitor's URL.
@@ -737,7 +751,8 @@ class GeneratedMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = RankTrackerCompetitorsStatsRequest(**{k: v for k, v in [("select", select), ("date", date), ("device", device), ("project_id", project_id), ("volume_mode", volume_mode)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return await self._request("rank-tracker", "competitors-stats", request, RankTrackerCompetitorsStatsResponse, exclude_none=True)
+        _resp = await self._request("rank-tracker", "competitors-stats", request, RankTrackerCompetitorsStatsResponse, exclude_none=True)
+        return _resp.data
 
     async def rank_tracker_overview(
         self,
@@ -753,7 +768,7 @@ class GeneratedMethodsMixin:
         device: DeviceEnum | None = None,
         project_id: int | None = None,
         volume_mode: VolumeModeEnum | None = None,
-    ) -> RankTrackerOverviewResponse:
+    ) -> list[RankTrackerOverviewData]:
         """
         Overview.
 
@@ -773,7 +788,7 @@ class GeneratedMethodsMixin:
                 volume_mode (VolumeModeEnum, optional): The search volume calculation mode: monthly or average. It affects volume, traffic, and traffic value. Default: 'monthly'.
 
         Returns:
-            RankTrackerOverviewResponse containing RankTrackerOverviewData:
+            list[RankTrackerOverviewData]:
                 best_position_has_thumbnail (bool | None): The top position (or target URL’s, if set) has a thumbnail.
                 best_position_has_thumbnail_previous (bool | None): The top position (or target URL’s, if set) has a thumbnail on the comparison date.
                 best_position_has_video_preview (bool | None): The top position (or target URL’s, if set) has a video preview.
@@ -811,7 +826,8 @@ class GeneratedMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = RankTrackerOverviewRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("order_by", order_by), ("where", where), ("select", select), ("date_compared", date_compared), ("date", date), ("device", device), ("project_id", project_id), ("volume_mode", volume_mode)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return await self._request("rank-tracker", "overview", request, RankTrackerOverviewResponse, exclude_none=True)
+        _resp = await self._request("rank-tracker", "overview", request, RankTrackerOverviewResponse, exclude_none=True)
+        return _resp.data
 
     async def rank_tracker_serp_overview(
         self,
@@ -825,7 +841,7 @@ class GeneratedMethodsMixin:
         language_code: str | None = None,
         keyword: str | None = None,
         project_id: int | None = None,
-    ) -> RankTrackerSerpOverviewResponse:
+    ) -> list[RankTrackerSerpOverviewData]:
         """
         SERP Overview.
 
@@ -843,7 +859,7 @@ class GeneratedMethodsMixin:
                 project_id (int, required): The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#`
 
         Returns:
-            RankTrackerSerpOverviewResponse containing RankTrackerSerpOverviewData:
+            list[RankTrackerSerpOverviewData]:
                 position (int): The position of the search result in SERP.
                 title (str | None): The title of a ranking page.
                 url (str | None): The URL of a ranking page.
@@ -866,7 +882,8 @@ class GeneratedMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = RankTrackerSerpOverviewRequest(**{k: v for k, v in [("top_positions", top_positions), ("device", device), ("date", date), ("location_id", location_id), ("country", country), ("language_code", language_code), ("keyword", keyword), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return await self._request("rank-tracker", "serp-overview", request, RankTrackerSerpOverviewResponse, exclude_none=True)
+        _resp = await self._request("rank-tracker", "serp-overview", request, RankTrackerSerpOverviewResponse, exclude_none=True)
+        return _resp.data
 
     # Serp Overview API methods
     async def serp_overview_serp_overview(
@@ -878,7 +895,7 @@ class GeneratedMethodsMixin:
         date: str | None = None,
         country: CountryEnum | None = None,
         keyword: str | None = None,
-    ) -> SerpOverviewSerpOverviewResponse:
+    ) -> list[SerpOverviewSerpOverviewData]:
         """
         SERP Overview.
 
@@ -891,7 +908,7 @@ class GeneratedMethodsMixin:
                 keyword (str, required): The keyword to return SERP Overview for.
 
         Returns:
-            SerpOverviewSerpOverviewResponse containing SerpOverviewSerpOverviewData:
+            list[SerpOverviewSerpOverviewData]:
                 ahrefs_rank (int | None): The strength of a domain's backlink profile compared to the other websites in our database, with rank #1 being the strongest.
                 backlinks (int | None): The total number of links from other websites pointing to a search result.
                 domain_rating (float | None): The strength of a domain’s backlink profile compared to the others in our database on a 100-point scale.
@@ -913,7 +930,8 @@ class GeneratedMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SerpOverviewSerpOverviewRequest(**{k: v for k, v in [("select", select), ("top_positions", top_positions), ("date", date), ("country", country), ("keyword", keyword)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return await self._request("serp-overview", "serp-overview", request, SerpOverviewSerpOverviewResponse, exclude_none=True)
+        _resp = await self._request("serp-overview", "serp-overview", request, SerpOverviewSerpOverviewResponse, exclude_none=True)
+        return _resp.data
 
     # Site Audit API methods
     async def site_audit_issues(
@@ -923,7 +941,7 @@ class GeneratedMethodsMixin:
         date_compared: str | None = None,
         date: str | None = None,
         project_id: int | None = None,
-    ) -> SiteAuditIssuesResponse:
+    ) -> list[SiteAuditIssuesData]:
         """
         Project Issues.
 
@@ -936,7 +954,7 @@ class GeneratedMethodsMixin:
                 project_id (int, required): The unique identifier of the project. You can find it in the URL of your Site Audit project in Ahrefs: `https://app.ahrefs.com/site-audit/#project_id#`
 
         Returns:
-            SiteAuditIssuesResponse containing SiteAuditIssuesData:
+            list[SiteAuditIssuesData]:
                 issue_id (str): The unique identifier of the issue.
                 name (str): The name of the issue.
                 importance (str): The importance of the issue. Possible values: `Error`, `Warning`, `Notice`.
@@ -954,7 +972,8 @@ class GeneratedMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteAuditIssuesRequest(**{k: v for k, v in [("date_compared", date_compared), ("date", date), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return await self._request("site-audit", "issues", request, SiteAuditIssuesResponse, exclude_none=True)
+        _resp = await self._request("site-audit", "issues", request, SiteAuditIssuesResponse, exclude_none=True)
+        return _resp.data
 
     async def site_audit_page_content(
         self,
@@ -964,7 +983,7 @@ class GeneratedMethodsMixin:
         date: str | None = None,
         target_url: str | None = None,
         project_id: int | None = None,
-    ) -> SiteAuditPageContentResponse:
+    ) -> SiteAuditPageContentData | None:
         """
         Page content.
 
@@ -978,7 +997,7 @@ class GeneratedMethodsMixin:
                 project_id (int, required): The unique identifier of the project. Only projects with verified ownership are supported. You can find the project ID in the URL of your Site Audit project in Ahrefs: `https://app.ahrefs.com/site-audit/#project_id#`
 
         Returns:
-            SiteAuditPageContentResponse containing SiteAuditPageContentData:
+            SiteAuditPageContentData | None:
                 crawl_datetime (str): The timestamp when the page was crawled.
                 page_text (str | None): The text extracted from the page content.
                 raw_html (str | None): The raw HTML of the page.
@@ -989,7 +1008,8 @@ class GeneratedMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteAuditPageContentRequest(**{k: v for k, v in [("select", select), ("date", date), ("target_url", target_url), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return await self._request("site-audit", "page-content", request, SiteAuditPageContentResponse, exclude_none=True)
+        _resp = await self._request("site-audit", "page-content", request, SiteAuditPageContentResponse, exclude_none=True)
+        return _resp.data
 
     async def site_audit_page_explorer(
         self,
@@ -1005,7 +1025,7 @@ class GeneratedMethodsMixin:
         date_compared: str | None = None,
         date: str | None = None,
         project_id: int | None = None,
-    ) -> SiteAuditPageExplorerResponse:
+    ) -> list[SiteAuditPageExplorerData]:
         """
         Page explorer.
 
@@ -1025,7 +1045,7 @@ class GeneratedMethodsMixin:
                 project_id (int, required): The unique identifier of the project. Only projects with verified ownership are supported. You can find the project ID in the URL of your Site Audit project in Ahrefs: `https://app.ahrefs.com/site-audit/#project_id#`
 
         Returns:
-            SiteAuditPageExplorerResponse containing SiteAuditPageExplorerData:
+            list[SiteAuditPageExplorerData]:
                 ai_content_level (str | None): The estimated percentage of AI-generated text on the page. Possible values: `None`, `Low`, `Moderate`, `High`, `Very High`
                 ai_content_status (str | None): AI detection status for each page. Possible values: - `Success`: Content analyzed successfully - `Content_too_short`: Not enough text for reliable detection - `Not_eligible`: URL isn't an internal HTML page - `Failed`: Internal issue prevented detection - `Detection_off`: Disabled in Crawl settings
                 alternate (int | None): The number of incoming external links from rel="alternate" attributes on the pages (data from Ahrefs' Site Explorer database)
@@ -1063,7 +1083,8 @@ class GeneratedMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteAuditPageExplorerRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("order_by", order_by), ("where", where), ("select", select), ("filter_mode", filter_mode), ("issue_id", issue_id), ("date_compared", date_compared), ("date", date), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return await self._request("site-audit", "page-explorer", request, SiteAuditPageExplorerResponse, exclude_none=True)
+        _resp = await self._request("site-audit", "page-explorer", request, SiteAuditPageExplorerResponse, exclude_none=True)
+        return _resp.data
 
     async def site_audit_projects(
         self,
@@ -1071,7 +1092,7 @@ class GeneratedMethodsMixin:
         *,
         date: str | None = None,
         project_id: int | None = None,
-    ) -> SiteAuditProjectsResponse:
+    ) -> list[SiteAuditProjectsData]:
         """
         Project Health Scores.
 
@@ -1083,7 +1104,7 @@ class GeneratedMethodsMixin:
                 project_id (int, optional): The unique identifier of the project. You can find it in the URL of your Site Audit project in Ahrefs: `https://app.ahrefs.com/site-audit/#project_id#` Default: None.
 
         Returns:
-            SiteAuditProjectsResponse containing SiteAuditProjectsData:
+            list[SiteAuditProjectsData]:
                 project_id (str): The unique identifier of the project.
                 project_name (str): The project name.
                 target_protocol (str): The protocol of the target. Possible values: `both`, `http`, `https`.
@@ -1099,7 +1120,8 @@ class GeneratedMethodsMixin:
         """
         if request is None:
             request = SiteAuditProjectsRequest(**{k: v for k, v in [("date", date), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return await self._request("site-audit", "projects", request, SiteAuditProjectsResponse, exclude_none=True)
+        _resp = await self._request("site-audit", "projects", request, SiteAuditProjectsResponse, exclude_none=True)
+        return _resp.data
 
     # Site Explorer API methods
     async def site_explorer_all_backlinks(
@@ -1116,7 +1138,7 @@ class GeneratedMethodsMixin:
         mode: ModeEnum | None = None,
         aggregation: AggregationEnum | None = None,
         history: str | None = None,
-    ) -> SiteExplorerAllBacklinksResponse:
+    ) -> list[SiteExplorerAllBacklinksData]:
         """
         Backlinks.
 
@@ -1134,7 +1156,7 @@ class GeneratedMethodsMixin:
                 history (str, optional): A time frame to add lost backlinks to the report. Choose between `live` (no history), `since:<date>` (history since a specified date), and `all_time` (full history). The date should be in YYYY-MM-DD format. Default: 'all_time'.
 
         Returns:
-            SiteExplorerAllBacklinksResponse containing SiteExplorerAllBacklinksData:
+            list[SiteExplorerAllBacklinksData]:
                 ahrefs_rank_source (int): The strength of the referring domain's backlink profile compared to the other websites in our database, with rank #1 being the strongest.
                 ahrefs_rank_target (int): The strength of the target domain's backlink profile compared to the other websites in our database, with rank #1 being the strongest.
                 alt (str | None): The alt attribute of the link.
@@ -1172,7 +1194,8 @@ class GeneratedMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteExplorerAllBacklinksRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("order_by", order_by), ("where", where), ("select", select), ("protocol", protocol), ("target", target), ("mode", mode), ("aggregation", aggregation), ("history", history)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return await self._request("site-explorer", "all-backlinks", request, SiteExplorerAllBacklinksResponse, exclude_none=True)
+        _resp = await self._request("site-explorer", "all-backlinks", request, SiteExplorerAllBacklinksResponse, exclude_none=True)
+        return _resp.data
 
     async def site_explorer_anchors(
         self,
@@ -1187,7 +1210,7 @@ class GeneratedMethodsMixin:
         target: str | None = None,
         mode: ModeEnum | None = None,
         history: str | None = None,
-    ) -> SiteExplorerAnchorsResponse:
+    ) -> list[SiteExplorerAnchorsData]:
         """
         Anchors.
 
@@ -1204,7 +1227,7 @@ class GeneratedMethodsMixin:
                 history (str, optional): A time frame to add lost backlinks to the report. Choose between `live` (no history), `since:<date>` (history since a specified date), and `all_time` (full history). The date should be in YYYY-MM-DD format. Default: 'all_time'.
 
         Returns:
-            SiteExplorerAnchorsResponse containing SiteExplorerAnchorsData:
+            list[SiteExplorerAnchorsData]:
                 anchor (str): The clickable words in a link that point to a URL.
                 dofollow_links (int): The number of links with a given anchor to your target that don’t have the “nofollow” attribute.
                 first_seen (str): The date we first found a link with a given anchor to your target.
@@ -1222,7 +1245,8 @@ class GeneratedMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteExplorerAnchorsRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("order_by", order_by), ("where", where), ("select", select), ("protocol", protocol), ("target", target), ("mode", mode), ("history", history)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return await self._request("site-explorer", "anchors", request, SiteExplorerAnchorsResponse, exclude_none=True)
+        _resp = await self._request("site-explorer", "anchors", request, SiteExplorerAnchorsResponse, exclude_none=True)
+        return _resp.data
 
     async def site_explorer_backlinks_stats(
         self,
@@ -1232,7 +1256,7 @@ class GeneratedMethodsMixin:
         target: str | None = None,
         mode: ModeEnum | None = None,
         date: DateStr | None = None,
-    ) -> SiteExplorerBacklinksStatsResponse:
+    ) -> SiteExplorerBacklinksStatsData | None:
         """
         Backlinks stats.
 
@@ -1244,7 +1268,7 @@ class GeneratedMethodsMixin:
                 date (str, required): A date to report metrics on in YYYY-MM-DD format.
 
         Returns:
-            SiteExplorerBacklinksStatsResponse containing SiteExplorerBacklinksStatsData:
+            SiteExplorerBacklinksStatsData | None:
                 live (int): The total number of links from other websites pointing to your target.
                 all_time (int): The total number of links from other websites pointing to your target for all time.
                 live_refdomains (int): (5 units) The total number of unique domains linking to your target.
@@ -1255,7 +1279,8 @@ class GeneratedMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteExplorerBacklinksStatsRequest(**{k: v for k, v in [("protocol", protocol), ("target", target), ("mode", mode), ("date", date)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return await self._request("site-explorer", "backlinks-stats", request, SiteExplorerBacklinksStatsResponse, exclude_none=True)
+        _resp = await self._request("site-explorer", "backlinks-stats", request, SiteExplorerBacklinksStatsResponse, exclude_none=True)
+        return _resp.data
 
     async def site_explorer_best_by_external_links(
         self,
@@ -1270,7 +1295,7 @@ class GeneratedMethodsMixin:
         target: str | None = None,
         mode: ModeEnum | None = None,
         history: str | None = None,
-    ) -> SiteExplorerBestByExternalLinksResponse:
+    ) -> list[SiteExplorerBestByExternalLinksData]:
         """
         Best by External Links.
 
@@ -1287,7 +1312,7 @@ class GeneratedMethodsMixin:
                 history (str, optional): A time frame to add lost backlinks to the report. Choose between `live` (no history), `since:<date>` (history since a specified date), and `all_time` (full history). The date should be in YYYY-MM-DD format. Default: 'all_time'.
 
         Returns:
-            SiteExplorerBestByExternalLinksResponse containing SiteExplorerBestByExternalLinksData:
+            list[SiteExplorerBestByExternalLinksData]:
                 dofollow_to_target (int): The number of links to your target page that don’t have the “nofollow” attribute.
                 first_seen_link (str): The date we first found a link to your target.
                 http_code_target (int | None): The return code from HTTP protocol returned during the target page crawl.
@@ -1315,7 +1340,8 @@ class GeneratedMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteExplorerBestByExternalLinksRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("order_by", order_by), ("where", where), ("select", select), ("protocol", protocol), ("target", target), ("mode", mode), ("history", history)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return await self._request("site-explorer", "best-by-external-links", request, SiteExplorerBestByExternalLinksResponse, exclude_none=True)
+        _resp = await self._request("site-explorer", "best-by-external-links", request, SiteExplorerBestByExternalLinksResponse, exclude_none=True)
+        return _resp.data
 
     async def site_explorer_best_by_internal_links(
         self,
@@ -1329,7 +1355,7 @@ class GeneratedMethodsMixin:
         protocol: ProtocolEnum | None = None,
         target: str | None = None,
         mode: ModeEnum | None = None,
-    ) -> SiteExplorerBestByInternalLinksResponse:
+    ) -> list[SiteExplorerBestByInternalLinksData]:
         """
         Best by Internal Links.
 
@@ -1345,7 +1371,7 @@ class GeneratedMethodsMixin:
                 mode (ModeEnum, optional): The scope of the search based on the target you entered. Default: 'subdomains'.
 
         Returns:
-            SiteExplorerBestByInternalLinksResponse containing SiteExplorerBestByInternalLinksData:
+            list[SiteExplorerBestByInternalLinksData]:
                 canonical_to_target (int): The number of inbound canonical links to your target page.
                 dofollow_to_target (int): The number of links to your target page that don’t have the “nofollow” attribute.
                 first_seen_link (str): The date we first found a link to your target.
@@ -1369,7 +1395,8 @@ class GeneratedMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteExplorerBestByInternalLinksRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("order_by", order_by), ("where", where), ("select", select), ("protocol", protocol), ("target", target), ("mode", mode)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return await self._request("site-explorer", "best-by-internal-links", request, SiteExplorerBestByInternalLinksResponse, exclude_none=True)
+        _resp = await self._request("site-explorer", "best-by-internal-links", request, SiteExplorerBestByInternalLinksResponse, exclude_none=True)
+        return _resp.data
 
     async def site_explorer_broken_backlinks(
         self,
@@ -1384,7 +1411,7 @@ class GeneratedMethodsMixin:
         target: str | None = None,
         mode: ModeEnum | None = None,
         aggregation: AggregationEnum | None = None,
-    ) -> SiteExplorerBrokenBacklinksResponse:
+    ) -> list[SiteExplorerBrokenBacklinksData]:
         """
         Broken Backlinks.
 
@@ -1401,7 +1428,7 @@ class GeneratedMethodsMixin:
                 aggregation (AggregationEnum, optional): The backlinks grouping mode. Default: 'similar_links'.
 
         Returns:
-            SiteExplorerBrokenBacklinksResponse containing SiteExplorerBrokenBacklinksData:
+            list[SiteExplorerBrokenBacklinksData]:
                 ahrefs_rank_source (int): The strength of the referring domain's backlink profile compared to the other websites in our database, with rank #1 being the strongest.
                 ahrefs_rank_target (int): The strength of the target domain's backlink profile compared to the other websites in our database, with rank #1 being the strongest.
                 alt (str | None): The alt attribute of the link.
@@ -1439,7 +1466,8 @@ class GeneratedMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteExplorerBrokenBacklinksRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("order_by", order_by), ("where", where), ("select", select), ("protocol", protocol), ("target", target), ("mode", mode), ("aggregation", aggregation)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return await self._request("site-explorer", "broken-backlinks", request, SiteExplorerBrokenBacklinksResponse, exclude_none=True)
+        _resp = await self._request("site-explorer", "broken-backlinks", request, SiteExplorerBrokenBacklinksResponse, exclude_none=True)
+        return _resp.data
 
     async def site_explorer_domain_rating(
         self,
@@ -1448,7 +1476,7 @@ class GeneratedMethodsMixin:
         protocol: ProtocolEnum | None = None,
         target: str | None = None,
         date: DateStr | None = None,
-    ) -> SiteExplorerDomainRatingResponse:
+    ) -> SiteExplorerDomainRatingData | None:
         """
         Domain rating.
 
@@ -1459,7 +1487,7 @@ class GeneratedMethodsMixin:
                 date (str, required): A date to report metrics on in YYYY-MM-DD format.
 
         Returns:
-            SiteExplorerDomainRatingResponse containing SiteExplorerDomainRatingData:
+            SiteExplorerDomainRatingData | None:
                 domain_rating (float): The strength of your target's backlink profile compared to the other websites in our database on a 100-point logarithmic scale.
                 ahrefs_rank (int | None): The strength of your target's backlink profile compared to the other websites in our database, with rank #1 being the strongest.
         """
@@ -1468,7 +1496,8 @@ class GeneratedMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteExplorerDomainRatingRequest(**{k: v for k, v in [("protocol", protocol), ("target", target), ("date", date)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return await self._request("site-explorer", "domain-rating", request, SiteExplorerDomainRatingResponse, exclude_none=True)
+        _resp = await self._request("site-explorer", "domain-rating", request, SiteExplorerDomainRatingResponse, exclude_none=True)
+        return _resp.data
 
     async def site_explorer_domain_rating_history(
         self,
@@ -1478,7 +1507,7 @@ class GeneratedMethodsMixin:
         date_to: DateStr | None = None,
         date_from: DateStr | None = None,
         target: str | None = None,
-    ) -> SiteExplorerDomainRatingHistoryResponse:
+    ) -> list[SiteExplorerDomainRatingHistoryData]:
         """
         Domain Rating history.
 
@@ -1490,7 +1519,7 @@ class GeneratedMethodsMixin:
                 target (str, required): The target of the search: a domain or a URL.
 
         Returns:
-            SiteExplorerDomainRatingHistoryResponse containing SiteExplorerDomainRatingHistoryData:
+            list[SiteExplorerDomainRatingHistoryData]:
                 date (str)
                 domain_rating (float): The strength of your target page's backlink profile compared to the other websites in our database on a 100-point logarithmic scale.
         """
@@ -1499,7 +1528,8 @@ class GeneratedMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteExplorerDomainRatingHistoryRequest(**{k: v for k, v in [("history_grouping", history_grouping), ("date_to", date_to), ("date_from", date_from), ("target", target)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return await self._request("site-explorer", "domain-rating-history", request, SiteExplorerDomainRatingHistoryResponse, exclude_none=True)
+        _resp = await self._request("site-explorer", "domain-rating-history", request, SiteExplorerDomainRatingHistoryResponse, exclude_none=True)
+        return _resp.data
 
     async def site_explorer_keywords_history(
         self,
@@ -1513,7 +1543,7 @@ class GeneratedMethodsMixin:
         protocol: ProtocolEnum | None = None,
         target: str | None = None,
         mode: ModeEnum | None = None,
-    ) -> SiteExplorerKeywordsHistoryResponse:
+    ) -> list[SiteExplorerKeywordsHistoryData]:
         """
         Keywords history.
 
@@ -1529,7 +1559,7 @@ class GeneratedMethodsMixin:
                 mode (ModeEnum, optional): The scope of the search based on the target you entered. Default: 'subdomains'.
 
         Returns:
-            SiteExplorerKeywordsHistoryResponse containing SiteExplorerKeywordsHistoryData:
+            list[SiteExplorerKeywordsHistoryData]:
                 date (str)
                 top11_20 (int): The total number of keywords that your target ranks for in the top 11-20 organic search results.
                 top11_plus (int): The total number of keywords that your target ranks for in the top 11+ organic search results.
@@ -1543,7 +1573,8 @@ class GeneratedMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteExplorerKeywordsHistoryRequest(**{k: v for k, v in [("select", select), ("history_grouping", history_grouping), ("date_to", date_to), ("date_from", date_from), ("country", country), ("protocol", protocol), ("target", target), ("mode", mode)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return await self._request("site-explorer", "keywords-history", request, SiteExplorerKeywordsHistoryResponse, exclude_none=True)
+        _resp = await self._request("site-explorer", "keywords-history", request, SiteExplorerKeywordsHistoryResponse, exclude_none=True)
+        return _resp.data
 
     async def site_explorer_linked_anchors_external(
         self,
@@ -1557,7 +1588,7 @@ class GeneratedMethodsMixin:
         protocol: ProtocolEnum | None = None,
         target: str | None = None,
         mode: ModeEnum | None = None,
-    ) -> SiteExplorerLinkedAnchorsExternalResponse:
+    ) -> list[SiteExplorerLinkedAnchorsExternalData]:
         """
         Outgoing external anchors.
 
@@ -1573,7 +1604,7 @@ class GeneratedMethodsMixin:
                 mode (ModeEnum, optional): The scope of the search based on the target you entered. Default: 'subdomains'.
 
         Returns:
-            SiteExplorerLinkedAnchorsExternalResponse containing SiteExplorerLinkedAnchorsExternalData:
+            list[SiteExplorerLinkedAnchorsExternalData]:
                 anchor (str): The clickable words in a link that point to a URL.
                 dofollow_links (int): The number of outbound links with a given anchor from your target that don’t have the “nofollow” attribute.
                 first_seen (str): The date we first found a link with a given anchor on your target.
@@ -1586,7 +1617,8 @@ class GeneratedMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteExplorerLinkedAnchorsExternalRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("order_by", order_by), ("where", where), ("select", select), ("protocol", protocol), ("target", target), ("mode", mode)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return await self._request("site-explorer", "linked-anchors-external", request, SiteExplorerLinkedAnchorsExternalResponse, exclude_none=True)
+        _resp = await self._request("site-explorer", "linked-anchors-external", request, SiteExplorerLinkedAnchorsExternalResponse, exclude_none=True)
+        return _resp.data
 
     async def site_explorer_linked_anchors_internal(
         self,
@@ -1600,7 +1632,7 @@ class GeneratedMethodsMixin:
         protocol: ProtocolEnum | None = None,
         target: str | None = None,
         mode: ModeEnum | None = None,
-    ) -> SiteExplorerLinkedAnchorsInternalResponse:
+    ) -> list[SiteExplorerLinkedAnchorsInternalData]:
         """
         Outgoing internal anchors.
 
@@ -1616,7 +1648,7 @@ class GeneratedMethodsMixin:
                 mode (ModeEnum, optional): The scope of the search based on the target you entered. Default: 'subdomains'.
 
         Returns:
-            SiteExplorerLinkedAnchorsInternalResponse containing SiteExplorerLinkedAnchorsInternalData:
+            list[SiteExplorerLinkedAnchorsInternalData]:
                 anchor (str): The clickable words in a link that point to a URL.
                 dofollow_links (int): The number of outbound links with a given anchor from your target that don’t have the “nofollow” attribute.
                 first_seen (str): The date we first found a link with a given anchor on your target.
@@ -1628,7 +1660,8 @@ class GeneratedMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteExplorerLinkedAnchorsInternalRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("order_by", order_by), ("where", where), ("select", select), ("protocol", protocol), ("target", target), ("mode", mode)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return await self._request("site-explorer", "linked-anchors-internal", request, SiteExplorerLinkedAnchorsInternalResponse, exclude_none=True)
+        _resp = await self._request("site-explorer", "linked-anchors-internal", request, SiteExplorerLinkedAnchorsInternalResponse, exclude_none=True)
+        return _resp.data
 
     async def site_explorer_linkeddomains(
         self,
@@ -1642,7 +1675,7 @@ class GeneratedMethodsMixin:
         protocol: ProtocolEnum | None = None,
         target: str | None = None,
         mode: ModeEnum | None = None,
-    ) -> SiteExplorerLinkeddomainsResponse:
+    ) -> list[SiteExplorerLinkeddomainsData]:
         """
         Linked Domains.
 
@@ -1658,7 +1691,7 @@ class GeneratedMethodsMixin:
                 mode (ModeEnum, optional): The scope of the search based on the target you entered. Default: 'subdomains'.
 
         Returns:
-            SiteExplorerLinkeddomainsResponse containing SiteExplorerLinkeddomainsData:
+            list[SiteExplorerLinkeddomainsData]:
                 dofollow_linked_domains (int): The number of unique root domains with dofollow links linked from the linked domain.
                 dofollow_links (int): The number of links from your target to the linked domain that don’t have the “nofollow” attribute.
                 dofollow_refdomains (int): (5 units) The number of unique domains with dofollow links to the linked domain.
@@ -1675,7 +1708,8 @@ class GeneratedMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteExplorerLinkeddomainsRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("order_by", order_by), ("where", where), ("select", select), ("protocol", protocol), ("target", target), ("mode", mode)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return await self._request("site-explorer", "linkeddomains", request, SiteExplorerLinkeddomainsResponse, exclude_none=True)
+        _resp = await self._request("site-explorer", "linkeddomains", request, SiteExplorerLinkeddomainsResponse, exclude_none=True)
+        return _resp.data
 
     async def site_explorer_metrics(
         self,
@@ -1687,7 +1721,7 @@ class GeneratedMethodsMixin:
         target: str | None = None,
         mode: ModeEnum | None = None,
         date: DateStr | None = None,
-    ) -> SiteExplorerMetricsResponse:
+    ) -> SiteExplorerMetricsData | None:
         """
         Metrics.
 
@@ -1701,7 +1735,7 @@ class GeneratedMethodsMixin:
                 date (str, required): A date to report metrics on in YYYY-MM-DD format.
 
         Returns:
-            SiteExplorerMetricsResponse containing SiteExplorerMetricsData:
+            SiteExplorerMetricsData | None:
                 org_keywords (int): The total number of keywords that your target ranks for in the top 100 organic search results.
                 paid_keywords (int): The total number of keywords that your target ranks for in paid search results.
                 org_keywords_1_3 (int): The total number of keywords that your target ranks for in the top 3 organic search results.
@@ -1716,7 +1750,8 @@ class GeneratedMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteExplorerMetricsRequest(**{k: v for k, v in [("volume_mode", volume_mode), ("country", country), ("protocol", protocol), ("target", target), ("mode", mode), ("date", date)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return await self._request("site-explorer", "metrics", request, SiteExplorerMetricsResponse, exclude_none=True)
+        _resp = await self._request("site-explorer", "metrics", request, SiteExplorerMetricsResponse, exclude_none=True)
+        return _resp.data
 
     async def site_explorer_metrics_by_country(
         self,
@@ -1728,7 +1763,7 @@ class GeneratedMethodsMixin:
         target: str | None = None,
         mode: ModeEnum | None = None,
         date: DateStr | None = None,
-    ) -> SiteExplorerMetricsByCountryResponse:
+    ) -> list[SiteExplorerMetricsByCountryData]:
         """
         Metrics by country.
 
@@ -1742,7 +1777,7 @@ class GeneratedMethodsMixin:
                 date (str, required): A date to report metrics on in YYYY-MM-DD format.
 
         Returns:
-            SiteExplorerMetricsByCountryResponse containing SiteExplorerMetricsByCountryData:
+            list[SiteExplorerMetricsByCountryData]:
                 country (CountryEnum1)
                 org_cost (int | None): (10 units) The estimated value of your target's monthly organic search traffic, in USD cents.
                 org_keywords (int): The total number of keywords that your target ranks for in the top 100 organic search results.
@@ -1758,7 +1793,8 @@ class GeneratedMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteExplorerMetricsByCountryRequest(**{k: v for k, v in [("select", select), ("volume_mode", volume_mode), ("protocol", protocol), ("target", target), ("mode", mode), ("date", date)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return await self._request("site-explorer", "metrics-by-country", request, SiteExplorerMetricsByCountryResponse, exclude_none=True)
+        _resp = await self._request("site-explorer", "metrics-by-country", request, SiteExplorerMetricsByCountryResponse, exclude_none=True)
+        return _resp.data
 
     async def site_explorer_metrics_history(
         self,
@@ -1773,7 +1809,7 @@ class GeneratedMethodsMixin:
         protocol: ProtocolEnum | None = None,
         target: str | None = None,
         mode: ModeEnum | None = None,
-    ) -> SiteExplorerMetricsHistoryResponse:
+    ) -> list[SiteExplorerMetricsHistoryData]:
         """
         Metrics history.
 
@@ -1790,7 +1826,7 @@ class GeneratedMethodsMixin:
                 mode (ModeEnum, optional): The scope of the search based on the target you entered. Default: 'subdomains'.
 
         Returns:
-            SiteExplorerMetricsHistoryResponse containing SiteExplorerMetricsHistoryData:
+            list[SiteExplorerMetricsHistoryData]:
                 date (str)
                 org_cost (int): (10 units) The estimated cost of your target's monthly organic search traffic, in USD cents.
                 org_traffic (int): (10 units) The estimated number of monthly visitors that your target gets from organic search.
@@ -1802,7 +1838,8 @@ class GeneratedMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteExplorerMetricsHistoryRequest(**{k: v for k, v in [("select", select), ("volume_mode", volume_mode), ("history_grouping", history_grouping), ("date_to", date_to), ("date_from", date_from), ("country", country), ("protocol", protocol), ("target", target), ("mode", mode)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return await self._request("site-explorer", "metrics-history", request, SiteExplorerMetricsHistoryResponse, exclude_none=True)
+        _resp = await self._request("site-explorer", "metrics-history", request, SiteExplorerMetricsHistoryResponse, exclude_none=True)
+        return _resp.data
 
     async def site_explorer_organic_competitors(
         self,
@@ -1820,7 +1857,7 @@ class GeneratedMethodsMixin:
         date_compared: DateStr | None = None,
         date: DateStr | None = None,
         volume_mode: VolumeModeEnum | None = None,
-    ) -> SiteExplorerOrganicCompetitorsResponse:
+    ) -> list[SiteExplorerOrganicCompetitorsData]:
         """
         Organic competitors.
 
@@ -1840,7 +1877,7 @@ class GeneratedMethodsMixin:
                 volume_mode (VolumeModeEnum, optional): The search volume calculation mode: monthly or average. It affects volume, traffic, and traffic value. Default: 'monthly'.
 
         Returns:
-            SiteExplorerOrganicCompetitorsResponse containing SiteExplorerOrganicCompetitorsData:
+            list[SiteExplorerOrganicCompetitorsData]:
                 competitor_domain (str | None): A competitor's domain of your target in “domains" group mode.
                 competitor_url (str | None): A competitor's URL of your target in pages" group mode.
                 domain_rating (float): The strength of a domain's backlink profile compared to the others in our database on a 100-point scale.
@@ -1867,7 +1904,8 @@ class GeneratedMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteExplorerOrganicCompetitorsRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("order_by", order_by), ("where", where), ("select", select), ("protocol", protocol), ("target", target), ("mode", mode), ("country", country), ("date_compared", date_compared), ("date", date), ("volume_mode", volume_mode)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return await self._request("site-explorer", "organic-competitors", request, SiteExplorerOrganicCompetitorsResponse, exclude_none=True)
+        _resp = await self._request("site-explorer", "organic-competitors", request, SiteExplorerOrganicCompetitorsResponse, exclude_none=True)
+        return _resp.data
 
     async def site_explorer_organic_keywords(
         self,
@@ -1885,7 +1923,7 @@ class GeneratedMethodsMixin:
         date_compared: DateStr | None = None,
         date: DateStr | None = None,
         volume_mode: VolumeModeEnum | None = None,
-    ) -> SiteExplorerOrganicKeywordsResponse:
+    ) -> list[SiteExplorerOrganicKeywordsData]:
         """
         Organic keywords.
 
@@ -1905,7 +1943,7 @@ class GeneratedMethodsMixin:
                 volume_mode (VolumeModeEnum, optional): The search volume calculation mode: monthly or average. It affects volume, traffic, and traffic value. Default: 'monthly'.
 
         Returns:
-            SiteExplorerOrganicKeywordsResponse containing SiteExplorerOrganicKeywordsData:
+            list[SiteExplorerOrganicKeywordsData]:
                 all_positions (list[dict[str, Any] | None]): (5 units) The list of all positions for a keyword.
                 all_positions_prev (list[dict[str, Any] | None]): (5 units) The list of all positions for a keyword on the comparison date.
                 best_position (int | None): The top position your target ranks for in the organic search results for a keyword.
@@ -1943,7 +1981,8 @@ class GeneratedMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteExplorerOrganicKeywordsRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("order_by", order_by), ("where", where), ("select", select), ("protocol", protocol), ("target", target), ("mode", mode), ("country", country), ("date_compared", date_compared), ("date", date), ("volume_mode", volume_mode)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return await self._request("site-explorer", "organic-keywords", request, SiteExplorerOrganicKeywordsResponse, exclude_none=True)
+        _resp = await self._request("site-explorer", "organic-keywords", request, SiteExplorerOrganicKeywordsResponse, exclude_none=True)
+        return _resp.data
 
     async def site_explorer_outlinks_stats(
         self,
@@ -1952,7 +1991,7 @@ class GeneratedMethodsMixin:
         protocol: ProtocolEnum | None = None,
         mode: ModeEnum | None = None,
         target: str | None = None,
-    ) -> SiteExplorerOutlinksStatsResponse:
+    ) -> SiteExplorerOutlinksStatsData | None:
         """
         Outlinks stats.
 
@@ -1965,7 +2004,7 @@ class GeneratedMethodsMixin:
                 target (str, required): The target of the search: a domain or a URL.
 
         Returns:
-            SiteExplorerOutlinksStatsResponse containing SiteExplorerOutlinksStatsData:
+            SiteExplorerOutlinksStatsData | None:
                 outgoing_links (int): The number of external links from the target.
                 outgoing_links_dofollow (int): The number of external dofollow links from the target.
                 linked_domains (int): The number of unique root domains linked from the target.
@@ -1976,7 +2015,8 @@ class GeneratedMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteExplorerOutlinksStatsRequest(**{k: v for k, v in [("protocol", protocol), ("mode", mode), ("target", target)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return await self._request("site-explorer", "outlinks-stats", request, SiteExplorerOutlinksStatsResponse, exclude_none=True)
+        _resp = await self._request("site-explorer", "outlinks-stats", request, SiteExplorerOutlinksStatsResponse, exclude_none=True)
+        return _resp.data
 
     async def site_explorer_pages_by_traffic(
         self,
@@ -1987,7 +2027,7 @@ class GeneratedMethodsMixin:
         protocol: ProtocolEnum | None = None,
         target: str | None = None,
         mode: ModeEnum | None = None,
-    ) -> SiteExplorerPagesByTrafficResponse:
+    ) -> SiteExplorerPagesByTrafficData | None:
         """
         Pages by traffic.
 
@@ -2000,7 +2040,7 @@ class GeneratedMethodsMixin:
                 mode (ModeEnum, optional): The scope of the search based on the target you entered. Default: 'subdomains'.
 
         Returns:
-            SiteExplorerPagesByTrafficResponse containing SiteExplorerPagesByTrafficData:
+            SiteExplorerPagesByTrafficData | None:
                 range0_pages (int): The total number of pages with 0 traffic.
                 range100_traffic (int): (10 units) The total traffic from pages with 1-100 traffic.
                 range100_pages (int): The total number of pages with 1-100 traffic.
@@ -2018,7 +2058,8 @@ class GeneratedMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteExplorerPagesByTrafficRequest(**{k: v for k, v in [("volume_mode", volume_mode), ("country", country), ("protocol", protocol), ("target", target), ("mode", mode)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return await self._request("site-explorer", "pages-by-traffic", request, SiteExplorerPagesByTrafficResponse, exclude_none=True)
+        _resp = await self._request("site-explorer", "pages-by-traffic", request, SiteExplorerPagesByTrafficResponse, exclude_none=True)
+        return _resp.data
 
     async def site_explorer_pages_history(
         self,
@@ -2031,7 +2072,7 @@ class GeneratedMethodsMixin:
         protocol: ProtocolEnum | None = None,
         target: str | None = None,
         mode: ModeEnum | None = None,
-    ) -> SiteExplorerPagesHistoryResponse:
+    ) -> list[SiteExplorerPagesHistoryData]:
         """
         Pages history.
 
@@ -2046,7 +2087,7 @@ class GeneratedMethodsMixin:
                 mode (ModeEnum, optional): The scope of the search based on the target you entered. Default: 'subdomains'.
 
         Returns:
-            SiteExplorerPagesHistoryResponse containing SiteExplorerPagesHistoryData:
+            list[SiteExplorerPagesHistoryData]:
                 date (str)
                 pages (int): The total number of pages from a target ranking in the top 100 organic search results.
         """
@@ -2055,7 +2096,8 @@ class GeneratedMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteExplorerPagesHistoryRequest(**{k: v for k, v in [("history_grouping", history_grouping), ("date_to", date_to), ("date_from", date_from), ("country", country), ("protocol", protocol), ("target", target), ("mode", mode)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return await self._request("site-explorer", "pages-history", request, SiteExplorerPagesHistoryResponse, exclude_none=True)
+        _resp = await self._request("site-explorer", "pages-history", request, SiteExplorerPagesHistoryResponse, exclude_none=True)
+        return _resp.data
 
     async def site_explorer_paid_pages(
         self,
@@ -2073,7 +2115,7 @@ class GeneratedMethodsMixin:
         date_compared: DateStr | None = None,
         date: DateStr | None = None,
         volume_mode: VolumeModeEnum | None = None,
-    ) -> SiteExplorerPaidPagesResponse:
+    ) -> list[SiteExplorerPaidPagesData]:
         """
         Paid pages.
 
@@ -2093,7 +2135,7 @@ class GeneratedMethodsMixin:
                 volume_mode (VolumeModeEnum, optional): The search volume calculation mode: monthly or average. It affects volume, traffic, and traffic value. Default: 'monthly'.
 
         Returns:
-            SiteExplorerPaidPagesResponse containing SiteExplorerPaidPagesData:
+            list[SiteExplorerPaidPagesData]:
                 ads_count (int | None): The number of unique ads with a page.
                 ads_count_diff (int): The change in ads between your selected dates.
                 ads_count_prev (int | None): The number of ads on the comparison date.
@@ -2131,7 +2173,8 @@ class GeneratedMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteExplorerPaidPagesRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("order_by", order_by), ("where", where), ("select", select), ("protocol", protocol), ("target", target), ("mode", mode), ("country", country), ("date_compared", date_compared), ("date", date), ("volume_mode", volume_mode)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return await self._request("site-explorer", "paid-pages", request, SiteExplorerPaidPagesResponse, exclude_none=True)
+        _resp = await self._request("site-explorer", "paid-pages", request, SiteExplorerPaidPagesResponse, exclude_none=True)
+        return _resp.data
 
     async def site_explorer_refdomains(
         self,
@@ -2146,7 +2189,7 @@ class GeneratedMethodsMixin:
         target: str | None = None,
         mode: ModeEnum | None = None,
         history: str | None = None,
-    ) -> SiteExplorerRefdomainsResponse:
+    ) -> list[SiteExplorerRefdomainsData]:
         """
         Refdomains.
 
@@ -2163,7 +2206,7 @@ class GeneratedMethodsMixin:
                 history (str, optional): A time frame to add lost backlinks to the report. Choose between `live` (no history), `since:<date>` (history since a specified date), and `all_time` (full history). The date should be in YYYY-MM-DD format. Default: 'all_time'.
 
         Returns:
-            SiteExplorerRefdomainsResponse containing SiteExplorerRefdomainsData:
+            list[SiteExplorerRefdomainsData]:
                 dofollow_linked_domains (int): The number of unique root domains with dofollow links linked from the referring domain.
                 dofollow_links (int): The number of links from the referring domain to your target that don't have the “nofollow” attribute.
                 dofollow_refdomains (int): (5 units) The number of unique domains with dofollow links to the referring domain.
@@ -2185,7 +2228,8 @@ class GeneratedMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteExplorerRefdomainsRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("order_by", order_by), ("where", where), ("select", select), ("protocol", protocol), ("target", target), ("mode", mode), ("history", history)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return await self._request("site-explorer", "refdomains", request, SiteExplorerRefdomainsResponse, exclude_none=True)
+        _resp = await self._request("site-explorer", "refdomains", request, SiteExplorerRefdomainsResponse, exclude_none=True)
+        return _resp.data
 
     async def site_explorer_refdomains_history(
         self,
@@ -2197,7 +2241,7 @@ class GeneratedMethodsMixin:
         protocol: ProtocolEnum | None = None,
         target: str | None = None,
         mode: ModeEnum | None = None,
-    ) -> SiteExplorerRefdomainsHistoryResponse:
+    ) -> list[SiteExplorerRefdomainsHistoryData]:
         """
         Refdomains history.
 
@@ -2211,7 +2255,7 @@ class GeneratedMethodsMixin:
                 mode (ModeEnum, optional): The scope of the search based on the target you entered. Default: 'subdomains'.
 
         Returns:
-            SiteExplorerRefdomainsHistoryResponse containing SiteExplorerRefdomainsHistoryData:
+            list[SiteExplorerRefdomainsHistoryData]:
                 date (str)
                 refdomains (int): (5 units) The total number of unique domains linking to your target.
         """
@@ -2220,7 +2264,8 @@ class GeneratedMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteExplorerRefdomainsHistoryRequest(**{k: v for k, v in [("history_grouping", history_grouping), ("date_to", date_to), ("date_from", date_from), ("protocol", protocol), ("target", target), ("mode", mode)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return await self._request("site-explorer", "refdomains-history", request, SiteExplorerRefdomainsHistoryResponse, exclude_none=True)
+        _resp = await self._request("site-explorer", "refdomains-history", request, SiteExplorerRefdomainsHistoryResponse, exclude_none=True)
+        return _resp.data
 
     async def site_explorer_top_pages(
         self,
@@ -2238,7 +2283,7 @@ class GeneratedMethodsMixin:
         date_compared: DateStr | None = None,
         date: DateStr | None = None,
         volume_mode: VolumeModeEnum | None = None,
-    ) -> SiteExplorerTopPagesResponse:
+    ) -> list[SiteExplorerTopPagesData]:
         """
         Top pages.
 
@@ -2258,7 +2303,7 @@ class GeneratedMethodsMixin:
                 volume_mode (VolumeModeEnum, optional): The search volume calculation mode: monthly or average. It affects volume, traffic, and traffic value. Default: 'monthly'.
 
         Returns:
-            SiteExplorerTopPagesResponse containing SiteExplorerTopPagesData:
+            list[SiteExplorerTopPagesData]:
                 keywords (int | None): The total number of keywords that your target ranks for in the top 100 organic search results.
                 keywords_diff (int): The change in keywords between your selected dates.
                 keywords_diff_percent (int): The change in keywords between your selected dates, in percents.
@@ -2296,7 +2341,8 @@ class GeneratedMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteExplorerTopPagesRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("order_by", order_by), ("where", where), ("select", select), ("protocol", protocol), ("target", target), ("mode", mode), ("country", country), ("date_compared", date_compared), ("date", date), ("volume_mode", volume_mode)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return await self._request("site-explorer", "top-pages", request, SiteExplorerTopPagesResponse, exclude_none=True)
+        _resp = await self._request("site-explorer", "top-pages", request, SiteExplorerTopPagesResponse, exclude_none=True)
+        return _resp.data
 
     async def site_explorer_total_search_volume_history(
         self,
@@ -2311,7 +2357,7 @@ class GeneratedMethodsMixin:
         protocol: ProtocolEnum | None = None,
         target: str | None = None,
         mode: ModeEnum | None = None,
-    ) -> SiteExplorerTotalSearchVolumeHistoryResponse:
+    ) -> list[SiteExplorerTotalSearchVolumeHistoryData]:
         """
         Total search volume history.
 
@@ -2328,7 +2374,7 @@ class GeneratedMethodsMixin:
                 mode (ModeEnum, optional): The scope of the search based on the target you entered. Default: 'subdomains'.
 
         Returns:
-            SiteExplorerTotalSearchVolumeHistoryResponse containing SiteExplorerTotalSearchVolumeHistoryData:
+            list[SiteExplorerTotalSearchVolumeHistoryData]:
                 date (str)
                 total_search_volume (int): (10 units) The total search volume of keywords for which your target ranks within the specified `top_positions` in the search results.
         """
@@ -2337,7 +2383,8 @@ class GeneratedMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteExplorerTotalSearchVolumeHistoryRequest(**{k: v for k, v in [("volume_mode", volume_mode), ("top_positions", top_positions), ("history_grouping", history_grouping), ("date_to", date_to), ("date_from", date_from), ("country", country), ("protocol", protocol), ("target", target), ("mode", mode)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return await self._request("site-explorer", "total-search-volume-history", request, SiteExplorerTotalSearchVolumeHistoryResponse, exclude_none=True)
+        _resp = await self._request("site-explorer", "total-search-volume-history", request, SiteExplorerTotalSearchVolumeHistoryResponse, exclude_none=True)
+        return _resp.data
 
     async def site_explorer_url_rating_history(
         self,
@@ -2347,7 +2394,7 @@ class GeneratedMethodsMixin:
         date_to: DateStr | None = None,
         date_from: DateStr | None = None,
         target: str | None = None,
-    ) -> SiteExplorerUrlRatingHistoryResponse:
+    ) -> list[SiteExplorerUrlRatingHistoryData]:
         """
         URL Rating history.
 
@@ -2359,7 +2406,7 @@ class GeneratedMethodsMixin:
                 target (str, required): The target of the search: a domain or a URL.
 
         Returns:
-            SiteExplorerUrlRatingHistoryResponse containing SiteExplorerUrlRatingHistoryData:
+            list[SiteExplorerUrlRatingHistoryData]:
                 date (str)
                 url_rating (float): The strength of your target page's backlink profile compared to the other websites in our database on a 100-point logarithmic scale.
         """
@@ -2368,7 +2415,8 @@ class GeneratedMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteExplorerUrlRatingHistoryRequest(**{k: v for k, v in [("history_grouping", history_grouping), ("date_to", date_to), ("date_from", date_from), ("target", target)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return await self._request("site-explorer", "url-rating-history", request, SiteExplorerUrlRatingHistoryResponse, exclude_none=True)
+        _resp = await self._request("site-explorer", "url-rating-history", request, SiteExplorerUrlRatingHistoryResponse, exclude_none=True)
+        return _resp.data
 
     # fmt: on
 
@@ -2399,7 +2447,7 @@ class GeneratedSyncMethodsMixin:
         market: str | None = None,
         competitors: str | None = None,
         brand: str | None = None,
-    ) -> BrandRadarAiResponsesResponse:
+    ) -> list[BrandRadarAiResponsesData]:
         """
         AI Responses.
 
@@ -2418,7 +2466,7 @@ class GeneratedSyncMethodsMixin:
                 brand (str, optional): A comma-separated list of brands to search for. At least one of brand, competitors, market or where should not be empty. Default: '[]'.
 
         Returns:
-            BrandRadarAiResponsesResponse containing BrandRadarAiResponsesData:
+            list[BrandRadarAiResponsesData]:
                 country (str): The country of the question.
                 links (list[dict[str, Any] | None]): (10 units) The links used for the response.
                 question (str): The question asked by the user.
@@ -2430,7 +2478,8 @@ class GeneratedSyncMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = BrandRadarAiResponsesRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("where", where), ("select", select), ("date", date), ("country", country), ("order_by", order_by), ("data_source", data_source), ("market", market), ("competitors", competitors), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return self._request("brand-radar", "ai-responses", request, BrandRadarAiResponsesResponse, exclude_none=True)
+        _resp = self._request("brand-radar", "ai-responses", request, BrandRadarAiResponsesResponse, exclude_none=True)
+        return _resp.data
 
     def brand_radar_impressions_history(
         self,
@@ -2443,7 +2492,7 @@ class GeneratedSyncMethodsMixin:
         data_source: DataSourceEnum | None = None,
         market: str | None = None,
         brand: str | None = None,
-    ) -> BrandRadarImpressionsHistoryResponse:
+    ) -> list[BrandRadarImpressionsHistoryData]:
         """
         Overview history - Impressions.
 
@@ -2458,7 +2507,7 @@ class GeneratedSyncMethodsMixin:
                 brand (str, required): The brand to search for.
 
         Returns:
-            BrandRadarImpressionsHistoryResponse containing BrandRadarImpressionsHistoryData:
+            list[BrandRadarImpressionsHistoryData]:
                 date (str): date
                 impressions (int): impressions
         """
@@ -2467,7 +2516,8 @@ class GeneratedSyncMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = BrandRadarImpressionsHistoryRequest(**{k: v for k, v in [("where", where), ("date_to", date_to), ("date_from", date_from), ("country", country), ("data_source", data_source), ("market", market), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return self._request("brand-radar", "impressions-history", request, BrandRadarImpressionsHistoryResponse, exclude_none=True)
+        _resp = self._request("brand-radar", "impressions-history", request, BrandRadarImpressionsHistoryResponse, exclude_none=True)
+        return _resp.data
 
     def brand_radar_impressions_overview(
         self,
@@ -2480,7 +2530,7 @@ class GeneratedSyncMethodsMixin:
         market: str | None = None,
         competitors: str | None = None,
         brand: str | None = None,
-    ) -> BrandRadarImpressionsOverviewResponse:
+    ) -> list[BrandRadarImpressionsOverviewData]:
         """
         Overview - Impressions.
 
@@ -2495,7 +2545,7 @@ class GeneratedSyncMethodsMixin:
                 brand (str, optional): A comma-separated list of brands to search for. At least one of brand or competitors should not be empty. Default: '[]'.
 
         Returns:
-            BrandRadarImpressionsOverviewResponse containing BrandRadarImpressionsOverviewData:
+            list[BrandRadarImpressionsOverviewData]:
                 brand (str): Brand name (either your brand or a competitor provided in the request).
                 no_tracked_brands (int): Estimated impressions from responses related to the specified market that do not mention any provided brands (value is zero when `market` is not specified).
                 only_competitors_brands (int): Estimated impressions from responses mentioning only competitor brands.
@@ -2508,7 +2558,8 @@ class GeneratedSyncMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = BrandRadarImpressionsOverviewRequest(**{k: v for k, v in [("where", where), ("select", select), ("country", country), ("data_source", data_source), ("market", market), ("competitors", competitors), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return self._request("brand-radar", "impressions-overview", request, BrandRadarImpressionsOverviewResponse, exclude_none=True)
+        _resp = self._request("brand-radar", "impressions-overview", request, BrandRadarImpressionsOverviewResponse, exclude_none=True)
+        return _resp.data
 
     def brand_radar_mentions_history(
         self,
@@ -2521,7 +2572,7 @@ class GeneratedSyncMethodsMixin:
         data_source: DataSourceEnum | None = None,
         market: str | None = None,
         brand: str | None = None,
-    ) -> BrandRadarMentionsHistoryResponse:
+    ) -> list[BrandRadarMentionsHistoryData]:
         """
         Overview history - Mentions.
 
@@ -2536,7 +2587,7 @@ class GeneratedSyncMethodsMixin:
                 brand (str, required): The brand to search for.
 
         Returns:
-            BrandRadarMentionsHistoryResponse containing BrandRadarMentionsHistoryData:
+            list[BrandRadarMentionsHistoryData]:
                 date (str): date
                 mentions (int): mentions
         """
@@ -2545,7 +2596,8 @@ class GeneratedSyncMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = BrandRadarMentionsHistoryRequest(**{k: v for k, v in [("where", where), ("date_to", date_to), ("date_from", date_from), ("country", country), ("data_source", data_source), ("market", market), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return self._request("brand-radar", "mentions-history", request, BrandRadarMentionsHistoryResponse, exclude_none=True)
+        _resp = self._request("brand-radar", "mentions-history", request, BrandRadarMentionsHistoryResponse, exclude_none=True)
+        return _resp.data
 
     def brand_radar_mentions_overview(
         self,
@@ -2558,7 +2610,7 @@ class GeneratedSyncMethodsMixin:
         market: str | None = None,
         competitors: str | None = None,
         brand: str | None = None,
-    ) -> BrandRadarMentionsOverviewResponse:
+    ) -> list[BrandRadarMentionsOverviewData]:
         """
         Overview - Mentions.
 
@@ -2573,7 +2625,7 @@ class GeneratedSyncMethodsMixin:
                 brand (str, optional): A comma-separated list of brands to search for. At least one of brand or competitors should not be empty. Default: '[]'.
 
         Returns:
-            BrandRadarMentionsOverviewResponse containing BrandRadarMentionsOverviewData:
+            list[BrandRadarMentionsOverviewData]:
                 brand (str): Brand name (either your brand or a competitor provided in the request).
                 no_tracked_brands (int): Estimated mentions from responses related to the specified market that do not mention any provided brands (value is zero when `market` is not specified).
                 only_competitors_brands (int): Estimated mentions from responses mentioning only competitor brands.
@@ -2586,7 +2638,8 @@ class GeneratedSyncMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = BrandRadarMentionsOverviewRequest(**{k: v for k, v in [("where", where), ("select", select), ("country", country), ("data_source", data_source), ("market", market), ("competitors", competitors), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return self._request("brand-radar", "mentions-overview", request, BrandRadarMentionsOverviewResponse, exclude_none=True)
+        _resp = self._request("brand-radar", "mentions-overview", request, BrandRadarMentionsOverviewResponse, exclude_none=True)
+        return _resp.data
 
     def brand_radar_sov_overview(
         self,
@@ -2599,7 +2652,7 @@ class GeneratedSyncMethodsMixin:
         market: str | None = None,
         competitors: str | None = None,
         brand: str | None = None,
-    ) -> BrandRadarSovOverviewResponse:
+    ) -> list[BrandRadarSovOverviewData]:
         """
         Overview - Share of Voice.
 
@@ -2614,7 +2667,7 @@ class GeneratedSyncMethodsMixin:
                 brand (str, optional): A comma-separated list of brands to search for. At least one of brand or competitors should not be empty. Default: '[]'.
 
         Returns:
-            BrandRadarSovOverviewResponse containing BrandRadarSovOverviewData:
+            list[BrandRadarSovOverviewData]:
                 brand (str): Brand name (either your brand or a competitor provided in the request).
                 share_of_voice (float): Estimated share of voice for your brand.
         """
@@ -2623,7 +2676,8 @@ class GeneratedSyncMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = BrandRadarSovOverviewRequest(**{k: v for k, v in [("where", where), ("select", select), ("country", country), ("data_source", data_source), ("market", market), ("competitors", competitors), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return self._request("brand-radar", "sov-overview", request, BrandRadarSovOverviewResponse, exclude_none=True)
+        _resp = self._request("brand-radar", "sov-overview", request, BrandRadarSovOverviewResponse, exclude_none=True)
+        return _resp.data
 
     # Keywords Explorer API methods
     def keywords_explorer_matching_terms(
@@ -2641,7 +2695,7 @@ class GeneratedSyncMethodsMixin:
         keyword_list_id: int | None = None,
         match_mode: MatchModeEnum | None = None,
         terms: TermsEnum | None = None,
-    ) -> KeywordsExplorerMatchingTermsResponse:
+    ) -> list[KeywordsExplorerMatchingTermsData]:
         """
         Matching terms.
 
@@ -2660,7 +2714,7 @@ class GeneratedSyncMethodsMixin:
                 terms (TermsEnum, optional): All keywords ideas or keywords ideas phrased as questions. Default: 'all'.
 
         Returns:
-            KeywordsExplorerMatchingTermsResponse containing KeywordsExplorerMatchingTermsData:
+            list[KeywordsExplorerMatchingTermsData]:
                 cpc (int | None): Cost Per Click shows the average price that advertisers pay for each ad click in paid search results for a keyword, in USD cents.
                 cps (float | None): Clicks Per Search (or CPS) is the ratio of Clicks to Keyword Search volume. It shows how many different search results get clicked, on average, when people search for the target keyword in a given country.
                 difficulty (int | None): (10 units) An estimation of how hard it is to rank in the top 10 organic search results for a keyword on a 100-point scale.
@@ -2682,7 +2736,8 @@ class GeneratedSyncMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = KeywordsExplorerMatchingTermsRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("order_by", order_by), ("where", where), ("select", select), ("country", country), ("search_engine", search_engine), ("keywords", keywords), ("keyword_list_id", keyword_list_id), ("match_mode", match_mode), ("terms", terms)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return self._request("keywords-explorer", "matching-terms", request, KeywordsExplorerMatchingTermsResponse, exclude_none=True)
+        _resp = self._request("keywords-explorer", "matching-terms", request, KeywordsExplorerMatchingTermsResponse, exclude_none=True)
+        return _resp.data
 
     def keywords_explorer_overview(
         self,
@@ -2702,7 +2757,7 @@ class GeneratedSyncMethodsMixin:
         search_engine: SearchEngineEnum | None = None,
         keywords: str | None = None,
         keyword_list_id: int | None = None,
-    ) -> KeywordsExplorerOverviewResponse:
+    ) -> list[KeywordsExplorerOverviewData]:
         """
         Overview.
 
@@ -2726,7 +2781,7 @@ class GeneratedSyncMethodsMixin:
                 keyword_list_id (int, optional): The id of an existing keyword list to show metrics for. Default: None.
 
         Returns:
-            KeywordsExplorerOverviewResponse containing KeywordsExplorerOverviewData:
+            list[KeywordsExplorerOverviewData]:
                 clicks (int | None): The average monthly number of clicks on the search results that people make while searching for the target keyword.
                 cpc (int | None): Cost Per Click shows the average price that advertisers pay for each ad click in paid search results for a keyword, in USD cents.
                 cps (float | None): Clicks Per Search (or CPS) is the ratio of Clicks to Keyword Search volume. It shows how many different search results get clicked, on average, when people search for the target keyword in a given country.
@@ -2754,7 +2809,8 @@ class GeneratedSyncMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = KeywordsExplorerOverviewRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("order_by", order_by), ("where", where), ("select", select), ("volume_monthly_date_to", volume_monthly_date_to), ("volume_monthly_date_from", volume_monthly_date_from), ("target_mode", target_mode), ("target", target), ("target_position", target_position), ("country", country), ("search_engine", search_engine), ("keywords", keywords), ("keyword_list_id", keyword_list_id)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return self._request("keywords-explorer", "overview", request, KeywordsExplorerOverviewResponse, exclude_none=True)
+        _resp = self._request("keywords-explorer", "overview", request, KeywordsExplorerOverviewResponse, exclude_none=True)
+        return _resp.data
 
     def keywords_explorer_related_terms(
         self,
@@ -2770,7 +2826,7 @@ class GeneratedSyncMethodsMixin:
         keyword_list_id: int | None = None,
         view_for: ViewForEnum | None = None,
         terms: TermsEnum1 | None = None,
-    ) -> KeywordsExplorerRelatedTermsResponse:
+    ) -> list[KeywordsExplorerRelatedTermsData]:
         """
         Related terms.
 
@@ -2788,7 +2844,7 @@ class GeneratedSyncMethodsMixin:
                 terms (TermsEnum1, optional): Related keywords which top-ranking pages also rank for (`also_rank_for`), additional keywords frequently mentioned in top-ranking pages (`also_talk_about`), or combination of both (`all`). Default: 'all'.
 
         Returns:
-            KeywordsExplorerRelatedTermsResponse containing KeywordsExplorerRelatedTermsData:
+            list[KeywordsExplorerRelatedTermsData]:
                 cpc (int | None): Cost Per Click shows the average price that advertisers pay for each ad click in paid search results for a keyword, in USD cents.
                 cps (float | None): Clicks Per Search (or CPS) is the ratio of Clicks to Keyword Search volume. It shows how many different search results get clicked, on average, when people search for the target keyword in a given country.
                 difficulty (int | None): (10 units) An estimation of how hard it is to rank in the top 10 organic search results for a keyword on a 100-point scale.
@@ -2810,7 +2866,8 @@ class GeneratedSyncMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = KeywordsExplorerRelatedTermsRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("order_by", order_by), ("where", where), ("select", select), ("country", country), ("keywords", keywords), ("keyword_list_id", keyword_list_id), ("view_for", view_for), ("terms", terms)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return self._request("keywords-explorer", "related-terms", request, KeywordsExplorerRelatedTermsResponse, exclude_none=True)
+        _resp = self._request("keywords-explorer", "related-terms", request, KeywordsExplorerRelatedTermsResponse, exclude_none=True)
+        return _resp.data
 
     def keywords_explorer_search_suggestions(
         self,
@@ -2825,7 +2882,7 @@ class GeneratedSyncMethodsMixin:
         search_engine: SearchEngineEnum | None = None,
         keywords: str | None = None,
         keyword_list_id: int | None = None,
-    ) -> KeywordsExplorerSearchSuggestionsResponse:
+    ) -> list[KeywordsExplorerSearchSuggestionsData]:
         """
         Search suggestions.
 
@@ -2842,7 +2899,7 @@ class GeneratedSyncMethodsMixin:
                 keyword_list_id (int, optional): The id of an existing keyword list to show metrics for. Default: None.
 
         Returns:
-            KeywordsExplorerSearchSuggestionsResponse containing KeywordsExplorerSearchSuggestionsData:
+            list[KeywordsExplorerSearchSuggestionsData]:
                 cpc (int | None): Cost Per Click shows the average price that advertisers pay for each ad click in paid search results for a keyword, in USD cents.
                 cps (float | None): Clicks Per Search (or CPS) is the ratio of Clicks to Keyword Search volume. It shows how many different search results get clicked, on average, when people search for the target keyword in a given country.
                 difficulty (int | None): (10 units) An estimation of how hard it is to rank in the top 10 organic search results for a keyword on a 100-point scale.
@@ -2864,7 +2921,8 @@ class GeneratedSyncMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = KeywordsExplorerSearchSuggestionsRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("order_by", order_by), ("where", where), ("select", select), ("country", country), ("search_engine", search_engine), ("keywords", keywords), ("keyword_list_id", keyword_list_id)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return self._request("keywords-explorer", "search-suggestions", request, KeywordsExplorerSearchSuggestionsResponse, exclude_none=True)
+        _resp = self._request("keywords-explorer", "search-suggestions", request, KeywordsExplorerSearchSuggestionsResponse, exclude_none=True)
+        return _resp.data
 
     def keywords_explorer_volume_by_country(
         self,
@@ -2873,7 +2931,7 @@ class GeneratedSyncMethodsMixin:
         limit: int | None = None,
         search_engine: SearchEngineEnum | None = None,
         keyword: str | None = None,
-    ) -> KeywordsExplorerVolumeByCountryResponse:
+    ) -> list[KeywordsExplorerVolumeByCountryData]:
         """
         Volume by country.
 
@@ -2884,7 +2942,7 @@ class GeneratedSyncMethodsMixin:
                 keyword (str, required): The keyword to show metrics for.
 
         Returns:
-            KeywordsExplorerVolumeByCountryResponse containing KeywordsExplorerVolumeByCountryData:
+            list[KeywordsExplorerVolumeByCountryData]:
                 country (str)
                 volume (int): (10 units) An estimation of the average monthly number of searches for a keyword in a given country.
         """
@@ -2893,7 +2951,8 @@ class GeneratedSyncMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = KeywordsExplorerVolumeByCountryRequest(**{k: v for k, v in [("limit", limit), ("search_engine", search_engine), ("keyword", keyword)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return self._request("keywords-explorer", "volume-by-country", request, KeywordsExplorerVolumeByCountryResponse, exclude_none=True)
+        _resp = self._request("keywords-explorer", "volume-by-country", request, KeywordsExplorerVolumeByCountryResponse, exclude_none=True)
+        return _resp.data
 
     def keywords_explorer_volume_history(
         self,
@@ -2903,7 +2962,7 @@ class GeneratedSyncMethodsMixin:
         date_from: DateStr | None = None,
         country: CountryEnum | None = None,
         keyword: str | None = None,
-    ) -> KeywordsExplorerVolumeHistoryResponse:
+    ) -> list[KeywordsExplorerVolumeHistoryData]:
         """
         Volume history.
 
@@ -2915,7 +2974,7 @@ class GeneratedSyncMethodsMixin:
                 keyword (str, required): The keyword to show metrics for.
 
         Returns:
-            KeywordsExplorerVolumeHistoryResponse containing KeywordsExplorerVolumeHistoryData:
+            list[KeywordsExplorerVolumeHistoryData]:
                 date (str)
                 volume (int): An estimation of the number of searches for a keyword over a given month.
         """
@@ -2924,7 +2983,8 @@ class GeneratedSyncMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = KeywordsExplorerVolumeHistoryRequest(**{k: v for k, v in [("date_to", date_to), ("date_from", date_from), ("country", country), ("keyword", keyword)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return self._request("keywords-explorer", "volume-history", request, KeywordsExplorerVolumeHistoryResponse, exclude_none=True)
+        _resp = self._request("keywords-explorer", "volume-history", request, KeywordsExplorerVolumeHistoryResponse, exclude_none=True)
+        return _resp.data
 
     # Rank Tracker API methods
     def rank_tracker_competitors_overview(
@@ -2941,7 +3001,7 @@ class GeneratedSyncMethodsMixin:
         device: DeviceEnum | None = None,
         project_id: int | None = None,
         volume_mode: VolumeModeEnum | None = None,
-    ) -> RankTrackerCompetitorsOverviewResponse:
+    ) -> list[RankTrackerCompetitorsOverviewData]:
         """
         Competitors overview.
 
@@ -2961,7 +3021,7 @@ class GeneratedSyncMethodsMixin:
                 volume_mode (VolumeModeEnum, optional): The search volume calculation mode: monthly or average. It affects volume, traffic, and traffic value. Default: 'monthly'.
 
         Returns:
-            RankTrackerCompetitorsOverviewResponse containing RankTrackerCompetitorsOverviewData:
+            list[RankTrackerCompetitorsOverviewData]:
                 competitors_list (list[dict[str, Any] | None]): Competitors information for a given keyword. The following fields are included: `url`, `url_prev`, `position`, `position_prev`, `best_position_kind`, `best_position_kind`, `traffic`, `traffic_prev`, `value`, `value_prev`. Fields ending in `prev` are included only in the compared view.
                 country (CountryEnum1): The country that a given keyword is being tracked in. A two-letter country code (ISO 3166-1 alpha-2).
                 keyword (str): The keyword your target ranks for.
@@ -2981,7 +3041,8 @@ class GeneratedSyncMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = RankTrackerCompetitorsOverviewRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("order_by", order_by), ("where", where), ("select", select), ("date_compared", date_compared), ("date", date), ("device", device), ("project_id", project_id), ("volume_mode", volume_mode)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return self._request("rank-tracker", "competitors-overview", request, RankTrackerCompetitorsOverviewResponse, exclude_none=True)
+        _resp = self._request("rank-tracker", "competitors-overview", request, RankTrackerCompetitorsOverviewResponse, exclude_none=True)
+        return _resp.data
 
     def rank_tracker_competitors_pages(
         self,
@@ -2998,7 +3059,7 @@ class GeneratedSyncMethodsMixin:
         device: DeviceEnum | None = None,
         project_id: int | None = None,
         volume_mode: VolumeModeEnum | None = None,
-    ) -> RankTrackerCompetitorsPagesResponse:
+    ) -> list[RankTrackerCompetitorsPagesData]:
         """
         Competitors pages.
 
@@ -3019,7 +3080,7 @@ class GeneratedSyncMethodsMixin:
                 volume_mode (VolumeModeEnum, optional): The search volume calculation mode: monthly or average. It affects volume, traffic, and traffic value. Default: 'monthly'.
 
         Returns:
-            RankTrackerCompetitorsPagesResponse containing RankTrackerCompetitorsPagesData:
+            list[RankTrackerCompetitorsPagesData]:
                 keywords (int): The total number of keywords that your target ranks for in the top 100 organic search results.
                 share_of_traffic_value (float): The share of your target's organic search traffic value compared to the total organic search traffic value for all tracked keywords.
                 share_of_traffic_value_prev (float): The share of traffic value on the comparison date.
@@ -3039,7 +3100,8 @@ class GeneratedSyncMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = RankTrackerCompetitorsPagesRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("order_by", order_by), ("where", where), ("select", select), ("target_and_tracked_competitors_only", target_and_tracked_competitors_only), ("date_compared", date_compared), ("date", date), ("device", device), ("project_id", project_id), ("volume_mode", volume_mode)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return self._request("rank-tracker", "competitors-pages", request, RankTrackerCompetitorsPagesResponse, exclude_none=True)
+        _resp = self._request("rank-tracker", "competitors-pages", request, RankTrackerCompetitorsPagesResponse, exclude_none=True)
+        return _resp.data
 
     def rank_tracker_competitors_stats(
         self,
@@ -3050,7 +3112,7 @@ class GeneratedSyncMethodsMixin:
         device: DeviceEnum | None = None,
         project_id: int | None = None,
         volume_mode: VolumeModeEnum | None = None,
-    ) -> RankTrackerCompetitorsStatsResponse:
+    ) -> list[RankTrackerCompetitorsStatsData]:
         """
         Competitors metrics.
 
@@ -3065,7 +3127,7 @@ class GeneratedSyncMethodsMixin:
                 volume_mode (VolumeModeEnum, optional): The search volume calculation mode: monthly or average. It affects volume, traffic, and traffic value. Default: 'monthly'.
 
         Returns:
-            RankTrackerCompetitorsStatsResponse containing RankTrackerCompetitorsStatsData:
+            list[RankTrackerCompetitorsStatsData]:
                 ai_overview_count (int): The total number of tracked keywords for which your target ranks in an AI Overview.
                 average_position (float | None): The average of your target's top organic positions across all tracked keywords.
                 competitor (str): Competitor's URL.
@@ -3096,7 +3158,8 @@ class GeneratedSyncMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = RankTrackerCompetitorsStatsRequest(**{k: v for k, v in [("select", select), ("date", date), ("device", device), ("project_id", project_id), ("volume_mode", volume_mode)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return self._request("rank-tracker", "competitors-stats", request, RankTrackerCompetitorsStatsResponse, exclude_none=True)
+        _resp = self._request("rank-tracker", "competitors-stats", request, RankTrackerCompetitorsStatsResponse, exclude_none=True)
+        return _resp.data
 
     def rank_tracker_overview(
         self,
@@ -3112,7 +3175,7 @@ class GeneratedSyncMethodsMixin:
         device: DeviceEnum | None = None,
         project_id: int | None = None,
         volume_mode: VolumeModeEnum | None = None,
-    ) -> RankTrackerOverviewResponse:
+    ) -> list[RankTrackerOverviewData]:
         """
         Overview.
 
@@ -3132,7 +3195,7 @@ class GeneratedSyncMethodsMixin:
                 volume_mode (VolumeModeEnum, optional): The search volume calculation mode: monthly or average. It affects volume, traffic, and traffic value. Default: 'monthly'.
 
         Returns:
-            RankTrackerOverviewResponse containing RankTrackerOverviewData:
+            list[RankTrackerOverviewData]:
                 best_position_has_thumbnail (bool | None): The top position (or target URL’s, if set) has a thumbnail.
                 best_position_has_thumbnail_previous (bool | None): The top position (or target URL’s, if set) has a thumbnail on the comparison date.
                 best_position_has_video_preview (bool | None): The top position (or target URL’s, if set) has a video preview.
@@ -3170,7 +3233,8 @@ class GeneratedSyncMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = RankTrackerOverviewRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("order_by", order_by), ("where", where), ("select", select), ("date_compared", date_compared), ("date", date), ("device", device), ("project_id", project_id), ("volume_mode", volume_mode)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return self._request("rank-tracker", "overview", request, RankTrackerOverviewResponse, exclude_none=True)
+        _resp = self._request("rank-tracker", "overview", request, RankTrackerOverviewResponse, exclude_none=True)
+        return _resp.data
 
     def rank_tracker_serp_overview(
         self,
@@ -3184,7 +3248,7 @@ class GeneratedSyncMethodsMixin:
         language_code: str | None = None,
         keyword: str | None = None,
         project_id: int | None = None,
-    ) -> RankTrackerSerpOverviewResponse:
+    ) -> list[RankTrackerSerpOverviewData]:
         """
         SERP Overview.
 
@@ -3202,7 +3266,7 @@ class GeneratedSyncMethodsMixin:
                 project_id (int, required): The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#`
 
         Returns:
-            RankTrackerSerpOverviewResponse containing RankTrackerSerpOverviewData:
+            list[RankTrackerSerpOverviewData]:
                 position (int): The position of the search result in SERP.
                 title (str | None): The title of a ranking page.
                 url (str | None): The URL of a ranking page.
@@ -3225,7 +3289,8 @@ class GeneratedSyncMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = RankTrackerSerpOverviewRequest(**{k: v for k, v in [("top_positions", top_positions), ("device", device), ("date", date), ("location_id", location_id), ("country", country), ("language_code", language_code), ("keyword", keyword), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return self._request("rank-tracker", "serp-overview", request, RankTrackerSerpOverviewResponse, exclude_none=True)
+        _resp = self._request("rank-tracker", "serp-overview", request, RankTrackerSerpOverviewResponse, exclude_none=True)
+        return _resp.data
 
     # Serp Overview API methods
     def serp_overview_serp_overview(
@@ -3237,7 +3302,7 @@ class GeneratedSyncMethodsMixin:
         date: str | None = None,
         country: CountryEnum | None = None,
         keyword: str | None = None,
-    ) -> SerpOverviewSerpOverviewResponse:
+    ) -> list[SerpOverviewSerpOverviewData]:
         """
         SERP Overview.
 
@@ -3250,7 +3315,7 @@ class GeneratedSyncMethodsMixin:
                 keyword (str, required): The keyword to return SERP Overview for.
 
         Returns:
-            SerpOverviewSerpOverviewResponse containing SerpOverviewSerpOverviewData:
+            list[SerpOverviewSerpOverviewData]:
                 ahrefs_rank (int | None): The strength of a domain's backlink profile compared to the other websites in our database, with rank #1 being the strongest.
                 backlinks (int | None): The total number of links from other websites pointing to a search result.
                 domain_rating (float | None): The strength of a domain’s backlink profile compared to the others in our database on a 100-point scale.
@@ -3272,7 +3337,8 @@ class GeneratedSyncMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SerpOverviewSerpOverviewRequest(**{k: v for k, v in [("select", select), ("top_positions", top_positions), ("date", date), ("country", country), ("keyword", keyword)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return self._request("serp-overview", "serp-overview", request, SerpOverviewSerpOverviewResponse, exclude_none=True)
+        _resp = self._request("serp-overview", "serp-overview", request, SerpOverviewSerpOverviewResponse, exclude_none=True)
+        return _resp.data
 
     # Site Audit API methods
     def site_audit_issues(
@@ -3282,7 +3348,7 @@ class GeneratedSyncMethodsMixin:
         date_compared: str | None = None,
         date: str | None = None,
         project_id: int | None = None,
-    ) -> SiteAuditIssuesResponse:
+    ) -> list[SiteAuditIssuesData]:
         """
         Project Issues.
 
@@ -3295,7 +3361,7 @@ class GeneratedSyncMethodsMixin:
                 project_id (int, required): The unique identifier of the project. You can find it in the URL of your Site Audit project in Ahrefs: `https://app.ahrefs.com/site-audit/#project_id#`
 
         Returns:
-            SiteAuditIssuesResponse containing SiteAuditIssuesData:
+            list[SiteAuditIssuesData]:
                 issue_id (str): The unique identifier of the issue.
                 name (str): The name of the issue.
                 importance (str): The importance of the issue. Possible values: `Error`, `Warning`, `Notice`.
@@ -3313,7 +3379,8 @@ class GeneratedSyncMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteAuditIssuesRequest(**{k: v for k, v in [("date_compared", date_compared), ("date", date), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return self._request("site-audit", "issues", request, SiteAuditIssuesResponse, exclude_none=True)
+        _resp = self._request("site-audit", "issues", request, SiteAuditIssuesResponse, exclude_none=True)
+        return _resp.data
 
     def site_audit_page_content(
         self,
@@ -3323,7 +3390,7 @@ class GeneratedSyncMethodsMixin:
         date: str | None = None,
         target_url: str | None = None,
         project_id: int | None = None,
-    ) -> SiteAuditPageContentResponse:
+    ) -> SiteAuditPageContentData | None:
         """
         Page content.
 
@@ -3337,7 +3404,7 @@ class GeneratedSyncMethodsMixin:
                 project_id (int, required): The unique identifier of the project. Only projects with verified ownership are supported. You can find the project ID in the URL of your Site Audit project in Ahrefs: `https://app.ahrefs.com/site-audit/#project_id#`
 
         Returns:
-            SiteAuditPageContentResponse containing SiteAuditPageContentData:
+            SiteAuditPageContentData | None:
                 crawl_datetime (str): The timestamp when the page was crawled.
                 page_text (str | None): The text extracted from the page content.
                 raw_html (str | None): The raw HTML of the page.
@@ -3348,7 +3415,8 @@ class GeneratedSyncMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteAuditPageContentRequest(**{k: v for k, v in [("select", select), ("date", date), ("target_url", target_url), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return self._request("site-audit", "page-content", request, SiteAuditPageContentResponse, exclude_none=True)
+        _resp = self._request("site-audit", "page-content", request, SiteAuditPageContentResponse, exclude_none=True)
+        return _resp.data
 
     def site_audit_page_explorer(
         self,
@@ -3364,7 +3432,7 @@ class GeneratedSyncMethodsMixin:
         date_compared: str | None = None,
         date: str | None = None,
         project_id: int | None = None,
-    ) -> SiteAuditPageExplorerResponse:
+    ) -> list[SiteAuditPageExplorerData]:
         """
         Page explorer.
 
@@ -3384,7 +3452,7 @@ class GeneratedSyncMethodsMixin:
                 project_id (int, required): The unique identifier of the project. Only projects with verified ownership are supported. You can find the project ID in the URL of your Site Audit project in Ahrefs: `https://app.ahrefs.com/site-audit/#project_id#`
 
         Returns:
-            SiteAuditPageExplorerResponse containing SiteAuditPageExplorerData:
+            list[SiteAuditPageExplorerData]:
                 ai_content_level (str | None): The estimated percentage of AI-generated text on the page. Possible values: `None`, `Low`, `Moderate`, `High`, `Very High`
                 ai_content_status (str | None): AI detection status for each page. Possible values: - `Success`: Content analyzed successfully - `Content_too_short`: Not enough text for reliable detection - `Not_eligible`: URL isn't an internal HTML page - `Failed`: Internal issue prevented detection - `Detection_off`: Disabled in Crawl settings
                 alternate (int | None): The number of incoming external links from rel="alternate" attributes on the pages (data from Ahrefs' Site Explorer database)
@@ -3422,7 +3490,8 @@ class GeneratedSyncMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteAuditPageExplorerRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("order_by", order_by), ("where", where), ("select", select), ("filter_mode", filter_mode), ("issue_id", issue_id), ("date_compared", date_compared), ("date", date), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return self._request("site-audit", "page-explorer", request, SiteAuditPageExplorerResponse, exclude_none=True)
+        _resp = self._request("site-audit", "page-explorer", request, SiteAuditPageExplorerResponse, exclude_none=True)
+        return _resp.data
 
     def site_audit_projects(
         self,
@@ -3430,7 +3499,7 @@ class GeneratedSyncMethodsMixin:
         *,
         date: str | None = None,
         project_id: int | None = None,
-    ) -> SiteAuditProjectsResponse:
+    ) -> list[SiteAuditProjectsData]:
         """
         Project Health Scores.
 
@@ -3442,7 +3511,7 @@ class GeneratedSyncMethodsMixin:
                 project_id (int, optional): The unique identifier of the project. You can find it in the URL of your Site Audit project in Ahrefs: `https://app.ahrefs.com/site-audit/#project_id#` Default: None.
 
         Returns:
-            SiteAuditProjectsResponse containing SiteAuditProjectsData:
+            list[SiteAuditProjectsData]:
                 project_id (str): The unique identifier of the project.
                 project_name (str): The project name.
                 target_protocol (str): The protocol of the target. Possible values: `both`, `http`, `https`.
@@ -3458,7 +3527,8 @@ class GeneratedSyncMethodsMixin:
         """
         if request is None:
             request = SiteAuditProjectsRequest(**{k: v for k, v in [("date", date), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return self._request("site-audit", "projects", request, SiteAuditProjectsResponse, exclude_none=True)
+        _resp = self._request("site-audit", "projects", request, SiteAuditProjectsResponse, exclude_none=True)
+        return _resp.data
 
     # Site Explorer API methods
     def site_explorer_all_backlinks(
@@ -3475,7 +3545,7 @@ class GeneratedSyncMethodsMixin:
         mode: ModeEnum | None = None,
         aggregation: AggregationEnum | None = None,
         history: str | None = None,
-    ) -> SiteExplorerAllBacklinksResponse:
+    ) -> list[SiteExplorerAllBacklinksData]:
         """
         Backlinks.
 
@@ -3493,7 +3563,7 @@ class GeneratedSyncMethodsMixin:
                 history (str, optional): A time frame to add lost backlinks to the report. Choose between `live` (no history), `since:<date>` (history since a specified date), and `all_time` (full history). The date should be in YYYY-MM-DD format. Default: 'all_time'.
 
         Returns:
-            SiteExplorerAllBacklinksResponse containing SiteExplorerAllBacklinksData:
+            list[SiteExplorerAllBacklinksData]:
                 ahrefs_rank_source (int): The strength of the referring domain's backlink profile compared to the other websites in our database, with rank #1 being the strongest.
                 ahrefs_rank_target (int): The strength of the target domain's backlink profile compared to the other websites in our database, with rank #1 being the strongest.
                 alt (str | None): The alt attribute of the link.
@@ -3531,7 +3601,8 @@ class GeneratedSyncMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteExplorerAllBacklinksRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("order_by", order_by), ("where", where), ("select", select), ("protocol", protocol), ("target", target), ("mode", mode), ("aggregation", aggregation), ("history", history)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return self._request("site-explorer", "all-backlinks", request, SiteExplorerAllBacklinksResponse, exclude_none=True)
+        _resp = self._request("site-explorer", "all-backlinks", request, SiteExplorerAllBacklinksResponse, exclude_none=True)
+        return _resp.data
 
     def site_explorer_anchors(
         self,
@@ -3546,7 +3617,7 @@ class GeneratedSyncMethodsMixin:
         target: str | None = None,
         mode: ModeEnum | None = None,
         history: str | None = None,
-    ) -> SiteExplorerAnchorsResponse:
+    ) -> list[SiteExplorerAnchorsData]:
         """
         Anchors.
 
@@ -3563,7 +3634,7 @@ class GeneratedSyncMethodsMixin:
                 history (str, optional): A time frame to add lost backlinks to the report. Choose between `live` (no history), `since:<date>` (history since a specified date), and `all_time` (full history). The date should be in YYYY-MM-DD format. Default: 'all_time'.
 
         Returns:
-            SiteExplorerAnchorsResponse containing SiteExplorerAnchorsData:
+            list[SiteExplorerAnchorsData]:
                 anchor (str): The clickable words in a link that point to a URL.
                 dofollow_links (int): The number of links with a given anchor to your target that don’t have the “nofollow” attribute.
                 first_seen (str): The date we first found a link with a given anchor to your target.
@@ -3581,7 +3652,8 @@ class GeneratedSyncMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteExplorerAnchorsRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("order_by", order_by), ("where", where), ("select", select), ("protocol", protocol), ("target", target), ("mode", mode), ("history", history)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return self._request("site-explorer", "anchors", request, SiteExplorerAnchorsResponse, exclude_none=True)
+        _resp = self._request("site-explorer", "anchors", request, SiteExplorerAnchorsResponse, exclude_none=True)
+        return _resp.data
 
     def site_explorer_backlinks_stats(
         self,
@@ -3591,7 +3663,7 @@ class GeneratedSyncMethodsMixin:
         target: str | None = None,
         mode: ModeEnum | None = None,
         date: DateStr | None = None,
-    ) -> SiteExplorerBacklinksStatsResponse:
+    ) -> SiteExplorerBacklinksStatsData | None:
         """
         Backlinks stats.
 
@@ -3603,7 +3675,7 @@ class GeneratedSyncMethodsMixin:
                 date (str, required): A date to report metrics on in YYYY-MM-DD format.
 
         Returns:
-            SiteExplorerBacklinksStatsResponse containing SiteExplorerBacklinksStatsData:
+            SiteExplorerBacklinksStatsData | None:
                 live (int): The total number of links from other websites pointing to your target.
                 all_time (int): The total number of links from other websites pointing to your target for all time.
                 live_refdomains (int): (5 units) The total number of unique domains linking to your target.
@@ -3614,7 +3686,8 @@ class GeneratedSyncMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteExplorerBacklinksStatsRequest(**{k: v for k, v in [("protocol", protocol), ("target", target), ("mode", mode), ("date", date)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return self._request("site-explorer", "backlinks-stats", request, SiteExplorerBacklinksStatsResponse, exclude_none=True)
+        _resp = self._request("site-explorer", "backlinks-stats", request, SiteExplorerBacklinksStatsResponse, exclude_none=True)
+        return _resp.data
 
     def site_explorer_best_by_external_links(
         self,
@@ -3629,7 +3702,7 @@ class GeneratedSyncMethodsMixin:
         target: str | None = None,
         mode: ModeEnum | None = None,
         history: str | None = None,
-    ) -> SiteExplorerBestByExternalLinksResponse:
+    ) -> list[SiteExplorerBestByExternalLinksData]:
         """
         Best by External Links.
 
@@ -3646,7 +3719,7 @@ class GeneratedSyncMethodsMixin:
                 history (str, optional): A time frame to add lost backlinks to the report. Choose between `live` (no history), `since:<date>` (history since a specified date), and `all_time` (full history). The date should be in YYYY-MM-DD format. Default: 'all_time'.
 
         Returns:
-            SiteExplorerBestByExternalLinksResponse containing SiteExplorerBestByExternalLinksData:
+            list[SiteExplorerBestByExternalLinksData]:
                 dofollow_to_target (int): The number of links to your target page that don’t have the “nofollow” attribute.
                 first_seen_link (str): The date we first found a link to your target.
                 http_code_target (int | None): The return code from HTTP protocol returned during the target page crawl.
@@ -3674,7 +3747,8 @@ class GeneratedSyncMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteExplorerBestByExternalLinksRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("order_by", order_by), ("where", where), ("select", select), ("protocol", protocol), ("target", target), ("mode", mode), ("history", history)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return self._request("site-explorer", "best-by-external-links", request, SiteExplorerBestByExternalLinksResponse, exclude_none=True)
+        _resp = self._request("site-explorer", "best-by-external-links", request, SiteExplorerBestByExternalLinksResponse, exclude_none=True)
+        return _resp.data
 
     def site_explorer_best_by_internal_links(
         self,
@@ -3688,7 +3762,7 @@ class GeneratedSyncMethodsMixin:
         protocol: ProtocolEnum | None = None,
         target: str | None = None,
         mode: ModeEnum | None = None,
-    ) -> SiteExplorerBestByInternalLinksResponse:
+    ) -> list[SiteExplorerBestByInternalLinksData]:
         """
         Best by Internal Links.
 
@@ -3704,7 +3778,7 @@ class GeneratedSyncMethodsMixin:
                 mode (ModeEnum, optional): The scope of the search based on the target you entered. Default: 'subdomains'.
 
         Returns:
-            SiteExplorerBestByInternalLinksResponse containing SiteExplorerBestByInternalLinksData:
+            list[SiteExplorerBestByInternalLinksData]:
                 canonical_to_target (int): The number of inbound canonical links to your target page.
                 dofollow_to_target (int): The number of links to your target page that don’t have the “nofollow” attribute.
                 first_seen_link (str): The date we first found a link to your target.
@@ -3728,7 +3802,8 @@ class GeneratedSyncMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteExplorerBestByInternalLinksRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("order_by", order_by), ("where", where), ("select", select), ("protocol", protocol), ("target", target), ("mode", mode)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return self._request("site-explorer", "best-by-internal-links", request, SiteExplorerBestByInternalLinksResponse, exclude_none=True)
+        _resp = self._request("site-explorer", "best-by-internal-links", request, SiteExplorerBestByInternalLinksResponse, exclude_none=True)
+        return _resp.data
 
     def site_explorer_broken_backlinks(
         self,
@@ -3743,7 +3818,7 @@ class GeneratedSyncMethodsMixin:
         target: str | None = None,
         mode: ModeEnum | None = None,
         aggregation: AggregationEnum | None = None,
-    ) -> SiteExplorerBrokenBacklinksResponse:
+    ) -> list[SiteExplorerBrokenBacklinksData]:
         """
         Broken Backlinks.
 
@@ -3760,7 +3835,7 @@ class GeneratedSyncMethodsMixin:
                 aggregation (AggregationEnum, optional): The backlinks grouping mode. Default: 'similar_links'.
 
         Returns:
-            SiteExplorerBrokenBacklinksResponse containing SiteExplorerBrokenBacklinksData:
+            list[SiteExplorerBrokenBacklinksData]:
                 ahrefs_rank_source (int): The strength of the referring domain's backlink profile compared to the other websites in our database, with rank #1 being the strongest.
                 ahrefs_rank_target (int): The strength of the target domain's backlink profile compared to the other websites in our database, with rank #1 being the strongest.
                 alt (str | None): The alt attribute of the link.
@@ -3798,7 +3873,8 @@ class GeneratedSyncMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteExplorerBrokenBacklinksRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("order_by", order_by), ("where", where), ("select", select), ("protocol", protocol), ("target", target), ("mode", mode), ("aggregation", aggregation)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return self._request("site-explorer", "broken-backlinks", request, SiteExplorerBrokenBacklinksResponse, exclude_none=True)
+        _resp = self._request("site-explorer", "broken-backlinks", request, SiteExplorerBrokenBacklinksResponse, exclude_none=True)
+        return _resp.data
 
     def site_explorer_domain_rating(
         self,
@@ -3807,7 +3883,7 @@ class GeneratedSyncMethodsMixin:
         protocol: ProtocolEnum | None = None,
         target: str | None = None,
         date: DateStr | None = None,
-    ) -> SiteExplorerDomainRatingResponse:
+    ) -> SiteExplorerDomainRatingData | None:
         """
         Domain rating.
 
@@ -3818,7 +3894,7 @@ class GeneratedSyncMethodsMixin:
                 date (str, required): A date to report metrics on in YYYY-MM-DD format.
 
         Returns:
-            SiteExplorerDomainRatingResponse containing SiteExplorerDomainRatingData:
+            SiteExplorerDomainRatingData | None:
                 domain_rating (float): The strength of your target's backlink profile compared to the other websites in our database on a 100-point logarithmic scale.
                 ahrefs_rank (int | None): The strength of your target's backlink profile compared to the other websites in our database, with rank #1 being the strongest.
         """
@@ -3827,7 +3903,8 @@ class GeneratedSyncMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteExplorerDomainRatingRequest(**{k: v for k, v in [("protocol", protocol), ("target", target), ("date", date)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return self._request("site-explorer", "domain-rating", request, SiteExplorerDomainRatingResponse, exclude_none=True)
+        _resp = self._request("site-explorer", "domain-rating", request, SiteExplorerDomainRatingResponse, exclude_none=True)
+        return _resp.data
 
     def site_explorer_domain_rating_history(
         self,
@@ -3837,7 +3914,7 @@ class GeneratedSyncMethodsMixin:
         date_to: DateStr | None = None,
         date_from: DateStr | None = None,
         target: str | None = None,
-    ) -> SiteExplorerDomainRatingHistoryResponse:
+    ) -> list[SiteExplorerDomainRatingHistoryData]:
         """
         Domain Rating history.
 
@@ -3849,7 +3926,7 @@ class GeneratedSyncMethodsMixin:
                 target (str, required): The target of the search: a domain or a URL.
 
         Returns:
-            SiteExplorerDomainRatingHistoryResponse containing SiteExplorerDomainRatingHistoryData:
+            list[SiteExplorerDomainRatingHistoryData]:
                 date (str)
                 domain_rating (float): The strength of your target page's backlink profile compared to the other websites in our database on a 100-point logarithmic scale.
         """
@@ -3858,7 +3935,8 @@ class GeneratedSyncMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteExplorerDomainRatingHistoryRequest(**{k: v for k, v in [("history_grouping", history_grouping), ("date_to", date_to), ("date_from", date_from), ("target", target)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return self._request("site-explorer", "domain-rating-history", request, SiteExplorerDomainRatingHistoryResponse, exclude_none=True)
+        _resp = self._request("site-explorer", "domain-rating-history", request, SiteExplorerDomainRatingHistoryResponse, exclude_none=True)
+        return _resp.data
 
     def site_explorer_keywords_history(
         self,
@@ -3872,7 +3950,7 @@ class GeneratedSyncMethodsMixin:
         protocol: ProtocolEnum | None = None,
         target: str | None = None,
         mode: ModeEnum | None = None,
-    ) -> SiteExplorerKeywordsHistoryResponse:
+    ) -> list[SiteExplorerKeywordsHistoryData]:
         """
         Keywords history.
 
@@ -3888,7 +3966,7 @@ class GeneratedSyncMethodsMixin:
                 mode (ModeEnum, optional): The scope of the search based on the target you entered. Default: 'subdomains'.
 
         Returns:
-            SiteExplorerKeywordsHistoryResponse containing SiteExplorerKeywordsHistoryData:
+            list[SiteExplorerKeywordsHistoryData]:
                 date (str)
                 top11_20 (int): The total number of keywords that your target ranks for in the top 11-20 organic search results.
                 top11_plus (int): The total number of keywords that your target ranks for in the top 11+ organic search results.
@@ -3902,7 +3980,8 @@ class GeneratedSyncMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteExplorerKeywordsHistoryRequest(**{k: v for k, v in [("select", select), ("history_grouping", history_grouping), ("date_to", date_to), ("date_from", date_from), ("country", country), ("protocol", protocol), ("target", target), ("mode", mode)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return self._request("site-explorer", "keywords-history", request, SiteExplorerKeywordsHistoryResponse, exclude_none=True)
+        _resp = self._request("site-explorer", "keywords-history", request, SiteExplorerKeywordsHistoryResponse, exclude_none=True)
+        return _resp.data
 
     def site_explorer_linked_anchors_external(
         self,
@@ -3916,7 +3995,7 @@ class GeneratedSyncMethodsMixin:
         protocol: ProtocolEnum | None = None,
         target: str | None = None,
         mode: ModeEnum | None = None,
-    ) -> SiteExplorerLinkedAnchorsExternalResponse:
+    ) -> list[SiteExplorerLinkedAnchorsExternalData]:
         """
         Outgoing external anchors.
 
@@ -3932,7 +4011,7 @@ class GeneratedSyncMethodsMixin:
                 mode (ModeEnum, optional): The scope of the search based on the target you entered. Default: 'subdomains'.
 
         Returns:
-            SiteExplorerLinkedAnchorsExternalResponse containing SiteExplorerLinkedAnchorsExternalData:
+            list[SiteExplorerLinkedAnchorsExternalData]:
                 anchor (str): The clickable words in a link that point to a URL.
                 dofollow_links (int): The number of outbound links with a given anchor from your target that don’t have the “nofollow” attribute.
                 first_seen (str): The date we first found a link with a given anchor on your target.
@@ -3945,7 +4024,8 @@ class GeneratedSyncMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteExplorerLinkedAnchorsExternalRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("order_by", order_by), ("where", where), ("select", select), ("protocol", protocol), ("target", target), ("mode", mode)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return self._request("site-explorer", "linked-anchors-external", request, SiteExplorerLinkedAnchorsExternalResponse, exclude_none=True)
+        _resp = self._request("site-explorer", "linked-anchors-external", request, SiteExplorerLinkedAnchorsExternalResponse, exclude_none=True)
+        return _resp.data
 
     def site_explorer_linked_anchors_internal(
         self,
@@ -3959,7 +4039,7 @@ class GeneratedSyncMethodsMixin:
         protocol: ProtocolEnum | None = None,
         target: str | None = None,
         mode: ModeEnum | None = None,
-    ) -> SiteExplorerLinkedAnchorsInternalResponse:
+    ) -> list[SiteExplorerLinkedAnchorsInternalData]:
         """
         Outgoing internal anchors.
 
@@ -3975,7 +4055,7 @@ class GeneratedSyncMethodsMixin:
                 mode (ModeEnum, optional): The scope of the search based on the target you entered. Default: 'subdomains'.
 
         Returns:
-            SiteExplorerLinkedAnchorsInternalResponse containing SiteExplorerLinkedAnchorsInternalData:
+            list[SiteExplorerLinkedAnchorsInternalData]:
                 anchor (str): The clickable words in a link that point to a URL.
                 dofollow_links (int): The number of outbound links with a given anchor from your target that don’t have the “nofollow” attribute.
                 first_seen (str): The date we first found a link with a given anchor on your target.
@@ -3987,7 +4067,8 @@ class GeneratedSyncMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteExplorerLinkedAnchorsInternalRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("order_by", order_by), ("where", where), ("select", select), ("protocol", protocol), ("target", target), ("mode", mode)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return self._request("site-explorer", "linked-anchors-internal", request, SiteExplorerLinkedAnchorsInternalResponse, exclude_none=True)
+        _resp = self._request("site-explorer", "linked-anchors-internal", request, SiteExplorerLinkedAnchorsInternalResponse, exclude_none=True)
+        return _resp.data
 
     def site_explorer_linkeddomains(
         self,
@@ -4001,7 +4082,7 @@ class GeneratedSyncMethodsMixin:
         protocol: ProtocolEnum | None = None,
         target: str | None = None,
         mode: ModeEnum | None = None,
-    ) -> SiteExplorerLinkeddomainsResponse:
+    ) -> list[SiteExplorerLinkeddomainsData]:
         """
         Linked Domains.
 
@@ -4017,7 +4098,7 @@ class GeneratedSyncMethodsMixin:
                 mode (ModeEnum, optional): The scope of the search based on the target you entered. Default: 'subdomains'.
 
         Returns:
-            SiteExplorerLinkeddomainsResponse containing SiteExplorerLinkeddomainsData:
+            list[SiteExplorerLinkeddomainsData]:
                 dofollow_linked_domains (int): The number of unique root domains with dofollow links linked from the linked domain.
                 dofollow_links (int): The number of links from your target to the linked domain that don’t have the “nofollow” attribute.
                 dofollow_refdomains (int): (5 units) The number of unique domains with dofollow links to the linked domain.
@@ -4034,7 +4115,8 @@ class GeneratedSyncMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteExplorerLinkeddomainsRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("order_by", order_by), ("where", where), ("select", select), ("protocol", protocol), ("target", target), ("mode", mode)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return self._request("site-explorer", "linkeddomains", request, SiteExplorerLinkeddomainsResponse, exclude_none=True)
+        _resp = self._request("site-explorer", "linkeddomains", request, SiteExplorerLinkeddomainsResponse, exclude_none=True)
+        return _resp.data
 
     def site_explorer_metrics(
         self,
@@ -4046,7 +4128,7 @@ class GeneratedSyncMethodsMixin:
         target: str | None = None,
         mode: ModeEnum | None = None,
         date: DateStr | None = None,
-    ) -> SiteExplorerMetricsResponse:
+    ) -> SiteExplorerMetricsData | None:
         """
         Metrics.
 
@@ -4060,7 +4142,7 @@ class GeneratedSyncMethodsMixin:
                 date (str, required): A date to report metrics on in YYYY-MM-DD format.
 
         Returns:
-            SiteExplorerMetricsResponse containing SiteExplorerMetricsData:
+            SiteExplorerMetricsData | None:
                 org_keywords (int): The total number of keywords that your target ranks for in the top 100 organic search results.
                 paid_keywords (int): The total number of keywords that your target ranks for in paid search results.
                 org_keywords_1_3 (int): The total number of keywords that your target ranks for in the top 3 organic search results.
@@ -4075,7 +4157,8 @@ class GeneratedSyncMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteExplorerMetricsRequest(**{k: v for k, v in [("volume_mode", volume_mode), ("country", country), ("protocol", protocol), ("target", target), ("mode", mode), ("date", date)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return self._request("site-explorer", "metrics", request, SiteExplorerMetricsResponse, exclude_none=True)
+        _resp = self._request("site-explorer", "metrics", request, SiteExplorerMetricsResponse, exclude_none=True)
+        return _resp.data
 
     def site_explorer_metrics_by_country(
         self,
@@ -4087,7 +4170,7 @@ class GeneratedSyncMethodsMixin:
         target: str | None = None,
         mode: ModeEnum | None = None,
         date: DateStr | None = None,
-    ) -> SiteExplorerMetricsByCountryResponse:
+    ) -> list[SiteExplorerMetricsByCountryData]:
         """
         Metrics by country.
 
@@ -4101,7 +4184,7 @@ class GeneratedSyncMethodsMixin:
                 date (str, required): A date to report metrics on in YYYY-MM-DD format.
 
         Returns:
-            SiteExplorerMetricsByCountryResponse containing SiteExplorerMetricsByCountryData:
+            list[SiteExplorerMetricsByCountryData]:
                 country (CountryEnum1)
                 org_cost (int | None): (10 units) The estimated value of your target's monthly organic search traffic, in USD cents.
                 org_keywords (int): The total number of keywords that your target ranks for in the top 100 organic search results.
@@ -4117,7 +4200,8 @@ class GeneratedSyncMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteExplorerMetricsByCountryRequest(**{k: v for k, v in [("select", select), ("volume_mode", volume_mode), ("protocol", protocol), ("target", target), ("mode", mode), ("date", date)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return self._request("site-explorer", "metrics-by-country", request, SiteExplorerMetricsByCountryResponse, exclude_none=True)
+        _resp = self._request("site-explorer", "metrics-by-country", request, SiteExplorerMetricsByCountryResponse, exclude_none=True)
+        return _resp.data
 
     def site_explorer_metrics_history(
         self,
@@ -4132,7 +4216,7 @@ class GeneratedSyncMethodsMixin:
         protocol: ProtocolEnum | None = None,
         target: str | None = None,
         mode: ModeEnum | None = None,
-    ) -> SiteExplorerMetricsHistoryResponse:
+    ) -> list[SiteExplorerMetricsHistoryData]:
         """
         Metrics history.
 
@@ -4149,7 +4233,7 @@ class GeneratedSyncMethodsMixin:
                 mode (ModeEnum, optional): The scope of the search based on the target you entered. Default: 'subdomains'.
 
         Returns:
-            SiteExplorerMetricsHistoryResponse containing SiteExplorerMetricsHistoryData:
+            list[SiteExplorerMetricsHistoryData]:
                 date (str)
                 org_cost (int): (10 units) The estimated cost of your target's monthly organic search traffic, in USD cents.
                 org_traffic (int): (10 units) The estimated number of monthly visitors that your target gets from organic search.
@@ -4161,7 +4245,8 @@ class GeneratedSyncMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteExplorerMetricsHistoryRequest(**{k: v for k, v in [("select", select), ("volume_mode", volume_mode), ("history_grouping", history_grouping), ("date_to", date_to), ("date_from", date_from), ("country", country), ("protocol", protocol), ("target", target), ("mode", mode)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return self._request("site-explorer", "metrics-history", request, SiteExplorerMetricsHistoryResponse, exclude_none=True)
+        _resp = self._request("site-explorer", "metrics-history", request, SiteExplorerMetricsHistoryResponse, exclude_none=True)
+        return _resp.data
 
     def site_explorer_organic_competitors(
         self,
@@ -4179,7 +4264,7 @@ class GeneratedSyncMethodsMixin:
         date_compared: DateStr | None = None,
         date: DateStr | None = None,
         volume_mode: VolumeModeEnum | None = None,
-    ) -> SiteExplorerOrganicCompetitorsResponse:
+    ) -> list[SiteExplorerOrganicCompetitorsData]:
         """
         Organic competitors.
 
@@ -4199,7 +4284,7 @@ class GeneratedSyncMethodsMixin:
                 volume_mode (VolumeModeEnum, optional): The search volume calculation mode: monthly or average. It affects volume, traffic, and traffic value. Default: 'monthly'.
 
         Returns:
-            SiteExplorerOrganicCompetitorsResponse containing SiteExplorerOrganicCompetitorsData:
+            list[SiteExplorerOrganicCompetitorsData]:
                 competitor_domain (str | None): A competitor's domain of your target in “domains" group mode.
                 competitor_url (str | None): A competitor's URL of your target in pages" group mode.
                 domain_rating (float): The strength of a domain's backlink profile compared to the others in our database on a 100-point scale.
@@ -4226,7 +4311,8 @@ class GeneratedSyncMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteExplorerOrganicCompetitorsRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("order_by", order_by), ("where", where), ("select", select), ("protocol", protocol), ("target", target), ("mode", mode), ("country", country), ("date_compared", date_compared), ("date", date), ("volume_mode", volume_mode)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return self._request("site-explorer", "organic-competitors", request, SiteExplorerOrganicCompetitorsResponse, exclude_none=True)
+        _resp = self._request("site-explorer", "organic-competitors", request, SiteExplorerOrganicCompetitorsResponse, exclude_none=True)
+        return _resp.data
 
     def site_explorer_organic_keywords(
         self,
@@ -4244,7 +4330,7 @@ class GeneratedSyncMethodsMixin:
         date_compared: DateStr | None = None,
         date: DateStr | None = None,
         volume_mode: VolumeModeEnum | None = None,
-    ) -> SiteExplorerOrganicKeywordsResponse:
+    ) -> list[SiteExplorerOrganicKeywordsData]:
         """
         Organic keywords.
 
@@ -4264,7 +4350,7 @@ class GeneratedSyncMethodsMixin:
                 volume_mode (VolumeModeEnum, optional): The search volume calculation mode: monthly or average. It affects volume, traffic, and traffic value. Default: 'monthly'.
 
         Returns:
-            SiteExplorerOrganicKeywordsResponse containing SiteExplorerOrganicKeywordsData:
+            list[SiteExplorerOrganicKeywordsData]:
                 all_positions (list[dict[str, Any] | None]): (5 units) The list of all positions for a keyword.
                 all_positions_prev (list[dict[str, Any] | None]): (5 units) The list of all positions for a keyword on the comparison date.
                 best_position (int | None): The top position your target ranks for in the organic search results for a keyword.
@@ -4302,7 +4388,8 @@ class GeneratedSyncMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteExplorerOrganicKeywordsRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("order_by", order_by), ("where", where), ("select", select), ("protocol", protocol), ("target", target), ("mode", mode), ("country", country), ("date_compared", date_compared), ("date", date), ("volume_mode", volume_mode)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return self._request("site-explorer", "organic-keywords", request, SiteExplorerOrganicKeywordsResponse, exclude_none=True)
+        _resp = self._request("site-explorer", "organic-keywords", request, SiteExplorerOrganicKeywordsResponse, exclude_none=True)
+        return _resp.data
 
     def site_explorer_outlinks_stats(
         self,
@@ -4311,7 +4398,7 @@ class GeneratedSyncMethodsMixin:
         protocol: ProtocolEnum | None = None,
         mode: ModeEnum | None = None,
         target: str | None = None,
-    ) -> SiteExplorerOutlinksStatsResponse:
+    ) -> SiteExplorerOutlinksStatsData | None:
         """
         Outlinks stats.
 
@@ -4324,7 +4411,7 @@ class GeneratedSyncMethodsMixin:
                 target (str, required): The target of the search: a domain or a URL.
 
         Returns:
-            SiteExplorerOutlinksStatsResponse containing SiteExplorerOutlinksStatsData:
+            SiteExplorerOutlinksStatsData | None:
                 outgoing_links (int): The number of external links from the target.
                 outgoing_links_dofollow (int): The number of external dofollow links from the target.
                 linked_domains (int): The number of unique root domains linked from the target.
@@ -4335,7 +4422,8 @@ class GeneratedSyncMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteExplorerOutlinksStatsRequest(**{k: v for k, v in [("protocol", protocol), ("mode", mode), ("target", target)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return self._request("site-explorer", "outlinks-stats", request, SiteExplorerOutlinksStatsResponse, exclude_none=True)
+        _resp = self._request("site-explorer", "outlinks-stats", request, SiteExplorerOutlinksStatsResponse, exclude_none=True)
+        return _resp.data
 
     def site_explorer_pages_by_traffic(
         self,
@@ -4346,7 +4434,7 @@ class GeneratedSyncMethodsMixin:
         protocol: ProtocolEnum | None = None,
         target: str | None = None,
         mode: ModeEnum | None = None,
-    ) -> SiteExplorerPagesByTrafficResponse:
+    ) -> SiteExplorerPagesByTrafficData | None:
         """
         Pages by traffic.
 
@@ -4359,7 +4447,7 @@ class GeneratedSyncMethodsMixin:
                 mode (ModeEnum, optional): The scope of the search based on the target you entered. Default: 'subdomains'.
 
         Returns:
-            SiteExplorerPagesByTrafficResponse containing SiteExplorerPagesByTrafficData:
+            SiteExplorerPagesByTrafficData | None:
                 range0_pages (int): The total number of pages with 0 traffic.
                 range100_traffic (int): (10 units) The total traffic from pages with 1-100 traffic.
                 range100_pages (int): The total number of pages with 1-100 traffic.
@@ -4377,7 +4465,8 @@ class GeneratedSyncMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteExplorerPagesByTrafficRequest(**{k: v for k, v in [("volume_mode", volume_mode), ("country", country), ("protocol", protocol), ("target", target), ("mode", mode)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return self._request("site-explorer", "pages-by-traffic", request, SiteExplorerPagesByTrafficResponse, exclude_none=True)
+        _resp = self._request("site-explorer", "pages-by-traffic", request, SiteExplorerPagesByTrafficResponse, exclude_none=True)
+        return _resp.data
 
     def site_explorer_pages_history(
         self,
@@ -4390,7 +4479,7 @@ class GeneratedSyncMethodsMixin:
         protocol: ProtocolEnum | None = None,
         target: str | None = None,
         mode: ModeEnum | None = None,
-    ) -> SiteExplorerPagesHistoryResponse:
+    ) -> list[SiteExplorerPagesHistoryData]:
         """
         Pages history.
 
@@ -4405,7 +4494,7 @@ class GeneratedSyncMethodsMixin:
                 mode (ModeEnum, optional): The scope of the search based on the target you entered. Default: 'subdomains'.
 
         Returns:
-            SiteExplorerPagesHistoryResponse containing SiteExplorerPagesHistoryData:
+            list[SiteExplorerPagesHistoryData]:
                 date (str)
                 pages (int): The total number of pages from a target ranking in the top 100 organic search results.
         """
@@ -4414,7 +4503,8 @@ class GeneratedSyncMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteExplorerPagesHistoryRequest(**{k: v for k, v in [("history_grouping", history_grouping), ("date_to", date_to), ("date_from", date_from), ("country", country), ("protocol", protocol), ("target", target), ("mode", mode)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return self._request("site-explorer", "pages-history", request, SiteExplorerPagesHistoryResponse, exclude_none=True)
+        _resp = self._request("site-explorer", "pages-history", request, SiteExplorerPagesHistoryResponse, exclude_none=True)
+        return _resp.data
 
     def site_explorer_paid_pages(
         self,
@@ -4432,7 +4522,7 @@ class GeneratedSyncMethodsMixin:
         date_compared: DateStr | None = None,
         date: DateStr | None = None,
         volume_mode: VolumeModeEnum | None = None,
-    ) -> SiteExplorerPaidPagesResponse:
+    ) -> list[SiteExplorerPaidPagesData]:
         """
         Paid pages.
 
@@ -4452,7 +4542,7 @@ class GeneratedSyncMethodsMixin:
                 volume_mode (VolumeModeEnum, optional): The search volume calculation mode: monthly or average. It affects volume, traffic, and traffic value. Default: 'monthly'.
 
         Returns:
-            SiteExplorerPaidPagesResponse containing SiteExplorerPaidPagesData:
+            list[SiteExplorerPaidPagesData]:
                 ads_count (int | None): The number of unique ads with a page.
                 ads_count_diff (int): The change in ads between your selected dates.
                 ads_count_prev (int | None): The number of ads on the comparison date.
@@ -4490,7 +4580,8 @@ class GeneratedSyncMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteExplorerPaidPagesRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("order_by", order_by), ("where", where), ("select", select), ("protocol", protocol), ("target", target), ("mode", mode), ("country", country), ("date_compared", date_compared), ("date", date), ("volume_mode", volume_mode)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return self._request("site-explorer", "paid-pages", request, SiteExplorerPaidPagesResponse, exclude_none=True)
+        _resp = self._request("site-explorer", "paid-pages", request, SiteExplorerPaidPagesResponse, exclude_none=True)
+        return _resp.data
 
     def site_explorer_refdomains(
         self,
@@ -4505,7 +4596,7 @@ class GeneratedSyncMethodsMixin:
         target: str | None = None,
         mode: ModeEnum | None = None,
         history: str | None = None,
-    ) -> SiteExplorerRefdomainsResponse:
+    ) -> list[SiteExplorerRefdomainsData]:
         """
         Refdomains.
 
@@ -4522,7 +4613,7 @@ class GeneratedSyncMethodsMixin:
                 history (str, optional): A time frame to add lost backlinks to the report. Choose between `live` (no history), `since:<date>` (history since a specified date), and `all_time` (full history). The date should be in YYYY-MM-DD format. Default: 'all_time'.
 
         Returns:
-            SiteExplorerRefdomainsResponse containing SiteExplorerRefdomainsData:
+            list[SiteExplorerRefdomainsData]:
                 dofollow_linked_domains (int): The number of unique root domains with dofollow links linked from the referring domain.
                 dofollow_links (int): The number of links from the referring domain to your target that don't have the “nofollow” attribute.
                 dofollow_refdomains (int): (5 units) The number of unique domains with dofollow links to the referring domain.
@@ -4544,7 +4635,8 @@ class GeneratedSyncMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteExplorerRefdomainsRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("order_by", order_by), ("where", where), ("select", select), ("protocol", protocol), ("target", target), ("mode", mode), ("history", history)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return self._request("site-explorer", "refdomains", request, SiteExplorerRefdomainsResponse, exclude_none=True)
+        _resp = self._request("site-explorer", "refdomains", request, SiteExplorerRefdomainsResponse, exclude_none=True)
+        return _resp.data
 
     def site_explorer_refdomains_history(
         self,
@@ -4556,7 +4648,7 @@ class GeneratedSyncMethodsMixin:
         protocol: ProtocolEnum | None = None,
         target: str | None = None,
         mode: ModeEnum | None = None,
-    ) -> SiteExplorerRefdomainsHistoryResponse:
+    ) -> list[SiteExplorerRefdomainsHistoryData]:
         """
         Refdomains history.
 
@@ -4570,7 +4662,7 @@ class GeneratedSyncMethodsMixin:
                 mode (ModeEnum, optional): The scope of the search based on the target you entered. Default: 'subdomains'.
 
         Returns:
-            SiteExplorerRefdomainsHistoryResponse containing SiteExplorerRefdomainsHistoryData:
+            list[SiteExplorerRefdomainsHistoryData]:
                 date (str)
                 refdomains (int): (5 units) The total number of unique domains linking to your target.
         """
@@ -4579,7 +4671,8 @@ class GeneratedSyncMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteExplorerRefdomainsHistoryRequest(**{k: v for k, v in [("history_grouping", history_grouping), ("date_to", date_to), ("date_from", date_from), ("protocol", protocol), ("target", target), ("mode", mode)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return self._request("site-explorer", "refdomains-history", request, SiteExplorerRefdomainsHistoryResponse, exclude_none=True)
+        _resp = self._request("site-explorer", "refdomains-history", request, SiteExplorerRefdomainsHistoryResponse, exclude_none=True)
+        return _resp.data
 
     def site_explorer_top_pages(
         self,
@@ -4597,7 +4690,7 @@ class GeneratedSyncMethodsMixin:
         date_compared: DateStr | None = None,
         date: DateStr | None = None,
         volume_mode: VolumeModeEnum | None = None,
-    ) -> SiteExplorerTopPagesResponse:
+    ) -> list[SiteExplorerTopPagesData]:
         """
         Top pages.
 
@@ -4617,7 +4710,7 @@ class GeneratedSyncMethodsMixin:
                 volume_mode (VolumeModeEnum, optional): The search volume calculation mode: monthly or average. It affects volume, traffic, and traffic value. Default: 'monthly'.
 
         Returns:
-            SiteExplorerTopPagesResponse containing SiteExplorerTopPagesData:
+            list[SiteExplorerTopPagesData]:
                 keywords (int | None): The total number of keywords that your target ranks for in the top 100 organic search results.
                 keywords_diff (int): The change in keywords between your selected dates.
                 keywords_diff_percent (int): The change in keywords between your selected dates, in percents.
@@ -4655,7 +4748,8 @@ class GeneratedSyncMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteExplorerTopPagesRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("order_by", order_by), ("where", where), ("select", select), ("protocol", protocol), ("target", target), ("mode", mode), ("country", country), ("date_compared", date_compared), ("date", date), ("volume_mode", volume_mode)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return self._request("site-explorer", "top-pages", request, SiteExplorerTopPagesResponse, exclude_none=True)
+        _resp = self._request("site-explorer", "top-pages", request, SiteExplorerTopPagesResponse, exclude_none=True)
+        return _resp.data
 
     def site_explorer_total_search_volume_history(
         self,
@@ -4670,7 +4764,7 @@ class GeneratedSyncMethodsMixin:
         protocol: ProtocolEnum | None = None,
         target: str | None = None,
         mode: ModeEnum | None = None,
-    ) -> SiteExplorerTotalSearchVolumeHistoryResponse:
+    ) -> list[SiteExplorerTotalSearchVolumeHistoryData]:
         """
         Total search volume history.
 
@@ -4687,7 +4781,7 @@ class GeneratedSyncMethodsMixin:
                 mode (ModeEnum, optional): The scope of the search based on the target you entered. Default: 'subdomains'.
 
         Returns:
-            SiteExplorerTotalSearchVolumeHistoryResponse containing SiteExplorerTotalSearchVolumeHistoryData:
+            list[SiteExplorerTotalSearchVolumeHistoryData]:
                 date (str)
                 total_search_volume (int): (10 units) The total search volume of keywords for which your target ranks within the specified `top_positions` in the search results.
         """
@@ -4696,7 +4790,8 @@ class GeneratedSyncMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteExplorerTotalSearchVolumeHistoryRequest(**{k: v for k, v in [("volume_mode", volume_mode), ("top_positions", top_positions), ("history_grouping", history_grouping), ("date_to", date_to), ("date_from", date_from), ("country", country), ("protocol", protocol), ("target", target), ("mode", mode)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return self._request("site-explorer", "total-search-volume-history", request, SiteExplorerTotalSearchVolumeHistoryResponse, exclude_none=True)
+        _resp = self._request("site-explorer", "total-search-volume-history", request, SiteExplorerTotalSearchVolumeHistoryResponse, exclude_none=True)
+        return _resp.data
 
     def site_explorer_url_rating_history(
         self,
@@ -4706,7 +4801,7 @@ class GeneratedSyncMethodsMixin:
         date_to: DateStr | None = None,
         date_from: DateStr | None = None,
         target: str | None = None,
-    ) -> SiteExplorerUrlRatingHistoryResponse:
+    ) -> list[SiteExplorerUrlRatingHistoryData]:
         """
         URL Rating history.
 
@@ -4718,7 +4813,7 @@ class GeneratedSyncMethodsMixin:
                 target (str, required): The target of the search: a domain or a URL.
 
         Returns:
-            SiteExplorerUrlRatingHistoryResponse containing SiteExplorerUrlRatingHistoryData:
+            list[SiteExplorerUrlRatingHistoryData]:
                 date (str)
                 url_rating (float): The strength of your target page's backlink profile compared to the other websites in our database on a 100-point logarithmic scale.
         """
@@ -4727,6 +4822,7 @@ class GeneratedSyncMethodsMixin:
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteExplorerUrlRatingHistoryRequest(**{k: v for k, v in [("history_grouping", history_grouping), ("date_to", date_to), ("date_from", date_from), ("target", target)] if v is not None})  # pyright: ignore[reportArgumentType]
-        return self._request("site-explorer", "url-rating-history", request, SiteExplorerUrlRatingHistoryResponse, exclude_none=True)
+        _resp = self._request("site-explorer", "url-rating-history", request, SiteExplorerUrlRatingHistoryResponse, exclude_none=True)
+        return _resp.data
 
     # fmt: on

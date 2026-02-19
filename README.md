@@ -55,9 +55,9 @@ from ahrefs import AhrefsClient
 
 client = AhrefsClient(api_key="your-api-key")  # or set AHREFS_API_KEY env var
 
-response = client.site_explorer_domain_rating(target="ahrefs.com", date="2025-01-15")
-print(response.data.domain_rating)  # 91.0
-print(response.data.ahrefs_rank)    # 3
+data = client.site_explorer_domain_rating(target="ahrefs.com", date="2025-01-15")
+print(data.domain_rating)  # 91.0
+print(data.ahrefs_rank)    # 3
 ```
 
 ## Usage
@@ -69,7 +69,7 @@ Every method supports two calling styles:
 **Keyword arguments** (recommended for most use):
 
 ```python
-response = client.site_explorer_domain_rating(
+data = client.site_explorer_domain_rating(
     target="ahrefs.com",
     date="2025-01-15",
 )
@@ -81,34 +81,34 @@ response = client.site_explorer_domain_rating(
 from ahrefs.types import SiteExplorerDomainRatingRequest
 
 request = SiteExplorerDomainRatingRequest(target="ahrefs.com", date="2025-01-15")
-response = client.site_explorer_domain_rating(request)
+data = client.site_explorer_domain_rating(request)
 ```
 
 Both styles are equivalent. Method names follow the pattern `{api_section}_{endpoint}`, e.g. `site_explorer_organic_keywords`, `keywords_explorer_overview`.
 
 ### Working with Responses
 
-Every response has a `.data` property for convenient access.
+Methods return typed Data objects directly.
 
-**Scalar endpoints** return a single data object:
+**Scalar endpoints** return a single data object (or `None`):
 
 ```python
-response = client.site_explorer_domain_rating(target="ahrefs.com", date="2025-01-15")
-print(response.data.domain_rating)  # 91.0
-print(response.data.ahrefs_rank)    # 3
+data = client.site_explorer_domain_rating(target="ahrefs.com", date="2025-01-15")
+print(data.domain_rating)  # 91.0
+print(data.ahrefs_rank)    # 3
 ```
 
 **List endpoints** return a list of data objects. Use `select` to choose columns and `limit` to control result count:
 
 ```python
-response = client.site_explorer_organic_keywords(
+items = client.site_explorer_organic_keywords(
     target="ahrefs.com",
     date="2025-01-15",
     select="keyword,volume,best_position",
     limit=10,
 )
 
-for item in response.data:
+for item in items:
     print(item.keyword, item.volume, item.best_position)
 ```
 
@@ -117,48 +117,48 @@ for item in response.data:
 **Domain metrics with country filter:**
 
 ```python
-response = client.site_explorer_metrics(
+data = client.site_explorer_metrics(
     target="ahrefs.com",
     date="2025-01-15",
     country="us",
 )
-print(response.data.org_traffic, response.data.paid_traffic)
+print(data.org_traffic, data.paid_traffic)
 ```
 
 **Time-series history:**
 
 ```python
-response = client.site_explorer_metrics_history(
+items = client.site_explorer_metrics_history(
     target="ahrefs.com",
     date_from="2024-01-01",
     date_to="2025-01-01",
 )
-for point in response.data:
+for point in items:
     print(point.date, point.org_traffic)
 ```
 
 **Referring domains with filtering and sorting:**
 
 ```python
-response = client.site_explorer_refdomains(
+items = client.site_explorer_refdomains(
     target="ahrefs.com",
     select="domain,domain_rating,traffic_domain",
     limit=20,
     order_by="domain_rating:desc",
 )
-for rd in response.data:
+for rd in items:
     print(rd.domain, rd.domain_rating, rd.traffic_domain)
 ```
 
 **Keywords Explorer:**
 
 ```python
-response = client.keywords_explorer_overview(
+items = client.keywords_explorer_overview(
     select="keyword,volume,difficulty",
     country="us",
     keywords="python sdk,ahrefs api",
 )
-for kw in response.data:
+for kw in items:
     print(kw.keyword, kw.volume, kw.difficulty)
 ```
 
@@ -225,11 +225,11 @@ An asynchronous client is available with the same interface:
 from ahrefs import AsyncAhrefsClient
 
 async with AsyncAhrefsClient(api_key="...") as client:
-    response = await client.site_explorer_domain_rating(
+    data = await client.site_explorer_domain_rating(
         target="ahrefs.com",
         date="2025-01-15",
     )
-    print(response.data.domain_rating)
+    print(data.domain_rating)
 ```
 
 The async client uses `httpx.AsyncClient` under the hood and supports all the same methods and configuration options.

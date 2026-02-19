@@ -18,11 +18,11 @@ class TestKwargsOnly:
     def test_call_with_kwargs(self) -> None:
         route = respx.get(_DR_URL).mock(return_value=httpx.Response(200, json=_DR_OK))
         client = AhrefsClient(api_key="test-key", max_retries=0)
-        resp = client.site_explorer_domain_rating(
+        data = client.site_explorer_domain_rating(
             target="ahrefs.com", date="2025-01-15"
         )
-        assert resp.data is not None
-        assert resp.data.domain_rating == 85.5
+        assert data is not None
+        assert data.domain_rating == 85.5
         assert route.call_count == 1
         client.close()
 
@@ -30,11 +30,11 @@ class TestKwargsOnly:
     def test_optional_kwargs_default_when_omitted(self) -> None:
         route = respx.get(_DR_URL).mock(return_value=httpx.Response(200, json=_DR_OK))
         client = AhrefsClient(api_key="test-key", max_retries=0)
-        resp = client.site_explorer_domain_rating(
+        data = client.site_explorer_domain_rating(
             target="ahrefs.com", date="2025-01-15"
         )
         # protocol is optional and omitted — model default ("both") should apply
-        assert resp.data is not None
+        assert data is not None
         # respx doesn't ship type information for recorded calls; cast for pyright.
         sent_request = cast(httpx.Request, route.calls[0].request)
         sent_params: dict[str, str] = dict(sent_request.url.params)
@@ -48,9 +48,9 @@ class TestRequestObject:
         route = respx.get(_DR_URL).mock(return_value=httpx.Response(200, json=_DR_OK))
         req = SiteExplorerDomainRatingRequest(target="ahrefs.com", date="2025-01-15")
         client = AhrefsClient(api_key="test-key", max_retries=0)
-        resp = client.site_explorer_domain_rating(req)
-        assert resp.data is not None
-        assert resp.data.domain_rating == 85.5
+        data = client.site_explorer_domain_rating(req)
+        assert data is not None
+        assert data.domain_rating == 85.5
         assert route.call_count == 1
         client.close()
 

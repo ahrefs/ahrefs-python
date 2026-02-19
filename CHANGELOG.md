@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [0.2.0]
+
+### Changed
+
+- **BREAKING**: Client methods now return Data objects directly instead of Response wrappers
+  - Scalar endpoints return `Data | None` (e.g. `SiteExplorerDomainRatingData | None`)
+  - List endpoints return `list[Data]` (e.g. `list[SiteExplorerOrganicKeywordsData]`)
+  - Before: `response = client.method(...)` then `response.data.field`
+  - After: `data = client.method(...)` then `data.field`
+- Response classes removed from `ahrefs.types` public exports (still available internally for JSON parsing)
+
+## [0.1.0]
+
 ### Added
 
 - Initial release of the Ahrefs Python SDK

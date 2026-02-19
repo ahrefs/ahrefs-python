@@ -51,8 +51,7 @@ def main() -> None:
 
     # ── 1. Domain Rating (scalar, cheapest call) ─────────────────────
     def test_domain_rating() -> None:
-        resp = client.site_explorer_domain_rating(target=TARGET, date=DATE)
-        data = resp.data
+        data = client.site_explorer_domain_rating(target=TARGET, date=DATE)
         assert data is not None, "data is None"
         assert isinstance(data.domain_rating, float), (
             f"expected float, got {type(data.domain_rating)}"
@@ -64,8 +63,7 @@ def main() -> None:
     # ── 2. Domain Rating via request object ──────────────────────────
     def test_domain_rating_request_object() -> None:
         req = SiteExplorerDomainRatingRequest(target=TARGET, date=DATE)
-        resp = client.site_explorer_domain_rating(req)
-        data = resp.data
+        data = client.site_explorer_domain_rating(req)
         assert data is not None, "data is None"
         assert isinstance(data.domain_rating, float)
 
@@ -76,8 +74,7 @@ def main() -> None:
 
     # ── 3. Backlinks Stats (scalar, different shape) ─────────────────
     def test_backlinks_stats() -> None:
-        resp = client.site_explorer_backlinks_stats(target=TARGET, date=DATE)
-        data = resp.data
+        data = client.site_explorer_backlinks_stats(target=TARGET, date=DATE)
         assert data is not None, "data is None"
         assert isinstance(data.live, int), f"expected int, got {type(data.live)}"
         assert data.live > 0, f"expected positive live count, got {data.live}"
@@ -88,8 +85,7 @@ def main() -> None:
 
     # ── 4. Metrics (rich scalar response) ────────────────────────────
     def test_metrics() -> None:
-        resp = client.site_explorer_metrics(target=TARGET, date=DATE)
-        data = resp.data
+        data = client.site_explorer_metrics(target=TARGET, date=DATE)
         assert data is not None, "data is None"
         assert isinstance(data.org_keywords, int)
         assert data.org_keywords > 0
@@ -99,14 +95,12 @@ def main() -> None:
 
     # ── 5. Organic Keywords (list endpoint) ──────────────────────────
     def test_organic_keywords() -> None:
-        resp = client.site_explorer_organic_keywords(
+        data = client.site_explorer_organic_keywords(
             target=TARGET,
             date=DATE,
             select="keyword,volume,best_position",
             limit=5,
         )
-        data = resp.data
-        assert data is not None, "data is None"
         assert isinstance(data, list), f"expected list, got {type(data)}"
         assert len(data) > 0, "expected non-empty list"
         item = data[0]
@@ -117,13 +111,11 @@ def main() -> None:
 
     # ── 6. Refdomains (list endpoint, different shape) ───────────────
     def test_refdomains() -> None:
-        resp = client.site_explorer_refdomains(
+        data = client.site_explorer_refdomains(
             target=TARGET,
             select="domain,domain_rating,links_to_target",
             limit=5,
         )
-        data = resp.data
-        assert data is not None, "data is None"
         assert isinstance(data, list), f"expected list, got {type(data)}"
         assert len(data) > 0, "expected non-empty list"
         item = data[0]
@@ -133,14 +125,12 @@ def main() -> None:
 
     # ── 7. Keywords Explorer Overview (different API section) ────────
     def test_keywords_explorer() -> None:
-        resp = client.keywords_explorer_overview(
+        data = client.keywords_explorer_overview(
             keywords="ahrefs",
             country=CountryEnum.US,
             select="keyword,volume,difficulty",
             limit=5,
         )
-        data = resp.data
-        assert data is not None, "data is None"
         assert isinstance(data, list), f"expected list, got {type(data)}"
         assert len(data) > 0, "expected non-empty list"
         item = data[0]
@@ -151,8 +141,8 @@ def main() -> None:
     # ── 8. Context manager ───────────────────────────────────────────
     def test_context_manager() -> None:
         with AhrefsClient(api_key=api_key) as ctx_client:
-            resp = ctx_client.site_explorer_domain_rating(target=TARGET, date=DATE)
-            assert resp.data is not None
+            data = ctx_client.site_explorer_domain_rating(target=TARGET, date=DATE)
+            assert data is not None
 
     run_test("context_manager", test_context_manager)
 
