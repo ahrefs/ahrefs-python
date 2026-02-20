@@ -11,7 +11,7 @@ Python client for the [Ahrefs API](https://ahrefs.com/api). Typed request and re
 ## Table of Contents
 
 - [Installation](#installation)
-- [AI Coding Assistant](#ai-coding-assistant)
+- [AI Coding Agent](#ai-coding-agent)
 - [Quick Start](#quick-start)
 - [Usage](#usage)
   - [Request Styles](#request-styles)
@@ -272,13 +272,16 @@ See the [full API reference](docs/api-reference.md) for parameters, types, and r
 
 - `batch_analysis()`
 
-**Brand Radar** (6 methods)
+**Brand Radar** (9 methods)
 
 - `brand_radar_ai_responses()`
+- `brand_radar_cited_domains()`
+- `brand_radar_cited_pages()`
 - `brand_radar_impressions_history()`
 - `brand_radar_impressions_overview()`
 - `brand_radar_mentions_history()`
 - `brand_radar_mentions_overview()`
+- `brand_radar_sov_history()`
 - `brand_radar_sov_overview()`
 
 **Keywords Explorer** (6 methods)

@@ -823,9 +823,9 @@ class BrandRadarAiResponsesRequest(BaseModel):
     country: CountryEnum | None = Field(default=None, description="A two-letter country code (ISO 3166-1 alpha-2).")
     order_by: OrderByEnum = Field(default=OrderByEnum.RELEVANCE, description="The order by field.")
     data_source: DataSourceEnum = Field(..., description="The chatbot model to use.")
-    market: str = Field(default="[]", description="A comma-separated list of the niche markets of your brands.")
-    competitors: str = Field(default="[]", description="A comma-separated list of competitors of your brands.")
-    brand: str = Field(default="[]", description="A comma-separated list of brands to search for. At least one of brand, competitors, market or where should not be empty.")
+    market: str = Field(default="", description="A comma-separated list of the niche markets of your brands.")
+    competitors: str = Field(default="", description="A comma-separated list of competitors of your brands.")
+    brand: str = Field(default="", description="A comma-separated list of brands to search for. At least one of brand, competitors, market or where should not be empty.")
 
 
 class BrandRadarAiResponsesData(BaseModel):
@@ -849,6 +849,77 @@ class BrandRadarAiResponsesResponse(BaseModel):
         return self.ai_responses or []
 
 
+# Models for brand-radar/cited-domains
+class BrandRadarCitedDomainsRequest(BaseModel):
+    """Request model for BrandRadarCitedDomainsRequest."""
+
+    where: str | None = Field(default=None, description="Filter expression. See filter-syntax.md for syntax.")
+    select: SelectStr = Field(..., description="A comma-separated list of columns to return. See response schema for valid column identifiers.")
+    limit: int | None = Field(default=None, description="The number of results to return.")
+    date: DateStr | None = Field(default=None, description="The date to search for in YYYY-MM-DD format.")
+    country: CountryEnum | None = Field(default=None, description="A two-letter country code (ISO 3166-1 alpha-2).")
+    data_source: DataSourceEnum = Field(..., description="The chatbot model to use.")
+    market: str = Field(default="", description="A comma-separated list of the niche markets of your brands.")
+    competitors: str = Field(default="", description="A comma-separated list of competitors of your brands.")
+    brand: str = Field(default="", description="A comma-separated list of brands to search for. At least one of brand, competitors, market or where should not be empty.")
+
+
+class BrandRadarCitedDomainsData(BaseModel):
+    """Individual data item for /cited-domains endpoint"""
+
+    domain: str | None = Field(default=None, description="The cited domain name.")
+    mentions: list[dict[str, Any] | None] | None = Field(default=None, description="Deprecated on 2026-02-10.")
+    pages: int | None = Field(default=None, description="The number of unique pages from the domain that were cited in the responses.")
+    responses: int | None = Field(default=None, description="The number of responses that cited the domain.")
+    volume: int | None = Field(default=None, description="(10 units) Estimated monthly searches that cited the domain. Based on the average monthly number of searches for the query on Google over the latest known 12 months of data.")
+
+
+class BrandRadarCitedDomainsResponse(BaseModel):
+    """Response model for /cited-domains endpoint"""
+
+    domains: list[BrandRadarCitedDomainsData] | None = Field(default=None, description="The domains field")
+
+    @property
+    def data(self) -> list[BrandRadarCitedDomainsData]:
+        """Unwrap the response payload."""
+        return self.domains or []
+
+
+# Models for brand-radar/cited-pages
+class BrandRadarCitedPagesRequest(BaseModel):
+    """Request model for BrandRadarCitedPagesRequest."""
+
+    where: str | None = Field(default=None, description="Filter expression. See filter-syntax.md for syntax.")
+    select: SelectStr = Field(..., description="A comma-separated list of columns to return. See response schema for valid column identifiers.")
+    limit: int | None = Field(default=None, description="The number of results to return.")
+    date: DateStr | None = Field(default=None, description="The date to search for in YYYY-MM-DD format.")
+    country: CountryEnum | None = Field(default=None, description="A two-letter country code (ISO 3166-1 alpha-2).")
+    data_source: DataSourceEnum = Field(..., description="The chatbot model to use.")
+    market: str = Field(default="", description="A comma-separated list of the niche markets of your brands.")
+    competitors: str = Field(default="", description="A comma-separated list of competitors of your brands.")
+    brand: str = Field(default="", description="A comma-separated list of brands to search for. At least one of brand, competitors, market or where should not be empty.")
+
+
+class BrandRadarCitedPagesData(BaseModel):
+    """Individual data item for /cited-pages endpoint"""
+
+    mentions: list[dict[str, Any] | None] | None = Field(default=None, description="Deprecated on 2026-02-10.")
+    responses: int | None = Field(default=None, description="The number of responses that cited the page.")
+    url: str | None = Field(default=None, description="The URL of the cited page.")
+    volume: int | None = Field(default=None, description="(10 units) Estimated monthly searches that cited the page. Based on the average monthly number of searches for the query on Google over the latest known 12 months of data.")
+
+
+class BrandRadarCitedPagesResponse(BaseModel):
+    """Response model for /cited-pages endpoint"""
+
+    pages: list[BrandRadarCitedPagesData] | None = Field(default=None, description="The pages field")
+
+    @property
+    def data(self) -> list[BrandRadarCitedPagesData]:
+        """Unwrap the response payload."""
+        return self.pages or []
+
+
 # Models for brand-radar/impressions-history
 class BrandRadarImpressionsHistoryRequest(BaseModel):
     """Request model for BrandRadarImpressionsHistoryRequest."""
@@ -858,15 +929,15 @@ class BrandRadarImpressionsHistoryRequest(BaseModel):
     date_from: DateStr = Field(..., description="The start date of the historical period in YYYY-MM-DD format.")
     country: CountryEnum | None = Field(default=None, description="A two-letter country code (ISO 3166-1 alpha-2).")
     data_source: DataSourceEnum = Field(..., description="The chatbot model to use.")
-    market: str = Field(default="[]", description="A comma-separated list of the niche markets of your brand.")
+    market: str = Field(default="", description="A comma-separated list of the niche markets of your brand.")
     brand: str = Field(..., description="The brand to search for.")
 
 
 class BrandRadarImpressionsHistoryData(BaseModel):
     """Individual data item for /impressions-history endpoint"""
 
-    date: str | None = Field(default=None, description="date")
-    impressions: int | None = Field(default=None, description="impressions")
+    date: str | None = Field(default=None)
+    impressions: int | None = Field(default=None, description="Estimated impressions from responses mentioning the brand.")
 
 
 class BrandRadarImpressionsHistoryResponse(BaseModel):
@@ -888,9 +959,9 @@ class BrandRadarImpressionsOverviewRequest(BaseModel):
     select: SelectStr = Field(..., description="A comma-separated list of columns to return. See response schema for valid column identifiers.")
     country: CountryEnum | None = Field(default=None, description="A two-letter country code (ISO 3166-1 alpha-2).")
     data_source: DataSourceEnum = Field(..., description="The chatbot model to use.")
-    market: str = Field(default="[]", description="A comma-separated list of the niche markets of your brands.")
-    competitors: str = Field(default="[]", description="A comma-separated list of competitors of your brands.")
-    brand: str = Field(default="[]", description="A comma-separated list of brands to search for. At least one of brand or competitors should not be empty.")
+    market: str = Field(default="", description="A comma-separated list of the niche markets of your brands.")
+    competitors: str = Field(default="", description="A comma-separated list of competitors of your brands.")
+    brand: str = Field(default="", description="A comma-separated list of brands to search for. At least one of brand or competitors should not be empty.")
 
 
 class BrandRadarImpressionsOverviewData(BaseModel):
@@ -924,15 +995,15 @@ class BrandRadarMentionsHistoryRequest(BaseModel):
     date_from: DateStr = Field(..., description="The start date of the historical period in YYYY-MM-DD format.")
     country: CountryEnum | None = Field(default=None, description="A two-letter country code (ISO 3166-1 alpha-2).")
     data_source: DataSourceEnum = Field(..., description="The chatbot model to use.")
-    market: str = Field(default="[]", description="A comma-separated list of the niche markets of your brand.")
+    market: str = Field(default="", description="A comma-separated list of the niche markets of your brand.")
     brand: str = Field(..., description="The brand to search for.")
 
 
 class BrandRadarMentionsHistoryData(BaseModel):
     """Individual data item for /mentions-history endpoint"""
 
-    date: str | None = Field(default=None, description="date")
-    mentions: int | None = Field(default=None, description="mentions")
+    date: str | None = Field(default=None)
+    mentions: int | None = Field(default=None, description="Estimated mentions from responses mentioning the brand.")
 
 
 class BrandRadarMentionsHistoryResponse(BaseModel):
@@ -954,9 +1025,9 @@ class BrandRadarMentionsOverviewRequest(BaseModel):
     select: SelectStr = Field(..., description="A comma-separated list of columns to return. See response schema for valid column identifiers.")
     country: CountryEnum | None = Field(default=None, description="A two-letter country code (ISO 3166-1 alpha-2).")
     data_source: DataSourceEnum = Field(..., description="The chatbot model to use.")
-    market: str = Field(default="[]", description="A comma-separated list of the niche markets of your brands.")
-    competitors: str = Field(default="[]", description="A comma-separated list of competitors of your brands.")
-    brand: str = Field(default="[]", description="A comma-separated list of brands to search for. At least one of brand or competitors should not be empty.")
+    market: str = Field(default="", description="A comma-separated list of the niche markets of your brands.")
+    competitors: str = Field(default="", description="A comma-separated list of competitors of your brands.")
+    brand: str = Field(default="", description="A comma-separated list of brands to search for. At least one of brand or competitors should not be empty.")
 
 
 class BrandRadarMentionsOverviewData(BaseModel):
@@ -981,17 +1052,48 @@ class BrandRadarMentionsOverviewResponse(BaseModel):
         return self.metrics or []
 
 
+# Models for brand-radar/sov-history
+class BrandRadarSovHistoryRequest(BaseModel):
+    """Request model for BrandRadarSovHistoryRequest."""
+
+    where: str | None = Field(default=None, description="Filter expression. See filter-syntax.md for syntax.")
+    date_to: DateStr | None = Field(default=None, description="The end date of the historical period in YYYY-MM-DD format.")
+    date_from: DateStr = Field(..., description="The start date of the historical period in YYYY-MM-DD format.")
+    country: CountryEnum | None = Field(default=None, description="A two-letter country code (ISO 3166-1 alpha-2).")
+    data_source: DataSourceEnum = Field(..., description="The chatbot model to use.")
+    market: str = Field(default="", description="A comma-separated list of the niche markets of your brands.")
+    competitors: str = Field(default="", description="A comma-separated list of competitors of your brands.")
+    brand: str = Field(default="", description="A comma-separated list of brands to search for. At least one of brand or competitors should not be empty.")
+
+
+class BrandRadarSovHistoryData(BaseModel):
+    """Individual data item for /sov-history endpoint"""
+
+    date: str | None = Field(default=None)
+    share_of_voice: list[dict[str, Any] | None] | None = Field(default=None, description="(1 unit per brand) Estimated share of voice for the brand.")
+
+
+class BrandRadarSovHistoryResponse(BaseModel):
+    """Response model for /sov-history endpoint"""
+
+    metrics: list[BrandRadarSovHistoryData] | None = Field(default=None, description="The metrics field")
+
+    @property
+    def data(self) -> list[BrandRadarSovHistoryData]:
+        """Unwrap the response payload."""
+        return self.metrics or []
+
+
 # Models for brand-radar/sov-overview
 class BrandRadarSovOverviewRequest(BaseModel):
     """Request model for BrandRadarSovOverviewRequest."""
 
     where: str | None = Field(default=None, description="Filter expression. See filter-syntax.md for syntax.")
-    select: SelectStr = Field(..., description="A comma-separated list of columns to return. See response schema for valid column identifiers.")
     country: CountryEnum | None = Field(default=None, description="A two-letter country code (ISO 3166-1 alpha-2).")
     data_source: DataSourceEnum = Field(..., description="The chatbot model to use.")
-    market: str = Field(default="[]", description="A comma-separated list of the niche markets of your brands.")
-    competitors: str = Field(default="[]", description="A comma-separated list of competitors of your brands.")
-    brand: str = Field(default="[]", description="A comma-separated list of brands to search for. At least one of brand or competitors should not be empty.")
+    market: str = Field(default="", description="A comma-separated list of the niche markets of your brands.")
+    competitors: str = Field(default="", description="A comma-separated list of competitors of your brands.")
+    brand: str = Field(default="", description="A comma-separated list of brands to search for. At least one of brand or competitors should not be empty.")
 
 
 class BrandRadarSovOverviewData(BaseModel):
@@ -1068,7 +1170,7 @@ class KeywordsExplorerOverviewRequest(BaseModel):
 
     timeout: int | None = Field(default=None, description="A manual timeout duration in seconds.")
     limit: int = Field(default=1000, description="The number of results to return.")
-    order_by: str | None = Field(default=None, description="A column to order results by. See response schema for valid column identifiers.")
+    order_by: str | None = Field(default=None, description="A column to order results by. See the response schema for valid column identifiers, except for `volume_monthly`, which is not supported in `order_by` for this endpoint.")
     where: str | None = Field(default=None, description="Filter expression. See filter-syntax.md for syntax.")
     select: SelectStr = Field(..., description="A comma-separated list of columns to return. See response schema for valid column identifiers.")
     volume_monthly_date_to: DateStr | None = Field(default=None, description="The end date in YYYY-MM-DD format for retrieving historical monthly search volumes in the `volume_monthly_history` field. Required only if `volume_monthly_history` is requested.")
@@ -1526,6 +1628,7 @@ class RankTrackerSerpOverviewData(BaseModel):
     keywords: int | None = Field(default=None, description="The total number of keywords that a search result ranks for in the top 100 organic positions.")
     top_keyword: str | None = Field(default=None, description="The keyword that brings the most organic traffic to a search result.")
     top_keyword_volume: int | None = Field(default=None, description="An estimation of the average monthly number of searches for the top keyword over the latest known 12 months of data.")
+    page_type: str | None = Field(default=None, description="Comma-separated list of AI-predicted hierarchical page type paths for the ranking page. Each value is a slash-prefixed path (e.g. /Article/How_to).")
 
 
 class RankTrackerSerpOverviewResponse(BaseModel):
@@ -1559,6 +1662,7 @@ class SerpOverviewData(BaseModel):
     backlinks: int | None = Field(default=None, description="The total number of links from other websites pointing to a search result.")
     domain_rating: float | None = Field(default=None, description="The strength of a domain’s backlink profile compared to the others in our database on a 100-point scale.")
     keywords: int | None = Field(default=None, description="The total number of keywords that a search result ranks for in the top 100 organic positions.")
+    page_type: str | None = Field(default=None, description="Comma-separated list of AI-predicted hierarchical page type paths for the ranking page. Each value is a slash-prefixed path (e.g. /Article/How_to).")
     position: int | None = Field(default=None, description="The position of the search result in SERP.")
     refdomains: int | None = Field(default=None, description="(5 units) The total number of unique domains linking to a search result.")
     title: str | None = Field(default=None, description="The title of a ranking page.")
@@ -2397,7 +2501,9 @@ class SiteExplorerAllBacklinksData(BaseModel):
     name_source: str | None = Field(default=None, description="The complete referring domain name, including subdomains.")
     name_target: str | None = Field(default=None, description="The complete target domain name, including subdomains.")
     noindex: bool | None = Field(default=None, description="The referring page has the noindex meta attribute.")
+    page_category_source: str | None = Field(default=None, description="Comma-separated list of AI-predicted hierarchical category paths for the referring page. Each value is a slash-prefixed path (e.g. /Business_and_Industrial/Advertising_and_Marketing/Marketing).")
     page_size: int | None = Field(default=None, description="The size in bytes of the referring page content.")
+    page_type_source: str | None = Field(default=None, description="Comma-separated list of AI-predicted hierarchical page type paths for the referring page. Each value is a slash-prefixed path (e.g. /Article/How_to).")
     port_source: int | None = Field(default=None, description="The network port of the referring page URL.")
     port_target: int | None = Field(default=None, description="The network port of the target page URL.")
     positions: int | None = Field(default=None, description="The number of keywords that the referring page ranks for in the top 100 positions.")
@@ -2568,7 +2674,7 @@ class SiteExplorerBestByInternalLinksRequest(BaseModel):
 
     timeout: int | None = Field(default=None, description="A manual timeout duration in seconds.")
     limit: int = Field(default=1000, description="The number of results to return.")
-    order_by: str | None = Field(default=None, description="A column to order results by. See response schema for valid column identifiers.")
+    order_by: str | None = Field(default=None, description="A column to order results by. See the response schema for valid column identifiers, except for `http_code_target`, `languages_target`, `last_visited_target`, `powered_by_target`, `target_redirect`, `title_target`, `url_rating_target`, which are not supported in `order_by` for this endpoint.")
     where: str | None = Field(default=None, description="Filter expression. See filter-syntax.md for syntax.")
     select: SelectStr = Field(..., description="A comma-separated list of columns to return. See response schema for valid column identifiers.")
     protocol: ProtocolEnum = Field(default=ProtocolEnum.BOTH, description="The protocol of your target.")
@@ -2615,7 +2721,7 @@ class SiteExplorerBrokenBacklinksRequest(BaseModel):
 
     timeout: int | None = Field(default=None, description="A manual timeout duration in seconds.")
     limit: int = Field(default=1000, description="The number of results to return.")
-    order_by: str | None = Field(default=None, description="A column to order results by. See the response schema for valid column identifiers, except for `link_group_count`, `last_visited_target`, `http_code_target`, which are not supported in `order_by` for this endpoint.")
+    order_by: str | None = Field(default=None, description="A column to order results by. See the response schema for valid column identifiers, except for `http_code_target`, `last_visited_target`, `link_group_count`, which are not supported in `order_by` for this endpoint.")
     where: str | None = Field(default=None, description="Filter expression. See filter-syntax.md for syntax.")
     select: SelectStr = Field(..., description="A comma-separated list of columns to return. See response schema for valid column identifiers.")
     protocol: ProtocolEnum = Field(default=ProtocolEnum.BOTH, description="The protocol of your target.")
@@ -2671,7 +2777,9 @@ class SiteExplorerBrokenBacklinksData(BaseModel):
     links_internal: int | None = Field(default=None, description="The number of internal links from the referring page.")
     name_source: str | None = Field(default=None, description="The complete referring domain name, including subdomains.")
     name_target: str | None = Field(default=None, description="The complete target domain name, including subdomains.")
+    page_category_source: str | None = Field(default=None, description="Comma-separated list of AI-predicted hierarchical category paths for the referring page. Each value is a slash-prefixed path (e.g. /Business_and_Industrial/Advertising_and_Marketing/Marketing).")
     page_size: int | None = Field(default=None, description="The size in bytes of the referring page content.")
+    page_type_source: str | None = Field(default=None, description="Comma-separated list of AI-predicted hierarchical page type paths for the referring page. Each value is a slash-prefixed path (e.g. /Article/How_to).")
     port_source: int | None = Field(default=None, description="The network port of the referring page URL.")
     port_target: int | None = Field(default=None, description="The network port of the target page URL.")
     positions: int | None = Field(default=None, description="The number of keywords that the referring page ranks for in the top 100 positions.")
@@ -3135,6 +3243,7 @@ class SiteExplorerOrganicKeywordsData(BaseModel):
     keyword_difficulty: int | None = Field(default=None, description="(10 units) An estimation of how hard it is to rank in the top 10 organic search results for a keyword on a 100-point scale.")
     keyword_difficulty_merged: int | None = Field(default=None, description="(10 units) The keyword difficulty field optimized for sorting.")
     keyword_difficulty_prev: int | None = Field(default=None, description="(10 units) The keyword difficulty on the comparison date.")
+    keyword_language: list[str | None] | None = Field(default=None, description="The language of the search query")
     keyword_merged: str | None = Field(default=None, description="The keyword field optimized for sorting.")
     keyword_prev: str | None = Field(default=None, description="The keyword your target ranks for on the comparison date.")
     language: str | None = Field(default=None, description="The SERP language.")
@@ -3450,6 +3559,7 @@ class SiteExplorerTopPagesData(BaseModel):
     keywords_diff_percent: int | None = Field(default=None, description="The change in keywords between your selected dates, in percents.")
     keywords_merged: int | None = Field(default=None, description="The total number of keywords optimized for sorting.")
     keywords_prev: int | None = Field(default=None, description="The keyword your target ranks for on the comparison date.")
+    page_type: str | None = Field(default=None, description="Comma-separated list of AI-predicted hierarchical page type paths. Each value is a slash-prefixed path (e.g. /Article/How_to).")
     raw_url: str | None = Field(default=None, description="The ranking page URL in encoded format.")
     raw_url_prev: str | None = Field(default=None, description="The ranking page URL on the comparison date in encoded format.")
     referring_domains: int | None = Field(default=None, description="(5 units) The number of unique domains linking to a page.")

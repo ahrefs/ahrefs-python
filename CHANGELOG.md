@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [0.3.1]
+
+### Added
+
+- `brand_radar_sov_history()`, `brand_radar_cited_domains()`, `brand_radar_cited_pages()` methods
+- Updated API schemas (52 endpoints total)
+
 ## [0.3.0]
 
 ### Added
@@ -14,7 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 - `batch_analysis()` method for the Batch Analysis POST endpoint
 - `BatchAnalysisRequest`, `BatchAnalysisTarget`, `BatchAnalysisData` types
 - POST request support in both sync and async clients (`http_method` parameter on `_request()`)
-- Codegen support for POST endpoints with JSON request bodies and `$ref` resolution
+- POST endpoint support with typed request bodies and nested models
 
 ## [0.2.0]
 

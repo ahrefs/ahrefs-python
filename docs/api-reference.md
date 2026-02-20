@@ -119,6 +119,87 @@ AI Responses.
 | `response` | `str` | (10 units) The response from the model. |
 | `volume` | `int` | (10 units) Estimated monthly searches. This is based on our estimates for Google, combining the search volumes of related keywords where this question appears in People Also Ask section. |
 
+### `brand_radar_cited_domains()`
+
+Cited Domains.
+
+**Parameters:**
+
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| `where` | `str` | No | Filter expression ([syntax](filter-syntax.md)). Filterable fields listed below. |
+| `select` | `SelectStr` | Yes | A comma-separated list of columns to return. See response schema for valid column identifiers. |
+| `limit` | `int` | No | The number of results to return. |
+| `date` | `DateStr` | No | The date to search for in YYYY-MM-DD format. |
+| `country` | `CountryEnum` | No | A two-letter country code (ISO 3166-1 alpha-2). |
+| `data_source` | `DataSourceEnum` | Yes | The chatbot model to use. |
+| `market` | `str` | No | A comma-separated list of the niche markets of your brands. |
+| `competitors` | `str` | No | A comma-separated list of competitors of your brands. |
+| `brand` | `str` | No | A comma-separated list of brands to search for. At least one of brand, competitors, market or where should not be empty. |
+
+<details>
+<summary>Filterable fields (7 fields)</summary>
+
+- `cited_domain` (domain)
+- `cited_domain_subdomains` (string)
+- `cited_url_exact` (string)
+- `cited_url_prefix` (string)
+- `question` (string)
+- `response` (string)
+- `topic` (string)
+
+</details>
+
+**Returns:** `list[BrandRadarCitedDomainsData]`
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `domain` | `str` | The cited domain name. |
+| `mentions` | `list[dict[str, Any] \| None]` | Deprecated on 2026-02-10. |
+| `pages` | `int` | The number of unique pages from the domain that were cited in the responses. |
+| `responses` | `int` | The number of responses that cited the domain. |
+| `volume` | `int` | (10 units) Estimated monthly searches that cited the domain. Based on the average monthly number of searches for the query on Google over the latest known 12 months of data. |
+
+### `brand_radar_cited_pages()`
+
+Cited Pages.
+
+**Parameters:**
+
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| `where` | `str` | No | Filter expression ([syntax](filter-syntax.md)). Filterable fields listed below. |
+| `select` | `SelectStr` | Yes | A comma-separated list of columns to return. See response schema for valid column identifiers. |
+| `limit` | `int` | No | The number of results to return. |
+| `date` | `DateStr` | No | The date to search for in YYYY-MM-DD format. |
+| `country` | `CountryEnum` | No | A two-letter country code (ISO 3166-1 alpha-2). |
+| `data_source` | `DataSourceEnum` | Yes | The chatbot model to use. |
+| `market` | `str` | No | A comma-separated list of the niche markets of your brands. |
+| `competitors` | `str` | No | A comma-separated list of competitors of your brands. |
+| `brand` | `str` | No | A comma-separated list of brands to search for. At least one of brand, competitors, market or where should not be empty. |
+
+<details>
+<summary>Filterable fields (7 fields)</summary>
+
+- `cited_domain` (domain)
+- `cited_domain_subdomains` (string)
+- `cited_url_exact` (string)
+- `cited_url_prefix` (string)
+- `question` (string)
+- `response` (string)
+- `topic` (string)
+
+</details>
+
+**Returns:** `list[BrandRadarCitedPagesData]`
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `mentions` | `list[dict[str, Any] \| None]` | Deprecated on 2026-02-10. |
+| `responses` | `int` | The number of responses that cited the page. |
+| `url` | `str` | The URL of the cited page. |
+| `volume` | `int` | (10 units) Estimated monthly searches that cited the page. Based on the average monthly number of searches for the query on Google over the latest known 12 months of data. |
+
 ### `brand_radar_impressions_history()`
 
 Overview history - Impressions.
@@ -152,8 +233,8 @@ Overview history - Impressions.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `date` | `str` | date |
-| `impressions` | `int` | impressions |
+| `date` | `str` |  |
+| `impressions` | `int` | Estimated impressions from responses mentioning the brand. |
 
 ### `brand_radar_impressions_overview()`
 
@@ -228,8 +309,8 @@ Overview history - Mentions.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `date` | `str` | date |
-| `mentions` | `int` | mentions |
+| `date` | `str` |  |
+| `mentions` | `int` | Estimated mentions from responses mentioning the brand. |
 
 ### `brand_radar_mentions_overview()`
 
@@ -271,6 +352,43 @@ Overview - Mentions.
 | `target_and_competitors_brands` | `int` | Estimated mentions from responses mentioning both your and competitor brands. |
 | `total` | `int` | Total estimated mentions for your brand (includes both `only_target_brand` and `target_and_competitors_brands`). |
 
+### `brand_radar_sov_history()`
+
+Overview history - Share of Voice.
+
+**Parameters:**
+
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| `where` | `str` | No | Filter expression ([syntax](filter-syntax.md)). Filterable fields listed below. |
+| `date_to` | `DateStr` | No | The end date of the historical period in YYYY-MM-DD format. |
+| `date_from` | `DateStr` | Yes | The start date of the historical period in YYYY-MM-DD format. |
+| `country` | `CountryEnum` | No | A two-letter country code (ISO 3166-1 alpha-2). |
+| `data_source` | `DataSourceEnum` | Yes | The chatbot model to use. |
+| `market` | `str` | No | A comma-separated list of the niche markets of your brands. |
+| `competitors` | `str` | No | A comma-separated list of competitors of your brands. |
+| `brand` | `str` | No | A comma-separated list of brands to search for. At least one of brand or competitors should not be empty. |
+
+<details>
+<summary>Filterable fields (7 fields)</summary>
+
+- `cited_domain` (domain)
+- `cited_domain_subdomains` (string)
+- `cited_url_exact` (string)
+- `cited_url_prefix` (string)
+- `question` (string)
+- `response` (string)
+- `topic` (string)
+
+</details>
+
+**Returns:** `list[BrandRadarSovHistoryData]`
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `date` | `str` |  |
+| `share_of_voice` | `list[dict[str, Any] \| None]` | (1 unit per brand) Estimated share of voice for the brand. |
+
 ### `brand_radar_sov_overview()`
 
 Overview - Share of Voice.
@@ -280,7 +398,6 @@ Overview - Share of Voice.
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `where` | `str` | No | Filter expression ([syntax](filter-syntax.md)). Filterable fields listed below. |
-| `select` | `SelectStr` | Yes | A comma-separated list of columns to return. See response schema for valid column identifiers. |
 | `country` | `CountryEnum` | No | A two-letter country code (ISO 3166-1 alpha-2). |
 | `data_source` | `DataSourceEnum` | Yes | The chatbot model to use. |
 | `market` | `str` | No | A comma-separated list of the niche markets of your brands. |
@@ -384,7 +501,7 @@ Overview.
 |------|------|----------|-------------|
 | `timeout` | `int` | No | A manual timeout duration in seconds. |
 | `limit` | `int` | No | The number of results to return. |
-| `order_by` | `str` | No | A column to order results by. See response schema for valid column identifiers. |
+| `order_by` | `str` | No | A column to order results by. See the response schema for valid column identifiers, except for `volume_monthly`, which is not supported in `order_by` for this endpoint. |
 | `where` | `str` | No | Filter expression ([syntax](filter-syntax.md)). Filterable fields listed below. |
 | `select` | `SelectStr` | Yes | A comma-separated list of columns to return. See response schema for valid column identifiers. |
 | `volume_monthly_date_to` | `DateStr` | No | The end date in YYYY-MM-DD format for retrieving historical monthly search volumes in the `volume_monthly_history` field. Required only if `volume_monthly_history` is requested. |
@@ -944,6 +1061,7 @@ SERP Overview.
 | `keywords` | `int \| None` | The total number of keywords that a search result ranks for in the top 100 organic positions. |
 | `top_keyword` | `str \| None` | The keyword that brings the most organic traffic to a search result. |
 | `top_keyword_volume` | `int \| None` | An estimation of the average monthly number of searches for the top keyword over the latest known 12 months of data. |
+| `page_type` | `str \| None` | Comma-separated list of AI-predicted hierarchical page type paths for the ranking page. Each value is a slash-prefixed path (e.g. /Article/How_to). |
 
 ---
 
@@ -971,6 +1089,7 @@ SERP Overview.
 | `backlinks` | `int \| None` | The total number of links from other websites pointing to a search result. |
 | `domain_rating` | `float \| None` | The strength of a domain’s backlink profile compared to the others in our database on a 100-point scale. |
 | `keywords` | `int \| None` | The total number of keywords that a search result ranks for in the top 100 organic positions. |
+| `page_type` | `str \| None` | Comma-separated list of AI-predicted hierarchical page type paths for the ranking page. Each value is a slash-prefixed path (e.g. /Article/How_to). |
 | `position` | `int` | The position of the search result in SERP. |
 | `refdomains` | `int \| None` | (5 units) The total number of unique domains linking to a search result. |
 | `title` | `str \| None` | The title of a ranking page. |
@@ -2334,7 +2453,7 @@ Backlinks.
 | `history` | `str` | No | A time frame to add lost backlinks to the report. Choose between `live` (no history), `since:<date>` (history since a specified date), and `all_time` (full history). The date should be in YYYY-MM-DD format. |
 
 <details>
-<summary>Filterable fields (84 fields)</summary>
+<summary>Filterable fields (86 fields)</summary>
 
 - `ahrefs_rank_source` (integer)
 - `ahrefs_rank_target` (integer)
@@ -2391,7 +2510,9 @@ Backlinks.
 - `name_source` (string)
 - `name_target` (string)
 - `noindex` (boolean)
+- `page_category_source` (string)
 - `page_size` (integer)
+- `page_type_source` (string)
 - `port_source` (integer)
 - `port_target` (integer)
 - `positions` (integer)
@@ -2426,7 +2547,7 @@ Backlinks.
 **Returns:** `list[SiteExplorerAllBacklinksData]`
 
 <details>
-<summary>80 fields</summary>
+<summary>82 fields</summary>
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -2482,7 +2603,9 @@ Backlinks.
 | `name_source` | `str` | The complete referring domain name, including subdomains. |
 | `name_target` | `str` | The complete target domain name, including subdomains. |
 | `noindex` | `bool` | The referring page has the noindex meta attribute. |
+| `page_category_source` | `str \| None` | Comma-separated list of AI-predicted hierarchical category paths for the referring page. Each value is a slash-prefixed path (e.g. /Business_and_Industrial/Advertising_and_Marketing/Marketing). |
 | `page_size` | `int` | The size in bytes of the referring page content. |
+| `page_type_source` | `str \| None` | Comma-separated list of AI-predicted hierarchical page type paths for the referring page. Each value is a slash-prefixed path (e.g. /Article/How_to). |
 | `port_source` | `int` | The network port of the referring page URL. |
 | `port_target` | `int` | The network port of the target page URL. |
 | `positions` | `int` | The number of keywords that the referring page ranks for in the top 100 positions. |
@@ -2733,7 +2856,7 @@ Best by Internal Links.
 |------|------|----------|-------------|
 | `timeout` | `int` | No | A manual timeout duration in seconds. |
 | `limit` | `int` | No | The number of results to return. |
-| `order_by` | `str` | No | A column to order results by. See response schema for valid column identifiers. |
+| `order_by` | `str` | No | A column to order results by. See the response schema for valid column identifiers, except for `http_code_target`, `languages_target`, `last_visited_target`, `powered_by_target`, `target_redirect`, `title_target`, `url_rating_target`, which are not supported in `order_by` for this endpoint. |
 | `where` | `str` | No | Filter expression ([syntax](filter-syntax.md)). Filterable fields listed below. |
 | `select` | `SelectStr` | Yes | A comma-separated list of columns to return. See response schema for valid column identifiers. |
 | `protocol` | `ProtocolEnum` | No | The protocol of your target. |
@@ -2826,7 +2949,7 @@ Broken Backlinks.
 |------|------|----------|-------------|
 | `timeout` | `int` | No | A manual timeout duration in seconds. |
 | `limit` | `int` | No | The number of results to return. |
-| `order_by` | `str` | No | A column to order results by. See the response schema for valid column identifiers, except for `link_group_count`, `last_visited_target`, `http_code_target`, which are not supported in `order_by` for this endpoint. |
+| `order_by` | `str` | No | A column to order results by. See the response schema for valid column identifiers, except for `http_code_target`, `last_visited_target`, `link_group_count`, which are not supported in `order_by` for this endpoint. |
 | `where` | `str` | No | Filter expression ([syntax](filter-syntax.md)). Filterable fields listed below. |
 | `select` | `SelectStr` | Yes | A comma-separated list of columns to return. See response schema for valid column identifiers. |
 | `protocol` | `ProtocolEnum` | No | The protocol of your target. |
@@ -2835,7 +2958,7 @@ Broken Backlinks.
 | `aggregation` | `AggregationEnum` | No | The backlinks grouping mode. |
 
 <details>
-<summary>Filterable fields (75 fields)</summary>
+<summary>Filterable fields (77 fields)</summary>
 
 - `ahrefs_rank_source` (integer)
 - `ahrefs_rank_target` (integer)
@@ -2884,7 +3007,9 @@ Broken Backlinks.
 - `links_internal` (integer)
 - `name_source` (string)
 - `name_target` (string)
+- `page_category_source` (string)
 - `page_size` (integer)
+- `page_type_source` (string)
 - `port_source` (integer)
 - `port_target` (integer)
 - `positions` (integer)
@@ -2918,7 +3043,7 @@ Broken Backlinks.
 **Returns:** `list[SiteExplorerBrokenBacklinksData]`
 
 <details>
-<summary>71 fields</summary>
+<summary>73 fields</summary>
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -2966,7 +3091,9 @@ Broken Backlinks.
 | `links_internal` | `int` | The number of internal links from the referring page. |
 | `name_source` | `str` | The complete referring domain name, including subdomains. |
 | `name_target` | `str` | The complete target domain name, including subdomains. |
+| `page_category_source` | `str \| None` | Comma-separated list of AI-predicted hierarchical category paths for the referring page. Each value is a slash-prefixed path (e.g. /Business_and_Industrial/Advertising_and_Marketing/Marketing). |
 | `page_size` | `int` | The size in bytes of the referring page content. |
+| `page_type_source` | `str \| None` | Comma-separated list of AI-predicted hierarchical page type paths for the referring page. Each value is a slash-prefixed path (e.g. /Article/How_to). |
 | `port_source` | `int` | The network port of the referring page URL. |
 | `port_target` | `int` | The network port of the target page URL. |
 | `positions` | `int` | The number of keywords that the referring page ranks for in the top 100 positions. |
@@ -3455,7 +3582,7 @@ Organic keywords.
 | `volume_mode` | `VolumeModeEnum` | No | The search volume calculation mode: monthly or average. It affects volume, traffic, and traffic value. |
 
 <details>
-<summary>Filterable fields (81 fields)</summary>
+<summary>Filterable fields (82 fields)</summary>
 
 - `best_position` (integer)
 - `best_position_diff` (integer)
@@ -3497,6 +3624,7 @@ Organic keywords.
 - `keyword_difficulty` (integer)
 - `keyword_difficulty_merged` (integer)
 - `keyword_difficulty_prev` (integer)
+- `keyword_language` (array(string))
 - `keyword_merged` (string)
 - `keyword_prev` (string)
 - `language` (string)
@@ -3544,7 +3672,7 @@ Organic keywords.
 **Returns:** `list[SiteExplorerOrganicKeywordsData]`
 
 <details>
-<summary>67 fields</summary>
+<summary>68 fields</summary>
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -3585,6 +3713,7 @@ Organic keywords.
 | `keyword_difficulty` | `int \| None` | (10 units) An estimation of how hard it is to rank in the top 10 organic search results for a keyword on a 100-point scale. |
 | `keyword_difficulty_merged` | `int \| None` | (10 units) The keyword difficulty field optimized for sorting. |
 | `keyword_difficulty_prev` | `int \| None` | (10 units) The keyword difficulty on the comparison date. |
+| `keyword_language` | `list[str \| None]` | The language of the search query |
 | `keyword_merged` | `str` | The keyword field optimized for sorting. |
 | `keyword_prev` | `str \| None` | The keyword your target ranks for on the comparison date. |
 | `language` | `str` | The SERP language. |
@@ -3968,7 +4097,7 @@ Top pages.
 | `volume_mode` | `VolumeModeEnum` | No | The search volume calculation mode: monthly or average. It affects volume, traffic, and traffic value. |
 
 <details>
-<summary>Filterable fields (57 fields)</summary>
+<summary>Filterable fields (58 fields)</summary>
 
 - `cpc` (integer)
 - `cpc_prev` (integer)
@@ -3985,6 +4114,7 @@ Top pages.
 - `keywords_diff_percent` (integer)
 - `keywords_merged` (integer)
 - `keywords_prev` (integer)
+- `page_type` (string)
 - `position` (integer)
 - `position_kind` (string)
 - `position_kind_prev` (string)
@@ -4033,7 +4163,7 @@ Top pages.
 **Returns:** `list[SiteExplorerTopPagesData]`
 
 <details>
-<summary>35 fields</summary>
+<summary>36 fields</summary>
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -4042,6 +4172,7 @@ Top pages.
 | `keywords_diff_percent` | `int` | The change in keywords between your selected dates, in percents. |
 | `keywords_merged` | `int` | The total number of keywords optimized for sorting. |
 | `keywords_prev` | `int \| None` | The keyword your target ranks for on the comparison date. |
+| `page_type` | `str \| None` | Comma-separated list of AI-predicted hierarchical page type paths. Each value is a slash-prefixed path (e.g. /Article/How_to). |
 | `raw_url` | `str` | The ranking page URL in encoded format. |
 | `raw_url_prev` | `str \| None` | The ranking page URL on the comparison date in encoded format. |
 | `referring_domains` | `int \| None` | (5 units) The number of unique domains linking to a page. |

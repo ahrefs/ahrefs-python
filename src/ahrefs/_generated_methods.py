@@ -119,9 +119,9 @@ class GeneratedMethodsMixin:
                 country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
                 order_by (OrderByEnum, optional): The order by field. Default: 'relevance'.
                 data_source (DataSourceEnum, required): The chatbot model to use.
-                market (str, optional): A comma-separated list of the niche markets of your brands. Default: '[]'.
-                competitors (str, optional): A comma-separated list of competitors of your brands. Default: '[]'.
-                brand (str, optional): A comma-separated list of brands to search for. At least one of brand, competitors, market or where should not be empty. Default: '[]'.
+                market (str, optional): A comma-separated list of the niche markets of your brands. Default: ''.
+                competitors (str, optional): A comma-separated list of competitors of your brands. Default: ''.
+                brand (str, optional): A comma-separated list of brands to search for. At least one of brand, competitors, market or where should not be empty. Default: ''.
 
         Returns:
             list[BrandRadarAiResponsesData]:
@@ -137,6 +137,95 @@ class GeneratedMethodsMixin:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = BrandRadarAiResponsesRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("where", where), ("select", select), ("date", date), ("country", country), ("order_by", order_by), ("data_source", data_source), ("market", market), ("competitors", competitors), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
         _resp = await self._request("brand-radar", "ai-responses", request, BrandRadarAiResponsesResponse, exclude_none=True)
+        return _resp.data
+
+    async def brand_radar_cited_domains(
+        self,
+        request: BrandRadarCitedDomainsRequest | None = None,
+        *,
+        where: str | None = None,
+        select: SelectStr | None = None,
+        limit: int | None = None,
+        date: DateStr | None = None,
+        country: CountryEnum | None = None,
+        data_source: DataSourceEnum | None = None,
+        market: str | None = None,
+        competitors: str | None = None,
+        brand: str | None = None,
+    ) -> list[BrandRadarCitedDomainsData]:
+        """
+        Cited Domains.
+
+        Args:
+            request: BrandRadarCitedDomainsRequest
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
+                limit (int, optional): The number of results to return. Default: None.
+                date (str, optional): The date to search for in YYYY-MM-DD format. Default: None.
+                country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
+                data_source (DataSourceEnum, required): The chatbot model to use.
+                market (str, optional): A comma-separated list of the niche markets of your brands. Default: ''.
+                competitors (str, optional): A comma-separated list of competitors of your brands. Default: ''.
+                brand (str, optional): A comma-separated list of brands to search for. At least one of brand, competitors, market or where should not be empty. Default: ''.
+
+        Returns:
+            list[BrandRadarCitedDomainsData]:
+                domain (str): The cited domain name.
+                mentions (list[dict[str, Any] | None]): Deprecated on 2026-02-10.
+                pages (int): The number of unique pages from the domain that were cited in the responses.
+                responses (int): The number of responses that cited the domain.
+                volume (int): (10 units) Estimated monthly searches that cited the domain. Based on the average monthly number of searches for the query on Google over the latest known 12 months of data.
+        """
+        if request is None:
+            _missing = [k for k, v in [("select", select), ("data_source", data_source)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = BrandRadarCitedDomainsRequest(**{k: v for k, v in [("where", where), ("select", select), ("limit", limit), ("date", date), ("country", country), ("data_source", data_source), ("market", market), ("competitors", competitors), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = await self._request("brand-radar", "cited-domains", request, BrandRadarCitedDomainsResponse, exclude_none=True)
+        return _resp.data
+
+    async def brand_radar_cited_pages(
+        self,
+        request: BrandRadarCitedPagesRequest | None = None,
+        *,
+        where: str | None = None,
+        select: SelectStr | None = None,
+        limit: int | None = None,
+        date: DateStr | None = None,
+        country: CountryEnum | None = None,
+        data_source: DataSourceEnum | None = None,
+        market: str | None = None,
+        competitors: str | None = None,
+        brand: str | None = None,
+    ) -> list[BrandRadarCitedPagesData]:
+        """
+        Cited Pages.
+
+        Args:
+            request: BrandRadarCitedPagesRequest
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
+                limit (int, optional): The number of results to return. Default: None.
+                date (str, optional): The date to search for in YYYY-MM-DD format. Default: None.
+                country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
+                data_source (DataSourceEnum, required): The chatbot model to use.
+                market (str, optional): A comma-separated list of the niche markets of your brands. Default: ''.
+                competitors (str, optional): A comma-separated list of competitors of your brands. Default: ''.
+                brand (str, optional): A comma-separated list of brands to search for. At least one of brand, competitors, market or where should not be empty. Default: ''.
+
+        Returns:
+            list[BrandRadarCitedPagesData]:
+                mentions (list[dict[str, Any] | None]): Deprecated on 2026-02-10.
+                responses (int): The number of responses that cited the page.
+                url (str): The URL of the cited page.
+                volume (int): (10 units) Estimated monthly searches that cited the page. Based on the average monthly number of searches for the query on Google over the latest known 12 months of data.
+        """
+        if request is None:
+            _missing = [k for k, v in [("select", select), ("data_source", data_source)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = BrandRadarCitedPagesRequest(**{k: v for k, v in [("where", where), ("select", select), ("limit", limit), ("date", date), ("country", country), ("data_source", data_source), ("market", market), ("competitors", competitors), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = await self._request("brand-radar", "cited-pages", request, BrandRadarCitedPagesResponse, exclude_none=True)
         return _resp.data
 
     async def brand_radar_impressions_history(
@@ -161,13 +250,13 @@ class GeneratedMethodsMixin:
                 date_from (str, required): The start date of the historical period in YYYY-MM-DD format.
                 country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
                 data_source (DataSourceEnum, required): The chatbot model to use.
-                market (str, optional): A comma-separated list of the niche markets of your brand. Default: '[]'.
+                market (str, optional): A comma-separated list of the niche markets of your brand. Default: ''.
                 brand (str, required): The brand to search for.
 
         Returns:
             list[BrandRadarImpressionsHistoryData]:
-                date (str): date
-                impressions (int): impressions
+                date (str)
+                impressions (int): Estimated impressions from responses mentioning the brand.
         """
         if request is None:
             _missing = [k for k, v in [("date_from", date_from), ("data_source", data_source), ("brand", brand)] if v is None]
@@ -198,9 +287,9 @@ class GeneratedMethodsMixin:
                 select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
                 country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
                 data_source (DataSourceEnum, required): The chatbot model to use.
-                market (str, optional): A comma-separated list of the niche markets of your brands. Default: '[]'.
-                competitors (str, optional): A comma-separated list of competitors of your brands. Default: '[]'.
-                brand (str, optional): A comma-separated list of brands to search for. At least one of brand or competitors should not be empty. Default: '[]'.
+                market (str, optional): A comma-separated list of the niche markets of your brands. Default: ''.
+                competitors (str, optional): A comma-separated list of competitors of your brands. Default: ''.
+                brand (str, optional): A comma-separated list of brands to search for. At least one of brand or competitors should not be empty. Default: ''.
 
         Returns:
             list[BrandRadarImpressionsOverviewData]:
@@ -241,13 +330,13 @@ class GeneratedMethodsMixin:
                 date_from (str, required): The start date of the historical period in YYYY-MM-DD format.
                 country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
                 data_source (DataSourceEnum, required): The chatbot model to use.
-                market (str, optional): A comma-separated list of the niche markets of your brand. Default: '[]'.
+                market (str, optional): A comma-separated list of the niche markets of your brand. Default: ''.
                 brand (str, required): The brand to search for.
 
         Returns:
             list[BrandRadarMentionsHistoryData]:
-                date (str): date
-                mentions (int): mentions
+                date (str)
+                mentions (int): Estimated mentions from responses mentioning the brand.
         """
         if request is None:
             _missing = [k for k, v in [("date_from", date_from), ("data_source", data_source), ("brand", brand)] if v is None]
@@ -278,9 +367,9 @@ class GeneratedMethodsMixin:
                 select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
                 country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
                 data_source (DataSourceEnum, required): The chatbot model to use.
-                market (str, optional): A comma-separated list of the niche markets of your brands. Default: '[]'.
-                competitors (str, optional): A comma-separated list of competitors of your brands. Default: '[]'.
-                brand (str, optional): A comma-separated list of brands to search for. At least one of brand or competitors should not be empty. Default: '[]'.
+                market (str, optional): A comma-separated list of the niche markets of your brands. Default: ''.
+                competitors (str, optional): A comma-separated list of competitors of your brands. Default: ''.
+                brand (str, optional): A comma-separated list of brands to search for. At least one of brand or competitors should not be empty. Default: ''.
 
         Returns:
             list[BrandRadarMentionsOverviewData]:
@@ -299,12 +388,51 @@ class GeneratedMethodsMixin:
         _resp = await self._request("brand-radar", "mentions-overview", request, BrandRadarMentionsOverviewResponse, exclude_none=True)
         return _resp.data
 
+    async def brand_radar_sov_history(
+        self,
+        request: BrandRadarSovHistoryRequest | None = None,
+        *,
+        where: str | None = None,
+        date_to: DateStr | None = None,
+        date_from: DateStr | None = None,
+        country: CountryEnum | None = None,
+        data_source: DataSourceEnum | None = None,
+        market: str | None = None,
+        competitors: str | None = None,
+        brand: str | None = None,
+    ) -> list[BrandRadarSovHistoryData]:
+        """
+        Overview history - Share of Voice.
+
+        Args:
+            request: BrandRadarSovHistoryRequest
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                date_to (str, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
+                date_from (str, required): The start date of the historical period in YYYY-MM-DD format.
+                country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
+                data_source (DataSourceEnum, required): The chatbot model to use.
+                market (str, optional): A comma-separated list of the niche markets of your brands. Default: ''.
+                competitors (str, optional): A comma-separated list of competitors of your brands. Default: ''.
+                brand (str, optional): A comma-separated list of brands to search for. At least one of brand or competitors should not be empty. Default: ''.
+
+        Returns:
+            list[BrandRadarSovHistoryData]:
+                date (str)
+                share_of_voice (list[dict[str, Any] | None]): (1 unit per brand) Estimated share of voice for the brand.
+        """
+        if request is None:
+            _missing = [k for k, v in [("date_from", date_from), ("data_source", data_source)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = BrandRadarSovHistoryRequest(**{k: v for k, v in [("where", where), ("date_to", date_to), ("date_from", date_from), ("country", country), ("data_source", data_source), ("market", market), ("competitors", competitors), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = await self._request("brand-radar", "sov-history", request, BrandRadarSovHistoryResponse, exclude_none=True)
+        return _resp.data
+
     async def brand_radar_sov_overview(
         self,
         request: BrandRadarSovOverviewRequest | None = None,
         *,
         where: str | None = None,
-        select: SelectStr | None = None,
         country: CountryEnum | None = None,
         data_source: DataSourceEnum | None = None,
         market: str | None = None,
@@ -317,12 +445,11 @@ class GeneratedMethodsMixin:
         Args:
             request: BrandRadarSovOverviewRequest
                 where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
-                select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
                 country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
                 data_source (DataSourceEnum, required): The chatbot model to use.
-                market (str, optional): A comma-separated list of the niche markets of your brands. Default: '[]'.
-                competitors (str, optional): A comma-separated list of competitors of your brands. Default: '[]'.
-                brand (str, optional): A comma-separated list of brands to search for. At least one of brand or competitors should not be empty. Default: '[]'.
+                market (str, optional): A comma-separated list of the niche markets of your brands. Default: ''.
+                competitors (str, optional): A comma-separated list of competitors of your brands. Default: ''.
+                brand (str, optional): A comma-separated list of brands to search for. At least one of brand or competitors should not be empty. Default: ''.
 
         Returns:
             list[BrandRadarSovOverviewData]:
@@ -330,10 +457,10 @@ class GeneratedMethodsMixin:
                 share_of_voice (float): Estimated share of voice for your brand.
         """
         if request is None:
-            _missing = [k for k, v in [("select", select), ("data_source", data_source)] if v is None]
+            _missing = [k for k, v in [("data_source", data_source)] if v is None]
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
-            request = BrandRadarSovOverviewRequest(**{k: v for k, v in [("where", where), ("select", select), ("country", country), ("data_source", data_source), ("market", market), ("competitors", competitors), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
+            request = BrandRadarSovOverviewRequest(**{k: v for k, v in [("where", where), ("country", country), ("data_source", data_source), ("market", market), ("competitors", competitors), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
         _resp = await self._request("brand-radar", "sov-overview", request, BrandRadarSovOverviewResponse, exclude_none=True)
         return _resp.data
 
@@ -425,7 +552,7 @@ class GeneratedMethodsMixin:
             request: KeywordsExplorerOverviewRequest
                 timeout (int, optional): A manual timeout duration in seconds. Default: None.
                 limit (int, optional): The number of results to return. Default: 1000.
-                order_by (str, optional): A column to order results by. See response schema for valid column identifiers. Default: None.
+                order_by (str, optional): A column to order results by. See the response schema for valid column identifiers, except for `volume_monthly`, which is not supported in `order_by` for this endpoint. Default: None.
                 where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
                 select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
                 volume_monthly_date_to (str, optional): The end date in YYYY-MM-DD format for retrieving historical monthly search volumes in the `volume_monthly_history` field. Required only if `volume_monthly_history` is requested. Default: None.
@@ -941,6 +1068,7 @@ class GeneratedMethodsMixin:
                 keywords (int | None): The total number of keywords that a search result ranks for in the top 100 organic positions.
                 top_keyword (str | None): The keyword that brings the most organic traffic to a search result.
                 top_keyword_volume (int | None): An estimation of the average monthly number of searches for the top keyword over the latest known 12 months of data.
+                page_type (str | None): Comma-separated list of AI-predicted hierarchical page type paths for the ranking page. Each value is a slash-prefixed path (e.g. /Article/How_to).
         """
         if request is None:
             _missing = [k for k, v in [("device", device), ("country", country), ("keyword", keyword), ("project_id", project_id)] if v is None]
@@ -978,6 +1106,7 @@ class GeneratedMethodsMixin:
                 backlinks (int | None): The total number of links from other websites pointing to a search result.
                 domain_rating (float | None): The strength of a domain’s backlink profile compared to the others in our database on a 100-point scale.
                 keywords (int | None): The total number of keywords that a search result ranks for in the top 100 organic positions.
+                page_type (str | None): Comma-separated list of AI-predicted hierarchical page type paths for the ranking page. Each value is a slash-prefixed path (e.g. /Article/How_to).
                 position (int): The position of the search result in SERP.
                 refdomains (int | None): (5 units) The total number of unique domains linking to a search result.
                 title (str | None): The title of a ranking page.
@@ -1252,7 +1381,7 @@ class GeneratedMethodsMixin:
                 is_nofollow (bool): The link or the referring page has the nofollow attribute set.
                 is_redirect (bool): The link pointing to your target via a redirect.
                 is_redirect_lost (bool): The redirected link currently does not exist anymore.
-                ... and 50 more fields. See SiteExplorerAllBacklinksData for all fields.
+                ... and 52 more fields. See SiteExplorerAllBacklinksData for all fields.
         """
         if request is None:
             _missing = [k for k, v in [("select", select), ("target", target)] if v is None]
@@ -1428,7 +1557,7 @@ class GeneratedMethodsMixin:
             request: SiteExplorerBestByInternalLinksRequest
                 timeout (int, optional): A manual timeout duration in seconds. Default: None.
                 limit (int, optional): The number of results to return. Default: 1000.
-                order_by (str, optional): A column to order results by. See response schema for valid column identifiers. Default: None.
+                order_by (str, optional): A column to order results by. See the response schema for valid column identifiers, except for `http_code_target`, `languages_target`, `last_visited_target`, `powered_by_target`, `target_redirect`, `title_target`, `url_rating_target`, which are not supported in `order_by` for this endpoint. Default: None.
                 where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
                 select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
                 protocol (ProtocolEnum, optional): The protocol of your target. Default: 'both'.
@@ -1484,7 +1613,7 @@ class GeneratedMethodsMixin:
             request: SiteExplorerBrokenBacklinksRequest
                 timeout (int, optional): A manual timeout duration in seconds. Default: None.
                 limit (int, optional): The number of results to return. Default: 1000.
-                order_by (str, optional): A column to order results by. See the response schema for valid column identifiers, except for `link_group_count`, `last_visited_target`, `http_code_target`, which are not supported in `order_by` for this endpoint. Default: None.
+                order_by (str, optional): A column to order results by. See the response schema for valid column identifiers, except for `http_code_target`, `last_visited_target`, `link_group_count`, which are not supported in `order_by` for this endpoint. Default: None.
                 where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
                 select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
                 protocol (ProtocolEnum, optional): The protocol of your target. Default: 'both'.
@@ -1524,7 +1653,7 @@ class GeneratedMethodsMixin:
                 is_sponsored (bool): The link has the Sponsored attribute set in the referring page HTML.
                 is_text (bool): The link is a standard href hyperlink.
                 is_ugc (bool): The link has the User Generated Content attribute set in the referring page HTML.
-                ... and 41 more fields. See SiteExplorerBrokenBacklinksData for all fields.
+                ... and 43 more fields. See SiteExplorerBrokenBacklinksData for all fields.
         """
         if request is None:
             _missing = [k for k, v in [("select", select), ("target", target)] if v is None]
@@ -2039,7 +2168,7 @@ class GeneratedMethodsMixin:
                 is_commercial (bool): User intent: commercial. The user is comparing products or services before making a purchase decision.
                 is_informational (bool): User intent: informational. The user is looking for information or an answer to a specific question.
                 is_local (bool): User intent: local. The user is looking for information relevant to a specific location or nearby services.
-                ... and 37 more fields. See SiteExplorerOrganicKeywordsData for all fields.
+                ... and 38 more fields. See SiteExplorerOrganicKeywordsData for all fields.
         """
         if request is None:
             _missing = [k for k, v in [("select", select), ("target", target), ("date", date)] if v is None]
@@ -2374,6 +2503,7 @@ class GeneratedMethodsMixin:
                 keywords_diff_percent (int): The change in keywords between your selected dates, in percents.
                 keywords_merged (int): The total number of keywords optimized for sorting.
                 keywords_prev (int | None): The keyword your target ranks for on the comparison date.
+                page_type (str | None): Comma-separated list of AI-predicted hierarchical page type paths. Each value is a slash-prefixed path (e.g. /Article/How_to).
                 raw_url (str): The ranking page URL in encoded format.
                 raw_url_prev (str | None): The ranking page URL on the comparison date in encoded format.
                 referring_domains (int | None): (5 units) The number of unique domains linking to a page.
@@ -2398,8 +2528,7 @@ class GeneratedMethodsMixin:
                 traffic_diff_percent (int): The change in traffic between your selected dates, in percents.
                 ur (float | None): URL Rating (UR) shows the strength of your target page’s backlink profile on a 100-point logarithmic scale.
                 url (str | None): The ranking page URL.
-                url_prev (str | None): The ranking page URL on the comparison date.
-                ... and 5 more fields. See SiteExplorerTopPagesData for all fields.
+                ... and 6 more fields. See SiteExplorerTopPagesData for all fields.
         """
         if request is None:
             _missing = [k for k, v in [("select", select), ("target", target), ("date", date)] if v is None]
@@ -2591,9 +2720,9 @@ class GeneratedSyncMethodsMixin:
                 country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
                 order_by (OrderByEnum, optional): The order by field. Default: 'relevance'.
                 data_source (DataSourceEnum, required): The chatbot model to use.
-                market (str, optional): A comma-separated list of the niche markets of your brands. Default: '[]'.
-                competitors (str, optional): A comma-separated list of competitors of your brands. Default: '[]'.
-                brand (str, optional): A comma-separated list of brands to search for. At least one of brand, competitors, market or where should not be empty. Default: '[]'.
+                market (str, optional): A comma-separated list of the niche markets of your brands. Default: ''.
+                competitors (str, optional): A comma-separated list of competitors of your brands. Default: ''.
+                brand (str, optional): A comma-separated list of brands to search for. At least one of brand, competitors, market or where should not be empty. Default: ''.
 
         Returns:
             list[BrandRadarAiResponsesData]:
@@ -2609,6 +2738,95 @@ class GeneratedSyncMethodsMixin:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = BrandRadarAiResponsesRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("where", where), ("select", select), ("date", date), ("country", country), ("order_by", order_by), ("data_source", data_source), ("market", market), ("competitors", competitors), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
         _resp = self._request("brand-radar", "ai-responses", request, BrandRadarAiResponsesResponse, exclude_none=True)
+        return _resp.data
+
+    def brand_radar_cited_domains(
+        self,
+        request: BrandRadarCitedDomainsRequest | None = None,
+        *,
+        where: str | None = None,
+        select: SelectStr | None = None,
+        limit: int | None = None,
+        date: DateStr | None = None,
+        country: CountryEnum | None = None,
+        data_source: DataSourceEnum | None = None,
+        market: str | None = None,
+        competitors: str | None = None,
+        brand: str | None = None,
+    ) -> list[BrandRadarCitedDomainsData]:
+        """
+        Cited Domains.
+
+        Args:
+            request: BrandRadarCitedDomainsRequest
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
+                limit (int, optional): The number of results to return. Default: None.
+                date (str, optional): The date to search for in YYYY-MM-DD format. Default: None.
+                country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
+                data_source (DataSourceEnum, required): The chatbot model to use.
+                market (str, optional): A comma-separated list of the niche markets of your brands. Default: ''.
+                competitors (str, optional): A comma-separated list of competitors of your brands. Default: ''.
+                brand (str, optional): A comma-separated list of brands to search for. At least one of brand, competitors, market or where should not be empty. Default: ''.
+
+        Returns:
+            list[BrandRadarCitedDomainsData]:
+                domain (str): The cited domain name.
+                mentions (list[dict[str, Any] | None]): Deprecated on 2026-02-10.
+                pages (int): The number of unique pages from the domain that were cited in the responses.
+                responses (int): The number of responses that cited the domain.
+                volume (int): (10 units) Estimated monthly searches that cited the domain. Based on the average monthly number of searches for the query on Google over the latest known 12 months of data.
+        """
+        if request is None:
+            _missing = [k for k, v in [("select", select), ("data_source", data_source)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = BrandRadarCitedDomainsRequest(**{k: v for k, v in [("where", where), ("select", select), ("limit", limit), ("date", date), ("country", country), ("data_source", data_source), ("market", market), ("competitors", competitors), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = self._request("brand-radar", "cited-domains", request, BrandRadarCitedDomainsResponse, exclude_none=True)
+        return _resp.data
+
+    def brand_radar_cited_pages(
+        self,
+        request: BrandRadarCitedPagesRequest | None = None,
+        *,
+        where: str | None = None,
+        select: SelectStr | None = None,
+        limit: int | None = None,
+        date: DateStr | None = None,
+        country: CountryEnum | None = None,
+        data_source: DataSourceEnum | None = None,
+        market: str | None = None,
+        competitors: str | None = None,
+        brand: str | None = None,
+    ) -> list[BrandRadarCitedPagesData]:
+        """
+        Cited Pages.
+
+        Args:
+            request: BrandRadarCitedPagesRequest
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
+                limit (int, optional): The number of results to return. Default: None.
+                date (str, optional): The date to search for in YYYY-MM-DD format. Default: None.
+                country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
+                data_source (DataSourceEnum, required): The chatbot model to use.
+                market (str, optional): A comma-separated list of the niche markets of your brands. Default: ''.
+                competitors (str, optional): A comma-separated list of competitors of your brands. Default: ''.
+                brand (str, optional): A comma-separated list of brands to search for. At least one of brand, competitors, market or where should not be empty. Default: ''.
+
+        Returns:
+            list[BrandRadarCitedPagesData]:
+                mentions (list[dict[str, Any] | None]): Deprecated on 2026-02-10.
+                responses (int): The number of responses that cited the page.
+                url (str): The URL of the cited page.
+                volume (int): (10 units) Estimated monthly searches that cited the page. Based on the average monthly number of searches for the query on Google over the latest known 12 months of data.
+        """
+        if request is None:
+            _missing = [k for k, v in [("select", select), ("data_source", data_source)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = BrandRadarCitedPagesRequest(**{k: v for k, v in [("where", where), ("select", select), ("limit", limit), ("date", date), ("country", country), ("data_source", data_source), ("market", market), ("competitors", competitors), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = self._request("brand-radar", "cited-pages", request, BrandRadarCitedPagesResponse, exclude_none=True)
         return _resp.data
 
     def brand_radar_impressions_history(
@@ -2633,13 +2851,13 @@ class GeneratedSyncMethodsMixin:
                 date_from (str, required): The start date of the historical period in YYYY-MM-DD format.
                 country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
                 data_source (DataSourceEnum, required): The chatbot model to use.
-                market (str, optional): A comma-separated list of the niche markets of your brand. Default: '[]'.
+                market (str, optional): A comma-separated list of the niche markets of your brand. Default: ''.
                 brand (str, required): The brand to search for.
 
         Returns:
             list[BrandRadarImpressionsHistoryData]:
-                date (str): date
-                impressions (int): impressions
+                date (str)
+                impressions (int): Estimated impressions from responses mentioning the brand.
         """
         if request is None:
             _missing = [k for k, v in [("date_from", date_from), ("data_source", data_source), ("brand", brand)] if v is None]
@@ -2670,9 +2888,9 @@ class GeneratedSyncMethodsMixin:
                 select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
                 country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
                 data_source (DataSourceEnum, required): The chatbot model to use.
-                market (str, optional): A comma-separated list of the niche markets of your brands. Default: '[]'.
-                competitors (str, optional): A comma-separated list of competitors of your brands. Default: '[]'.
-                brand (str, optional): A comma-separated list of brands to search for. At least one of brand or competitors should not be empty. Default: '[]'.
+                market (str, optional): A comma-separated list of the niche markets of your brands. Default: ''.
+                competitors (str, optional): A comma-separated list of competitors of your brands. Default: ''.
+                brand (str, optional): A comma-separated list of brands to search for. At least one of brand or competitors should not be empty. Default: ''.
 
         Returns:
             list[BrandRadarImpressionsOverviewData]:
@@ -2713,13 +2931,13 @@ class GeneratedSyncMethodsMixin:
                 date_from (str, required): The start date of the historical period in YYYY-MM-DD format.
                 country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
                 data_source (DataSourceEnum, required): The chatbot model to use.
-                market (str, optional): A comma-separated list of the niche markets of your brand. Default: '[]'.
+                market (str, optional): A comma-separated list of the niche markets of your brand. Default: ''.
                 brand (str, required): The brand to search for.
 
         Returns:
             list[BrandRadarMentionsHistoryData]:
-                date (str): date
-                mentions (int): mentions
+                date (str)
+                mentions (int): Estimated mentions from responses mentioning the brand.
         """
         if request is None:
             _missing = [k for k, v in [("date_from", date_from), ("data_source", data_source), ("brand", brand)] if v is None]
@@ -2750,9 +2968,9 @@ class GeneratedSyncMethodsMixin:
                 select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
                 country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
                 data_source (DataSourceEnum, required): The chatbot model to use.
-                market (str, optional): A comma-separated list of the niche markets of your brands. Default: '[]'.
-                competitors (str, optional): A comma-separated list of competitors of your brands. Default: '[]'.
-                brand (str, optional): A comma-separated list of brands to search for. At least one of brand or competitors should not be empty. Default: '[]'.
+                market (str, optional): A comma-separated list of the niche markets of your brands. Default: ''.
+                competitors (str, optional): A comma-separated list of competitors of your brands. Default: ''.
+                brand (str, optional): A comma-separated list of brands to search for. At least one of brand or competitors should not be empty. Default: ''.
 
         Returns:
             list[BrandRadarMentionsOverviewData]:
@@ -2771,12 +2989,51 @@ class GeneratedSyncMethodsMixin:
         _resp = self._request("brand-radar", "mentions-overview", request, BrandRadarMentionsOverviewResponse, exclude_none=True)
         return _resp.data
 
+    def brand_radar_sov_history(
+        self,
+        request: BrandRadarSovHistoryRequest | None = None,
+        *,
+        where: str | None = None,
+        date_to: DateStr | None = None,
+        date_from: DateStr | None = None,
+        country: CountryEnum | None = None,
+        data_source: DataSourceEnum | None = None,
+        market: str | None = None,
+        competitors: str | None = None,
+        brand: str | None = None,
+    ) -> list[BrandRadarSovHistoryData]:
+        """
+        Overview history - Share of Voice.
+
+        Args:
+            request: BrandRadarSovHistoryRequest
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                date_to (str, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
+                date_from (str, required): The start date of the historical period in YYYY-MM-DD format.
+                country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
+                data_source (DataSourceEnum, required): The chatbot model to use.
+                market (str, optional): A comma-separated list of the niche markets of your brands. Default: ''.
+                competitors (str, optional): A comma-separated list of competitors of your brands. Default: ''.
+                brand (str, optional): A comma-separated list of brands to search for. At least one of brand or competitors should not be empty. Default: ''.
+
+        Returns:
+            list[BrandRadarSovHistoryData]:
+                date (str)
+                share_of_voice (list[dict[str, Any] | None]): (1 unit per brand) Estimated share of voice for the brand.
+        """
+        if request is None:
+            _missing = [k for k, v in [("date_from", date_from), ("data_source", data_source)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = BrandRadarSovHistoryRequest(**{k: v for k, v in [("where", where), ("date_to", date_to), ("date_from", date_from), ("country", country), ("data_source", data_source), ("market", market), ("competitors", competitors), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = self._request("brand-radar", "sov-history", request, BrandRadarSovHistoryResponse, exclude_none=True)
+        return _resp.data
+
     def brand_radar_sov_overview(
         self,
         request: BrandRadarSovOverviewRequest | None = None,
         *,
         where: str | None = None,
-        select: SelectStr | None = None,
         country: CountryEnum | None = None,
         data_source: DataSourceEnum | None = None,
         market: str | None = None,
@@ -2789,12 +3046,11 @@ class GeneratedSyncMethodsMixin:
         Args:
             request: BrandRadarSovOverviewRequest
                 where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
-                select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
                 country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
                 data_source (DataSourceEnum, required): The chatbot model to use.
-                market (str, optional): A comma-separated list of the niche markets of your brands. Default: '[]'.
-                competitors (str, optional): A comma-separated list of competitors of your brands. Default: '[]'.
-                brand (str, optional): A comma-separated list of brands to search for. At least one of brand or competitors should not be empty. Default: '[]'.
+                market (str, optional): A comma-separated list of the niche markets of your brands. Default: ''.
+                competitors (str, optional): A comma-separated list of competitors of your brands. Default: ''.
+                brand (str, optional): A comma-separated list of brands to search for. At least one of brand or competitors should not be empty. Default: ''.
 
         Returns:
             list[BrandRadarSovOverviewData]:
@@ -2802,10 +3058,10 @@ class GeneratedSyncMethodsMixin:
                 share_of_voice (float): Estimated share of voice for your brand.
         """
         if request is None:
-            _missing = [k for k, v in [("select", select), ("data_source", data_source)] if v is None]
+            _missing = [k for k, v in [("data_source", data_source)] if v is None]
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
-            request = BrandRadarSovOverviewRequest(**{k: v for k, v in [("where", where), ("select", select), ("country", country), ("data_source", data_source), ("market", market), ("competitors", competitors), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
+            request = BrandRadarSovOverviewRequest(**{k: v for k, v in [("where", where), ("country", country), ("data_source", data_source), ("market", market), ("competitors", competitors), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
         _resp = self._request("brand-radar", "sov-overview", request, BrandRadarSovOverviewResponse, exclude_none=True)
         return _resp.data
 
@@ -2897,7 +3153,7 @@ class GeneratedSyncMethodsMixin:
             request: KeywordsExplorerOverviewRequest
                 timeout (int, optional): A manual timeout duration in seconds. Default: None.
                 limit (int, optional): The number of results to return. Default: 1000.
-                order_by (str, optional): A column to order results by. See response schema for valid column identifiers. Default: None.
+                order_by (str, optional): A column to order results by. See the response schema for valid column identifiers, except for `volume_monthly`, which is not supported in `order_by` for this endpoint. Default: None.
                 where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
                 select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
                 volume_monthly_date_to (str, optional): The end date in YYYY-MM-DD format for retrieving historical monthly search volumes in the `volume_monthly_history` field. Required only if `volume_monthly_history` is requested. Default: None.
@@ -3413,6 +3669,7 @@ class GeneratedSyncMethodsMixin:
                 keywords (int | None): The total number of keywords that a search result ranks for in the top 100 organic positions.
                 top_keyword (str | None): The keyword that brings the most organic traffic to a search result.
                 top_keyword_volume (int | None): An estimation of the average monthly number of searches for the top keyword over the latest known 12 months of data.
+                page_type (str | None): Comma-separated list of AI-predicted hierarchical page type paths for the ranking page. Each value is a slash-prefixed path (e.g. /Article/How_to).
         """
         if request is None:
             _missing = [k for k, v in [("device", device), ("country", country), ("keyword", keyword), ("project_id", project_id)] if v is None]
@@ -3450,6 +3707,7 @@ class GeneratedSyncMethodsMixin:
                 backlinks (int | None): The total number of links from other websites pointing to a search result.
                 domain_rating (float | None): The strength of a domain’s backlink profile compared to the others in our database on a 100-point scale.
                 keywords (int | None): The total number of keywords that a search result ranks for in the top 100 organic positions.
+                page_type (str | None): Comma-separated list of AI-predicted hierarchical page type paths for the ranking page. Each value is a slash-prefixed path (e.g. /Article/How_to).
                 position (int): The position of the search result in SERP.
                 refdomains (int | None): (5 units) The total number of unique domains linking to a search result.
                 title (str | None): The title of a ranking page.
@@ -3724,7 +3982,7 @@ class GeneratedSyncMethodsMixin:
                 is_nofollow (bool): The link or the referring page has the nofollow attribute set.
                 is_redirect (bool): The link pointing to your target via a redirect.
                 is_redirect_lost (bool): The redirected link currently does not exist anymore.
-                ... and 50 more fields. See SiteExplorerAllBacklinksData for all fields.
+                ... and 52 more fields. See SiteExplorerAllBacklinksData for all fields.
         """
         if request is None:
             _missing = [k for k, v in [("select", select), ("target", target)] if v is None]
@@ -3900,7 +4158,7 @@ class GeneratedSyncMethodsMixin:
             request: SiteExplorerBestByInternalLinksRequest
                 timeout (int, optional): A manual timeout duration in seconds. Default: None.
                 limit (int, optional): The number of results to return. Default: 1000.
-                order_by (str, optional): A column to order results by. See response schema for valid column identifiers. Default: None.
+                order_by (str, optional): A column to order results by. See the response schema for valid column identifiers, except for `http_code_target`, `languages_target`, `last_visited_target`, `powered_by_target`, `target_redirect`, `title_target`, `url_rating_target`, which are not supported in `order_by` for this endpoint. Default: None.
                 where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
                 select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
                 protocol (ProtocolEnum, optional): The protocol of your target. Default: 'both'.
@@ -3956,7 +4214,7 @@ class GeneratedSyncMethodsMixin:
             request: SiteExplorerBrokenBacklinksRequest
                 timeout (int, optional): A manual timeout duration in seconds. Default: None.
                 limit (int, optional): The number of results to return. Default: 1000.
-                order_by (str, optional): A column to order results by. See the response schema for valid column identifiers, except for `link_group_count`, `last_visited_target`, `http_code_target`, which are not supported in `order_by` for this endpoint. Default: None.
+                order_by (str, optional): A column to order results by. See the response schema for valid column identifiers, except for `http_code_target`, `last_visited_target`, `link_group_count`, which are not supported in `order_by` for this endpoint. Default: None.
                 where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
                 select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
                 protocol (ProtocolEnum, optional): The protocol of your target. Default: 'both'.
@@ -3996,7 +4254,7 @@ class GeneratedSyncMethodsMixin:
                 is_sponsored (bool): The link has the Sponsored attribute set in the referring page HTML.
                 is_text (bool): The link is a standard href hyperlink.
                 is_ugc (bool): The link has the User Generated Content attribute set in the referring page HTML.
-                ... and 41 more fields. See SiteExplorerBrokenBacklinksData for all fields.
+                ... and 43 more fields. See SiteExplorerBrokenBacklinksData for all fields.
         """
         if request is None:
             _missing = [k for k, v in [("select", select), ("target", target)] if v is None]
@@ -4511,7 +4769,7 @@ class GeneratedSyncMethodsMixin:
                 is_commercial (bool): User intent: commercial. The user is comparing products or services before making a purchase decision.
                 is_informational (bool): User intent: informational. The user is looking for information or an answer to a specific question.
                 is_local (bool): User intent: local. The user is looking for information relevant to a specific location or nearby services.
-                ... and 37 more fields. See SiteExplorerOrganicKeywordsData for all fields.
+                ... and 38 more fields. See SiteExplorerOrganicKeywordsData for all fields.
         """
         if request is None:
             _missing = [k for k, v in [("select", select), ("target", target), ("date", date)] if v is None]
@@ -4846,6 +5104,7 @@ class GeneratedSyncMethodsMixin:
                 keywords_diff_percent (int): The change in keywords between your selected dates, in percents.
                 keywords_merged (int): The total number of keywords optimized for sorting.
                 keywords_prev (int | None): The keyword your target ranks for on the comparison date.
+                page_type (str | None): Comma-separated list of AI-predicted hierarchical page type paths. Each value is a slash-prefixed path (e.g. /Article/How_to).
                 raw_url (str): The ranking page URL in encoded format.
                 raw_url_prev (str | None): The ranking page URL on the comparison date in encoded format.
                 referring_domains (int | None): (5 units) The number of unique domains linking to a page.
@@ -4870,8 +5129,7 @@ class GeneratedSyncMethodsMixin:
                 traffic_diff_percent (int): The change in traffic between your selected dates, in percents.
                 ur (float | None): URL Rating (UR) shows the strength of your target page’s backlink profile on a 100-point logarithmic scale.
                 url (str | None): The ranking page URL.
-                url_prev (str | None): The ranking page URL on the comparison date.
-                ... and 5 more fields. See SiteExplorerTopPagesData for all fields.
+                ... and 6 more fields. See SiteExplorerTopPagesData for all fields.
         """
         if request is None:
             _missing = [k for k, v in [("select", select), ("target", target), ("date", date)] if v is None]
