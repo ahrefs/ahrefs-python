@@ -41,6 +41,8 @@ dev = [
     "ruff>=0.5",
     "build>=1.0",
     "twine>=5.0",
+    "mdformat>=0.7",
+    "mdformat-toc>=0.3",
 ]
 
 [build-system]
