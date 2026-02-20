@@ -11,6 +11,69 @@ For filter expression syntax (`where` parameter), see [Filter Syntax](filter-syn
 
 ---
 
+## Batch Analysis
+
+### `batch_analysis()`
+
+Batch Analysis.
+
+**Parameters:**
+
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| `select` | `list[str]` | Yes | A list of columns to return. See response schema for valid column identifiers. |
+| `order_by` | `str` | No |  |
+| `country` | `CountryEnum` | No | A two-letter country code (ISO 3166-1 alpha-2). |
+| `volume_mode` | `VolumeModeEnum` | No | The search volume calculation mode: monthly or average. It affects volume, traffic, and traffic value. |
+| `targets` | `list[BatchAnalysisTarget]` | Yes | A list of targets to do batch analysis. |
+
+**Returns:** `list[BatchAnalysisData]`
+
+<details>
+<summary>35 fields</summary>
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `ahrefs_rank` | `int \| None` | The strength of your target's backlink profile compared to the other websites in our database, with rank #1 being the strongest. |
+| `backlinks` | `int \| None` | The total number of links from other websites pointing to your target. |
+| `backlinks_dofollow` | `int \| None` | Links to your target that do not contain a “nofollow”, “ugc”, or “sponsored” value in their “rel” attribute. These links are also called “dofollow”. |
+| `backlinks_internal` | `int \| None` | The total number of internal links pointing to the target's pages. |
+| `backlinks_nofollow` | `int \| None` | Links to your target that contain a “nofollow”, “ugc”, or “sponsored” value in their “rel” attribute. |
+| `backlinks_redirect` | `int \| None` | Links pointing to your target via a redirect. |
+| `domain_rating` | `float \| None` | The strength of your target's backlink profile compared to the other websites in our database on a 100-point logarithmic scale. |
+| `index` | `int` | Target index number. |
+| `ip` | `str \| None` | The IP address of the target. |
+| `linked_domains` | `int \| None` | The number of unique domains linked from your target. |
+| `linked_domains_dofollow` | `int \| None` | The number of unique domains linked from your target with followed links. |
+| `mode` | `str` | The target mode used for the analysis. Depending on the selected mode (Exact URL, Path, Domain, Subdomains), different parts of the website will be analyzed. |
+| `org_cost` | `int \| None` | (10 units) The estimated value of your target’s monthly organic search traffic. |
+| `org_keywords` | `int \| None` | The total number of keywords that your target ranks for in the top 100 organic search results. When ranking for the same keyword across different locations in “All locations” mode, it's still counted as one keyword. |
+| `org_keywords_11_20` | `int \| None` | The total number of unique keywords for which your target's top organic ranking position is within the 11th to 20th results. When ranking for the same keyword across different locations in “All locations” mode, it's still counted as one keyword. |
+| `org_keywords_1_3` | `int \| None` | The total number of unique keywords for which your target's top organic ranking position is within the top 3 results. When ranking for the same keyword across different locations in “All locations” mode, it's still counted as one keyword. |
+| `org_keywords_21_50` | `int \| None` | The total number of unique keywords for which your target's top organic ranking position is within the 21st to 50th results. When ranking for the same keyword across different locations in “All locations” mode, it's still counted as one keyword. |
+| `org_keywords_4_10` | `int \| None` | The total number of unique keywords for which your target's top organic ranking position is within the 4th to 10th results. When ranking for the same keyword across different locations in “All locations” mode, it's still counted as one keyword. |
+| `org_keywords_51_plus` | `int \| None` | The total number of unique keywords for which your target's top organic ranking position is the 51st result or higher. When ranking for the same keyword across different locations in “All locations” mode, it's still counted as one keyword. |
+| `org_traffic` | `int \| None` | (10 units) The estimated number of monthly visits that your target gets from organic search. |
+| `org_traffic_top_by_country` | `list[list[Any] \| None]` | (10 units) Top countries by traffic with corresponding traffic values. (Currently only a single element is being returned with the country with the most traffic.) |
+| `outgoing_links` | `int \| None` | The total number of links from your target to other domains. |
+| `outgoing_links_dofollow` | `int \| None` | The total number of followed links from your target to other domains. |
+| `paid_ads` | `int \| None` | The total number of unique ads of a target website or URL in paid search results. |
+| `paid_cost` | `int \| None` | (10 units) The estimated cost of your target’s monthly paid search traffic. |
+| `paid_keywords` | `int \| None` | The total number of keywords that your target ranks for in paid search results. When ranking for the same keyword across different locations in “All locations” mode, it's still counted as one keyword. |
+| `paid_traffic` | `int \| None` | (10 units) The estimated number of monthly visits that your target gets from paid search. |
+| `protocol` | `str` | The protocol of the target. Possible values: `both`, `http`, `https`. |
+| `refdomains` | `int \| None` | (5 units) The total number of unique domains linking to your target. |
+| `refdomains_dofollow` | `int \| None` | (5 units) The number of unique domains with links to your target that do not contain a “nofollow”, “ugc”, or “sponsored” value in their “rel” attribute. These links are also called “dofollow”. |
+| `refdomains_nofollow` | `int \| None` | (5 units) The number of unique domains that only have links to your target containing a “nofollow”, “ugc”, or “sponsored” value in their “rel” attribute. |
+| `refips` | `int \| None` | The number of unique IP addresses with at least one domain pointing to your target. Several domains can share one IP address. |
+| `refips_subnets` | `int \| None` | The number of c-class IP networks (AAA.BBB.CCC.DDD) with at least one link to your target. Example: 151.80.39.61 is the website IP address where 151.80.39.XXX is the subnet. |
+| `url` | `str` | The URL of the analyzed target. |
+| `url_rating` | `float \| None` | URL Rating (UR) shows the strength of your target page's backlink profile on a 100-point logarithmic scale. If you analyze a domain, the homepage's UR is shown. |
+
+</details>
+
+---
+
 ## Brand Radar
 
 ### `brand_radar_ai_responses()`
@@ -886,7 +949,7 @@ SERP Overview.
 
 ## Serp Overview
 
-### `serp_overview_serp_overview()`
+### `serp_overview()`
 
 SERP Overview.
 
@@ -900,7 +963,7 @@ SERP Overview.
 | `country` | `CountryEnum` | Yes | A two-letter country code (ISO 3166-1 alpha-2). |
 | `keyword` | `str` | Yes | The keyword to return SERP Overview for. |
 
-**Returns:** `list[SerpOverviewSerpOverviewData]`
+**Returns:** `list[SerpOverviewData]`
 
 | Field | Type | Description |
 |-------|------|-------------|

@@ -65,6 +65,7 @@ class AsyncAhrefsClient(GeneratedMethodsMixin):
         response_model_class: type[T],
         *,
         exclude_none: bool = False,
+        http_method: str = "GET",
     ) -> T:
         """Make a typed API request. Called by generated endpoint methods."""
         url = build_url(self._config.base_url, api_section, endpoint)
@@ -82,11 +83,18 @@ class AsyncAhrefsClient(GeneratedMethodsMixin):
                     delay = calculate_backoff(attempt - 1)
                 await asyncio.sleep(delay)
             try:
-                response = await self._client.get(
-                    url,
-                    params=params,
-                    headers=build_headers(self._config.api_key),
-                )
+                if http_method == "POST":
+                    response = await self._client.post(
+                        url,
+                        json=params,
+                        headers=build_headers(self._config.api_key),
+                    )
+                else:
+                    response = await self._client.get(
+                        url,
+                        params=params,
+                        headers=build_headers(self._config.api_key),
+                    )
                 raise_for_status(response)
                 return response_model_class.model_validate(response.json())
             except RateLimitError as exc:

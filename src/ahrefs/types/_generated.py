@@ -739,6 +739,76 @@ class VolumeModeEnum(StrEnum):
 
 # ============== Batch Analysis API ==============
 
+# Models for batch-analysis/batch-analysis
+class BatchAnalysisTarget(BaseModel):
+    """Request model for BatchAnalysisTarget."""
+
+    url: str = Field(..., description="The URL of the analyzed target.")
+    mode: ModeEnum = Field(..., description="The target mode used for the analysis.")
+    protocol: ProtocolEnum = Field(..., description="The protocol of the target.")
+
+
+class BatchAnalysisRequest(BaseModel):
+    """Request model for BatchAnalysisRequest."""
+
+    select: list[str] = Field(..., description="A list of columns to return. See response schema for valid column identifiers.")
+    order_by: str | None = Field(default=None, description="The order_by parameter")
+    country: CountryEnum | None = Field(default=None, description="A two-letter country code (ISO 3166-1 alpha-2).")
+    volume_mode: VolumeModeEnum = Field(default=VolumeModeEnum.MONTHLY, description="The search volume calculation mode: monthly or average. It affects volume, traffic, and traffic value.")
+    targets: list[BatchAnalysisTarget] = Field(..., description="A list of targets to do batch analysis.")
+
+
+class BatchAnalysisData(BaseModel):
+    """Individual data item for /batch-analysis endpoint"""
+
+    ahrefs_rank: int | None = Field(default=None, description="The strength of your target's backlink profile compared to the other websites in our database, with rank #1 being the strongest.")
+    backlinks: int | None = Field(default=None, description="The total number of links from other websites pointing to your target.")
+    backlinks_dofollow: int | None = Field(default=None, description="Links to your target that do not contain a “nofollow”, “ugc”, or “sponsored” value in their “rel” attribute. These links are also called “dofollow”.")
+    backlinks_internal: int | None = Field(default=None, description="The total number of internal links pointing to the target's pages.")
+    backlinks_nofollow: int | None = Field(default=None, description="Links to your target that contain a “nofollow”, “ugc”, or “sponsored” value in their “rel” attribute.")
+    backlinks_redirect: int | None = Field(default=None, description="Links pointing to your target via a redirect.")
+    domain_rating: float | None = Field(default=None, description="The strength of your target's backlink profile compared to the other websites in our database on a 100-point logarithmic scale.")
+    index: int | None = Field(default=None, description="Target index number.")
+    ip: str | None = Field(default=None, description="The IP address of the target.")
+    linked_domains: int | None = Field(default=None, description="The number of unique domains linked from your target.")
+    linked_domains_dofollow: int | None = Field(default=None, description="The number of unique domains linked from your target with followed links.")
+    mode: str | None = Field(default=None, description="The target mode used for the analysis. Depending on the selected mode (Exact URL, Path, Domain, Subdomains), different parts of the website will be analyzed.")
+    org_cost: int | None = Field(default=None, description="(10 units) The estimated value of your target’s monthly organic search traffic.")
+    org_keywords: int | None = Field(default=None, description="The total number of keywords that your target ranks for in the top 100 organic search results. When ranking for the same keyword across different locations in “All locations” mode, it's still counted as one keyword.")
+    org_keywords_11_20: int | None = Field(default=None, description="The total number of unique keywords for which your target's top organic ranking position is within the 11th to 20th results. When ranking for the same keyword across different locations in “All locations” mode, it's still counted as one keyword.")
+    org_keywords_1_3: int | None = Field(default=None, description="The total number of unique keywords for which your target's top organic ranking position is within the top 3 results. When ranking for the same keyword across different locations in “All locations” mode, it's still counted as one keyword.")
+    org_keywords_21_50: int | None = Field(default=None, description="The total number of unique keywords for which your target's top organic ranking position is within the 21st to 50th results. When ranking for the same keyword across different locations in “All locations” mode, it's still counted as one keyword.")
+    org_keywords_4_10: int | None = Field(default=None, description="The total number of unique keywords for which your target's top organic ranking position is within the 4th to 10th results. When ranking for the same keyword across different locations in “All locations” mode, it's still counted as one keyword.")
+    org_keywords_51_plus: int | None = Field(default=None, description="The total number of unique keywords for which your target's top organic ranking position is the 51st result or higher. When ranking for the same keyword across different locations in “All locations” mode, it's still counted as one keyword.")
+    org_traffic: int | None = Field(default=None, description="(10 units) The estimated number of monthly visits that your target gets from organic search.")
+    org_traffic_top_by_country: list[list[Any] | None] | None = Field(default=None, description="(10 units) Top countries by traffic with corresponding traffic values. (Currently only a single element is being returned with the country with the most traffic.)")
+    outgoing_links: int | None = Field(default=None, description="The total number of links from your target to other domains.")
+    outgoing_links_dofollow: int | None = Field(default=None, description="The total number of followed links from your target to other domains.")
+    paid_ads: int | None = Field(default=None, description="The total number of unique ads of a target website or URL in paid search results.")
+    paid_cost: int | None = Field(default=None, description="(10 units) The estimated cost of your target’s monthly paid search traffic.")
+    paid_keywords: int | None = Field(default=None, description="The total number of keywords that your target ranks for in paid search results. When ranking for the same keyword across different locations in “All locations” mode, it's still counted as one keyword.")
+    paid_traffic: int | None = Field(default=None, description="(10 units) The estimated number of monthly visits that your target gets from paid search.")
+    protocol: str | None = Field(default=None, description="The protocol of the target. Possible values: `both`, `http`, `https`.")
+    refdomains: int | None = Field(default=None, description="(5 units) The total number of unique domains linking to your target.")
+    refdomains_dofollow: int | None = Field(default=None, description="(5 units) The number of unique domains with links to your target that do not contain a “nofollow”, “ugc”, or “sponsored” value in their “rel” attribute. These links are also called “dofollow”.")
+    refdomains_nofollow: int | None = Field(default=None, description="(5 units) The number of unique domains that only have links to your target containing a “nofollow”, “ugc”, or “sponsored” value in their “rel” attribute.")
+    refips: int | None = Field(default=None, description="The number of unique IP addresses with at least one domain pointing to your target. Several domains can share one IP address.")
+    refips_subnets: int | None = Field(default=None, description="The number of c-class IP networks (AAA.BBB.CCC.DDD) with at least one link to your target. Example: 151.80.39.61 is the website IP address where 151.80.39.XXX is the subnet.")
+    url: str | None = Field(default=None, description="The URL of the analyzed target.")
+    url_rating: float | None = Field(default=None, description="URL Rating (UR) shows the strength of your target page's backlink profile on a 100-point logarithmic scale. If you analyze a domain, the homepage's UR is shown.")
+
+
+class BatchAnalysisResponse(BaseModel):
+    """Response model for /batch-analysis endpoint"""
+
+    targets: list[BatchAnalysisData] | None = Field(default=None, description="The targets field")
+
+    @property
+    def data(self) -> list[BatchAnalysisData]:
+        """Unwrap the response payload."""
+        return self.targets or []
+
+
 # ============== Brand Radar API ==============
 
 # Models for brand-radar/ai-responses
@@ -1472,8 +1542,8 @@ class RankTrackerSerpOverviewResponse(BaseModel):
 # ============== Serp Overview API ==============
 
 # Models for serp-overview/serp-overview
-class SerpOverviewSerpOverviewRequest(BaseModel):
-    """Request model for SerpOverviewSerpOverviewRequest."""
+class SerpOverviewRequest(BaseModel):
+    """Request model for SerpOverviewRequest."""
 
     select: SelectStr = Field(..., description="A comma-separated list of columns to return. See response schema for valid column identifiers.")
     top_positions: int | None = Field(default=None, description="The number of top organic SERP positions to return. If not specified, all available positions will be returned.")
@@ -1482,7 +1552,7 @@ class SerpOverviewSerpOverviewRequest(BaseModel):
     keyword: str = Field(..., description="The keyword to return SERP Overview for.")
 
 
-class SerpOverviewSerpOverviewData(BaseModel):
+class SerpOverviewData(BaseModel):
     """Individual data item for /serp-overview endpoint"""
 
     ahrefs_rank: int | None = Field(default=None, description="The strength of a domain's backlink profile compared to the other websites in our database, with rank #1 being the strongest.")
@@ -1502,13 +1572,13 @@ class SerpOverviewSerpOverviewData(BaseModel):
     value: int | None = Field(default=None, description="(10 units) The estimated value of a page’s monthly organic search traffic, in USD cents.")
 
 
-class SerpOverviewSerpOverviewResponse(BaseModel):
+class SerpOverviewResponse(BaseModel):
     """Response model for /serp-overview endpoint"""
 
-    positions: list[SerpOverviewSerpOverviewData] | None = Field(default=None, description="The positions field")
+    positions: list[SerpOverviewData] | None = Field(default=None, description="The positions field")
 
     @property
-    def data(self) -> list[SerpOverviewSerpOverviewData]:
+    def data(self) -> list[SerpOverviewData]:
         """Unwrap the response payload."""
         return self.positions or []
 

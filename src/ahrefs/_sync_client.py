@@ -65,6 +65,7 @@ class AhrefsClient(GeneratedSyncMethodsMixin):
         response_model_class: type[T],
         *,
         exclude_none: bool = False,
+        http_method: str = "GET",
     ) -> T:
         """Make a typed API request. Called by generated endpoint methods."""
         url = build_url(self._config.base_url, api_section, endpoint)
@@ -82,11 +83,18 @@ class AhrefsClient(GeneratedSyncMethodsMixin):
                     delay = calculate_backoff(attempt - 1)
                 time.sleep(delay)
             try:
-                response = self._client.get(
-                    url,
-                    params=params,
-                    headers=build_headers(self._config.api_key),
-                )
+                if http_method == "POST":
+                    response = self._client.post(
+                        url,
+                        json=params,
+                        headers=build_headers(self._config.api_key),
+                    )
+                else:
+                    response = self._client.get(
+                        url,
+                        params=params,
+                        headers=build_headers(self._config.api_key),
+                    )
                 raise_for_status(response)
                 return response_model_class.model_validate(response.json())
             except RateLimitError as exc:

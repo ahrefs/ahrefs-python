@@ -268,6 +268,10 @@ Or call `.close()` manually when done.
 See the [full API reference](docs/api-reference.md) for parameters, types, and response fields.
 
 <!-- METHOD_INDEX_START -->
+**Batch Analysis** (1 method)
+
+- `batch_analysis()`
+
 **Brand Radar** (6 methods)
 
 - `brand_radar_ai_responses()`
@@ -296,7 +300,7 @@ See the [full API reference](docs/api-reference.md) for parameters, types, and r
 
 **Serp Overview** (1 method)
 
-- `serp_overview_serp_overview()`
+- `serp_overview()`
 
 **Site Audit** (4 methods)
 

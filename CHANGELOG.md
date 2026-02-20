@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [0.3.0]
+
+### Added
+
+- `batch_analysis()` method for the Batch Analysis POST endpoint
+- `BatchAnalysisRequest`, `BatchAnalysisTarget`, `BatchAnalysisData` types
+- POST request support in both sync and async clients (`http_method` parameter on `_request()`)
+- Codegen support for POST endpoints with JSON request bodies and `$ref` resolution
+
 ## [0.2.0]
 
 ### Changed
