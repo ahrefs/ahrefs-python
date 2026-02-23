@@ -12,6 +12,7 @@ Python client for the [Ahrefs API](https://ahrefs.com/api). Typed request and re
 
 - [Installation](#installation)
 - [AI Coding Agent](#ai-coding-agent)
+- [API Method Search](#api-method-search)
 - [Quick Start](#quick-start)
 - [Usage](#usage)
   - [Request Styles](#request-styles)
@@ -47,6 +48,45 @@ npx skills add ahrefs/ahrefs-api-skills --skill ahrefs-python --global
 ```
 
 See [ahrefs/ahrefs-api-skills](https://github.com/ahrefs/ahrefs-api-skills) for details.
+
+## API Method Search
+
+The SDK includes a built-in search tool for discovering API methods by keyword. It uses BM25 ranking with no extra dependencies.
+
+**CLI:**
+
+```sh
+# Search by keyword — returns top 5 matches with parameters and return types
+python -m ahrefs.api_search "domain rating"
+
+# Filter to a specific API section and limit results
+python -m ahrefs.api_search "backlinks" --section site-explorer --limit 3
+
+# Output as JSON (useful for programmatic consumption)
+python -m ahrefs.api_search "batch" --json
+
+# List all available API sections
+python -m ahrefs.api_search --sections
+```
+
+**Python:**
+
+```python
+from ahrefs.search import MethodSearcher, search_api_methods
+
+# Search and get structured results
+searcher = MethodSearcher()
+results = searcher.search("domain rating")
+for r in results:
+    print(r.method, r.score)
+
+# One-shot: get formatted text ready for LLM context
+print(search_api_methods("organic keywords", limit=3))
+
+# List available API sections
+searcher.list_sections()
+# ['batch-analysis', 'brand-radar', 'keywords-explorer', ...]
+```
 
 ## Quick Start
 
