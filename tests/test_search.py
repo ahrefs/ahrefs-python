@@ -76,6 +76,11 @@ class TestSearchRelevance:
         methods = [r.method for r in results]
         assert "site_explorer_domain_rating" in methods
 
+    def test_organic_keywords_ranks_first(self) -> None:
+        searcher = MethodSearcher()
+        results = searcher.search("organic keywords", limit=5)
+        assert results[0].method == "site_explorer_organic_keywords"
+
 
 class TestSectionFiltering:
     def test_filter_by_section(self) -> None:

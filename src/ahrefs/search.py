@@ -23,6 +23,10 @@ _INDEX_PATH = Path(__file__).parent / "_search_index.json"
 # BM25 Okapi constants
 _K1 = 1.5
 _B = 0.75
+# Name field (method, section, description) is weighted higher than body
+# (params, return fields) so exact method-name matches aren't buried by
+# long parameter lists.
+_NAME_WEIGHT = 2
 
 
 def _tokenize(text: str) -> list[str]:
@@ -87,25 +91,43 @@ class MethodSearcher:
         with open(_INDEX_PATH, encoding="utf-8") as f:
             self._entries: list[dict[str, Any]] = json.load(f)
 
-        # Build per-document token lists, TF maps, and BM25 stats
-        self._doc_tf: list[dict[str, int]] = []
-        self._doc_lengths: list[int] = []
+        # Per-field TF maps and lengths
+        self._name_tf: list[dict[str, int]] = []
+        self._name_lengths: list[int] = []
+        self._body_tf: list[dict[str, int]] = []
+        self._body_lengths: list[int] = []
 
-        # Term -> document frequency
+        # Shared document frequency (term present in either field)
         df: dict[str, int] = {}
 
         for entry in self._entries:
-            tokens = self._build_doc_tokens(entry)
-            tf: dict[str, int] = {}
-            for token in tokens:
-                tf[token] = tf.get(token, 0) + 1
-            self._doc_tf.append(tf)
-            self._doc_lengths.append(len(tokens))
-            for term in tf:
+            name_tokens = self._build_name_tokens(entry)
+            body_tokens = self._build_body_tokens(entry)
+
+            ntf: dict[str, int] = {}
+            for token in name_tokens:
+                ntf[token] = ntf.get(token, 0) + 1
+            self._name_tf.append(ntf)
+            self._name_lengths.append(len(name_tokens))
+
+            btf: dict[str, int] = {}
+            for token in body_tokens:
+                btf[token] = btf.get(token, 0) + 1
+            self._body_tf.append(btf)
+            self._body_lengths.append(len(body_tokens))
+
+            # A term contributes to df if it appears in either field
+            all_terms = set(ntf) | set(btf)
+            for term in all_terms:
                 df[term] = df.get(term, 0) + 1
 
         n = len(self._entries)
-        self._avgdl = sum(self._doc_lengths) / n if n else 1.0
+        self._name_avgdl = (
+            sum(self._name_lengths) / n if n else 1.0
+        )
+        self._body_avgdl = (
+            sum(self._body_lengths) / n if n else 1.0
+        )
 
         # Precompute IDF: log((N - df + 0.5) / (df + 0.5) + 1)
         self._idf: dict[str, float] = {}
@@ -113,31 +135,26 @@ class MethodSearcher:
             self._idf[term] = math.log((n - freq + 0.5) / (freq + 0.5) + 1.0)
 
     @staticmethod
-    def _build_doc_tokens(entry: dict[str, Any]) -> list[str]:
-        """Build the tokenized document text for a single index entry.
+    def _build_name_tokens(entry: dict[str, Any]) -> list[str]:
+        """Tokenize the identity fields: method name, section, description."""
+        parts: list[str] = [
+            str(entry["method"]),
+            str(entry["section"]),
+            str(entry.get("description", "")),
+        ]
+        return _tokenize(" ".join(parts))
 
-        Concatenates all searchable fields into a single string, then
-        tokenizes using _tokenize() to ensure the same normalization
-        is applied to both documents and queries.
-        """
+    @staticmethod
+    def _build_body_tokens(entry: dict[str, Any]) -> list[str]:
+        """Tokenize the detail fields: param and return-field names/descriptions."""
         parts: list[str] = []
-
-        # Method name and section are the primary identifiers
-        parts.append(str(entry["method"]))
-        parts.append(str(entry["section"]))
-        # Description (OpenAPI summary)
-        parts.append(str(entry.get("description", "")))
-        # Parameter names and descriptions
         for p in entry.get("parameters", []):
             parts.append(str(p["name"]))
             parts.append(str(p.get("description", "")))
-        # Return field names and descriptions
         returns = entry.get("returns", {})
         for f in returns.get("fields", []):
             parts.append(str(f["name"]))
             parts.append(str(f.get("description", "")))
-
-        # Use _tokenize for consistent normalization with query tokenization
         return _tokenize(" ".join(parts))
 
     def search(
@@ -187,22 +204,43 @@ class MethodSearcher:
         results.sort(key=lambda r: r.score, reverse=True)
         return results[:max(0, limit)]
 
-    def _score(self, query_tokens: list[str], doc_idx: int) -> float:
-        """Compute BM25 Okapi score for a document against query tokens."""
-        tf = self._doc_tf[doc_idx]
-        dl = self._doc_lengths[doc_idx]
-
+    @staticmethod
+    def _field_score(
+        query_tokens: list[str],
+        tf: dict[str, int],
+        dl: int,
+        avgdl: float,
+        idf: dict[str, float],
+    ) -> float:
+        """Compute BM25 Okapi score for one field."""
         score = 0.0
         for term in query_tokens:
             if term not in tf:
                 continue
             term_freq = tf[term]
-            idf = self._idf.get(term, 0.0)
+            term_idf = idf.get(term, 0.0)
             numerator = term_freq * (_K1 + 1)
-            denominator = term_freq + _K1 * (1 - _B + _B * dl / self._avgdl)
-            score += idf * numerator / denominator
-
+            denominator = term_freq + _K1 * (1 - _B + _B * dl / avgdl)
+            score += term_idf * numerator / denominator
         return score
+
+    def _score(self, query_tokens: list[str], doc_idx: int) -> float:
+        """Compute two-field BM25 score: name_bm25 + body_bm25."""
+        name_score = self._field_score(
+            query_tokens,
+            self._name_tf[doc_idx],
+            self._name_lengths[doc_idx],
+            self._name_avgdl,
+            self._idf,
+        )
+        body_score = self._field_score(
+            query_tokens,
+            self._body_tf[doc_idx],
+            self._body_lengths[doc_idx],
+            self._body_avgdl,
+            self._idf,
+        )
+        return _NAME_WEIGHT * name_score + body_score
 
     def list_sections(self) -> list[str]:
         """Return a sorted list of all section identifiers in the index."""
