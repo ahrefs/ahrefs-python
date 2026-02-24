@@ -93,11 +93,10 @@ searcher.list_sections()
 ```python
 from ahrefs import AhrefsClient
 
-client = AhrefsClient(api_key="your-api-key")  # or set AHREFS_API_KEY env var
-
-data = client.site_explorer_domain_rating(target="ahrefs.com", date="2025-01-15")
-print(data.domain_rating)  # 91.0
-print(data.ahrefs_rank)    # 3
+with AhrefsClient(api_key="your-api-key") as client:  # or set AHREFS_API_KEY env var
+    data = client.site_explorer_domain_rating(target="ahrefs.com", date="2025-01-15")
+    print(data.domain_rating)  # 91.0
+    print(data.ahrefs_rank)    # 3
 ```
 
 ## Usage
