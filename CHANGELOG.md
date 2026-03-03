@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [0.4.1-alpha]
+
+### Added
+
+- New `report_id` and `prompts` parameters on all Brand Radar endpoints
+- `PromptsEnum` type (`"ahrefs"` | `"custom"`) for prompt source filtering
+
+### Changed
+
+- Updated `brand-radar.json` schema from monorepo
+- Minor description improvements on Brand Radar endpoints
+
 ## [0.3.1]
 
 ### Added

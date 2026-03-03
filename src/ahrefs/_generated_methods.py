@@ -11,16 +11,21 @@ from pydantic import BaseModel
 from ahrefs.types._coercions import DateStr, SelectStr  # noqa: F401
 from ahrefs.types._generated import *  # noqa: F401,F403
 
-T = TypeVar('T', bound=BaseModel)
+T = TypeVar("T", bound=BaseModel)
 
 
 class GeneratedMethodsMixin:
     """Async endpoint methods. Mixed into AsyncAhrefsClient."""
 
     async def _request(
-        self, api_section: str, endpoint: str, request_model: BaseModel,
-        response_model_class: type[T], *, exclude_none: bool = False,
-        http_method: str = 'GET',
+        self,
+        api_section: str,
+        endpoint: str,
+        request_model: BaseModel,
+        response_model_class: type[T],
+        *,
+        exclude_none: bool = False,
+        http_method: str = "GET",
     ) -> T:
         raise NotImplementedError
 
@@ -101,6 +106,8 @@ class GeneratedMethodsMixin:
         date: DateStr | None = None,
         country: CountryEnum | None = None,
         order_by: OrderByEnum | None = None,
+        report_id: str | None = None,
+        prompts: PromptsEnum | None = None,
         data_source: DataSourceEnum | None = None,
         market: str | None = None,
         competitors: str | None = None,
@@ -108,6 +115,8 @@ class GeneratedMethodsMixin:
     ) -> list[BrandRadarAiResponsesData]:
         """
         AI Responses.
+
+        >Requests to this endpoint consume API units based on the `prompts` parameter: requests returning only custom prompt data are free, while requests including Ahrefs prompt data follow standard API unit pricing.
 
         Args:
             request: BrandRadarAiResponsesRequest
@@ -117,7 +126,9 @@ class GeneratedMethodsMixin:
                 select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
                 date (str, optional): The date to search for in YYYY-MM-DD format. Default: None.
                 country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
-                order_by (OrderByEnum, optional): The order by field. Default: 'relevance'.
+                order_by (OrderByEnum, optional): A column to order the results by. Default: 'relevance'.
+                report_id (str, optional): The ID of the report to use. If one is given, other parameters are taken from the report (brand, competitors, market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` Default: None.
+                prompts (PromptsEnum, optional): The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided. Default: None.
                 data_source (DataSourceEnum, required): The chatbot model to use.
                 market (str, optional): A comma-separated list of the niche markets of your brands. Default: ''.
                 competitors (str, optional): A comma-separated list of competitors of your brands. Default: ''.
@@ -135,7 +146,7 @@ class GeneratedMethodsMixin:
             _missing = [k for k, v in [("select", select), ("data_source", data_source)] if v is None]
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
-            request = BrandRadarAiResponsesRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("where", where), ("select", select), ("date", date), ("country", country), ("order_by", order_by), ("data_source", data_source), ("market", market), ("competitors", competitors), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
+            request = BrandRadarAiResponsesRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("where", where), ("select", select), ("date", date), ("country", country), ("order_by", order_by), ("report_id", report_id), ("prompts", prompts), ("data_source", data_source), ("market", market), ("competitors", competitors), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
         _resp = await self._request("brand-radar", "ai-responses", request, BrandRadarAiResponsesResponse, exclude_none=True)
         return _resp.data
 
@@ -148,6 +159,8 @@ class GeneratedMethodsMixin:
         limit: int | None = None,
         date: DateStr | None = None,
         country: CountryEnum | None = None,
+        report_id: str | None = None,
+        prompts: PromptsEnum | None = None,
         data_source: DataSourceEnum | None = None,
         market: str | None = None,
         competitors: str | None = None,
@@ -156,13 +169,17 @@ class GeneratedMethodsMixin:
         """
         Cited Domains.
 
+        >Requests to this endpoint consume API units based on the `prompts` parameter: requests returning only custom prompt data are free, while requests including Ahrefs prompt data follow standard API unit pricing.
+
         Args:
             request: BrandRadarCitedDomainsRequest
                 where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
                 select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
-                limit (int, optional): The number of results to return. Default: None.
+                limit (int, optional): The number of results to return. Default: 1000.
                 date (str, optional): The date to search for in YYYY-MM-DD format. Default: None.
                 country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
+                report_id (str, optional): The ID of the report to use. If one is given, other parameters are taken from the report (brand, competitors, market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` Default: None.
+                prompts (PromptsEnum, optional): The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided. Default: None.
                 data_source (DataSourceEnum, required): The chatbot model to use.
                 market (str, optional): A comma-separated list of the niche markets of your brands. Default: ''.
                 competitors (str, optional): A comma-separated list of competitors of your brands. Default: ''.
@@ -180,7 +197,7 @@ class GeneratedMethodsMixin:
             _missing = [k for k, v in [("select", select), ("data_source", data_source)] if v is None]
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
-            request = BrandRadarCitedDomainsRequest(**{k: v for k, v in [("where", where), ("select", select), ("limit", limit), ("date", date), ("country", country), ("data_source", data_source), ("market", market), ("competitors", competitors), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
+            request = BrandRadarCitedDomainsRequest(**{k: v for k, v in [("where", where), ("select", select), ("limit", limit), ("date", date), ("country", country), ("report_id", report_id), ("prompts", prompts), ("data_source", data_source), ("market", market), ("competitors", competitors), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
         _resp = await self._request("brand-radar", "cited-domains", request, BrandRadarCitedDomainsResponse, exclude_none=True)
         return _resp.data
 
@@ -193,6 +210,8 @@ class GeneratedMethodsMixin:
         limit: int | None = None,
         date: DateStr | None = None,
         country: CountryEnum | None = None,
+        report_id: str | None = None,
+        prompts: PromptsEnum | None = None,
         data_source: DataSourceEnum | None = None,
         market: str | None = None,
         competitors: str | None = None,
@@ -201,13 +220,17 @@ class GeneratedMethodsMixin:
         """
         Cited Pages.
 
+        >Requests to this endpoint consume API units based on the `prompts` parameter: requests returning only custom prompt data are free, while requests including Ahrefs prompt data follow standard API unit pricing.
+
         Args:
             request: BrandRadarCitedPagesRequest
                 where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
                 select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
-                limit (int, optional): The number of results to return. Default: None.
+                limit (int, optional): The number of results to return. Default: 1000.
                 date (str, optional): The date to search for in YYYY-MM-DD format. Default: None.
                 country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
+                report_id (str, optional): The ID of the report to use. If one is given, other parameters are taken from the report (brand, competitors, market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` Default: None.
+                prompts (PromptsEnum, optional): The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided. Default: None.
                 data_source (DataSourceEnum, required): The chatbot model to use.
                 market (str, optional): A comma-separated list of the niche markets of your brands. Default: ''.
                 competitors (str, optional): A comma-separated list of competitors of your brands. Default: ''.
@@ -224,7 +247,7 @@ class GeneratedMethodsMixin:
             _missing = [k for k, v in [("select", select), ("data_source", data_source)] if v is None]
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
-            request = BrandRadarCitedPagesRequest(**{k: v for k, v in [("where", where), ("select", select), ("limit", limit), ("date", date), ("country", country), ("data_source", data_source), ("market", market), ("competitors", competitors), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
+            request = BrandRadarCitedPagesRequest(**{k: v for k, v in [("where", where), ("select", select), ("limit", limit), ("date", date), ("country", country), ("report_id", report_id), ("prompts", prompts), ("data_source", data_source), ("market", market), ("competitors", competitors), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
         _resp = await self._request("brand-radar", "cited-pages", request, BrandRadarCitedPagesResponse, exclude_none=True)
         return _resp.data
 
@@ -236,6 +259,8 @@ class GeneratedMethodsMixin:
         date_to: DateStr | None = None,
         date_from: DateStr | None = None,
         country: CountryEnum | None = None,
+        report_id: str | None = None,
+        prompts: PromptsEnum | None = None,
         data_source: DataSourceEnum | None = None,
         market: str | None = None,
         brand: str | None = None,
@@ -243,14 +268,18 @@ class GeneratedMethodsMixin:
         """
         Overview history - Impressions.
 
+        >Requests to this endpoint consume API units based on the `prompts` parameter: requests returning only custom prompt data are free, while requests including Ahrefs prompt data follow standard API unit pricing.
+
         Args:
             request: BrandRadarImpressionsHistoryRequest
                 where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
                 date_to (str, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
                 date_from (str, required): The start date of the historical period in YYYY-MM-DD format.
                 country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
+                report_id (str, optional): The ID of the report to use. If one is given, other parameters are taken from the report (market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` Default: None.
+                prompts (PromptsEnum, optional): The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided. Default: None.
                 data_source (DataSourceEnum, required): The chatbot model to use.
-                market (str, optional): A comma-separated list of the niche markets of your brand. Default: ''.
+                market (str, optional): A comma-separated list of the niche markets of your brands. Default: ''.
                 brand (str, required): The brand to search for.
 
         Returns:
@@ -262,7 +291,7 @@ class GeneratedMethodsMixin:
             _missing = [k for k, v in [("date_from", date_from), ("data_source", data_source), ("brand", brand)] if v is None]
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
-            request = BrandRadarImpressionsHistoryRequest(**{k: v for k, v in [("where", where), ("date_to", date_to), ("date_from", date_from), ("country", country), ("data_source", data_source), ("market", market), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
+            request = BrandRadarImpressionsHistoryRequest(**{k: v for k, v in [("where", where), ("date_to", date_to), ("date_from", date_from), ("country", country), ("report_id", report_id), ("prompts", prompts), ("data_source", data_source), ("market", market), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
         _resp = await self._request("brand-radar", "impressions-history", request, BrandRadarImpressionsHistoryResponse, exclude_none=True)
         return _resp.data
 
@@ -273,6 +302,8 @@ class GeneratedMethodsMixin:
         where: str | None = None,
         select: SelectStr | None = None,
         country: CountryEnum | None = None,
+        report_id: str | None = None,
+        prompts: PromptsEnum | None = None,
         data_source: DataSourceEnum | None = None,
         market: str | None = None,
         competitors: str | None = None,
@@ -281,15 +312,19 @@ class GeneratedMethodsMixin:
         """
         Overview - Impressions.
 
+        >Requests to this endpoint consume API units based on the `prompts` parameter: requests returning only custom prompt data are free, while requests including Ahrefs prompt data follow standard API unit pricing.
+
         Args:
             request: BrandRadarImpressionsOverviewRequest
                 where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
                 select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
                 country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
+                report_id (str, optional): The ID of the report to use. If one is given, other parameters are taken from the report (brand, competitors, market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` Default: None.
+                prompts (PromptsEnum, optional): The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided. Default: None.
                 data_source (DataSourceEnum, required): The chatbot model to use.
                 market (str, optional): A comma-separated list of the niche markets of your brands. Default: ''.
                 competitors (str, optional): A comma-separated list of competitors of your brands. Default: ''.
-                brand (str, optional): A comma-separated list of brands to search for. At least one of brand or competitors should not be empty. Default: ''.
+                brand (str, optional): A comma-separated list of brands to search for. At least one of brand, competitors, market or where should not be empty. Default: ''.
 
         Returns:
             list[BrandRadarImpressionsOverviewData]:
@@ -304,7 +339,7 @@ class GeneratedMethodsMixin:
             _missing = [k for k, v in [("select", select), ("data_source", data_source)] if v is None]
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
-            request = BrandRadarImpressionsOverviewRequest(**{k: v for k, v in [("where", where), ("select", select), ("country", country), ("data_source", data_source), ("market", market), ("competitors", competitors), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
+            request = BrandRadarImpressionsOverviewRequest(**{k: v for k, v in [("where", where), ("select", select), ("country", country), ("report_id", report_id), ("prompts", prompts), ("data_source", data_source), ("market", market), ("competitors", competitors), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
         _resp = await self._request("brand-radar", "impressions-overview", request, BrandRadarImpressionsOverviewResponse, exclude_none=True)
         return _resp.data
 
@@ -316,6 +351,8 @@ class GeneratedMethodsMixin:
         date_to: DateStr | None = None,
         date_from: DateStr | None = None,
         country: CountryEnum | None = None,
+        report_id: str | None = None,
+        prompts: PromptsEnum | None = None,
         data_source: DataSourceEnum | None = None,
         market: str | None = None,
         brand: str | None = None,
@@ -323,14 +360,18 @@ class GeneratedMethodsMixin:
         """
         Overview history - Mentions.
 
+        >Requests to this endpoint consume API units based on the `prompts` parameter: requests returning only custom prompt data are free, while requests including Ahrefs prompt data follow standard API unit pricing.
+
         Args:
             request: BrandRadarMentionsHistoryRequest
                 where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
                 date_to (str, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
                 date_from (str, required): The start date of the historical period in YYYY-MM-DD format.
                 country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
+                report_id (str, optional): The ID of the report to use. If one is given, other parameters are taken from the report (market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` Default: None.
+                prompts (PromptsEnum, optional): The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided. Default: None.
                 data_source (DataSourceEnum, required): The chatbot model to use.
-                market (str, optional): A comma-separated list of the niche markets of your brand. Default: ''.
+                market (str, optional): A comma-separated list of the niche markets of your brands. Default: ''.
                 brand (str, required): The brand to search for.
 
         Returns:
@@ -342,7 +383,7 @@ class GeneratedMethodsMixin:
             _missing = [k for k, v in [("date_from", date_from), ("data_source", data_source), ("brand", brand)] if v is None]
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
-            request = BrandRadarMentionsHistoryRequest(**{k: v for k, v in [("where", where), ("date_to", date_to), ("date_from", date_from), ("country", country), ("data_source", data_source), ("market", market), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
+            request = BrandRadarMentionsHistoryRequest(**{k: v for k, v in [("where", where), ("date_to", date_to), ("date_from", date_from), ("country", country), ("report_id", report_id), ("prompts", prompts), ("data_source", data_source), ("market", market), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
         _resp = await self._request("brand-radar", "mentions-history", request, BrandRadarMentionsHistoryResponse, exclude_none=True)
         return _resp.data
 
@@ -353,6 +394,8 @@ class GeneratedMethodsMixin:
         where: str | None = None,
         select: SelectStr | None = None,
         country: CountryEnum | None = None,
+        report_id: str | None = None,
+        prompts: PromptsEnum | None = None,
         data_source: DataSourceEnum | None = None,
         market: str | None = None,
         competitors: str | None = None,
@@ -361,15 +404,19 @@ class GeneratedMethodsMixin:
         """
         Overview - Mentions.
 
+        >Requests to this endpoint consume API units based on the `prompts` parameter: requests returning only custom prompt data are free, while requests including Ahrefs prompt data follow standard API unit pricing.
+
         Args:
             request: BrandRadarMentionsOverviewRequest
                 where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
                 select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
                 country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
+                report_id (str, optional): The ID of the report to use. If one is given, other parameters are taken from the report (brand, competitors, market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` Default: None.
+                prompts (PromptsEnum, optional): The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided. Default: None.
                 data_source (DataSourceEnum, required): The chatbot model to use.
                 market (str, optional): A comma-separated list of the niche markets of your brands. Default: ''.
                 competitors (str, optional): A comma-separated list of competitors of your brands. Default: ''.
-                brand (str, optional): A comma-separated list of brands to search for. At least one of brand or competitors should not be empty. Default: ''.
+                brand (str, optional): A comma-separated list of brands to search for. At least one of brand, competitors, market or where should not be empty. Default: ''.
 
         Returns:
             list[BrandRadarMentionsOverviewData]:
@@ -384,7 +431,7 @@ class GeneratedMethodsMixin:
             _missing = [k for k, v in [("select", select), ("data_source", data_source)] if v is None]
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
-            request = BrandRadarMentionsOverviewRequest(**{k: v for k, v in [("where", where), ("select", select), ("country", country), ("data_source", data_source), ("market", market), ("competitors", competitors), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
+            request = BrandRadarMentionsOverviewRequest(**{k: v for k, v in [("where", where), ("select", select), ("country", country), ("report_id", report_id), ("prompts", prompts), ("data_source", data_source), ("market", market), ("competitors", competitors), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
         _resp = await self._request("brand-radar", "mentions-overview", request, BrandRadarMentionsOverviewResponse, exclude_none=True)
         return _resp.data
 
@@ -396,6 +443,8 @@ class GeneratedMethodsMixin:
         date_to: DateStr | None = None,
         date_from: DateStr | None = None,
         country: CountryEnum | None = None,
+        report_id: str | None = None,
+        prompts: PromptsEnum | None = None,
         data_source: DataSourceEnum | None = None,
         market: str | None = None,
         competitors: str | None = None,
@@ -404,16 +453,20 @@ class GeneratedMethodsMixin:
         """
         Overview history - Share of Voice.
 
+        >Requests to this endpoint consume API units based on the `prompts` parameter: requests returning only custom prompt data are free, while requests including Ahrefs prompt data follow standard API unit pricing.
+
         Args:
             request: BrandRadarSovHistoryRequest
                 where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
                 date_to (str, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
                 date_from (str, required): The start date of the historical period in YYYY-MM-DD format.
                 country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
+                report_id (str, optional): The ID of the report to use. If one is given, other parameters are taken from the report (brand, competitors, market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` Default: None.
+                prompts (PromptsEnum, optional): The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided. Default: None.
                 data_source (DataSourceEnum, required): The chatbot model to use.
                 market (str, optional): A comma-separated list of the niche markets of your brands. Default: ''.
                 competitors (str, optional): A comma-separated list of competitors of your brands. Default: ''.
-                brand (str, optional): A comma-separated list of brands to search for. At least one of brand or competitors should not be empty. Default: ''.
+                brand (str, optional): A comma-separated list of brands to search for. At least one of brand, competitors, market or where should not be empty. Default: ''.
 
         Returns:
             list[BrandRadarSovHistoryData]:
@@ -424,7 +477,7 @@ class GeneratedMethodsMixin:
             _missing = [k for k, v in [("date_from", date_from), ("data_source", data_source)] if v is None]
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
-            request = BrandRadarSovHistoryRequest(**{k: v for k, v in [("where", where), ("date_to", date_to), ("date_from", date_from), ("country", country), ("data_source", data_source), ("market", market), ("competitors", competitors), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
+            request = BrandRadarSovHistoryRequest(**{k: v for k, v in [("where", where), ("date_to", date_to), ("date_from", date_from), ("country", country), ("report_id", report_id), ("prompts", prompts), ("data_source", data_source), ("market", market), ("competitors", competitors), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
         _resp = await self._request("brand-radar", "sov-history", request, BrandRadarSovHistoryResponse, exclude_none=True)
         return _resp.data
 
@@ -434,6 +487,8 @@ class GeneratedMethodsMixin:
         *,
         where: str | None = None,
         country: CountryEnum | None = None,
+        report_id: str | None = None,
+        prompts: PromptsEnum | None = None,
         data_source: DataSourceEnum | None = None,
         market: str | None = None,
         competitors: str | None = None,
@@ -442,14 +497,18 @@ class GeneratedMethodsMixin:
         """
         Overview - Share of Voice.
 
+        >Requests to this endpoint consume API units based on the `prompts` parameter: requests returning only custom prompt data are free, while requests including Ahrefs prompt data follow standard API unit pricing.
+
         Args:
             request: BrandRadarSovOverviewRequest
                 where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
                 country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
+                report_id (str, optional): The ID of the report to use. If one is given, other parameters are taken from the report (brand, competitors, market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` Default: None.
+                prompts (PromptsEnum, optional): The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided. Default: None.
                 data_source (DataSourceEnum, required): The chatbot model to use.
                 market (str, optional): A comma-separated list of the niche markets of your brands. Default: ''.
                 competitors (str, optional): A comma-separated list of competitors of your brands. Default: ''.
-                brand (str, optional): A comma-separated list of brands to search for. At least one of brand or competitors should not be empty. Default: ''.
+                brand (str, optional): A comma-separated list of brands to search for. At least one of brand, competitors, market or where should not be empty. Default: ''.
 
         Returns:
             list[BrandRadarSovOverviewData]:
@@ -460,7 +519,7 @@ class GeneratedMethodsMixin:
             _missing = [k for k, v in [("data_source", data_source)] if v is None]
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
-            request = BrandRadarSovOverviewRequest(**{k: v for k, v in [("where", where), ("country", country), ("data_source", data_source), ("market", market), ("competitors", competitors), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
+            request = BrandRadarSovOverviewRequest(**{k: v for k, v in [("where", where), ("country", country), ("report_id", report_id), ("prompts", prompts), ("data_source", data_source), ("market", market), ("competitors", competitors), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
         _resp = await self._request("brand-radar", "sov-overview", request, BrandRadarSovOverviewResponse, exclude_none=True)
         return _resp.data
 
@@ -2619,9 +2678,14 @@ class GeneratedSyncMethodsMixin:
     """Sync endpoint methods. Mixed into AhrefsClient."""
 
     def _request(
-        self, api_section: str, endpoint: str, request_model: BaseModel,
-        response_model_class: type[T], *, exclude_none: bool = False,
-        http_method: str = 'GET',
+        self,
+        api_section: str,
+        endpoint: str,
+        request_model: BaseModel,
+        response_model_class: type[T],
+        *,
+        exclude_none: bool = False,
+        http_method: str = "GET",
     ) -> T:
         raise NotImplementedError
 
@@ -2702,6 +2766,8 @@ class GeneratedSyncMethodsMixin:
         date: DateStr | None = None,
         country: CountryEnum | None = None,
         order_by: OrderByEnum | None = None,
+        report_id: str | None = None,
+        prompts: PromptsEnum | None = None,
         data_source: DataSourceEnum | None = None,
         market: str | None = None,
         competitors: str | None = None,
@@ -2709,6 +2775,8 @@ class GeneratedSyncMethodsMixin:
     ) -> list[BrandRadarAiResponsesData]:
         """
         AI Responses.
+
+        >Requests to this endpoint consume API units based on the `prompts` parameter: requests returning only custom prompt data are free, while requests including Ahrefs prompt data follow standard API unit pricing.
 
         Args:
             request: BrandRadarAiResponsesRequest
@@ -2718,7 +2786,9 @@ class GeneratedSyncMethodsMixin:
                 select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
                 date (str, optional): The date to search for in YYYY-MM-DD format. Default: None.
                 country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
-                order_by (OrderByEnum, optional): The order by field. Default: 'relevance'.
+                order_by (OrderByEnum, optional): A column to order the results by. Default: 'relevance'.
+                report_id (str, optional): The ID of the report to use. If one is given, other parameters are taken from the report (brand, competitors, market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` Default: None.
+                prompts (PromptsEnum, optional): The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided. Default: None.
                 data_source (DataSourceEnum, required): The chatbot model to use.
                 market (str, optional): A comma-separated list of the niche markets of your brands. Default: ''.
                 competitors (str, optional): A comma-separated list of competitors of your brands. Default: ''.
@@ -2736,7 +2806,7 @@ class GeneratedSyncMethodsMixin:
             _missing = [k for k, v in [("select", select), ("data_source", data_source)] if v is None]
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
-            request = BrandRadarAiResponsesRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("where", where), ("select", select), ("date", date), ("country", country), ("order_by", order_by), ("data_source", data_source), ("market", market), ("competitors", competitors), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
+            request = BrandRadarAiResponsesRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("where", where), ("select", select), ("date", date), ("country", country), ("order_by", order_by), ("report_id", report_id), ("prompts", prompts), ("data_source", data_source), ("market", market), ("competitors", competitors), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
         _resp = self._request("brand-radar", "ai-responses", request, BrandRadarAiResponsesResponse, exclude_none=True)
         return _resp.data
 
@@ -2749,6 +2819,8 @@ class GeneratedSyncMethodsMixin:
         limit: int | None = None,
         date: DateStr | None = None,
         country: CountryEnum | None = None,
+        report_id: str | None = None,
+        prompts: PromptsEnum | None = None,
         data_source: DataSourceEnum | None = None,
         market: str | None = None,
         competitors: str | None = None,
@@ -2757,13 +2829,17 @@ class GeneratedSyncMethodsMixin:
         """
         Cited Domains.
 
+        >Requests to this endpoint consume API units based on the `prompts` parameter: requests returning only custom prompt data are free, while requests including Ahrefs prompt data follow standard API unit pricing.
+
         Args:
             request: BrandRadarCitedDomainsRequest
                 where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
                 select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
-                limit (int, optional): The number of results to return. Default: None.
+                limit (int, optional): The number of results to return. Default: 1000.
                 date (str, optional): The date to search for in YYYY-MM-DD format. Default: None.
                 country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
+                report_id (str, optional): The ID of the report to use. If one is given, other parameters are taken from the report (brand, competitors, market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` Default: None.
+                prompts (PromptsEnum, optional): The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided. Default: None.
                 data_source (DataSourceEnum, required): The chatbot model to use.
                 market (str, optional): A comma-separated list of the niche markets of your brands. Default: ''.
                 competitors (str, optional): A comma-separated list of competitors of your brands. Default: ''.
@@ -2781,7 +2857,7 @@ class GeneratedSyncMethodsMixin:
             _missing = [k for k, v in [("select", select), ("data_source", data_source)] if v is None]
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
-            request = BrandRadarCitedDomainsRequest(**{k: v for k, v in [("where", where), ("select", select), ("limit", limit), ("date", date), ("country", country), ("data_source", data_source), ("market", market), ("competitors", competitors), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
+            request = BrandRadarCitedDomainsRequest(**{k: v for k, v in [("where", where), ("select", select), ("limit", limit), ("date", date), ("country", country), ("report_id", report_id), ("prompts", prompts), ("data_source", data_source), ("market", market), ("competitors", competitors), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
         _resp = self._request("brand-radar", "cited-domains", request, BrandRadarCitedDomainsResponse, exclude_none=True)
         return _resp.data
 
@@ -2794,6 +2870,8 @@ class GeneratedSyncMethodsMixin:
         limit: int | None = None,
         date: DateStr | None = None,
         country: CountryEnum | None = None,
+        report_id: str | None = None,
+        prompts: PromptsEnum | None = None,
         data_source: DataSourceEnum | None = None,
         market: str | None = None,
         competitors: str | None = None,
@@ -2802,13 +2880,17 @@ class GeneratedSyncMethodsMixin:
         """
         Cited Pages.
 
+        >Requests to this endpoint consume API units based on the `prompts` parameter: requests returning only custom prompt data are free, while requests including Ahrefs prompt data follow standard API unit pricing.
+
         Args:
             request: BrandRadarCitedPagesRequest
                 where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
                 select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
-                limit (int, optional): The number of results to return. Default: None.
+                limit (int, optional): The number of results to return. Default: 1000.
                 date (str, optional): The date to search for in YYYY-MM-DD format. Default: None.
                 country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
+                report_id (str, optional): The ID of the report to use. If one is given, other parameters are taken from the report (brand, competitors, market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` Default: None.
+                prompts (PromptsEnum, optional): The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided. Default: None.
                 data_source (DataSourceEnum, required): The chatbot model to use.
                 market (str, optional): A comma-separated list of the niche markets of your brands. Default: ''.
                 competitors (str, optional): A comma-separated list of competitors of your brands. Default: ''.
@@ -2825,7 +2907,7 @@ class GeneratedSyncMethodsMixin:
             _missing = [k for k, v in [("select", select), ("data_source", data_source)] if v is None]
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
-            request = BrandRadarCitedPagesRequest(**{k: v for k, v in [("where", where), ("select", select), ("limit", limit), ("date", date), ("country", country), ("data_source", data_source), ("market", market), ("competitors", competitors), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
+            request = BrandRadarCitedPagesRequest(**{k: v for k, v in [("where", where), ("select", select), ("limit", limit), ("date", date), ("country", country), ("report_id", report_id), ("prompts", prompts), ("data_source", data_source), ("market", market), ("competitors", competitors), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
         _resp = self._request("brand-radar", "cited-pages", request, BrandRadarCitedPagesResponse, exclude_none=True)
         return _resp.data
 
@@ -2837,6 +2919,8 @@ class GeneratedSyncMethodsMixin:
         date_to: DateStr | None = None,
         date_from: DateStr | None = None,
         country: CountryEnum | None = None,
+        report_id: str | None = None,
+        prompts: PromptsEnum | None = None,
         data_source: DataSourceEnum | None = None,
         market: str | None = None,
         brand: str | None = None,
@@ -2844,14 +2928,18 @@ class GeneratedSyncMethodsMixin:
         """
         Overview history - Impressions.
 
+        >Requests to this endpoint consume API units based on the `prompts` parameter: requests returning only custom prompt data are free, while requests including Ahrefs prompt data follow standard API unit pricing.
+
         Args:
             request: BrandRadarImpressionsHistoryRequest
                 where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
                 date_to (str, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
                 date_from (str, required): The start date of the historical period in YYYY-MM-DD format.
                 country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
+                report_id (str, optional): The ID of the report to use. If one is given, other parameters are taken from the report (market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` Default: None.
+                prompts (PromptsEnum, optional): The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided. Default: None.
                 data_source (DataSourceEnum, required): The chatbot model to use.
-                market (str, optional): A comma-separated list of the niche markets of your brand. Default: ''.
+                market (str, optional): A comma-separated list of the niche markets of your brands. Default: ''.
                 brand (str, required): The brand to search for.
 
         Returns:
@@ -2863,7 +2951,7 @@ class GeneratedSyncMethodsMixin:
             _missing = [k for k, v in [("date_from", date_from), ("data_source", data_source), ("brand", brand)] if v is None]
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
-            request = BrandRadarImpressionsHistoryRequest(**{k: v for k, v in [("where", where), ("date_to", date_to), ("date_from", date_from), ("country", country), ("data_source", data_source), ("market", market), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
+            request = BrandRadarImpressionsHistoryRequest(**{k: v for k, v in [("where", where), ("date_to", date_to), ("date_from", date_from), ("country", country), ("report_id", report_id), ("prompts", prompts), ("data_source", data_source), ("market", market), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
         _resp = self._request("brand-radar", "impressions-history", request, BrandRadarImpressionsHistoryResponse, exclude_none=True)
         return _resp.data
 
@@ -2874,6 +2962,8 @@ class GeneratedSyncMethodsMixin:
         where: str | None = None,
         select: SelectStr | None = None,
         country: CountryEnum | None = None,
+        report_id: str | None = None,
+        prompts: PromptsEnum | None = None,
         data_source: DataSourceEnum | None = None,
         market: str | None = None,
         competitors: str | None = None,
@@ -2882,15 +2972,19 @@ class GeneratedSyncMethodsMixin:
         """
         Overview - Impressions.
 
+        >Requests to this endpoint consume API units based on the `prompts` parameter: requests returning only custom prompt data are free, while requests including Ahrefs prompt data follow standard API unit pricing.
+
         Args:
             request: BrandRadarImpressionsOverviewRequest
                 where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
                 select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
                 country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
+                report_id (str, optional): The ID of the report to use. If one is given, other parameters are taken from the report (brand, competitors, market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` Default: None.
+                prompts (PromptsEnum, optional): The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided. Default: None.
                 data_source (DataSourceEnum, required): The chatbot model to use.
                 market (str, optional): A comma-separated list of the niche markets of your brands. Default: ''.
                 competitors (str, optional): A comma-separated list of competitors of your brands. Default: ''.
-                brand (str, optional): A comma-separated list of brands to search for. At least one of brand or competitors should not be empty. Default: ''.
+                brand (str, optional): A comma-separated list of brands to search for. At least one of brand, competitors, market or where should not be empty. Default: ''.
 
         Returns:
             list[BrandRadarImpressionsOverviewData]:
@@ -2905,7 +2999,7 @@ class GeneratedSyncMethodsMixin:
             _missing = [k for k, v in [("select", select), ("data_source", data_source)] if v is None]
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
-            request = BrandRadarImpressionsOverviewRequest(**{k: v for k, v in [("where", where), ("select", select), ("country", country), ("data_source", data_source), ("market", market), ("competitors", competitors), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
+            request = BrandRadarImpressionsOverviewRequest(**{k: v for k, v in [("where", where), ("select", select), ("country", country), ("report_id", report_id), ("prompts", prompts), ("data_source", data_source), ("market", market), ("competitors", competitors), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
         _resp = self._request("brand-radar", "impressions-overview", request, BrandRadarImpressionsOverviewResponse, exclude_none=True)
         return _resp.data
 
@@ -2917,6 +3011,8 @@ class GeneratedSyncMethodsMixin:
         date_to: DateStr | None = None,
         date_from: DateStr | None = None,
         country: CountryEnum | None = None,
+        report_id: str | None = None,
+        prompts: PromptsEnum | None = None,
         data_source: DataSourceEnum | None = None,
         market: str | None = None,
         brand: str | None = None,
@@ -2924,14 +3020,18 @@ class GeneratedSyncMethodsMixin:
         """
         Overview history - Mentions.
 
+        >Requests to this endpoint consume API units based on the `prompts` parameter: requests returning only custom prompt data are free, while requests including Ahrefs prompt data follow standard API unit pricing.
+
         Args:
             request: BrandRadarMentionsHistoryRequest
                 where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
                 date_to (str, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
                 date_from (str, required): The start date of the historical period in YYYY-MM-DD format.
                 country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
+                report_id (str, optional): The ID of the report to use. If one is given, other parameters are taken from the report (market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` Default: None.
+                prompts (PromptsEnum, optional): The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided. Default: None.
                 data_source (DataSourceEnum, required): The chatbot model to use.
-                market (str, optional): A comma-separated list of the niche markets of your brand. Default: ''.
+                market (str, optional): A comma-separated list of the niche markets of your brands. Default: ''.
                 brand (str, required): The brand to search for.
 
         Returns:
@@ -2943,7 +3043,7 @@ class GeneratedSyncMethodsMixin:
             _missing = [k for k, v in [("date_from", date_from), ("data_source", data_source), ("brand", brand)] if v is None]
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
-            request = BrandRadarMentionsHistoryRequest(**{k: v for k, v in [("where", where), ("date_to", date_to), ("date_from", date_from), ("country", country), ("data_source", data_source), ("market", market), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
+            request = BrandRadarMentionsHistoryRequest(**{k: v for k, v in [("where", where), ("date_to", date_to), ("date_from", date_from), ("country", country), ("report_id", report_id), ("prompts", prompts), ("data_source", data_source), ("market", market), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
         _resp = self._request("brand-radar", "mentions-history", request, BrandRadarMentionsHistoryResponse, exclude_none=True)
         return _resp.data
 
@@ -2954,6 +3054,8 @@ class GeneratedSyncMethodsMixin:
         where: str | None = None,
         select: SelectStr | None = None,
         country: CountryEnum | None = None,
+        report_id: str | None = None,
+        prompts: PromptsEnum | None = None,
         data_source: DataSourceEnum | None = None,
         market: str | None = None,
         competitors: str | None = None,
@@ -2962,15 +3064,19 @@ class GeneratedSyncMethodsMixin:
         """
         Overview - Mentions.
 
+        >Requests to this endpoint consume API units based on the `prompts` parameter: requests returning only custom prompt data are free, while requests including Ahrefs prompt data follow standard API unit pricing.
+
         Args:
             request: BrandRadarMentionsOverviewRequest
                 where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
                 select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
                 country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
+                report_id (str, optional): The ID of the report to use. If one is given, other parameters are taken from the report (brand, competitors, market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` Default: None.
+                prompts (PromptsEnum, optional): The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided. Default: None.
                 data_source (DataSourceEnum, required): The chatbot model to use.
                 market (str, optional): A comma-separated list of the niche markets of your brands. Default: ''.
                 competitors (str, optional): A comma-separated list of competitors of your brands. Default: ''.
-                brand (str, optional): A comma-separated list of brands to search for. At least one of brand or competitors should not be empty. Default: ''.
+                brand (str, optional): A comma-separated list of brands to search for. At least one of brand, competitors, market or where should not be empty. Default: ''.
 
         Returns:
             list[BrandRadarMentionsOverviewData]:
@@ -2985,7 +3091,7 @@ class GeneratedSyncMethodsMixin:
             _missing = [k for k, v in [("select", select), ("data_source", data_source)] if v is None]
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
-            request = BrandRadarMentionsOverviewRequest(**{k: v for k, v in [("where", where), ("select", select), ("country", country), ("data_source", data_source), ("market", market), ("competitors", competitors), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
+            request = BrandRadarMentionsOverviewRequest(**{k: v for k, v in [("where", where), ("select", select), ("country", country), ("report_id", report_id), ("prompts", prompts), ("data_source", data_source), ("market", market), ("competitors", competitors), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
         _resp = self._request("brand-radar", "mentions-overview", request, BrandRadarMentionsOverviewResponse, exclude_none=True)
         return _resp.data
 
@@ -2997,6 +3103,8 @@ class GeneratedSyncMethodsMixin:
         date_to: DateStr | None = None,
         date_from: DateStr | None = None,
         country: CountryEnum | None = None,
+        report_id: str | None = None,
+        prompts: PromptsEnum | None = None,
         data_source: DataSourceEnum | None = None,
         market: str | None = None,
         competitors: str | None = None,
@@ -3005,16 +3113,20 @@ class GeneratedSyncMethodsMixin:
         """
         Overview history - Share of Voice.
 
+        >Requests to this endpoint consume API units based on the `prompts` parameter: requests returning only custom prompt data are free, while requests including Ahrefs prompt data follow standard API unit pricing.
+
         Args:
             request: BrandRadarSovHistoryRequest
                 where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
                 date_to (str, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
                 date_from (str, required): The start date of the historical period in YYYY-MM-DD format.
                 country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
+                report_id (str, optional): The ID of the report to use. If one is given, other parameters are taken from the report (brand, competitors, market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` Default: None.
+                prompts (PromptsEnum, optional): The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided. Default: None.
                 data_source (DataSourceEnum, required): The chatbot model to use.
                 market (str, optional): A comma-separated list of the niche markets of your brands. Default: ''.
                 competitors (str, optional): A comma-separated list of competitors of your brands. Default: ''.
-                brand (str, optional): A comma-separated list of brands to search for. At least one of brand or competitors should not be empty. Default: ''.
+                brand (str, optional): A comma-separated list of brands to search for. At least one of brand, competitors, market or where should not be empty. Default: ''.
 
         Returns:
             list[BrandRadarSovHistoryData]:
@@ -3025,7 +3137,7 @@ class GeneratedSyncMethodsMixin:
             _missing = [k for k, v in [("date_from", date_from), ("data_source", data_source)] if v is None]
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
-            request = BrandRadarSovHistoryRequest(**{k: v for k, v in [("where", where), ("date_to", date_to), ("date_from", date_from), ("country", country), ("data_source", data_source), ("market", market), ("competitors", competitors), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
+            request = BrandRadarSovHistoryRequest(**{k: v for k, v in [("where", where), ("date_to", date_to), ("date_from", date_from), ("country", country), ("report_id", report_id), ("prompts", prompts), ("data_source", data_source), ("market", market), ("competitors", competitors), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
         _resp = self._request("brand-radar", "sov-history", request, BrandRadarSovHistoryResponse, exclude_none=True)
         return _resp.data
 
@@ -3035,6 +3147,8 @@ class GeneratedSyncMethodsMixin:
         *,
         where: str | None = None,
         country: CountryEnum | None = None,
+        report_id: str | None = None,
+        prompts: PromptsEnum | None = None,
         data_source: DataSourceEnum | None = None,
         market: str | None = None,
         competitors: str | None = None,
@@ -3043,14 +3157,18 @@ class GeneratedSyncMethodsMixin:
         """
         Overview - Share of Voice.
 
+        >Requests to this endpoint consume API units based on the `prompts` parameter: requests returning only custom prompt data are free, while requests including Ahrefs prompt data follow standard API unit pricing.
+
         Args:
             request: BrandRadarSovOverviewRequest
                 where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
                 country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
+                report_id (str, optional): The ID of the report to use. If one is given, other parameters are taken from the report (brand, competitors, market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` Default: None.
+                prompts (PromptsEnum, optional): The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided. Default: None.
                 data_source (DataSourceEnum, required): The chatbot model to use.
                 market (str, optional): A comma-separated list of the niche markets of your brands. Default: ''.
                 competitors (str, optional): A comma-separated list of competitors of your brands. Default: ''.
-                brand (str, optional): A comma-separated list of brands to search for. At least one of brand or competitors should not be empty. Default: ''.
+                brand (str, optional): A comma-separated list of brands to search for. At least one of brand, competitors, market or where should not be empty. Default: ''.
 
         Returns:
             list[BrandRadarSovOverviewData]:
@@ -3061,7 +3179,7 @@ class GeneratedSyncMethodsMixin:
             _missing = [k for k, v in [("data_source", data_source)] if v is None]
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
-            request = BrandRadarSovOverviewRequest(**{k: v for k, v in [("where", where), ("country", country), ("data_source", data_source), ("market", market), ("competitors", competitors), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
+            request = BrandRadarSovOverviewRequest(**{k: v for k, v in [("where", where), ("country", country), ("report_id", report_id), ("prompts", prompts), ("data_source", data_source), ("market", market), ("competitors", competitors), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
         _resp = self._request("brand-radar", "sov-overview", request, BrandRadarSovOverviewResponse, exclude_none=True)
         return _resp.data
 

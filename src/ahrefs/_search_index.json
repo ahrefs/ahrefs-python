@@ -261,7 +261,19 @@
         "name": "order_by",
         "type": "OrderByEnum",
         "required": false,
-        "description": "The order by field."
+        "description": "A column to order the results by."
+      },
+      {
+        "name": "report_id",
+        "type": "str",
+        "required": false,
+        "description": "The ID of the report to use. If one is given, other parameters are taken from the report (brand, competitors, market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...`"
+      },
+      {
+        "name": "prompts",
+        "type": "PromptsEnum",
+        "required": false,
+        "description": "The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided."
       },
       {
         "name": "data_source",
@@ -355,6 +367,18 @@
         "description": "A two-letter country code (ISO 3166-1 alpha-2)."
       },
       {
+        "name": "report_id",
+        "type": "str",
+        "required": false,
+        "description": "The ID of the report to use. If one is given, other parameters are taken from the report (brand, competitors, market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...`"
+      },
+      {
+        "name": "prompts",
+        "type": "PromptsEnum",
+        "required": false,
+        "description": "The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided."
+      },
+      {
         "name": "data_source",
         "type": "DataSourceEnum",
         "required": true,
@@ -446,6 +470,18 @@
         "description": "A two-letter country code (ISO 3166-1 alpha-2)."
       },
       {
+        "name": "report_id",
+        "type": "str",
+        "required": false,
+        "description": "The ID of the report to use. If one is given, other parameters are taken from the report (brand, competitors, market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...`"
+      },
+      {
+        "name": "prompts",
+        "type": "PromptsEnum",
+        "required": false,
+        "description": "The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided."
+      },
+      {
         "name": "data_source",
         "type": "DataSourceEnum",
         "required": true,
@@ -526,6 +562,18 @@
         "description": "A two-letter country code (ISO 3166-1 alpha-2)."
       },
       {
+        "name": "report_id",
+        "type": "str",
+        "required": false,
+        "description": "The ID of the report to use. If one is given, other parameters are taken from the report (market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...`"
+      },
+      {
+        "name": "prompts",
+        "type": "PromptsEnum",
+        "required": false,
+        "description": "The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided."
+      },
+      {
         "name": "data_source",
         "type": "DataSourceEnum",
         "required": true,
@@ -535,7 +583,7 @@
         "name": "market",
         "type": "str",
         "required": false,
-        "description": "A comma-separated list of the niche markets of your brand."
+        "description": "A comma-separated list of the niche markets of your brands."
       },
       {
         "name": "brand",
@@ -584,6 +632,18 @@
         "description": "A two-letter country code (ISO 3166-1 alpha-2)."
       },
       {
+        "name": "report_id",
+        "type": "str",
+        "required": false,
+        "description": "The ID of the report to use. If one is given, other parameters are taken from the report (brand, competitors, market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...`"
+      },
+      {
+        "name": "prompts",
+        "type": "PromptsEnum",
+        "required": false,
+        "description": "The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided."
+      },
+      {
         "name": "data_source",
         "type": "DataSourceEnum",
         "required": true,
@@ -605,7 +665,7 @@
         "name": "brand",
         "type": "str",
         "required": false,
-        "description": "A comma-separated list of brands to search for. At least one of brand or competitors should not be empty."
+        "description": "A comma-separated list of brands to search for. At least one of brand, competitors, market or where should not be empty."
       }
     ],
     "returns": {
@@ -674,6 +734,18 @@
         "description": "A two-letter country code (ISO 3166-1 alpha-2)."
       },
       {
+        "name": "report_id",
+        "type": "str",
+        "required": false,
+        "description": "The ID of the report to use. If one is given, other parameters are taken from the report (market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...`"
+      },
+      {
+        "name": "prompts",
+        "type": "PromptsEnum",
+        "required": false,
+        "description": "The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided."
+      },
+      {
         "name": "data_source",
         "type": "DataSourceEnum",
         "required": true,
@@ -683,7 +755,7 @@
         "name": "market",
         "type": "str",
         "required": false,
-        "description": "A comma-separated list of the niche markets of your brand."
+        "description": "A comma-separated list of the niche markets of your brands."
       },
       {
         "name": "brand",
@@ -732,6 +804,18 @@
         "description": "A two-letter country code (ISO 3166-1 alpha-2)."
       },
       {
+        "name": "report_id",
+        "type": "str",
+        "required": false,
+        "description": "The ID of the report to use. If one is given, other parameters are taken from the report (brand, competitors, market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...`"
+      },
+      {
+        "name": "prompts",
+        "type": "PromptsEnum",
+        "required": false,
+        "description": "The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided."
+      },
+      {
         "name": "data_source",
         "type": "DataSourceEnum",
         "required": true,
@@ -753,7 +837,7 @@
         "name": "brand",
         "type": "str",
         "required": false,
-        "description": "A comma-separated list of brands to search for. At least one of brand or competitors should not be empty."
+        "description": "A comma-separated list of brands to search for. At least one of brand, competitors, market or where should not be empty."
       }
     ],
     "returns": {
@@ -822,6 +906,18 @@
         "description": "A two-letter country code (ISO 3166-1 alpha-2)."
       },
       {
+        "name": "report_id",
+        "type": "str",
+        "required": false,
+        "description": "The ID of the report to use. If one is given, other parameters are taken from the report (brand, competitors, market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...`"
+      },
+      {
+        "name": "prompts",
+        "type": "PromptsEnum",
+        "required": false,
+        "description": "The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided."
+      },
+      {
         "name": "data_source",
         "type": "DataSourceEnum",
         "required": true,
@@ -843,7 +939,7 @@
         "name": "brand",
         "type": "str",
         "required": false,
-        "description": "A comma-separated list of brands to search for. At least one of brand or competitors should not be empty."
+        "description": "A comma-separated list of brands to search for. At least one of brand, competitors, market or where should not be empty."
       }
     ],
     "returns": {
@@ -880,6 +976,18 @@
         "description": "A two-letter country code (ISO 3166-1 alpha-2)."
       },
       {
+        "name": "report_id",
+        "type": "str",
+        "required": false,
+        "description": "The ID of the report to use. If one is given, other parameters are taken from the report (brand, competitors, market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...`"
+      },
+      {
+        "name": "prompts",
+        "type": "PromptsEnum",
+        "required": false,
+        "description": "The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided."
+      },
+      {
         "name": "data_source",
         "type": "DataSourceEnum",
         "required": true,
@@ -901,7 +1009,7 @@
         "name": "brand",
         "type": "str",
         "required": false,
-        "description": "A comma-separated list of brands to search for. At least one of brand or competitors should not be empty."
+        "description": "A comma-separated list of brands to search for. At least one of brand, competitors, market or where should not be empty."
       }
     ],
     "returns": {

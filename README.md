@@ -31,10 +31,10 @@ Python client for the [Ahrefs API](https://ahrefs.com/api). Typed request and re
 
 ```sh
 # Via SSH
-pip install git+ssh://git@github.com/ahrefs/ahrefs-python.git
+pip3 install git+ssh://git@github.com/ahrefs/ahrefs-python.git
 
 # Via HTTPS
-pip install git+https://github.com/ahrefs/ahrefs-python.git
+pip3 install git+https://github.com/ahrefs/ahrefs-python.git
 ```
 
 Requires Python 3.11+.
@@ -57,16 +57,16 @@ The SDK includes a built-in search tool for discovering API methods by keyword. 
 
 ```sh
 # Search by keyword — returns top 5 matches with parameters and return types
-python -m ahrefs.api_search "domain rating"
+python3 -m ahrefs.api_search "domain rating"
 
 # Filter to a specific API section and limit results
-python -m ahrefs.api_search "backlinks" --section site-explorer --limit 3
+python3 -m ahrefs.api_search "backlinks" --section site-explorer --limit 3
 
 # Output as JSON (useful for programmatic consumption)
-python -m ahrefs.api_search "batch" --json
+python3 -m ahrefs.api_search "batch" --json
 
 # List all available API sections
-python -m ahrefs.api_search --sections
+python3 -m ahrefs.api_search --sections
 ```
 
 **Python:**
