@@ -28,6 +28,10 @@ _B = 0.75
 # long parameter lists.
 _NAME_WEIGHT = 2
 
+# Per-result char cap for format_for_context(). P95 of method sizes is ~8K;
+# only one outlier (site_audit_page_explorer, 86K, 605 fields) gets trimmed.
+_MAX_RESULT_CHARS = 9000
+
 
 def _tokenize(text: str) -> list[str]:
     """Normalize and split text into search tokens.
@@ -78,7 +82,12 @@ class MethodSearchResult:
             desc_part = f": {f['description']}" if f.get("description") else ""
             lines.append(f"- {f['name']} ({f['type']}){desc_part}")
 
-        return "\n".join(lines)
+        text = "\n".join(lines)
+        if len(text) > _MAX_RESULT_CHARS:
+            cut = text[:_MAX_RESULT_CHARS].rfind("\n")
+            text = text[:cut] if cut > 0 else text[:_MAX_RESULT_CHARS]
+            text += "\n... [truncated]"
+        return text
 
 
 class MethodSearcher:
