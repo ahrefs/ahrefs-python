@@ -9,7 +9,7 @@ from typing import Any
 
 from pydantic import BaseModel, Field
 
-from ahrefs.types._coercions import DateStr, SelectStr
+from ahrefs.types._coercions import DateStr, HistoryStr, SelectStr
 
 
 class AggregationEnum(StrEnum):
@@ -5463,7 +5463,7 @@ class SiteExplorerAllBacklinksRequest(BaseModel):
         default=AggregationEnum.SIMILAR_LINKS,
         description="The backlinks grouping mode.",
     )
-    history: str = Field(
+    history: HistoryStr = Field(
         default="all_time",
         description="A time frame to add lost backlinks to the report. Choose between `live` (no history), `since:<date>` (history since a specified date), and `all_time` (full history). The date should be in YYYY-MM-DD format.",
     )
@@ -5806,7 +5806,7 @@ class SiteExplorerAnchorsRequest(BaseModel):
         default=ModeEnum.SUBDOMAINS,
         description="The scope of the search based on the target you entered.",
     )
-    history: str = Field(
+    history: HistoryStr = Field(
         default="all_time",
         description="A time frame to add lost backlinks to the report. Choose between `live` (no history), `since:<date>` (history since a specified date), and `all_time` (full history). The date should be in YYYY-MM-DD format.",
     )
@@ -5951,7 +5951,7 @@ class SiteExplorerBestByExternalLinksRequest(BaseModel):
         default=ModeEnum.SUBDOMAINS,
         description="The scope of the search based on the target you entered.",
     )
-    history: str = Field(
+    history: HistoryStr = Field(
         default="all_time",
         description="A time frame to add lost backlinks to the report. Choose between `live` (no history), `since:<date>` (history since a specified date), and `all_time` (full history). The date should be in YYYY-MM-DD format.",
     )
@@ -7900,7 +7900,7 @@ class SiteExplorerRefdomainsRequest(BaseModel):
         default=ModeEnum.SUBDOMAINS,
         description="The scope of the search based on the target you entered.",
     )
-    history: str = Field(
+    history: HistoryStr = Field(
         default="all_time",
         description="A time frame to add lost backlinks to the report. Choose between `live` (no history), `since:<date>` (history since a specified date), and `all_time` (full history). The date should be in YYYY-MM-DD format.",
     )

@@ -8,7 +8,7 @@ from typing import TypeVar
 
 from pydantic import BaseModel
 
-from ahrefs.types._coercions import DateStr, SelectStr  # noqa: F401
+from ahrefs.types._coercions import DateStr, HistoryStr, SelectStr  # noqa: F401
 from ahrefs.types._generated import *  # noqa: F401,F403
 
 T = TypeVar("T", bound=BaseModel)

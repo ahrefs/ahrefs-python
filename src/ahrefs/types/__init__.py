@@ -30,6 +30,7 @@ __all__ = [
     "FilterModeEnum",
     "GroupModeEnum",
     "HistoryGroupingEnum",
+    "HistoryStr",
     "KeywordsExplorerMatchingTermsData",
     "KeywordsExplorerMatchingTermsRequest",
     "KeywordsExplorerOverviewData",
