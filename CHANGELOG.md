@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [0.4.2-alpha]
+
+### Changed
+
+- Cap per-result search output at 9K chars to prevent outlier methods (e.g. `site_audit_page_explorer` with 605 fields) from bloating search results
+
 ## [0.4.1-alpha]
 
 ### Added
