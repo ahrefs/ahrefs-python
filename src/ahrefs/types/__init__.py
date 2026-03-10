@@ -76,8 +76,6 @@ __all__ = [
     "SerpFeaturesItemEnum1",
     "SerpOverviewData",
     "SerpOverviewRequest",
-    "SerpOverviewSerpOverviewData",
-    "SerpOverviewSerpOverviewRequest",
     "SiteAuditIssuesData",
     "SiteAuditIssuesRequest",
     "SiteAuditPageContentData",
