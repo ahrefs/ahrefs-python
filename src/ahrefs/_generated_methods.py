@@ -9,23 +9,18 @@ from typing import TypeVar
 from pydantic import BaseModel
 
 from ahrefs.types._coercions import DateStr, HistoryStr, SelectStr  # noqa: F401
-from ahrefs.types._generated import *  # noqa: F401,F403
+from ahrefs.types._generated import *  # noqa: F401,F403  # type: ignore[reportWildcardImportFromLibrary]
 
-T = TypeVar("T", bound=BaseModel)
+T = TypeVar('T', bound=BaseModel)
 
 
 class GeneratedMethodsMixin:
     """Async endpoint methods. Mixed into AsyncAhrefsClient."""
 
     async def _request(
-        self,
-        api_section: str,
-        endpoint: str,
-        request_model: BaseModel,
-        response_model_class: type[T],
-        *,
-        exclude_none: bool = False,
-        http_method: str = "GET",
+        self, api_section: str, endpoint: str, request_model: BaseModel,
+        response_model_class: type[T], *, exclude_none: bool = False,
+        http_method: str = 'GET',
     ) -> T:
         raise NotImplementedError
 
@@ -124,7 +119,7 @@ class GeneratedMethodsMixin:
                 limit (int, optional): The number of results to return. Default: 1000.
                 where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
                 select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
-                date (str, optional): The date to search for in YYYY-MM-DD format. Default: None.
+                date (DateStr, optional): The date to search for in YYYY-MM-DD format. Default: None.
                 country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
                 order_by (OrderByEnum, optional): A column to order the results by. Default: 'relevance'.
                 report_id (str, optional): The ID of the report to use. If one is given, other parameters are taken from the report (brand, competitors, market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` Default: None.
@@ -176,7 +171,7 @@ class GeneratedMethodsMixin:
                 where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
                 select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
                 limit (int, optional): The number of results to return. Default: 1000.
-                date (str, optional): The date to search for in YYYY-MM-DD format. Default: None.
+                date (DateStr, optional): The date to search for in YYYY-MM-DD format. Default: None.
                 country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
                 report_id (str, optional): The ID of the report to use. If one is given, other parameters are taken from the report (brand, competitors, market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` Default: None.
                 prompts (PromptsEnum, optional): The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided. Default: None.
@@ -227,7 +222,7 @@ class GeneratedMethodsMixin:
                 where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
                 select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
                 limit (int, optional): The number of results to return. Default: 1000.
-                date (str, optional): The date to search for in YYYY-MM-DD format. Default: None.
+                date (DateStr, optional): The date to search for in YYYY-MM-DD format. Default: None.
                 country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
                 report_id (str, optional): The ID of the report to use. If one is given, other parameters are taken from the report (brand, competitors, market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` Default: None.
                 prompts (PromptsEnum, optional): The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided. Default: None.
@@ -273,8 +268,8 @@ class GeneratedMethodsMixin:
         Args:
             request: BrandRadarImpressionsHistoryRequest
                 where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
-                date_to (str, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
-                date_from (str, required): The start date of the historical period in YYYY-MM-DD format.
+                date_to (DateStr, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
+                date_from (DateStr, required): The start date of the historical period in YYYY-MM-DD format.
                 country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
                 report_id (str, optional): The ID of the report to use. If one is given, other parameters are taken from the report (market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` Default: None.
                 prompts (PromptsEnum, optional): The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided. Default: None.
@@ -365,8 +360,8 @@ class GeneratedMethodsMixin:
         Args:
             request: BrandRadarMentionsHistoryRequest
                 where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
-                date_to (str, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
-                date_from (str, required): The start date of the historical period in YYYY-MM-DD format.
+                date_to (DateStr, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
+                date_from (DateStr, required): The start date of the historical period in YYYY-MM-DD format.
                 country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
                 report_id (str, optional): The ID of the report to use. If one is given, other parameters are taken from the report (market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` Default: None.
                 prompts (PromptsEnum, optional): The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided. Default: None.
@@ -458,8 +453,8 @@ class GeneratedMethodsMixin:
         Args:
             request: BrandRadarSovHistoryRequest
                 where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
-                date_to (str, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
-                date_from (str, required): The start date of the historical period in YYYY-MM-DD format.
+                date_to (DateStr, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
+                date_from (DateStr, required): The start date of the historical period in YYYY-MM-DD format.
                 country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
                 report_id (str, optional): The ID of the report to use. If one is given, other parameters are taken from the report (brand, competitors, market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` Default: None.
                 prompts (PromptsEnum, optional): The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided. Default: None.
@@ -614,8 +609,8 @@ class GeneratedMethodsMixin:
                 order_by (str, optional): A column to order results by. See the response schema for valid column identifiers, except for `volume_monthly`, which is not supported in `order_by` for this endpoint. Default: None.
                 where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
                 select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
-                volume_monthly_date_to (str, optional): The end date in YYYY-MM-DD format for retrieving historical monthly search volumes in the `volume_monthly_history` field. Required only if `volume_monthly_history` is requested. Default: None.
-                volume_monthly_date_from (str, optional): The start date in YYYY-MM-DD format for retrieving historical monthly search volumes in the `volume_monthly_history` field. Required only if `volume_monthly_history` is requested. Default: None.
+                volume_monthly_date_to (DateStr, optional): The end date in YYYY-MM-DD format for retrieving historical monthly search volumes in the `volume_monthly_history` field. Required only if `volume_monthly_history` is requested. Default: None.
+                volume_monthly_date_from (DateStr, optional): The start date in YYYY-MM-DD format for retrieving historical monthly search volumes in the `volume_monthly_history` field. Required only if `volume_monthly_history` is requested. Default: None.
                 target_mode (ModeEnum, optional): The scope of the target URL you specified. Default: None.
                 target (str, optional): The target of the search: a domain or a URL. Default: None.
                 target_position (TargetPositionEnum, optional): Filters keywords based on the ranking position of the specified `target`. Default: None.
@@ -812,8 +807,8 @@ class GeneratedMethodsMixin:
 
         Args:
             request: KeywordsExplorerVolumeHistoryRequest
-                date_to (str, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
-                date_from (str, optional): The start date of the historical period in YYYY-MM-DD format. Default: None.
+                date_to (DateStr, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
+                date_from (DateStr, optional): The start date of the historical period in YYYY-MM-DD format. Default: None.
                 country (CountryEnum, required): A two-letter country code (ISO 3166-1 alpha-2).
                 keyword (str, required): The keyword to show metrics for.
 
@@ -858,8 +853,8 @@ class GeneratedMethodsMixin:
                 order_by (str, optional): A column to order results by. See response schema for valid column identifiers. Default: None.
                 where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
                 select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
-                date_compared (str, optional): A date to compare metrics with in YYYY-MM-DD format. Default: None.
-                date (str, required): A date to report metrics on in YYYY-MM-DD format.
+                date_compared (DateStr, optional): A date to compare metrics with in YYYY-MM-DD format. Default: None.
+                date (DateStr, required): A date to report metrics on in YYYY-MM-DD format.
                 device (DeviceEnum, required): Choose between mobile and desktop rankings.
                 project_id (int, required): The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#`
                 volume_mode (VolumeModeEnum, optional): The search volume calculation mode: monthly or average. It affects volume, traffic, and traffic value. Default: 'monthly'.
@@ -917,8 +912,8 @@ class GeneratedMethodsMixin:
                 where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
                 select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
                 target_and_tracked_competitors_only (bool, optional): Restrict pages to target and tracked competitors Default: False.
-                date_compared (str, optional): A date to compare metrics with in YYYY-MM-DD format. Default: None.
-                date (str, required): A date to report metrics on in YYYY-MM-DD format.
+                date_compared (DateStr, optional): A date to compare metrics with in YYYY-MM-DD format. Default: None.
+                date (DateStr, required): A date to report metrics on in YYYY-MM-DD format.
                 device (DeviceEnum, required): Choose between mobile and desktop rankings.
                 project_id (int, required): The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#`
                 volume_mode (VolumeModeEnum, optional): The search volume calculation mode: monthly or average. It affects volume, traffic, and traffic value. Default: 'monthly'.
@@ -965,7 +960,7 @@ class GeneratedMethodsMixin:
         Args:
             request: RankTrackerCompetitorsStatsRequest
                 select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
-                date (str, required): A date to report metrics on in YYYY-MM-DD format.
+                date (DateStr, required): A date to report metrics on in YYYY-MM-DD format.
                 device (DeviceEnum, required): Choose between mobile and desktop rankings.
                 project_id (int, required): The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#`
                 volume_mode (VolumeModeEnum, optional): The search volume calculation mode: monthly or average. It affects volume, traffic, and traffic value. Default: 'monthly'.
@@ -1032,8 +1027,8 @@ class GeneratedMethodsMixin:
                 order_by (str, optional): A column to order results by. See response schema for valid column identifiers. Default: None.
                 where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
                 select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
-                date_compared (str, optional): A date to compare metrics with in YYYY-MM-DD format. Default: None.
-                date (str, required): A date to report metrics on in YYYY-MM-DD format.
+                date_compared (DateStr, optional): A date to compare metrics with in YYYY-MM-DD format. Default: None.
+                date (DateStr, required): A date to report metrics on in YYYY-MM-DD format.
                 device (DeviceEnum, required): Choose between mobile and desktop rankings.
                 project_id (int, required): The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#`
                 volume_mode (VolumeModeEnum, optional): The search volume calculation mode: monthly or average. It affects volume, traffic, and traffic value. Default: 'monthly'.
@@ -1390,7 +1385,7 @@ class GeneratedMethodsMixin:
         target: str | None = None,
         mode: ModeEnum | None = None,
         aggregation: AggregationEnum | None = None,
-        history: str | None = None,
+        history: HistoryStr | None = None,
     ) -> list[SiteExplorerAllBacklinksData]:
         """
         Backlinks.
@@ -1462,7 +1457,7 @@ class GeneratedMethodsMixin:
         protocol: ProtocolEnum | None = None,
         target: str | None = None,
         mode: ModeEnum | None = None,
-        history: str | None = None,
+        history: HistoryStr | None = None,
     ) -> list[SiteExplorerAnchorsData]:
         """
         Anchors.
@@ -1518,7 +1513,7 @@ class GeneratedMethodsMixin:
                 protocol (ProtocolEnum, optional): The protocol of your target. Default: 'both'.
                 target (str, required): The target of the search: a domain or a URL.
                 mode (ModeEnum, optional): The scope of the search based on the target you entered. Default: 'subdomains'.
-                date (str, required): A date to report metrics on in YYYY-MM-DD format.
+                date (DateStr, required): A date to report metrics on in YYYY-MM-DD format.
 
         Returns:
             SiteExplorerBacklinksStatsData | None:
@@ -1547,7 +1542,7 @@ class GeneratedMethodsMixin:
         protocol: ProtocolEnum | None = None,
         target: str | None = None,
         mode: ModeEnum | None = None,
-        history: str | None = None,
+        history: HistoryStr | None = None,
     ) -> list[SiteExplorerBestByExternalLinksData]:
         """
         Best by External Links.
@@ -1737,7 +1732,7 @@ class GeneratedMethodsMixin:
             request: SiteExplorerDomainRatingRequest
                 protocol (ProtocolEnum, optional): The protocol of your target. Default: 'both'.
                 target (str, required): The target of the search: a domain or a URL.
-                date (str, required): A date to report metrics on in YYYY-MM-DD format.
+                date (DateStr, required): A date to report metrics on in YYYY-MM-DD format.
 
         Returns:
             SiteExplorerDomainRatingData | None:
@@ -1767,8 +1762,8 @@ class GeneratedMethodsMixin:
         Args:
             request: SiteExplorerDomainRatingHistoryRequest
                 history_grouping (HistoryGroupingEnum, optional): The time interval used to group historical data. Default: 'monthly'.
-                date_to (str, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
-                date_from (str, required): The start date of the historical period in YYYY-MM-DD format.
+                date_to (DateStr, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
+                date_from (DateStr, required): The start date of the historical period in YYYY-MM-DD format.
                 target (str, required): The target of the search: a domain or a URL.
 
         Returns:
@@ -1804,8 +1799,8 @@ class GeneratedMethodsMixin:
             request: SiteExplorerKeywordsHistoryRequest
                 select (str, optional): A comma-separated list of columns to return. See response schema for valid column identifiers. Default: 'date,top3,top4_10,top11_plus'.
                 history_grouping (HistoryGroupingEnum, optional): The time interval used to group historical data. Default: 'monthly'.
-                date_to (str, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
-                date_from (str, required): The start date of the historical period in YYYY-MM-DD format.
+                date_to (DateStr, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
+                date_from (DateStr, required): The start date of the historical period in YYYY-MM-DD format.
                 country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
                 protocol (ProtocolEnum, optional): The protocol of your target. Default: 'both'.
                 target (str, required): The target of the search: a domain or a URL.
@@ -1985,7 +1980,7 @@ class GeneratedMethodsMixin:
                 protocol (ProtocolEnum, optional): The protocol of your target. Default: 'both'.
                 target (str, required): The target of the search: a domain or a URL.
                 mode (ModeEnum, optional): The scope of the search based on the target you entered. Default: 'subdomains'.
-                date (str, required): A date to report metrics on in YYYY-MM-DD format.
+                date (DateStr, required): A date to report metrics on in YYYY-MM-DD format.
 
         Returns:
             SiteExplorerMetricsData | None:
@@ -2027,7 +2022,7 @@ class GeneratedMethodsMixin:
                 protocol (ProtocolEnum, optional): The protocol of your target. Default: 'both'.
                 target (str, required): The target of the search: a domain or a URL.
                 mode (ModeEnum, optional): The scope of the search based on the target you entered. Default: 'subdomains'.
-                date (str, required): A date to report metrics on in YYYY-MM-DD format.
+                date (DateStr, required): A date to report metrics on in YYYY-MM-DD format.
 
         Returns:
             list[SiteExplorerMetricsByCountryData]:
@@ -2071,8 +2066,8 @@ class GeneratedMethodsMixin:
                 select (str, optional): A comma-separated list of columns to return. See response schema for valid column identifiers. Default: 'date,org_cost,org_traffic,paid_cost,paid_traffic'.
                 volume_mode (VolumeModeEnum, optional): The search volume calculation mode: monthly or average. It affects volume, traffic, and traffic value. Default: 'monthly'.
                 history_grouping (HistoryGroupingEnum, optional): The time interval used to group historical data. Default: 'monthly'.
-                date_to (str, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
-                date_from (str, required): The start date of the historical period in YYYY-MM-DD format.
+                date_to (DateStr, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
+                date_from (DateStr, required): The start date of the historical period in YYYY-MM-DD format.
                 country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
                 protocol (ProtocolEnum, optional): The protocol of your target. Default: 'both'.
                 target (str, required): The target of the search: a domain or a URL.
@@ -2125,8 +2120,8 @@ class GeneratedMethodsMixin:
                 target (str, required): The target of the search: a domain or a URL.
                 mode (ModeEnum, optional): The scope of the search based on the target you entered. Default: 'subdomains'.
                 country (CountryEnum, required): A two-letter country code (ISO 3166-1 alpha-2).
-                date_compared (str, optional): A date to compare metrics with in YYYY-MM-DD format. Default: None.
-                date (str, required): A date to report metrics on in YYYY-MM-DD format.
+                date_compared (DateStr, optional): A date to compare metrics with in YYYY-MM-DD format. Default: None.
+                date (DateStr, required): A date to report metrics on in YYYY-MM-DD format.
                 volume_mode (VolumeModeEnum, optional): The search volume calculation mode: monthly or average. It affects volume, traffic, and traffic value. Default: 'monthly'.
 
         Returns:
@@ -2191,8 +2186,8 @@ class GeneratedMethodsMixin:
                 target (str, required): The target of the search: a domain or a URL.
                 mode (ModeEnum, optional): The scope of the search based on the target you entered. Default: 'subdomains'.
                 country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
-                date_compared (str, optional): A date to compare metrics with in YYYY-MM-DD format. Default: None.
-                date (str, required): A date to report metrics on in YYYY-MM-DD format.
+                date_compared (DateStr, optional): A date to compare metrics with in YYYY-MM-DD format. Default: None.
+                date (DateStr, required): A date to report metrics on in YYYY-MM-DD format.
                 volume_mode (VolumeModeEnum, optional): The search volume calculation mode: monthly or average. It affects volume, traffic, and traffic value. Default: 'monthly'.
 
         Returns:
@@ -2332,8 +2327,8 @@ class GeneratedMethodsMixin:
         Args:
             request: SiteExplorerPagesHistoryRequest
                 history_grouping (HistoryGroupingEnum, optional): The time interval used to group historical data. Default: 'monthly'.
-                date_to (str, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
-                date_from (str, required): The start date of the historical period in YYYY-MM-DD format.
+                date_to (DateStr, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
+                date_from (DateStr, required): The start date of the historical period in YYYY-MM-DD format.
                 country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
                 protocol (ProtocolEnum, optional): The protocol of your target. Default: 'both'.
                 target (str, required): The target of the search: a domain or a URL.
@@ -2383,8 +2378,8 @@ class GeneratedMethodsMixin:
                 target (str, required): The target of the search: a domain or a URL.
                 mode (ModeEnum, optional): The scope of the search based on the target you entered. Default: 'subdomains'.
                 country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
-                date_compared (str, optional): A date to compare metrics with in YYYY-MM-DD format. Default: None.
-                date (str, required): A date to report metrics on in YYYY-MM-DD format.
+                date_compared (DateStr, optional): A date to compare metrics with in YYYY-MM-DD format. Default: None.
+                date (DateStr, required): A date to report metrics on in YYYY-MM-DD format.
                 volume_mode (VolumeModeEnum, optional): The search volume calculation mode: monthly or average. It affects volume, traffic, and traffic value. Default: 'monthly'.
 
         Returns:
@@ -2441,7 +2436,7 @@ class GeneratedMethodsMixin:
         protocol: ProtocolEnum | None = None,
         target: str | None = None,
         mode: ModeEnum | None = None,
-        history: str | None = None,
+        history: HistoryStr | None = None,
     ) -> list[SiteExplorerRefdomainsData]:
         """
         Refdomains.
@@ -2501,8 +2496,8 @@ class GeneratedMethodsMixin:
         Args:
             request: SiteExplorerRefdomainsHistoryRequest
                 history_grouping (HistoryGroupingEnum, optional): The time interval used to group historical data. Default: 'monthly'.
-                date_to (str, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
-                date_from (str, required): The start date of the historical period in YYYY-MM-DD format.
+                date_to (DateStr, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
+                date_from (DateStr, required): The start date of the historical period in YYYY-MM-DD format.
                 protocol (ProtocolEnum, optional): The protocol of your target. Default: 'both'.
                 target (str, required): The target of the search: a domain or a URL.
                 mode (ModeEnum, optional): The scope of the search based on the target you entered. Default: 'subdomains'.
@@ -2551,8 +2546,8 @@ class GeneratedMethodsMixin:
                 target (str, required): The target of the search: a domain or a URL.
                 mode (ModeEnum, optional): The scope of the search based on the target you entered. Default: 'subdomains'.
                 country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
-                date_compared (str, optional): A date to compare metrics with in YYYY-MM-DD format. Default: None.
-                date (str, required): A date to report metrics on in YYYY-MM-DD format.
+                date_compared (DateStr, optional): A date to compare metrics with in YYYY-MM-DD format. Default: None.
+                date (DateStr, required): A date to report metrics on in YYYY-MM-DD format.
                 volume_mode (VolumeModeEnum, optional): The search volume calculation mode: monthly or average. It affects volume, traffic, and traffic value. Default: 'monthly'.
 
         Returns:
@@ -2619,8 +2614,8 @@ class GeneratedMethodsMixin:
                 volume_mode (VolumeModeEnum, optional): The search volume calculation mode: monthly or average. It affects volume, traffic, and traffic value. Default: 'monthly'.
                 top_positions (ViewForEnum, optional): The number of top organic search positions to consider when calculating total search volume. Default: 'top_10'.
                 history_grouping (HistoryGroupingEnum, optional): The time interval used to group historical data. Default: 'monthly'.
-                date_to (str, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
-                date_from (str, required): The start date of the historical period in YYYY-MM-DD format.
+                date_to (DateStr, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
+                date_from (DateStr, required): The start date of the historical period in YYYY-MM-DD format.
                 country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
                 protocol (ProtocolEnum, optional): The protocol of your target. Default: 'both'.
                 target (str, required): The target of the search: a domain or a URL.
@@ -2654,8 +2649,8 @@ class GeneratedMethodsMixin:
         Args:
             request: SiteExplorerUrlRatingHistoryRequest
                 history_grouping (HistoryGroupingEnum, optional): The time interval used to group historical data. Default: 'monthly'.
-                date_to (str, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
-                date_from (str, required): The start date of the historical period in YYYY-MM-DD format.
+                date_to (DateStr, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
+                date_from (DateStr, required): The start date of the historical period in YYYY-MM-DD format.
                 target (str, required): The target of the search: a domain or a URL.
 
         Returns:
@@ -2671,6 +2666,1376 @@ class GeneratedMethodsMixin:
         _resp = await self._request("site-explorer", "url-rating-history", request, SiteExplorerUrlRatingHistoryResponse, exclude_none=True)
         return _resp.data
 
+    # Web Analytics API methods
+    async def web_analytics_browser_versions(
+        self,
+        request: WebAnalyticsBrowserVersionsRequest | None = None,
+        *,
+        limit: int | None = None,
+        order_by: str | None = None,
+        where: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsBrowserVersionsData]:
+        """
+        Browser Versions.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsBrowserVersionsRequest
+                limit (int, optional): The number of results to return. Default: None.
+                order_by (str, optional): Order by metric, as `metric:desc` or `metric:asc`. The following metrics are supported:  **pageviews**: Number of pageview events   type: integer  **visitors**: Number of visitors   type: integer  **visits**: Number of visits   type: integer  **session_bounce_rate**: Session bounce rate (percentage of sessions that triggered only one request)   type: float  **avg_session_length**: Average session length (in seconds)   type: float  **avg_session_duration_sec**: Average session duration (in seconds)   type: integer  **exit_rate**: Exit rate (percentage of pageviews that were the last in the session)   type: float  **exits**: Number of exits   type: integer  **entries**: Number of entries   type: integer  **avg_page_visit_duration_sec**: Average page visit duration (in seconds)   type: integer Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsBrowserVersionsData]:
+                browser_version (str): Browser version
+                visitors (int): Number of visitors
+                session_bounce_rate (float): Session bounce rate (percentage of sessions that triggered only one request)
+                avg_session_duration_sec (int): Average session duration (in seconds)
+        """
+        if request is None:
+            _missing = [k for k, v in [("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsBrowserVersionsRequest(**{k: v for k, v in [("limit", limit), ("order_by", order_by), ("where", where), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = await self._request("web-analytics", "browser-versions", request, WebAnalyticsBrowserVersionsResponse, exclude_none=True)
+        return _resp.data
+
+    async def web_analytics_browser_versions_chart(
+        self,
+        request: WebAnalyticsBrowserVersionsChartRequest | None = None,
+        *,
+        browser_version_to_chart: str | None = None,
+        where: str | None = None,
+        granularity: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsBrowserVersionsChartData]:
+        """
+        Browser Versions Chart.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsBrowserVersionsChartRequest
+                browser_version_to_chart (str, optional): Specify which values to chart (as a comma separated list), if not provided then `(top5-by-visitors)` is used by default (which charts top 5 values by visitor count). Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                granularity (str, required): Time granularity for chart data points, `hourly`, `daily`, `weekly` or `monthly`.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsBrowserVersionsChartData]:
+                timestamp (str): Timestamp of the data point
+                browser_version (str): Browser version
+                visitors (int): Number of visitors
+                session_bounce_rate (float): Session bounce rate (percentage of sessions that triggered only one request)
+                avg_session_duration_sec (int): Average session duration (in seconds)
+        """
+        if request is None:
+            _missing = [k for k, v in [("granularity", granularity), ("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsBrowserVersionsChartRequest(**{k: v for k, v in [("browser_version_to_chart", browser_version_to_chart), ("where", where), ("granularity", granularity), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = await self._request("web-analytics", "browser-versions-chart", request, WebAnalyticsBrowserVersionsChartResponse, exclude_none=True)
+        return _resp.data
+
+    async def web_analytics_browsers(
+        self,
+        request: WebAnalyticsBrowsersRequest | None = None,
+        *,
+        limit: int | None = None,
+        order_by: str | None = None,
+        where: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsBrowsersData]:
+        """
+        Browsers.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsBrowsersRequest
+                limit (int, optional): The number of results to return. Default: None.
+                order_by (str, optional): Order by metric, as `metric:desc` or `metric:asc`. The following metrics are supported:  **pageviews**: Number of pageview events   type: integer  **visitors**: Number of visitors   type: integer  **visits**: Number of visits   type: integer  **session_bounce_rate**: Session bounce rate (percentage of sessions that triggered only one request)   type: float  **avg_session_length**: Average session length (in seconds)   type: float  **avg_session_duration_sec**: Average session duration (in seconds)   type: integer  **exit_rate**: Exit rate (percentage of pageviews that were the last in the session)   type: float  **exits**: Number of exits   type: integer  **entries**: Number of entries   type: integer  **avg_page_visit_duration_sec**: Average page visit duration (in seconds)   type: integer Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsBrowsersData]:
+                browser (str): Browser
+                visitors (int): Number of visitors
+                session_bounce_rate (float): Session bounce rate (percentage of sessions that triggered only one request)
+                avg_session_duration_sec (int): Average session duration (in seconds)
+        """
+        if request is None:
+            _missing = [k for k, v in [("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsBrowsersRequest(**{k: v for k, v in [("limit", limit), ("order_by", order_by), ("where", where), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = await self._request("web-analytics", "browsers", request, WebAnalyticsBrowsersResponse, exclude_none=True)
+        return _resp.data
+
+    async def web_analytics_browsers_chart(
+        self,
+        request: WebAnalyticsBrowsersChartRequest | None = None,
+        *,
+        browser_to_chart: str | None = None,
+        where: str | None = None,
+        granularity: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsBrowsersChartData]:
+        """
+        Browsers Chart.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsBrowsersChartRequest
+                browser_to_chart (str, optional): Specify which values to chart (as a comma separated list), if not provided then `(top5-by-visitors)` is used by default (which charts top 5 values by visitor count). Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                granularity (str, required): Time granularity for chart data points, `hourly`, `daily`, `weekly` or `monthly`.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsBrowsersChartData]:
+                timestamp (str): Timestamp of the data point
+                browser (str): Browser
+                visitors (int): Number of visitors
+                session_bounce_rate (float): Session bounce rate (percentage of sessions that triggered only one request)
+                avg_session_duration_sec (int): Average session duration (in seconds)
+        """
+        if request is None:
+            _missing = [k for k, v in [("granularity", granularity), ("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsBrowsersChartRequest(**{k: v for k, v in [("browser_to_chart", browser_to_chart), ("where", where), ("granularity", granularity), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = await self._request("web-analytics", "browsers-chart", request, WebAnalyticsBrowsersChartResponse, exclude_none=True)
+        return _resp.data
+
+    async def web_analytics_chart(
+        self,
+        request: WebAnalyticsChartRequest | None = None,
+        *,
+        where: str | None = None,
+        granularity: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsChartData]:
+        """
+        Chart.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsChartRequest
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                granularity (str, required): Time granularity for chart data points, `hourly`, `daily`, `weekly` or `monthly`.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsChartData]:
+                timestamp (str): Timestamp of the data point
+                pageviews (int): Number of pageview events
+                visitors (int): Number of visitors
+                visits (int): Number of visits
+                session_bounce_rate (float): Session bounce rate (percentage of sessions that triggered only one request)
+                avg_session_length (float): Average session length (in seconds)
+                avg_session_duration_sec (int): Average session duration (in seconds)
+        """
+        if request is None:
+            _missing = [k for k, v in [("granularity", granularity), ("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsChartRequest(**{k: v for k, v in [("where", where), ("granularity", granularity), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = await self._request("web-analytics", "chart", request, WebAnalyticsChartResponse, exclude_none=True)
+        return _resp.data
+
+    async def web_analytics_cities(
+        self,
+        request: WebAnalyticsCitiesRequest | None = None,
+        *,
+        limit: int | None = None,
+        order_by: str | None = None,
+        where: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsCitiesData]:
+        """
+        Cities.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsCitiesRequest
+                limit (int, optional): The number of results to return. Default: None.
+                order_by (str, optional): Order by metric, as `metric:desc` or `metric:asc`. The following metrics are supported:  **pageviews**: Number of pageview events   type: integer  **visitors**: Number of visitors   type: integer  **visits**: Number of visits   type: integer  **session_bounce_rate**: Session bounce rate (percentage of sessions that triggered only one request)   type: float  **avg_session_length**: Average session length (in seconds)   type: float  **avg_session_duration_sec**: Average session duration (in seconds)   type: integer  **exit_rate**: Exit rate (percentage of pageviews that were the last in the session)   type: float  **exits**: Number of exits   type: integer  **entries**: Number of entries   type: integer  **avg_page_visit_duration_sec**: Average page visit duration (in seconds)   type: integer Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsCitiesData]:
+                city (str): City
+                visitors (int): Number of visitors
+        """
+        if request is None:
+            _missing = [k for k, v in [("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsCitiesRequest(**{k: v for k, v in [("limit", limit), ("order_by", order_by), ("where", where), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = await self._request("web-analytics", "cities", request, WebAnalyticsCitiesResponse, exclude_none=True)
+        return _resp.data
+
+    async def web_analytics_cities_chart(
+        self,
+        request: WebAnalyticsCitiesChartRequest | None = None,
+        *,
+        cities_to_chart: str | None = None,
+        where: str | None = None,
+        granularity: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsCitiesChartData]:
+        """
+        Cities Chart.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsCitiesChartRequest
+                cities_to_chart (str, optional): Specify which values to chart (as a comma separated list), if not provided then `(top5-by-visitors)` is used by default (which charts top 5 values by visitor count). Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                granularity (str, required): Time granularity for chart data points, `hourly`, `daily`, `weekly` or `monthly`.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsCitiesChartData]:
+                timestamp (str): Timestamp of the data point
+                city (str): City
+                visitors (int): Number of visitors
+        """
+        if request is None:
+            _missing = [k for k, v in [("granularity", granularity), ("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsCitiesChartRequest(**{k: v for k, v in [("cities_to_chart", cities_to_chart), ("where", where), ("granularity", granularity), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = await self._request("web-analytics", "cities-chart", request, WebAnalyticsCitiesChartResponse, exclude_none=True)
+        return _resp.data
+
+    async def web_analytics_continents(
+        self,
+        request: WebAnalyticsContinentsRequest | None = None,
+        *,
+        limit: int | None = None,
+        order_by: str | None = None,
+        where: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsContinentsData]:
+        """
+        Continents.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsContinentsRequest
+                limit (int, optional): The number of results to return. Default: None.
+                order_by (str, optional): Order by metric, as `metric:desc` or `metric:asc`. The following metrics are supported:  **pageviews**: Number of pageview events   type: integer  **visitors**: Number of visitors   type: integer  **visits**: Number of visits   type: integer  **session_bounce_rate**: Session bounce rate (percentage of sessions that triggered only one request)   type: float  **avg_session_length**: Average session length (in seconds)   type: float  **avg_session_duration_sec**: Average session duration (in seconds)   type: integer  **exit_rate**: Exit rate (percentage of pageviews that were the last in the session)   type: float  **exits**: Number of exits   type: integer  **entries**: Number of entries   type: integer  **avg_page_visit_duration_sec**: Average page visit duration (in seconds)   type: integer Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsContinentsData]:
+                continent (str): Continent
+                visitors (int): Number of visitors
+        """
+        if request is None:
+            _missing = [k for k, v in [("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsContinentsRequest(**{k: v for k, v in [("limit", limit), ("order_by", order_by), ("where", where), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = await self._request("web-analytics", "continents", request, WebAnalyticsContinentsResponse, exclude_none=True)
+        return _resp.data
+
+    async def web_analytics_continents_chart(
+        self,
+        request: WebAnalyticsContinentsChartRequest | None = None,
+        *,
+        continents_to_chart: str | None = None,
+        where: str | None = None,
+        granularity: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsContinentsChartData]:
+        """
+        Continents Chart.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsContinentsChartRequest
+                continents_to_chart (str, optional): Specify which values to chart (as a comma separated list), if not provided then `(top5-by-visitors)` is used by default (which charts top 5 values by visitor count). Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                granularity (str, required): Time granularity for chart data points, `hourly`, `daily`, `weekly` or `monthly`.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsContinentsChartData]:
+                timestamp (str): Timestamp of the data point
+                continent (str): Continent
+                visitors (int): Number of visitors
+        """
+        if request is None:
+            _missing = [k for k, v in [("granularity", granularity), ("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsContinentsChartRequest(**{k: v for k, v in [("continents_to_chart", continents_to_chart), ("where", where), ("granularity", granularity), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = await self._request("web-analytics", "continents-chart", request, WebAnalyticsContinentsChartResponse, exclude_none=True)
+        return _resp.data
+
+    async def web_analytics_countries(
+        self,
+        request: WebAnalyticsCountriesRequest | None = None,
+        *,
+        limit: int | None = None,
+        order_by: str | None = None,
+        where: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsCountriesData]:
+        """
+        Countries.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsCountriesRequest
+                limit (int, optional): The number of results to return. Default: None.
+                order_by (str, optional): Order by metric, as `metric:desc` or `metric:asc`. The following metrics are supported:  **pageviews**: Number of pageview events   type: integer  **visitors**: Number of visitors   type: integer  **visits**: Number of visits   type: integer  **session_bounce_rate**: Session bounce rate (percentage of sessions that triggered only one request)   type: float  **avg_session_length**: Average session length (in seconds)   type: float  **avg_session_duration_sec**: Average session duration (in seconds)   type: integer  **exit_rate**: Exit rate (percentage of pageviews that were the last in the session)   type: float  **exits**: Number of exits   type: integer  **entries**: Number of entries   type: integer  **avg_page_visit_duration_sec**: Average page visit duration (in seconds)   type: integer Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsCountriesData]:
+                country (str): Country
+                visitors (int): Number of visitors
+        """
+        if request is None:
+            _missing = [k for k, v in [("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsCountriesRequest(**{k: v for k, v in [("limit", limit), ("order_by", order_by), ("where", where), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = await self._request("web-analytics", "countries", request, WebAnalyticsCountriesResponse, exclude_none=True)
+        return _resp.data
+
+    async def web_analytics_countries_chart(
+        self,
+        request: WebAnalyticsCountriesChartRequest | None = None,
+        *,
+        countries_to_chart: str | None = None,
+        where: str | None = None,
+        granularity: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsCountriesChartData]:
+        """
+        Countries Chart.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsCountriesChartRequest
+                countries_to_chart (str, optional): Specify which values to chart (as a comma separated list), if not provided then `(top5-by-visitors)` is used by default (which charts top 5 values by visitor count). Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                granularity (str, required): Time granularity for chart data points, `hourly`, `daily`, `weekly` or `monthly`.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsCountriesChartData]:
+                timestamp (str): Timestamp of the data point
+                country (str): Country
+                visitors (int): Number of visitors
+        """
+        if request is None:
+            _missing = [k for k, v in [("granularity", granularity), ("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsCountriesChartRequest(**{k: v for k, v in [("countries_to_chart", countries_to_chart), ("where", where), ("granularity", granularity), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = await self._request("web-analytics", "countries-chart", request, WebAnalyticsCountriesChartResponse, exclude_none=True)
+        return _resp.data
+
+    async def web_analytics_devices(
+        self,
+        request: WebAnalyticsDevicesRequest | None = None,
+        *,
+        limit: int | None = None,
+        order_by: str | None = None,
+        where: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsDevicesData]:
+        """
+        Devices.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsDevicesRequest
+                limit (int, optional): The number of results to return. Default: None.
+                order_by (str, optional): Order by metric, as `metric:desc` or `metric:asc`. The following metrics are supported:  **pageviews**: Number of pageview events   type: integer  **visitors**: Number of visitors   type: integer  **visits**: Number of visits   type: integer  **session_bounce_rate**: Session bounce rate (percentage of sessions that triggered only one request)   type: float  **avg_session_length**: Average session length (in seconds)   type: float  **avg_session_duration_sec**: Average session duration (in seconds)   type: integer  **exit_rate**: Exit rate (percentage of pageviews that were the last in the session)   type: float  **exits**: Number of exits   type: integer  **entries**: Number of entries   type: integer  **avg_page_visit_duration_sec**: Average page visit duration (in seconds)   type: integer Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsDevicesData]:
+                device (str): Device type
+                visitors (int): Number of visitors
+                session_bounce_rate (float): Session bounce rate (percentage of sessions that triggered only one request)
+                avg_session_duration_sec (int): Average session duration (in seconds)
+        """
+        if request is None:
+            _missing = [k for k, v in [("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsDevicesRequest(**{k: v for k, v in [("limit", limit), ("order_by", order_by), ("where", where), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = await self._request("web-analytics", "devices", request, WebAnalyticsDevicesResponse, exclude_none=True)
+        return _resp.data
+
+    async def web_analytics_devices_chart(
+        self,
+        request: WebAnalyticsDevicesChartRequest | None = None,
+        *,
+        devices_to_chart: str | None = None,
+        where: str | None = None,
+        granularity: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsDevicesChartData]:
+        """
+        Devices Chart.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsDevicesChartRequest
+                devices_to_chart (str, optional): Specify which values to chart (as a comma separated list), if not provided then `(top5-by-visitors)` is used by default (which charts top 5 values by visitor count). Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                granularity (str, required): Time granularity for chart data points, `hourly`, `daily`, `weekly` or `monthly`.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsDevicesChartData]:
+                timestamp (str): Timestamp of the data point
+                device (str): Device type
+                visitors (int): Number of visitors
+                session_bounce_rate (float): Session bounce rate (percentage of sessions that triggered only one request)
+                avg_session_duration_sec (int): Average session duration (in seconds)
+        """
+        if request is None:
+            _missing = [k for k, v in [("granularity", granularity), ("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsDevicesChartRequest(**{k: v for k, v in [("devices_to_chart", devices_to_chart), ("where", where), ("granularity", granularity), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = await self._request("web-analytics", "devices-chart", request, WebAnalyticsDevicesChartResponse, exclude_none=True)
+        return _resp.data
+
+    async def web_analytics_entry_pages(
+        self,
+        request: WebAnalyticsEntryPagesRequest | None = None,
+        *,
+        limit: int | None = None,
+        order_by: str | None = None,
+        where: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsEntryPagesData]:
+        """
+        Entry Pages.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsEntryPagesRequest
+                limit (int, optional): The number of results to return. Default: None.
+                order_by (str, optional): Order by metric, as `metric:desc` or `metric:asc`. The following metrics are supported:  **pageviews**: Number of pageview events   type: integer  **visitors**: Number of visitors   type: integer  **visits**: Number of visits   type: integer  **session_bounce_rate**: Session bounce rate (percentage of sessions that triggered only one request)   type: float  **avg_session_length**: Average session length (in seconds)   type: float  **avg_session_duration_sec**: Average session duration (in seconds)   type: integer  **exit_rate**: Exit rate (percentage of pageviews that were the last in the session)   type: float  **exits**: Number of exits   type: integer  **entries**: Number of entries   type: integer  **avg_page_visit_duration_sec**: Average page visit duration (in seconds)   type: integer Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsEntryPagesData]:
+                entry_page (str): Entry page URL
+                visitors (int): Number of visitors
+                entries (int): Number of entries
+                avg_session_duration_sec (int): Average session duration (in seconds)
+        """
+        if request is None:
+            _missing = [k for k, v in [("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsEntryPagesRequest(**{k: v for k, v in [("limit", limit), ("order_by", order_by), ("where", where), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = await self._request("web-analytics", "entry-pages", request, WebAnalyticsEntryPagesResponse, exclude_none=True)
+        return _resp.data
+
+    async def web_analytics_entry_pages_chart(
+        self,
+        request: WebAnalyticsEntryPagesChartRequest | None = None,
+        *,
+        entry_pages_to_chart: str | None = None,
+        where: str | None = None,
+        granularity: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsEntryPagesChartData]:
+        """
+        Entry Pages Chart.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsEntryPagesChartRequest
+                entry_pages_to_chart (str, optional): Specify which values to chart (as a comma separated list), if not provided then `(top5-by-visitors)` is used by default (which charts top 5 values by visitor count). Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                granularity (str, required): Time granularity for chart data points, `hourly`, `daily`, `weekly` or `monthly`.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsEntryPagesChartData]:
+                timestamp (str): Timestamp of the data point
+                entry_page (str): Entry page URL
+                visitors (int): Number of visitors
+                entries (int): Number of entries
+                avg_session_duration_sec (int): Average session duration (in seconds)
+        """
+        if request is None:
+            _missing = [k for k, v in [("granularity", granularity), ("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsEntryPagesChartRequest(**{k: v for k, v in [("entry_pages_to_chart", entry_pages_to_chart), ("where", where), ("granularity", granularity), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = await self._request("web-analytics", "entry-pages-chart", request, WebAnalyticsEntryPagesChartResponse, exclude_none=True)
+        return _resp.data
+
+    async def web_analytics_exit_pages(
+        self,
+        request: WebAnalyticsExitPagesRequest | None = None,
+        *,
+        limit: int | None = None,
+        order_by: str | None = None,
+        where: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsExitPagesData]:
+        """
+        Exit Pages.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsExitPagesRequest
+                limit (int, optional): The number of results to return. Default: None.
+                order_by (str, optional): Order by metric, as `metric:desc` or `metric:asc`. The following metrics are supported:  **pageviews**: Number of pageview events   type: integer  **visitors**: Number of visitors   type: integer  **visits**: Number of visits   type: integer  **session_bounce_rate**: Session bounce rate (percentage of sessions that triggered only one request)   type: float  **avg_session_length**: Average session length (in seconds)   type: float  **avg_session_duration_sec**: Average session duration (in seconds)   type: integer  **exit_rate**: Exit rate (percentage of pageviews that were the last in the session)   type: float  **exits**: Number of exits   type: integer  **entries**: Number of entries   type: integer  **avg_page_visit_duration_sec**: Average page visit duration (in seconds)   type: integer Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsExitPagesData]:
+                exit_page (str): Exit page URL
+                visitors (int): Number of visitors
+                exits (int): Number of exits
+                exit_rate (float): Exit rate (percentage of pageviews that were the last in the session)
+        """
+        if request is None:
+            _missing = [k for k, v in [("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsExitPagesRequest(**{k: v for k, v in [("limit", limit), ("order_by", order_by), ("where", where), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = await self._request("web-analytics", "exit-pages", request, WebAnalyticsExitPagesResponse, exclude_none=True)
+        return _resp.data
+
+    async def web_analytics_exit_pages_chart(
+        self,
+        request: WebAnalyticsExitPagesChartRequest | None = None,
+        *,
+        exit_pages_to_chart: str | None = None,
+        where: str | None = None,
+        granularity: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsExitPagesChartData]:
+        """
+        Exit Pages Chart.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsExitPagesChartRequest
+                exit_pages_to_chart (str, optional): Specify which values to chart (as a comma separated list), if not provided then `(top5-by-visitors)` is used by default (which charts top 5 values by visitor count). Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                granularity (str, required): Time granularity for chart data points, `hourly`, `daily`, `weekly` or `monthly`.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsExitPagesChartData]:
+                timestamp (str): Timestamp of the data point
+                exit_page (str): Exit page URL
+                visitors (int): Number of visitors
+                exits (int): Number of exits
+                exit_rate (float): Exit rate (percentage of pageviews that were the last in the session)
+        """
+        if request is None:
+            _missing = [k for k, v in [("granularity", granularity), ("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsExitPagesChartRequest(**{k: v for k, v in [("exit_pages_to_chart", exit_pages_to_chart), ("where", where), ("granularity", granularity), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = await self._request("web-analytics", "exit-pages-chart", request, WebAnalyticsExitPagesChartResponse, exclude_none=True)
+        return _resp.data
+
+    async def web_analytics_languages(
+        self,
+        request: WebAnalyticsLanguagesRequest | None = None,
+        *,
+        limit: int | None = None,
+        order_by: str | None = None,
+        where: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsLanguagesData]:
+        """
+        Languages.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsLanguagesRequest
+                limit (int, optional): The number of results to return. Default: None.
+                order_by (str, optional): Order by metric, as `metric:desc` or `metric:asc`. The following metrics are supported:  **pageviews**: Number of pageview events   type: integer  **visitors**: Number of visitors   type: integer  **visits**: Number of visits   type: integer  **session_bounce_rate**: Session bounce rate (percentage of sessions that triggered only one request)   type: float  **avg_session_length**: Average session length (in seconds)   type: float  **avg_session_duration_sec**: Average session duration (in seconds)   type: integer  **exit_rate**: Exit rate (percentage of pageviews that were the last in the session)   type: float  **exits**: Number of exits   type: integer  **entries**: Number of entries   type: integer  **avg_page_visit_duration_sec**: Average page visit duration (in seconds)   type: integer Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsLanguagesData]:
+                browser_language (str): Browser language
+                visitors (int): Number of visitors
+        """
+        if request is None:
+            _missing = [k for k, v in [("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsLanguagesRequest(**{k: v for k, v in [("limit", limit), ("order_by", order_by), ("where", where), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = await self._request("web-analytics", "languages", request, WebAnalyticsLanguagesResponse, exclude_none=True)
+        return _resp.data
+
+    async def web_analytics_languages_chart(
+        self,
+        request: WebAnalyticsLanguagesChartRequest | None = None,
+        *,
+        browser_language_to_chart: str | None = None,
+        where: str | None = None,
+        granularity: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsLanguagesChartData]:
+        """
+        Languages Chart.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsLanguagesChartRequest
+                browser_language_to_chart (str, optional): Specify which values to chart (as a comma separated list), if not provided then `(top5-by-visitors)` is used by default (which charts top 5 values by visitor count). Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                granularity (str, required): Time granularity for chart data points, `hourly`, `daily`, `weekly` or `monthly`.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsLanguagesChartData]:
+                timestamp (str): Timestamp of the data point
+                browser_language (str): Browser language
+                visitors (int): Number of visitors
+        """
+        if request is None:
+            _missing = [k for k, v in [("granularity", granularity), ("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsLanguagesChartRequest(**{k: v for k, v in [("browser_language_to_chart", browser_language_to_chart), ("where", where), ("granularity", granularity), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = await self._request("web-analytics", "languages-chart", request, WebAnalyticsLanguagesChartResponse, exclude_none=True)
+        return _resp.data
+
+    async def web_analytics_operating_systems(
+        self,
+        request: WebAnalyticsOperatingSystemsRequest | None = None,
+        *,
+        limit: int | None = None,
+        order_by: str | None = None,
+        where: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsOperatingSystemsData]:
+        """
+        Operating Systems.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsOperatingSystemsRequest
+                limit (int, optional): The number of results to return. Default: None.
+                order_by (str, optional): Order by metric, as `metric:desc` or `metric:asc`. The following metrics are supported:  **pageviews**: Number of pageview events   type: integer  **visitors**: Number of visitors   type: integer  **visits**: Number of visits   type: integer  **session_bounce_rate**: Session bounce rate (percentage of sessions that triggered only one request)   type: float  **avg_session_length**: Average session length (in seconds)   type: float  **avg_session_duration_sec**: Average session duration (in seconds)   type: integer  **exit_rate**: Exit rate (percentage of pageviews that were the last in the session)   type: float  **exits**: Number of exits   type: integer  **entries**: Number of entries   type: integer  **avg_page_visit_duration_sec**: Average page visit duration (in seconds)   type: integer Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsOperatingSystemsData]:
+                os (str): Operating system
+                visitors (int): Number of visitors
+                session_bounce_rate (float): Session bounce rate (percentage of sessions that triggered only one request)
+                avg_session_duration_sec (int): Average session duration (in seconds)
+        """
+        if request is None:
+            _missing = [k for k, v in [("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsOperatingSystemsRequest(**{k: v for k, v in [("limit", limit), ("order_by", order_by), ("where", where), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = await self._request("web-analytics", "operating-systems", request, WebAnalyticsOperatingSystemsResponse, exclude_none=True)
+        return _resp.data
+
+    async def web_analytics_operating_systems_chart(
+        self,
+        request: WebAnalyticsOperatingSystemsChartRequest | None = None,
+        *,
+        os_to_chart: str | None = None,
+        where: str | None = None,
+        granularity: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsOperatingSystemsChartData]:
+        """
+        Operating Systems Chart.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsOperatingSystemsChartRequest
+                os_to_chart (str, optional): Specify which values to chart (as a comma separated list), if not provided then `(top5-by-visitors)` is used by default (which charts top 5 values by visitor count). Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                granularity (str, required): Time granularity for chart data points, `hourly`, `daily`, `weekly` or `monthly`.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsOperatingSystemsChartData]:
+                timestamp (str): Timestamp of the data point
+                os (str): Operating system
+                visitors (int): Number of visitors
+                session_bounce_rate (float): Session bounce rate (percentage of sessions that triggered only one request)
+                avg_session_duration_sec (int): Average session duration (in seconds)
+        """
+        if request is None:
+            _missing = [k for k, v in [("granularity", granularity), ("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsOperatingSystemsChartRequest(**{k: v for k, v in [("os_to_chart", os_to_chart), ("where", where), ("granularity", granularity), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = await self._request("web-analytics", "operating-systems-chart", request, WebAnalyticsOperatingSystemsChartResponse, exclude_none=True)
+        return _resp.data
+
+    async def web_analytics_operating_systems_versions(
+        self,
+        request: WebAnalyticsOperatingSystemsVersionsRequest | None = None,
+        *,
+        limit: int | None = None,
+        order_by: str | None = None,
+        where: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsOperatingSystemsVersionsData]:
+        """
+        Operating Systems Versions.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsOperatingSystemsVersionsRequest
+                limit (int, optional): The number of results to return. Default: None.
+                order_by (str, optional): Order by metric, as `metric:desc` or `metric:asc`. The following metrics are supported:  **pageviews**: Number of pageview events   type: integer  **visitors**: Number of visitors   type: integer  **visits**: Number of visits   type: integer  **session_bounce_rate**: Session bounce rate (percentage of sessions that triggered only one request)   type: float  **avg_session_length**: Average session length (in seconds)   type: float  **avg_session_duration_sec**: Average session duration (in seconds)   type: integer  **exit_rate**: Exit rate (percentage of pageviews that were the last in the session)   type: float  **exits**: Number of exits   type: integer  **entries**: Number of entries   type: integer  **avg_page_visit_duration_sec**: Average page visit duration (in seconds)   type: integer Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsOperatingSystemsVersionsData]:
+                os_version (str): Operating system version
+                visitors (int): Number of visitors
+                session_bounce_rate (float): Session bounce rate (percentage of sessions that triggered only one request)
+                avg_session_duration_sec (int): Average session duration (in seconds)
+        """
+        if request is None:
+            _missing = [k for k, v in [("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsOperatingSystemsVersionsRequest(**{k: v for k, v in [("limit", limit), ("order_by", order_by), ("where", where), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = await self._request("web-analytics", "operating-systems-versions", request, WebAnalyticsOperatingSystemsVersionsResponse, exclude_none=True)
+        return _resp.data
+
+    async def web_analytics_operating_systems_versions_chart(
+        self,
+        request: WebAnalyticsOperatingSystemsVersionsChartRequest | None = None,
+        *,
+        os_versions_to_chart: str | None = None,
+        where: str | None = None,
+        granularity: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsOperatingSystemsVersionsChartData]:
+        """
+        Operating Systems Versions Chart.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsOperatingSystemsVersionsChartRequest
+                os_versions_to_chart (str, optional): Specify which values to chart (as a comma separated list), if not provided then `(top5-by-visitors)` is used by default (which charts top 5 values by visitor count). Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                granularity (str, required): Time granularity for chart data points, `hourly`, `daily`, `weekly` or `monthly`.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsOperatingSystemsVersionsChartData]:
+                timestamp (str): Timestamp of the data point
+                os_version (str): Operating system version
+                visitors (int): Number of visitors
+                session_bounce_rate (float): Session bounce rate (percentage of sessions that triggered only one request)
+                avg_session_duration_sec (int): Average session duration (in seconds)
+        """
+        if request is None:
+            _missing = [k for k, v in [("granularity", granularity), ("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsOperatingSystemsVersionsChartRequest(**{k: v for k, v in [("os_versions_to_chart", os_versions_to_chart), ("where", where), ("granularity", granularity), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = await self._request("web-analytics", "operating-systems-versions-chart", request, WebAnalyticsOperatingSystemsVersionsChartResponse, exclude_none=True)
+        return _resp.data
+
+    async def web_analytics_referrers(
+        self,
+        request: WebAnalyticsReferrersRequest | None = None,
+        *,
+        limit: int | None = None,
+        order_by: str | None = None,
+        where: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsReferrersData]:
+        """
+        Referrers.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsReferrersRequest
+                limit (int, optional): The number of results to return. Default: None.
+                order_by (str, optional): Order by metric, as `metric:desc` or `metric:asc`. The following metrics are supported:  **pageviews**: Number of pageview events   type: integer  **visitors**: Number of visitors   type: integer  **visits**: Number of visits   type: integer  **session_bounce_rate**: Session bounce rate (percentage of sessions that triggered only one request)   type: float  **avg_session_length**: Average session length (in seconds)   type: float  **avg_session_duration_sec**: Average session duration (in seconds)   type: integer  **exit_rate**: Exit rate (percentage of pageviews that were the last in the session)   type: float  **exits**: Number of exits   type: integer  **entries**: Number of entries   type: integer  **avg_page_visit_duration_sec**: Average page visit duration (in seconds)   type: integer Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsReferrersData]:
+                source_referer (str): Referer source
+                visitors (int): Number of visitors
+                session_bounce_rate (float): Session bounce rate (percentage of sessions that triggered only one request)
+                avg_session_duration_sec (int): Average session duration (in seconds)
+        """
+        if request is None:
+            _missing = [k for k, v in [("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsReferrersRequest(**{k: v for k, v in [("limit", limit), ("order_by", order_by), ("where", where), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = await self._request("web-analytics", "referrers", request, WebAnalyticsReferrersResponse, exclude_none=True)
+        return _resp.data
+
+    async def web_analytics_referrers_chart(
+        self,
+        request: WebAnalyticsReferrersChartRequest | None = None,
+        *,
+        source_referers_to_chart: str | None = None,
+        where: str | None = None,
+        granularity: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsReferrersChartData]:
+        """
+        Referrers Chart.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsReferrersChartRequest
+                source_referers_to_chart (str, optional): Specify which values to chart (as a comma separated list), if not provided then `(top5-by-visitors)` is used by default (which charts top 5 values by visitor count). Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                granularity (str, required): Time granularity for chart data points, `hourly`, `daily`, `weekly` or `monthly`.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsReferrersChartData]:
+                timestamp (str): Timestamp of the data point
+                source_referer (str): Referer source
+                visitors (int): Number of visitors
+                session_bounce_rate (float): Session bounce rate (percentage of sessions that triggered only one request)
+                avg_session_duration_sec (int): Average session duration (in seconds)
+        """
+        if request is None:
+            _missing = [k for k, v in [("granularity", granularity), ("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsReferrersChartRequest(**{k: v for k, v in [("source_referers_to_chart", source_referers_to_chart), ("where", where), ("granularity", granularity), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = await self._request("web-analytics", "referrers-chart", request, WebAnalyticsReferrersChartResponse, exclude_none=True)
+        return _resp.data
+
+    async def web_analytics_source_channels(
+        self,
+        request: WebAnalyticsSourceChannelsRequest | None = None,
+        *,
+        limit: int | None = None,
+        order_by: str | None = None,
+        where: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsSourceChannelsData]:
+        """
+        Source Channels.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsSourceChannelsRequest
+                limit (int, optional): The number of results to return. Default: None.
+                order_by (str, optional): Order by metric, as `metric:desc` or `metric:asc`. The following metrics are supported:  **pageviews**: Number of pageview events   type: integer  **visitors**: Number of visitors   type: integer  **visits**: Number of visits   type: integer  **session_bounce_rate**: Session bounce rate (percentage of sessions that triggered only one request)   type: float  **avg_session_length**: Average session length (in seconds)   type: float  **avg_session_duration_sec**: Average session duration (in seconds)   type: integer  **exit_rate**: Exit rate (percentage of pageviews that were the last in the session)   type: float  **exits**: Number of exits   type: integer  **entries**: Number of entries   type: integer  **avg_page_visit_duration_sec**: Average page visit duration (in seconds)   type: integer Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsSourceChannelsData]:
+                source_channel (str): Source Channel
+                visitors (int): Number of visitors
+                session_bounce_rate (float): Session bounce rate (percentage of sessions that triggered only one request)
+                avg_session_duration_sec (int): Average session duration (in seconds)
+        """
+        if request is None:
+            _missing = [k for k, v in [("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsSourceChannelsRequest(**{k: v for k, v in [("limit", limit), ("order_by", order_by), ("where", where), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = await self._request("web-analytics", "source-channels", request, WebAnalyticsSourceChannelsResponse, exclude_none=True)
+        return _resp.data
+
+    async def web_analytics_source_channels_chart(
+        self,
+        request: WebAnalyticsSourceChannelsChartRequest | None = None,
+        *,
+        source_channels_to_chart: str | None = None,
+        where: str | None = None,
+        granularity: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsSourceChannelsChartData]:
+        """
+        Source Channels Chart.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsSourceChannelsChartRequest
+                source_channels_to_chart (str, optional): Specify which values to chart (as a comma separated list), if not provided then `(top5-by-visitors)` is used by default (which charts top 5 values by visitor count). Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                granularity (str, required): Time granularity for chart data points, `hourly`, `daily`, `weekly` or `monthly`.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsSourceChannelsChartData]:
+                timestamp (str): Timestamp of the data point
+                source_channel (str): Source Channel
+                visitors (int): Number of visitors
+                session_bounce_rate (float): Session bounce rate (percentage of sessions that triggered only one request)
+                avg_session_duration_sec (int): Average session duration (in seconds)
+        """
+        if request is None:
+            _missing = [k for k, v in [("granularity", granularity), ("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsSourceChannelsChartRequest(**{k: v for k, v in [("source_channels_to_chart", source_channels_to_chart), ("where", where), ("granularity", granularity), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = await self._request("web-analytics", "source-channels-chart", request, WebAnalyticsSourceChannelsChartResponse, exclude_none=True)
+        return _resp.data
+
+    async def web_analytics_sources(
+        self,
+        request: WebAnalyticsSourcesRequest | None = None,
+        *,
+        limit: int | None = None,
+        order_by: str | None = None,
+        where: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsSourcesData]:
+        """
+        Sources.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsSourcesRequest
+                limit (int, optional): The number of results to return. Default: None.
+                order_by (str, optional): Order by metric, as `metric:desc` or `metric:asc`. The following metrics are supported:  **pageviews**: Number of pageview events   type: integer  **visitors**: Number of visitors   type: integer  **visits**: Number of visits   type: integer  **session_bounce_rate**: Session bounce rate (percentage of sessions that triggered only one request)   type: float  **avg_session_length**: Average session length (in seconds)   type: float  **avg_session_duration_sec**: Average session duration (in seconds)   type: integer  **exit_rate**: Exit rate (percentage of pageviews that were the last in the session)   type: float  **exits**: Number of exits   type: integer  **entries**: Number of entries   type: integer  **avg_page_visit_duration_sec**: Average page visit duration (in seconds)   type: integer Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsSourcesData]:
+                source (str): Source
+                visitors (int): Number of visitors
+                session_bounce_rate (float): Session bounce rate (percentage of sessions that triggered only one request)
+                avg_session_duration_sec (int): Average session duration (in seconds)
+        """
+        if request is None:
+            _missing = [k for k, v in [("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsSourcesRequest(**{k: v for k, v in [("limit", limit), ("order_by", order_by), ("where", where), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = await self._request("web-analytics", "sources", request, WebAnalyticsSourcesResponse, exclude_none=True)
+        return _resp.data
+
+    async def web_analytics_sources_chart(
+        self,
+        request: WebAnalyticsSourcesChartRequest | None = None,
+        *,
+        sources_to_chart: str | None = None,
+        where: str | None = None,
+        granularity: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsSourcesChartData]:
+        """
+        Sources Chart.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsSourcesChartRequest
+                sources_to_chart (str, optional): Specify which values to chart (as a comma separated list), if not provided then `(top5-by-visitors)` is used by default (which charts top 5 values by visitor count). Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                granularity (str, required): Time granularity for chart data points, `hourly`, `daily`, `weekly` or `monthly`.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsSourcesChartData]:
+                timestamp (str): Timestamp of the data point
+                source (str): Source
+                visitors (int): Number of visitors
+                session_bounce_rate (float): Session bounce rate (percentage of sessions that triggered only one request)
+                avg_session_duration_sec (int): Average session duration (in seconds)
+        """
+        if request is None:
+            _missing = [k for k, v in [("granularity", granularity), ("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsSourcesChartRequest(**{k: v for k, v in [("sources_to_chart", sources_to_chart), ("where", where), ("granularity", granularity), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = await self._request("web-analytics", "sources-chart", request, WebAnalyticsSourcesChartResponse, exclude_none=True)
+        return _resp.data
+
+    async def web_analytics_stats(
+        self,
+        request: WebAnalyticsStatsRequest | None = None,
+        *,
+        limit: int | None = None,
+        order_by: str | None = None,
+        where: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> WebAnalyticsStatsData | None:
+        """
+        Stats.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsStatsRequest
+                limit (int, optional): The number of results to return. Default: None.
+                order_by (str, optional): Order by metric, as `metric:desc` or `metric:asc`. The following metrics are supported:  **pageviews**: Number of pageview events   type: integer  **visitors**: Number of visitors   type: integer  **visits**: Number of visits   type: integer  **session_bounce_rate**: Session bounce rate (percentage of sessions that triggered only one request)   type: float  **avg_session_length**: Average session length (in seconds)   type: float  **avg_session_duration_sec**: Average session duration (in seconds)   type: integer  **exit_rate**: Exit rate (percentage of pageviews that were the last in the session)   type: float  **exits**: Number of exits   type: integer  **entries**: Number of entries   type: integer  **avg_page_visit_duration_sec**: Average page visit duration (in seconds)   type: integer Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            WebAnalyticsStatsData | None:
+                pageviews (int): Number of pageview events
+                visitors (int): Number of visitors
+                visits (int): Number of visits
+                session_bounce_rate (float): Session bounce rate (percentage of sessions that triggered only one request)
+                avg_session_length (float): Average session length (in seconds)
+                avg_session_duration_sec (int): Average session duration (in seconds)
+        """
+        if request is None:
+            _missing = [k for k, v in [("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsStatsRequest(**{k: v for k, v in [("limit", limit), ("order_by", order_by), ("where", where), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = await self._request("web-analytics", "stats", request, WebAnalyticsStatsResponse, exclude_none=True)
+        return _resp.data
+
+    async def web_analytics_top_pages(
+        self,
+        request: WebAnalyticsTopPagesRequest | None = None,
+        *,
+        limit: int | None = None,
+        order_by: str | None = None,
+        where: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsTopPagesData]:
+        """
+        Top Pages.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsTopPagesRequest
+                limit (int, optional): The number of results to return. Default: None.
+                order_by (str, optional): Order by metric, as `metric:desc` or `metric:asc`. The following metrics are supported:  **pageviews**: Number of pageview events   type: integer  **visitors**: Number of visitors   type: integer  **visits**: Number of visits   type: integer  **session_bounce_rate**: Session bounce rate (percentage of sessions that triggered only one request)   type: float  **avg_session_length**: Average session length (in seconds)   type: float  **avg_session_duration_sec**: Average session duration (in seconds)   type: integer  **exit_rate**: Exit rate (percentage of pageviews that were the last in the session)   type: float  **exits**: Number of exits   type: integer  **entries**: Number of entries   type: integer  **avg_page_visit_duration_sec**: Average page visit duration (in seconds)   type: integer Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsTopPagesData]:
+                page (str): Page URL
+                pageviews (int): Number of pageview events
+                visitors (int): Number of visitors
+                session_bounce_rate (float): Session bounce rate (percentage of sessions that triggered only one request)
+                avg_page_visit_duration_sec (int): Average page visit duration (in seconds)
+        """
+        if request is None:
+            _missing = [k for k, v in [("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsTopPagesRequest(**{k: v for k, v in [("limit", limit), ("order_by", order_by), ("where", where), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = await self._request("web-analytics", "top-pages", request, WebAnalyticsTopPagesResponse, exclude_none=True)
+        return _resp.data
+
+    async def web_analytics_top_pages_chart(
+        self,
+        request: WebAnalyticsTopPagesChartRequest | None = None,
+        *,
+        pages_to_chart: str | None = None,
+        where: str | None = None,
+        granularity: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsTopPagesChartData]:
+        """
+        Top Pages Chart.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsTopPagesChartRequest
+                pages_to_chart (str, optional): Specify which values to chart (as a comma separated list), if not provided then `(top5-by-visitors)` is used by default (which charts top 5 values by visitor count). Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                granularity (str, required): Time granularity for chart data points, `hourly`, `daily`, `weekly` or `monthly`.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsTopPagesChartData]:
+                timestamp (str): Timestamp of the data point
+                page (str): Page URL
+                pageviews (int): Number of pageview events
+                visitors (int): Number of visitors
+                session_bounce_rate (float): Session bounce rate (percentage of sessions that triggered only one request)
+                avg_page_visit_duration_sec (int): Average page visit duration (in seconds)
+        """
+        if request is None:
+            _missing = [k for k, v in [("granularity", granularity), ("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsTopPagesChartRequest(**{k: v for k, v in [("pages_to_chart", pages_to_chart), ("where", where), ("granularity", granularity), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = await self._request("web-analytics", "top-pages-chart", request, WebAnalyticsTopPagesChartResponse, exclude_none=True)
+        return _resp.data
+
+    async def web_analytics_utm_params(
+        self,
+        request: WebAnalyticsUtmParamsRequest | None = None,
+        *,
+        limit: int | None = None,
+        order_by: str | None = None,
+        where: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        utm_param: UtmParamEnum | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsUtmParamsData]:
+        """
+        UTM Parameters.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsUtmParamsRequest
+                limit (int, optional): The number of results to return. Default: None.
+                order_by (str, optional): Order by metric, as `metric:desc` or `metric:asc`. The following metrics are supported:  **pageviews**: Number of pageview events   type: integer  **visitors**: Number of visitors   type: integer  **visits**: Number of visits   type: integer  **session_bounce_rate**: Session bounce rate (percentage of sessions that triggered only one request)   type: float  **avg_session_length**: Average session length (in seconds)   type: float  **avg_session_duration_sec**: Average session duration (in seconds)   type: integer  **exit_rate**: Exit rate (percentage of pageviews that were the last in the session)   type: float  **exits**: Number of exits   type: integer  **entries**: Number of entries   type: integer  **avg_page_visit_duration_sec**: Average page visit duration (in seconds)   type: integer Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                utm_param (UtmParamEnum, required): Specify a UTM parameter to use as dimension (one of `utm_source`, `utm_medium`, `utm_campaign`, `utm_term`, or `utm_content`).
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsUtmParamsData]:
+                utm_param (str): UTM parameter value
+                visitors (int): Number of visitors
+                session_bounce_rate (float): Session bounce rate (percentage of sessions that triggered only one request)
+                avg_session_duration_sec (int): Average session duration (in seconds)
+        """
+        if request is None:
+            _missing = [k for k, v in [("utm_param", utm_param), ("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsUtmParamsRequest(**{k: v for k, v in [("limit", limit), ("order_by", order_by), ("where", where), ("to", to), ("from_", from_), ("utm_param", utm_param), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = await self._request("web-analytics", "utm-params", request, WebAnalyticsUtmParamsResponse, exclude_none=True)
+        return _resp.data
+
+    async def web_analytics_utm_params_chart(
+        self,
+        request: WebAnalyticsUtmParamsChartRequest | None = None,
+        *,
+        utm_params_to_chart: str | None = None,
+        where: str | None = None,
+        granularity: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        utm_param: UtmParamEnum | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsUtmParamsChartData]:
+        """
+        UTM Parameters Chart.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsUtmParamsChartRequest
+                utm_params_to_chart (str, optional): Specify which values to chart (as a comma separated list), if not provided then `(top5-by-visitors)` is used by default (which charts top 5 values by visitor count). Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                granularity (str, required): Time granularity for chart data points, `hourly`, `daily`, `weekly` or `monthly`.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                utm_param (UtmParamEnum, required): Specify a UTM parameter to use as dimension (one of `utm_source`, `utm_medium`, `utm_campaign`, `utm_term`, or `utm_content`).
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsUtmParamsChartData]:
+                timestamp (str): Timestamp of the data point
+                utm_param (str): UTM parameter value
+                visitors (int): Number of visitors
+                session_bounce_rate (float): Session bounce rate (percentage of sessions that triggered only one request)
+                avg_session_duration_sec (int): Average session duration (in seconds)
+        """
+        if request is None:
+            _missing = [k for k, v in [("granularity", granularity), ("utm_param", utm_param), ("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsUtmParamsChartRequest(**{k: v for k, v in [("utm_params_to_chart", utm_params_to_chart), ("where", where), ("granularity", granularity), ("to", to), ("from_", from_), ("utm_param", utm_param), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = await self._request("web-analytics", "utm-params-chart", request, WebAnalyticsUtmParamsChartResponse, exclude_none=True)
+        return _resp.data
+
     # fmt: on
 
 
@@ -2678,14 +4043,9 @@ class GeneratedSyncMethodsMixin:
     """Sync endpoint methods. Mixed into AhrefsClient."""
 
     def _request(
-        self,
-        api_section: str,
-        endpoint: str,
-        request_model: BaseModel,
-        response_model_class: type[T],
-        *,
-        exclude_none: bool = False,
-        http_method: str = "GET",
+        self, api_section: str, endpoint: str, request_model: BaseModel,
+        response_model_class: type[T], *, exclude_none: bool = False,
+        http_method: str = 'GET',
     ) -> T:
         raise NotImplementedError
 
@@ -2784,7 +4144,7 @@ class GeneratedSyncMethodsMixin:
                 limit (int, optional): The number of results to return. Default: 1000.
                 where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
                 select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
-                date (str, optional): The date to search for in YYYY-MM-DD format. Default: None.
+                date (DateStr, optional): The date to search for in YYYY-MM-DD format. Default: None.
                 country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
                 order_by (OrderByEnum, optional): A column to order the results by. Default: 'relevance'.
                 report_id (str, optional): The ID of the report to use. If one is given, other parameters are taken from the report (brand, competitors, market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` Default: None.
@@ -2836,7 +4196,7 @@ class GeneratedSyncMethodsMixin:
                 where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
                 select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
                 limit (int, optional): The number of results to return. Default: 1000.
-                date (str, optional): The date to search for in YYYY-MM-DD format. Default: None.
+                date (DateStr, optional): The date to search for in YYYY-MM-DD format. Default: None.
                 country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
                 report_id (str, optional): The ID of the report to use. If one is given, other parameters are taken from the report (brand, competitors, market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` Default: None.
                 prompts (PromptsEnum, optional): The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided. Default: None.
@@ -2887,7 +4247,7 @@ class GeneratedSyncMethodsMixin:
                 where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
                 select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
                 limit (int, optional): The number of results to return. Default: 1000.
-                date (str, optional): The date to search for in YYYY-MM-DD format. Default: None.
+                date (DateStr, optional): The date to search for in YYYY-MM-DD format. Default: None.
                 country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
                 report_id (str, optional): The ID of the report to use. If one is given, other parameters are taken from the report (brand, competitors, market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` Default: None.
                 prompts (PromptsEnum, optional): The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided. Default: None.
@@ -2933,8 +4293,8 @@ class GeneratedSyncMethodsMixin:
         Args:
             request: BrandRadarImpressionsHistoryRequest
                 where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
-                date_to (str, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
-                date_from (str, required): The start date of the historical period in YYYY-MM-DD format.
+                date_to (DateStr, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
+                date_from (DateStr, required): The start date of the historical period in YYYY-MM-DD format.
                 country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
                 report_id (str, optional): The ID of the report to use. If one is given, other parameters are taken from the report (market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` Default: None.
                 prompts (PromptsEnum, optional): The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided. Default: None.
@@ -3025,8 +4385,8 @@ class GeneratedSyncMethodsMixin:
         Args:
             request: BrandRadarMentionsHistoryRequest
                 where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
-                date_to (str, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
-                date_from (str, required): The start date of the historical period in YYYY-MM-DD format.
+                date_to (DateStr, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
+                date_from (DateStr, required): The start date of the historical period in YYYY-MM-DD format.
                 country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
                 report_id (str, optional): The ID of the report to use. If one is given, other parameters are taken from the report (market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` Default: None.
                 prompts (PromptsEnum, optional): The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided. Default: None.
@@ -3118,8 +4478,8 @@ class GeneratedSyncMethodsMixin:
         Args:
             request: BrandRadarSovHistoryRequest
                 where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
-                date_to (str, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
-                date_from (str, required): The start date of the historical period in YYYY-MM-DD format.
+                date_to (DateStr, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
+                date_from (DateStr, required): The start date of the historical period in YYYY-MM-DD format.
                 country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
                 report_id (str, optional): The ID of the report to use. If one is given, other parameters are taken from the report (brand, competitors, market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` Default: None.
                 prompts (PromptsEnum, optional): The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided. Default: None.
@@ -3274,8 +4634,8 @@ class GeneratedSyncMethodsMixin:
                 order_by (str, optional): A column to order results by. See the response schema for valid column identifiers, except for `volume_monthly`, which is not supported in `order_by` for this endpoint. Default: None.
                 where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
                 select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
-                volume_monthly_date_to (str, optional): The end date in YYYY-MM-DD format for retrieving historical monthly search volumes in the `volume_monthly_history` field. Required only if `volume_monthly_history` is requested. Default: None.
-                volume_monthly_date_from (str, optional): The start date in YYYY-MM-DD format for retrieving historical monthly search volumes in the `volume_monthly_history` field. Required only if `volume_monthly_history` is requested. Default: None.
+                volume_monthly_date_to (DateStr, optional): The end date in YYYY-MM-DD format for retrieving historical monthly search volumes in the `volume_monthly_history` field. Required only if `volume_monthly_history` is requested. Default: None.
+                volume_monthly_date_from (DateStr, optional): The start date in YYYY-MM-DD format for retrieving historical monthly search volumes in the `volume_monthly_history` field. Required only if `volume_monthly_history` is requested. Default: None.
                 target_mode (ModeEnum, optional): The scope of the target URL you specified. Default: None.
                 target (str, optional): The target of the search: a domain or a URL. Default: None.
                 target_position (TargetPositionEnum, optional): Filters keywords based on the ranking position of the specified `target`. Default: None.
@@ -3472,8 +4832,8 @@ class GeneratedSyncMethodsMixin:
 
         Args:
             request: KeywordsExplorerVolumeHistoryRequest
-                date_to (str, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
-                date_from (str, optional): The start date of the historical period in YYYY-MM-DD format. Default: None.
+                date_to (DateStr, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
+                date_from (DateStr, optional): The start date of the historical period in YYYY-MM-DD format. Default: None.
                 country (CountryEnum, required): A two-letter country code (ISO 3166-1 alpha-2).
                 keyword (str, required): The keyword to show metrics for.
 
@@ -3518,8 +4878,8 @@ class GeneratedSyncMethodsMixin:
                 order_by (str, optional): A column to order results by. See response schema for valid column identifiers. Default: None.
                 where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
                 select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
-                date_compared (str, optional): A date to compare metrics with in YYYY-MM-DD format. Default: None.
-                date (str, required): A date to report metrics on in YYYY-MM-DD format.
+                date_compared (DateStr, optional): A date to compare metrics with in YYYY-MM-DD format. Default: None.
+                date (DateStr, required): A date to report metrics on in YYYY-MM-DD format.
                 device (DeviceEnum, required): Choose between mobile and desktop rankings.
                 project_id (int, required): The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#`
                 volume_mode (VolumeModeEnum, optional): The search volume calculation mode: monthly or average. It affects volume, traffic, and traffic value. Default: 'monthly'.
@@ -3577,8 +4937,8 @@ class GeneratedSyncMethodsMixin:
                 where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
                 select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
                 target_and_tracked_competitors_only (bool, optional): Restrict pages to target and tracked competitors Default: False.
-                date_compared (str, optional): A date to compare metrics with in YYYY-MM-DD format. Default: None.
-                date (str, required): A date to report metrics on in YYYY-MM-DD format.
+                date_compared (DateStr, optional): A date to compare metrics with in YYYY-MM-DD format. Default: None.
+                date (DateStr, required): A date to report metrics on in YYYY-MM-DD format.
                 device (DeviceEnum, required): Choose between mobile and desktop rankings.
                 project_id (int, required): The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#`
                 volume_mode (VolumeModeEnum, optional): The search volume calculation mode: monthly or average. It affects volume, traffic, and traffic value. Default: 'monthly'.
@@ -3625,7 +4985,7 @@ class GeneratedSyncMethodsMixin:
         Args:
             request: RankTrackerCompetitorsStatsRequest
                 select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
-                date (str, required): A date to report metrics on in YYYY-MM-DD format.
+                date (DateStr, required): A date to report metrics on in YYYY-MM-DD format.
                 device (DeviceEnum, required): Choose between mobile and desktop rankings.
                 project_id (int, required): The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#`
                 volume_mode (VolumeModeEnum, optional): The search volume calculation mode: monthly or average. It affects volume, traffic, and traffic value. Default: 'monthly'.
@@ -3692,8 +5052,8 @@ class GeneratedSyncMethodsMixin:
                 order_by (str, optional): A column to order results by. See response schema for valid column identifiers. Default: None.
                 where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
                 select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
-                date_compared (str, optional): A date to compare metrics with in YYYY-MM-DD format. Default: None.
-                date (str, required): A date to report metrics on in YYYY-MM-DD format.
+                date_compared (DateStr, optional): A date to compare metrics with in YYYY-MM-DD format. Default: None.
+                date (DateStr, required): A date to report metrics on in YYYY-MM-DD format.
                 device (DeviceEnum, required): Choose between mobile and desktop rankings.
                 project_id (int, required): The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#`
                 volume_mode (VolumeModeEnum, optional): The search volume calculation mode: monthly or average. It affects volume, traffic, and traffic value. Default: 'monthly'.
@@ -4050,7 +5410,7 @@ class GeneratedSyncMethodsMixin:
         target: str | None = None,
         mode: ModeEnum | None = None,
         aggregation: AggregationEnum | None = None,
-        history: str | None = None,
+        history: HistoryStr | None = None,
     ) -> list[SiteExplorerAllBacklinksData]:
         """
         Backlinks.
@@ -4122,7 +5482,7 @@ class GeneratedSyncMethodsMixin:
         protocol: ProtocolEnum | None = None,
         target: str | None = None,
         mode: ModeEnum | None = None,
-        history: str | None = None,
+        history: HistoryStr | None = None,
     ) -> list[SiteExplorerAnchorsData]:
         """
         Anchors.
@@ -4178,7 +5538,7 @@ class GeneratedSyncMethodsMixin:
                 protocol (ProtocolEnum, optional): The protocol of your target. Default: 'both'.
                 target (str, required): The target of the search: a domain or a URL.
                 mode (ModeEnum, optional): The scope of the search based on the target you entered. Default: 'subdomains'.
-                date (str, required): A date to report metrics on in YYYY-MM-DD format.
+                date (DateStr, required): A date to report metrics on in YYYY-MM-DD format.
 
         Returns:
             SiteExplorerBacklinksStatsData | None:
@@ -4207,7 +5567,7 @@ class GeneratedSyncMethodsMixin:
         protocol: ProtocolEnum | None = None,
         target: str | None = None,
         mode: ModeEnum | None = None,
-        history: str | None = None,
+        history: HistoryStr | None = None,
     ) -> list[SiteExplorerBestByExternalLinksData]:
         """
         Best by External Links.
@@ -4397,7 +5757,7 @@ class GeneratedSyncMethodsMixin:
             request: SiteExplorerDomainRatingRequest
                 protocol (ProtocolEnum, optional): The protocol of your target. Default: 'both'.
                 target (str, required): The target of the search: a domain or a URL.
-                date (str, required): A date to report metrics on in YYYY-MM-DD format.
+                date (DateStr, required): A date to report metrics on in YYYY-MM-DD format.
 
         Returns:
             SiteExplorerDomainRatingData | None:
@@ -4427,8 +5787,8 @@ class GeneratedSyncMethodsMixin:
         Args:
             request: SiteExplorerDomainRatingHistoryRequest
                 history_grouping (HistoryGroupingEnum, optional): The time interval used to group historical data. Default: 'monthly'.
-                date_to (str, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
-                date_from (str, required): The start date of the historical period in YYYY-MM-DD format.
+                date_to (DateStr, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
+                date_from (DateStr, required): The start date of the historical period in YYYY-MM-DD format.
                 target (str, required): The target of the search: a domain or a URL.
 
         Returns:
@@ -4464,8 +5824,8 @@ class GeneratedSyncMethodsMixin:
             request: SiteExplorerKeywordsHistoryRequest
                 select (str, optional): A comma-separated list of columns to return. See response schema for valid column identifiers. Default: 'date,top3,top4_10,top11_plus'.
                 history_grouping (HistoryGroupingEnum, optional): The time interval used to group historical data. Default: 'monthly'.
-                date_to (str, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
-                date_from (str, required): The start date of the historical period in YYYY-MM-DD format.
+                date_to (DateStr, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
+                date_from (DateStr, required): The start date of the historical period in YYYY-MM-DD format.
                 country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
                 protocol (ProtocolEnum, optional): The protocol of your target. Default: 'both'.
                 target (str, required): The target of the search: a domain or a URL.
@@ -4645,7 +6005,7 @@ class GeneratedSyncMethodsMixin:
                 protocol (ProtocolEnum, optional): The protocol of your target. Default: 'both'.
                 target (str, required): The target of the search: a domain or a URL.
                 mode (ModeEnum, optional): The scope of the search based on the target you entered. Default: 'subdomains'.
-                date (str, required): A date to report metrics on in YYYY-MM-DD format.
+                date (DateStr, required): A date to report metrics on in YYYY-MM-DD format.
 
         Returns:
             SiteExplorerMetricsData | None:
@@ -4687,7 +6047,7 @@ class GeneratedSyncMethodsMixin:
                 protocol (ProtocolEnum, optional): The protocol of your target. Default: 'both'.
                 target (str, required): The target of the search: a domain or a URL.
                 mode (ModeEnum, optional): The scope of the search based on the target you entered. Default: 'subdomains'.
-                date (str, required): A date to report metrics on in YYYY-MM-DD format.
+                date (DateStr, required): A date to report metrics on in YYYY-MM-DD format.
 
         Returns:
             list[SiteExplorerMetricsByCountryData]:
@@ -4731,8 +6091,8 @@ class GeneratedSyncMethodsMixin:
                 select (str, optional): A comma-separated list of columns to return. See response schema for valid column identifiers. Default: 'date,org_cost,org_traffic,paid_cost,paid_traffic'.
                 volume_mode (VolumeModeEnum, optional): The search volume calculation mode: monthly or average. It affects volume, traffic, and traffic value. Default: 'monthly'.
                 history_grouping (HistoryGroupingEnum, optional): The time interval used to group historical data. Default: 'monthly'.
-                date_to (str, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
-                date_from (str, required): The start date of the historical period in YYYY-MM-DD format.
+                date_to (DateStr, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
+                date_from (DateStr, required): The start date of the historical period in YYYY-MM-DD format.
                 country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
                 protocol (ProtocolEnum, optional): The protocol of your target. Default: 'both'.
                 target (str, required): The target of the search: a domain or a URL.
@@ -4785,8 +6145,8 @@ class GeneratedSyncMethodsMixin:
                 target (str, required): The target of the search: a domain or a URL.
                 mode (ModeEnum, optional): The scope of the search based on the target you entered. Default: 'subdomains'.
                 country (CountryEnum, required): A two-letter country code (ISO 3166-1 alpha-2).
-                date_compared (str, optional): A date to compare metrics with in YYYY-MM-DD format. Default: None.
-                date (str, required): A date to report metrics on in YYYY-MM-DD format.
+                date_compared (DateStr, optional): A date to compare metrics with in YYYY-MM-DD format. Default: None.
+                date (DateStr, required): A date to report metrics on in YYYY-MM-DD format.
                 volume_mode (VolumeModeEnum, optional): The search volume calculation mode: monthly or average. It affects volume, traffic, and traffic value. Default: 'monthly'.
 
         Returns:
@@ -4851,8 +6211,8 @@ class GeneratedSyncMethodsMixin:
                 target (str, required): The target of the search: a domain or a URL.
                 mode (ModeEnum, optional): The scope of the search based on the target you entered. Default: 'subdomains'.
                 country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
-                date_compared (str, optional): A date to compare metrics with in YYYY-MM-DD format. Default: None.
-                date (str, required): A date to report metrics on in YYYY-MM-DD format.
+                date_compared (DateStr, optional): A date to compare metrics with in YYYY-MM-DD format. Default: None.
+                date (DateStr, required): A date to report metrics on in YYYY-MM-DD format.
                 volume_mode (VolumeModeEnum, optional): The search volume calculation mode: monthly or average. It affects volume, traffic, and traffic value. Default: 'monthly'.
 
         Returns:
@@ -4992,8 +6352,8 @@ class GeneratedSyncMethodsMixin:
         Args:
             request: SiteExplorerPagesHistoryRequest
                 history_grouping (HistoryGroupingEnum, optional): The time interval used to group historical data. Default: 'monthly'.
-                date_to (str, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
-                date_from (str, required): The start date of the historical period in YYYY-MM-DD format.
+                date_to (DateStr, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
+                date_from (DateStr, required): The start date of the historical period in YYYY-MM-DD format.
                 country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
                 protocol (ProtocolEnum, optional): The protocol of your target. Default: 'both'.
                 target (str, required): The target of the search: a domain or a URL.
@@ -5043,8 +6403,8 @@ class GeneratedSyncMethodsMixin:
                 target (str, required): The target of the search: a domain or a URL.
                 mode (ModeEnum, optional): The scope of the search based on the target you entered. Default: 'subdomains'.
                 country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
-                date_compared (str, optional): A date to compare metrics with in YYYY-MM-DD format. Default: None.
-                date (str, required): A date to report metrics on in YYYY-MM-DD format.
+                date_compared (DateStr, optional): A date to compare metrics with in YYYY-MM-DD format. Default: None.
+                date (DateStr, required): A date to report metrics on in YYYY-MM-DD format.
                 volume_mode (VolumeModeEnum, optional): The search volume calculation mode: monthly or average. It affects volume, traffic, and traffic value. Default: 'monthly'.
 
         Returns:
@@ -5101,7 +6461,7 @@ class GeneratedSyncMethodsMixin:
         protocol: ProtocolEnum | None = None,
         target: str | None = None,
         mode: ModeEnum | None = None,
-        history: str | None = None,
+        history: HistoryStr | None = None,
     ) -> list[SiteExplorerRefdomainsData]:
         """
         Refdomains.
@@ -5161,8 +6521,8 @@ class GeneratedSyncMethodsMixin:
         Args:
             request: SiteExplorerRefdomainsHistoryRequest
                 history_grouping (HistoryGroupingEnum, optional): The time interval used to group historical data. Default: 'monthly'.
-                date_to (str, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
-                date_from (str, required): The start date of the historical period in YYYY-MM-DD format.
+                date_to (DateStr, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
+                date_from (DateStr, required): The start date of the historical period in YYYY-MM-DD format.
                 protocol (ProtocolEnum, optional): The protocol of your target. Default: 'both'.
                 target (str, required): The target of the search: a domain or a URL.
                 mode (ModeEnum, optional): The scope of the search based on the target you entered. Default: 'subdomains'.
@@ -5211,8 +6571,8 @@ class GeneratedSyncMethodsMixin:
                 target (str, required): The target of the search: a domain or a URL.
                 mode (ModeEnum, optional): The scope of the search based on the target you entered. Default: 'subdomains'.
                 country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
-                date_compared (str, optional): A date to compare metrics with in YYYY-MM-DD format. Default: None.
-                date (str, required): A date to report metrics on in YYYY-MM-DD format.
+                date_compared (DateStr, optional): A date to compare metrics with in YYYY-MM-DD format. Default: None.
+                date (DateStr, required): A date to report metrics on in YYYY-MM-DD format.
                 volume_mode (VolumeModeEnum, optional): The search volume calculation mode: monthly or average. It affects volume, traffic, and traffic value. Default: 'monthly'.
 
         Returns:
@@ -5279,8 +6639,8 @@ class GeneratedSyncMethodsMixin:
                 volume_mode (VolumeModeEnum, optional): The search volume calculation mode: monthly or average. It affects volume, traffic, and traffic value. Default: 'monthly'.
                 top_positions (ViewForEnum, optional): The number of top organic search positions to consider when calculating total search volume. Default: 'top_10'.
                 history_grouping (HistoryGroupingEnum, optional): The time interval used to group historical data. Default: 'monthly'.
-                date_to (str, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
-                date_from (str, required): The start date of the historical period in YYYY-MM-DD format.
+                date_to (DateStr, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
+                date_from (DateStr, required): The start date of the historical period in YYYY-MM-DD format.
                 country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
                 protocol (ProtocolEnum, optional): The protocol of your target. Default: 'both'.
                 target (str, required): The target of the search: a domain or a URL.
@@ -5314,8 +6674,8 @@ class GeneratedSyncMethodsMixin:
         Args:
             request: SiteExplorerUrlRatingHistoryRequest
                 history_grouping (HistoryGroupingEnum, optional): The time interval used to group historical data. Default: 'monthly'.
-                date_to (str, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
-                date_from (str, required): The start date of the historical period in YYYY-MM-DD format.
+                date_to (DateStr, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
+                date_from (DateStr, required): The start date of the historical period in YYYY-MM-DD format.
                 target (str, required): The target of the search: a domain or a URL.
 
         Returns:
@@ -5329,6 +6689,1376 @@ class GeneratedSyncMethodsMixin:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteExplorerUrlRatingHistoryRequest(**{k: v for k, v in [("history_grouping", history_grouping), ("date_to", date_to), ("date_from", date_from), ("target", target)] if v is not None})  # pyright: ignore[reportArgumentType]
         _resp = self._request("site-explorer", "url-rating-history", request, SiteExplorerUrlRatingHistoryResponse, exclude_none=True)
+        return _resp.data
+
+    # Web Analytics API methods
+    def web_analytics_browser_versions(
+        self,
+        request: WebAnalyticsBrowserVersionsRequest | None = None,
+        *,
+        limit: int | None = None,
+        order_by: str | None = None,
+        where: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsBrowserVersionsData]:
+        """
+        Browser Versions.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsBrowserVersionsRequest
+                limit (int, optional): The number of results to return. Default: None.
+                order_by (str, optional): Order by metric, as `metric:desc` or `metric:asc`. The following metrics are supported:  **pageviews**: Number of pageview events   type: integer  **visitors**: Number of visitors   type: integer  **visits**: Number of visits   type: integer  **session_bounce_rate**: Session bounce rate (percentage of sessions that triggered only one request)   type: float  **avg_session_length**: Average session length (in seconds)   type: float  **avg_session_duration_sec**: Average session duration (in seconds)   type: integer  **exit_rate**: Exit rate (percentage of pageviews that were the last in the session)   type: float  **exits**: Number of exits   type: integer  **entries**: Number of entries   type: integer  **avg_page_visit_duration_sec**: Average page visit duration (in seconds)   type: integer Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsBrowserVersionsData]:
+                browser_version (str): Browser version
+                visitors (int): Number of visitors
+                session_bounce_rate (float): Session bounce rate (percentage of sessions that triggered only one request)
+                avg_session_duration_sec (int): Average session duration (in seconds)
+        """
+        if request is None:
+            _missing = [k for k, v in [("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsBrowserVersionsRequest(**{k: v for k, v in [("limit", limit), ("order_by", order_by), ("where", where), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = self._request("web-analytics", "browser-versions", request, WebAnalyticsBrowserVersionsResponse, exclude_none=True)
+        return _resp.data
+
+    def web_analytics_browser_versions_chart(
+        self,
+        request: WebAnalyticsBrowserVersionsChartRequest | None = None,
+        *,
+        browser_version_to_chart: str | None = None,
+        where: str | None = None,
+        granularity: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsBrowserVersionsChartData]:
+        """
+        Browser Versions Chart.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsBrowserVersionsChartRequest
+                browser_version_to_chart (str, optional): Specify which values to chart (as a comma separated list), if not provided then `(top5-by-visitors)` is used by default (which charts top 5 values by visitor count). Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                granularity (str, required): Time granularity for chart data points, `hourly`, `daily`, `weekly` or `monthly`.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsBrowserVersionsChartData]:
+                timestamp (str): Timestamp of the data point
+                browser_version (str): Browser version
+                visitors (int): Number of visitors
+                session_bounce_rate (float): Session bounce rate (percentage of sessions that triggered only one request)
+                avg_session_duration_sec (int): Average session duration (in seconds)
+        """
+        if request is None:
+            _missing = [k for k, v in [("granularity", granularity), ("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsBrowserVersionsChartRequest(**{k: v for k, v in [("browser_version_to_chart", browser_version_to_chart), ("where", where), ("granularity", granularity), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = self._request("web-analytics", "browser-versions-chart", request, WebAnalyticsBrowserVersionsChartResponse, exclude_none=True)
+        return _resp.data
+
+    def web_analytics_browsers(
+        self,
+        request: WebAnalyticsBrowsersRequest | None = None,
+        *,
+        limit: int | None = None,
+        order_by: str | None = None,
+        where: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsBrowsersData]:
+        """
+        Browsers.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsBrowsersRequest
+                limit (int, optional): The number of results to return. Default: None.
+                order_by (str, optional): Order by metric, as `metric:desc` or `metric:asc`. The following metrics are supported:  **pageviews**: Number of pageview events   type: integer  **visitors**: Number of visitors   type: integer  **visits**: Number of visits   type: integer  **session_bounce_rate**: Session bounce rate (percentage of sessions that triggered only one request)   type: float  **avg_session_length**: Average session length (in seconds)   type: float  **avg_session_duration_sec**: Average session duration (in seconds)   type: integer  **exit_rate**: Exit rate (percentage of pageviews that were the last in the session)   type: float  **exits**: Number of exits   type: integer  **entries**: Number of entries   type: integer  **avg_page_visit_duration_sec**: Average page visit duration (in seconds)   type: integer Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsBrowsersData]:
+                browser (str): Browser
+                visitors (int): Number of visitors
+                session_bounce_rate (float): Session bounce rate (percentage of sessions that triggered only one request)
+                avg_session_duration_sec (int): Average session duration (in seconds)
+        """
+        if request is None:
+            _missing = [k for k, v in [("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsBrowsersRequest(**{k: v for k, v in [("limit", limit), ("order_by", order_by), ("where", where), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = self._request("web-analytics", "browsers", request, WebAnalyticsBrowsersResponse, exclude_none=True)
+        return _resp.data
+
+    def web_analytics_browsers_chart(
+        self,
+        request: WebAnalyticsBrowsersChartRequest | None = None,
+        *,
+        browser_to_chart: str | None = None,
+        where: str | None = None,
+        granularity: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsBrowsersChartData]:
+        """
+        Browsers Chart.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsBrowsersChartRequest
+                browser_to_chart (str, optional): Specify which values to chart (as a comma separated list), if not provided then `(top5-by-visitors)` is used by default (which charts top 5 values by visitor count). Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                granularity (str, required): Time granularity for chart data points, `hourly`, `daily`, `weekly` or `monthly`.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsBrowsersChartData]:
+                timestamp (str): Timestamp of the data point
+                browser (str): Browser
+                visitors (int): Number of visitors
+                session_bounce_rate (float): Session bounce rate (percentage of sessions that triggered only one request)
+                avg_session_duration_sec (int): Average session duration (in seconds)
+        """
+        if request is None:
+            _missing = [k for k, v in [("granularity", granularity), ("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsBrowsersChartRequest(**{k: v for k, v in [("browser_to_chart", browser_to_chart), ("where", where), ("granularity", granularity), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = self._request("web-analytics", "browsers-chart", request, WebAnalyticsBrowsersChartResponse, exclude_none=True)
+        return _resp.data
+
+    def web_analytics_chart(
+        self,
+        request: WebAnalyticsChartRequest | None = None,
+        *,
+        where: str | None = None,
+        granularity: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsChartData]:
+        """
+        Chart.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsChartRequest
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                granularity (str, required): Time granularity for chart data points, `hourly`, `daily`, `weekly` or `monthly`.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsChartData]:
+                timestamp (str): Timestamp of the data point
+                pageviews (int): Number of pageview events
+                visitors (int): Number of visitors
+                visits (int): Number of visits
+                session_bounce_rate (float): Session bounce rate (percentage of sessions that triggered only one request)
+                avg_session_length (float): Average session length (in seconds)
+                avg_session_duration_sec (int): Average session duration (in seconds)
+        """
+        if request is None:
+            _missing = [k for k, v in [("granularity", granularity), ("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsChartRequest(**{k: v for k, v in [("where", where), ("granularity", granularity), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = self._request("web-analytics", "chart", request, WebAnalyticsChartResponse, exclude_none=True)
+        return _resp.data
+
+    def web_analytics_cities(
+        self,
+        request: WebAnalyticsCitiesRequest | None = None,
+        *,
+        limit: int | None = None,
+        order_by: str | None = None,
+        where: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsCitiesData]:
+        """
+        Cities.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsCitiesRequest
+                limit (int, optional): The number of results to return. Default: None.
+                order_by (str, optional): Order by metric, as `metric:desc` or `metric:asc`. The following metrics are supported:  **pageviews**: Number of pageview events   type: integer  **visitors**: Number of visitors   type: integer  **visits**: Number of visits   type: integer  **session_bounce_rate**: Session bounce rate (percentage of sessions that triggered only one request)   type: float  **avg_session_length**: Average session length (in seconds)   type: float  **avg_session_duration_sec**: Average session duration (in seconds)   type: integer  **exit_rate**: Exit rate (percentage of pageviews that were the last in the session)   type: float  **exits**: Number of exits   type: integer  **entries**: Number of entries   type: integer  **avg_page_visit_duration_sec**: Average page visit duration (in seconds)   type: integer Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsCitiesData]:
+                city (str): City
+                visitors (int): Number of visitors
+        """
+        if request is None:
+            _missing = [k for k, v in [("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsCitiesRequest(**{k: v for k, v in [("limit", limit), ("order_by", order_by), ("where", where), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = self._request("web-analytics", "cities", request, WebAnalyticsCitiesResponse, exclude_none=True)
+        return _resp.data
+
+    def web_analytics_cities_chart(
+        self,
+        request: WebAnalyticsCitiesChartRequest | None = None,
+        *,
+        cities_to_chart: str | None = None,
+        where: str | None = None,
+        granularity: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsCitiesChartData]:
+        """
+        Cities Chart.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsCitiesChartRequest
+                cities_to_chart (str, optional): Specify which values to chart (as a comma separated list), if not provided then `(top5-by-visitors)` is used by default (which charts top 5 values by visitor count). Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                granularity (str, required): Time granularity for chart data points, `hourly`, `daily`, `weekly` or `monthly`.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsCitiesChartData]:
+                timestamp (str): Timestamp of the data point
+                city (str): City
+                visitors (int): Number of visitors
+        """
+        if request is None:
+            _missing = [k for k, v in [("granularity", granularity), ("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsCitiesChartRequest(**{k: v for k, v in [("cities_to_chart", cities_to_chart), ("where", where), ("granularity", granularity), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = self._request("web-analytics", "cities-chart", request, WebAnalyticsCitiesChartResponse, exclude_none=True)
+        return _resp.data
+
+    def web_analytics_continents(
+        self,
+        request: WebAnalyticsContinentsRequest | None = None,
+        *,
+        limit: int | None = None,
+        order_by: str | None = None,
+        where: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsContinentsData]:
+        """
+        Continents.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsContinentsRequest
+                limit (int, optional): The number of results to return. Default: None.
+                order_by (str, optional): Order by metric, as `metric:desc` or `metric:asc`. The following metrics are supported:  **pageviews**: Number of pageview events   type: integer  **visitors**: Number of visitors   type: integer  **visits**: Number of visits   type: integer  **session_bounce_rate**: Session bounce rate (percentage of sessions that triggered only one request)   type: float  **avg_session_length**: Average session length (in seconds)   type: float  **avg_session_duration_sec**: Average session duration (in seconds)   type: integer  **exit_rate**: Exit rate (percentage of pageviews that were the last in the session)   type: float  **exits**: Number of exits   type: integer  **entries**: Number of entries   type: integer  **avg_page_visit_duration_sec**: Average page visit duration (in seconds)   type: integer Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsContinentsData]:
+                continent (str): Continent
+                visitors (int): Number of visitors
+        """
+        if request is None:
+            _missing = [k for k, v in [("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsContinentsRequest(**{k: v for k, v in [("limit", limit), ("order_by", order_by), ("where", where), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = self._request("web-analytics", "continents", request, WebAnalyticsContinentsResponse, exclude_none=True)
+        return _resp.data
+
+    def web_analytics_continents_chart(
+        self,
+        request: WebAnalyticsContinentsChartRequest | None = None,
+        *,
+        continents_to_chart: str | None = None,
+        where: str | None = None,
+        granularity: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsContinentsChartData]:
+        """
+        Continents Chart.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsContinentsChartRequest
+                continents_to_chart (str, optional): Specify which values to chart (as a comma separated list), if not provided then `(top5-by-visitors)` is used by default (which charts top 5 values by visitor count). Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                granularity (str, required): Time granularity for chart data points, `hourly`, `daily`, `weekly` or `monthly`.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsContinentsChartData]:
+                timestamp (str): Timestamp of the data point
+                continent (str): Continent
+                visitors (int): Number of visitors
+        """
+        if request is None:
+            _missing = [k for k, v in [("granularity", granularity), ("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsContinentsChartRequest(**{k: v for k, v in [("continents_to_chart", continents_to_chart), ("where", where), ("granularity", granularity), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = self._request("web-analytics", "continents-chart", request, WebAnalyticsContinentsChartResponse, exclude_none=True)
+        return _resp.data
+
+    def web_analytics_countries(
+        self,
+        request: WebAnalyticsCountriesRequest | None = None,
+        *,
+        limit: int | None = None,
+        order_by: str | None = None,
+        where: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsCountriesData]:
+        """
+        Countries.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsCountriesRequest
+                limit (int, optional): The number of results to return. Default: None.
+                order_by (str, optional): Order by metric, as `metric:desc` or `metric:asc`. The following metrics are supported:  **pageviews**: Number of pageview events   type: integer  **visitors**: Number of visitors   type: integer  **visits**: Number of visits   type: integer  **session_bounce_rate**: Session bounce rate (percentage of sessions that triggered only one request)   type: float  **avg_session_length**: Average session length (in seconds)   type: float  **avg_session_duration_sec**: Average session duration (in seconds)   type: integer  **exit_rate**: Exit rate (percentage of pageviews that were the last in the session)   type: float  **exits**: Number of exits   type: integer  **entries**: Number of entries   type: integer  **avg_page_visit_duration_sec**: Average page visit duration (in seconds)   type: integer Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsCountriesData]:
+                country (str): Country
+                visitors (int): Number of visitors
+        """
+        if request is None:
+            _missing = [k for k, v in [("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsCountriesRequest(**{k: v for k, v in [("limit", limit), ("order_by", order_by), ("where", where), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = self._request("web-analytics", "countries", request, WebAnalyticsCountriesResponse, exclude_none=True)
+        return _resp.data
+
+    def web_analytics_countries_chart(
+        self,
+        request: WebAnalyticsCountriesChartRequest | None = None,
+        *,
+        countries_to_chart: str | None = None,
+        where: str | None = None,
+        granularity: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsCountriesChartData]:
+        """
+        Countries Chart.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsCountriesChartRequest
+                countries_to_chart (str, optional): Specify which values to chart (as a comma separated list), if not provided then `(top5-by-visitors)` is used by default (which charts top 5 values by visitor count). Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                granularity (str, required): Time granularity for chart data points, `hourly`, `daily`, `weekly` or `monthly`.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsCountriesChartData]:
+                timestamp (str): Timestamp of the data point
+                country (str): Country
+                visitors (int): Number of visitors
+        """
+        if request is None:
+            _missing = [k for k, v in [("granularity", granularity), ("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsCountriesChartRequest(**{k: v for k, v in [("countries_to_chart", countries_to_chart), ("where", where), ("granularity", granularity), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = self._request("web-analytics", "countries-chart", request, WebAnalyticsCountriesChartResponse, exclude_none=True)
+        return _resp.data
+
+    def web_analytics_devices(
+        self,
+        request: WebAnalyticsDevicesRequest | None = None,
+        *,
+        limit: int | None = None,
+        order_by: str | None = None,
+        where: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsDevicesData]:
+        """
+        Devices.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsDevicesRequest
+                limit (int, optional): The number of results to return. Default: None.
+                order_by (str, optional): Order by metric, as `metric:desc` or `metric:asc`. The following metrics are supported:  **pageviews**: Number of pageview events   type: integer  **visitors**: Number of visitors   type: integer  **visits**: Number of visits   type: integer  **session_bounce_rate**: Session bounce rate (percentage of sessions that triggered only one request)   type: float  **avg_session_length**: Average session length (in seconds)   type: float  **avg_session_duration_sec**: Average session duration (in seconds)   type: integer  **exit_rate**: Exit rate (percentage of pageviews that were the last in the session)   type: float  **exits**: Number of exits   type: integer  **entries**: Number of entries   type: integer  **avg_page_visit_duration_sec**: Average page visit duration (in seconds)   type: integer Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsDevicesData]:
+                device (str): Device type
+                visitors (int): Number of visitors
+                session_bounce_rate (float): Session bounce rate (percentage of sessions that triggered only one request)
+                avg_session_duration_sec (int): Average session duration (in seconds)
+        """
+        if request is None:
+            _missing = [k for k, v in [("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsDevicesRequest(**{k: v for k, v in [("limit", limit), ("order_by", order_by), ("where", where), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = self._request("web-analytics", "devices", request, WebAnalyticsDevicesResponse, exclude_none=True)
+        return _resp.data
+
+    def web_analytics_devices_chart(
+        self,
+        request: WebAnalyticsDevicesChartRequest | None = None,
+        *,
+        devices_to_chart: str | None = None,
+        where: str | None = None,
+        granularity: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsDevicesChartData]:
+        """
+        Devices Chart.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsDevicesChartRequest
+                devices_to_chart (str, optional): Specify which values to chart (as a comma separated list), if not provided then `(top5-by-visitors)` is used by default (which charts top 5 values by visitor count). Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                granularity (str, required): Time granularity for chart data points, `hourly`, `daily`, `weekly` or `monthly`.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsDevicesChartData]:
+                timestamp (str): Timestamp of the data point
+                device (str): Device type
+                visitors (int): Number of visitors
+                session_bounce_rate (float): Session bounce rate (percentage of sessions that triggered only one request)
+                avg_session_duration_sec (int): Average session duration (in seconds)
+        """
+        if request is None:
+            _missing = [k for k, v in [("granularity", granularity), ("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsDevicesChartRequest(**{k: v for k, v in [("devices_to_chart", devices_to_chart), ("where", where), ("granularity", granularity), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = self._request("web-analytics", "devices-chart", request, WebAnalyticsDevicesChartResponse, exclude_none=True)
+        return _resp.data
+
+    def web_analytics_entry_pages(
+        self,
+        request: WebAnalyticsEntryPagesRequest | None = None,
+        *,
+        limit: int | None = None,
+        order_by: str | None = None,
+        where: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsEntryPagesData]:
+        """
+        Entry Pages.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsEntryPagesRequest
+                limit (int, optional): The number of results to return. Default: None.
+                order_by (str, optional): Order by metric, as `metric:desc` or `metric:asc`. The following metrics are supported:  **pageviews**: Number of pageview events   type: integer  **visitors**: Number of visitors   type: integer  **visits**: Number of visits   type: integer  **session_bounce_rate**: Session bounce rate (percentage of sessions that triggered only one request)   type: float  **avg_session_length**: Average session length (in seconds)   type: float  **avg_session_duration_sec**: Average session duration (in seconds)   type: integer  **exit_rate**: Exit rate (percentage of pageviews that were the last in the session)   type: float  **exits**: Number of exits   type: integer  **entries**: Number of entries   type: integer  **avg_page_visit_duration_sec**: Average page visit duration (in seconds)   type: integer Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsEntryPagesData]:
+                entry_page (str): Entry page URL
+                visitors (int): Number of visitors
+                entries (int): Number of entries
+                avg_session_duration_sec (int): Average session duration (in seconds)
+        """
+        if request is None:
+            _missing = [k for k, v in [("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsEntryPagesRequest(**{k: v for k, v in [("limit", limit), ("order_by", order_by), ("where", where), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = self._request("web-analytics", "entry-pages", request, WebAnalyticsEntryPagesResponse, exclude_none=True)
+        return _resp.data
+
+    def web_analytics_entry_pages_chart(
+        self,
+        request: WebAnalyticsEntryPagesChartRequest | None = None,
+        *,
+        entry_pages_to_chart: str | None = None,
+        where: str | None = None,
+        granularity: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsEntryPagesChartData]:
+        """
+        Entry Pages Chart.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsEntryPagesChartRequest
+                entry_pages_to_chart (str, optional): Specify which values to chart (as a comma separated list), if not provided then `(top5-by-visitors)` is used by default (which charts top 5 values by visitor count). Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                granularity (str, required): Time granularity for chart data points, `hourly`, `daily`, `weekly` or `monthly`.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsEntryPagesChartData]:
+                timestamp (str): Timestamp of the data point
+                entry_page (str): Entry page URL
+                visitors (int): Number of visitors
+                entries (int): Number of entries
+                avg_session_duration_sec (int): Average session duration (in seconds)
+        """
+        if request is None:
+            _missing = [k for k, v in [("granularity", granularity), ("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsEntryPagesChartRequest(**{k: v for k, v in [("entry_pages_to_chart", entry_pages_to_chart), ("where", where), ("granularity", granularity), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = self._request("web-analytics", "entry-pages-chart", request, WebAnalyticsEntryPagesChartResponse, exclude_none=True)
+        return _resp.data
+
+    def web_analytics_exit_pages(
+        self,
+        request: WebAnalyticsExitPagesRequest | None = None,
+        *,
+        limit: int | None = None,
+        order_by: str | None = None,
+        where: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsExitPagesData]:
+        """
+        Exit Pages.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsExitPagesRequest
+                limit (int, optional): The number of results to return. Default: None.
+                order_by (str, optional): Order by metric, as `metric:desc` or `metric:asc`. The following metrics are supported:  **pageviews**: Number of pageview events   type: integer  **visitors**: Number of visitors   type: integer  **visits**: Number of visits   type: integer  **session_bounce_rate**: Session bounce rate (percentage of sessions that triggered only one request)   type: float  **avg_session_length**: Average session length (in seconds)   type: float  **avg_session_duration_sec**: Average session duration (in seconds)   type: integer  **exit_rate**: Exit rate (percentage of pageviews that were the last in the session)   type: float  **exits**: Number of exits   type: integer  **entries**: Number of entries   type: integer  **avg_page_visit_duration_sec**: Average page visit duration (in seconds)   type: integer Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsExitPagesData]:
+                exit_page (str): Exit page URL
+                visitors (int): Number of visitors
+                exits (int): Number of exits
+                exit_rate (float): Exit rate (percentage of pageviews that were the last in the session)
+        """
+        if request is None:
+            _missing = [k for k, v in [("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsExitPagesRequest(**{k: v for k, v in [("limit", limit), ("order_by", order_by), ("where", where), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = self._request("web-analytics", "exit-pages", request, WebAnalyticsExitPagesResponse, exclude_none=True)
+        return _resp.data
+
+    def web_analytics_exit_pages_chart(
+        self,
+        request: WebAnalyticsExitPagesChartRequest | None = None,
+        *,
+        exit_pages_to_chart: str | None = None,
+        where: str | None = None,
+        granularity: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsExitPagesChartData]:
+        """
+        Exit Pages Chart.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsExitPagesChartRequest
+                exit_pages_to_chart (str, optional): Specify which values to chart (as a comma separated list), if not provided then `(top5-by-visitors)` is used by default (which charts top 5 values by visitor count). Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                granularity (str, required): Time granularity for chart data points, `hourly`, `daily`, `weekly` or `monthly`.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsExitPagesChartData]:
+                timestamp (str): Timestamp of the data point
+                exit_page (str): Exit page URL
+                visitors (int): Number of visitors
+                exits (int): Number of exits
+                exit_rate (float): Exit rate (percentage of pageviews that were the last in the session)
+        """
+        if request is None:
+            _missing = [k for k, v in [("granularity", granularity), ("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsExitPagesChartRequest(**{k: v for k, v in [("exit_pages_to_chart", exit_pages_to_chart), ("where", where), ("granularity", granularity), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = self._request("web-analytics", "exit-pages-chart", request, WebAnalyticsExitPagesChartResponse, exclude_none=True)
+        return _resp.data
+
+    def web_analytics_languages(
+        self,
+        request: WebAnalyticsLanguagesRequest | None = None,
+        *,
+        limit: int | None = None,
+        order_by: str | None = None,
+        where: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsLanguagesData]:
+        """
+        Languages.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsLanguagesRequest
+                limit (int, optional): The number of results to return. Default: None.
+                order_by (str, optional): Order by metric, as `metric:desc` or `metric:asc`. The following metrics are supported:  **pageviews**: Number of pageview events   type: integer  **visitors**: Number of visitors   type: integer  **visits**: Number of visits   type: integer  **session_bounce_rate**: Session bounce rate (percentage of sessions that triggered only one request)   type: float  **avg_session_length**: Average session length (in seconds)   type: float  **avg_session_duration_sec**: Average session duration (in seconds)   type: integer  **exit_rate**: Exit rate (percentage of pageviews that were the last in the session)   type: float  **exits**: Number of exits   type: integer  **entries**: Number of entries   type: integer  **avg_page_visit_duration_sec**: Average page visit duration (in seconds)   type: integer Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsLanguagesData]:
+                browser_language (str): Browser language
+                visitors (int): Number of visitors
+        """
+        if request is None:
+            _missing = [k for k, v in [("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsLanguagesRequest(**{k: v for k, v in [("limit", limit), ("order_by", order_by), ("where", where), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = self._request("web-analytics", "languages", request, WebAnalyticsLanguagesResponse, exclude_none=True)
+        return _resp.data
+
+    def web_analytics_languages_chart(
+        self,
+        request: WebAnalyticsLanguagesChartRequest | None = None,
+        *,
+        browser_language_to_chart: str | None = None,
+        where: str | None = None,
+        granularity: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsLanguagesChartData]:
+        """
+        Languages Chart.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsLanguagesChartRequest
+                browser_language_to_chart (str, optional): Specify which values to chart (as a comma separated list), if not provided then `(top5-by-visitors)` is used by default (which charts top 5 values by visitor count). Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                granularity (str, required): Time granularity for chart data points, `hourly`, `daily`, `weekly` or `monthly`.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsLanguagesChartData]:
+                timestamp (str): Timestamp of the data point
+                browser_language (str): Browser language
+                visitors (int): Number of visitors
+        """
+        if request is None:
+            _missing = [k for k, v in [("granularity", granularity), ("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsLanguagesChartRequest(**{k: v for k, v in [("browser_language_to_chart", browser_language_to_chart), ("where", where), ("granularity", granularity), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = self._request("web-analytics", "languages-chart", request, WebAnalyticsLanguagesChartResponse, exclude_none=True)
+        return _resp.data
+
+    def web_analytics_operating_systems(
+        self,
+        request: WebAnalyticsOperatingSystemsRequest | None = None,
+        *,
+        limit: int | None = None,
+        order_by: str | None = None,
+        where: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsOperatingSystemsData]:
+        """
+        Operating Systems.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsOperatingSystemsRequest
+                limit (int, optional): The number of results to return. Default: None.
+                order_by (str, optional): Order by metric, as `metric:desc` or `metric:asc`. The following metrics are supported:  **pageviews**: Number of pageview events   type: integer  **visitors**: Number of visitors   type: integer  **visits**: Number of visits   type: integer  **session_bounce_rate**: Session bounce rate (percentage of sessions that triggered only one request)   type: float  **avg_session_length**: Average session length (in seconds)   type: float  **avg_session_duration_sec**: Average session duration (in seconds)   type: integer  **exit_rate**: Exit rate (percentage of pageviews that were the last in the session)   type: float  **exits**: Number of exits   type: integer  **entries**: Number of entries   type: integer  **avg_page_visit_duration_sec**: Average page visit duration (in seconds)   type: integer Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsOperatingSystemsData]:
+                os (str): Operating system
+                visitors (int): Number of visitors
+                session_bounce_rate (float): Session bounce rate (percentage of sessions that triggered only one request)
+                avg_session_duration_sec (int): Average session duration (in seconds)
+        """
+        if request is None:
+            _missing = [k for k, v in [("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsOperatingSystemsRequest(**{k: v for k, v in [("limit", limit), ("order_by", order_by), ("where", where), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = self._request("web-analytics", "operating-systems", request, WebAnalyticsOperatingSystemsResponse, exclude_none=True)
+        return _resp.data
+
+    def web_analytics_operating_systems_chart(
+        self,
+        request: WebAnalyticsOperatingSystemsChartRequest | None = None,
+        *,
+        os_to_chart: str | None = None,
+        where: str | None = None,
+        granularity: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsOperatingSystemsChartData]:
+        """
+        Operating Systems Chart.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsOperatingSystemsChartRequest
+                os_to_chart (str, optional): Specify which values to chart (as a comma separated list), if not provided then `(top5-by-visitors)` is used by default (which charts top 5 values by visitor count). Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                granularity (str, required): Time granularity for chart data points, `hourly`, `daily`, `weekly` or `monthly`.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsOperatingSystemsChartData]:
+                timestamp (str): Timestamp of the data point
+                os (str): Operating system
+                visitors (int): Number of visitors
+                session_bounce_rate (float): Session bounce rate (percentage of sessions that triggered only one request)
+                avg_session_duration_sec (int): Average session duration (in seconds)
+        """
+        if request is None:
+            _missing = [k for k, v in [("granularity", granularity), ("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsOperatingSystemsChartRequest(**{k: v for k, v in [("os_to_chart", os_to_chart), ("where", where), ("granularity", granularity), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = self._request("web-analytics", "operating-systems-chart", request, WebAnalyticsOperatingSystemsChartResponse, exclude_none=True)
+        return _resp.data
+
+    def web_analytics_operating_systems_versions(
+        self,
+        request: WebAnalyticsOperatingSystemsVersionsRequest | None = None,
+        *,
+        limit: int | None = None,
+        order_by: str | None = None,
+        where: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsOperatingSystemsVersionsData]:
+        """
+        Operating Systems Versions.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsOperatingSystemsVersionsRequest
+                limit (int, optional): The number of results to return. Default: None.
+                order_by (str, optional): Order by metric, as `metric:desc` or `metric:asc`. The following metrics are supported:  **pageviews**: Number of pageview events   type: integer  **visitors**: Number of visitors   type: integer  **visits**: Number of visits   type: integer  **session_bounce_rate**: Session bounce rate (percentage of sessions that triggered only one request)   type: float  **avg_session_length**: Average session length (in seconds)   type: float  **avg_session_duration_sec**: Average session duration (in seconds)   type: integer  **exit_rate**: Exit rate (percentage of pageviews that were the last in the session)   type: float  **exits**: Number of exits   type: integer  **entries**: Number of entries   type: integer  **avg_page_visit_duration_sec**: Average page visit duration (in seconds)   type: integer Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsOperatingSystemsVersionsData]:
+                os_version (str): Operating system version
+                visitors (int): Number of visitors
+                session_bounce_rate (float): Session bounce rate (percentage of sessions that triggered only one request)
+                avg_session_duration_sec (int): Average session duration (in seconds)
+        """
+        if request is None:
+            _missing = [k for k, v in [("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsOperatingSystemsVersionsRequest(**{k: v for k, v in [("limit", limit), ("order_by", order_by), ("where", where), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = self._request("web-analytics", "operating-systems-versions", request, WebAnalyticsOperatingSystemsVersionsResponse, exclude_none=True)
+        return _resp.data
+
+    def web_analytics_operating_systems_versions_chart(
+        self,
+        request: WebAnalyticsOperatingSystemsVersionsChartRequest | None = None,
+        *,
+        os_versions_to_chart: str | None = None,
+        where: str | None = None,
+        granularity: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsOperatingSystemsVersionsChartData]:
+        """
+        Operating Systems Versions Chart.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsOperatingSystemsVersionsChartRequest
+                os_versions_to_chart (str, optional): Specify which values to chart (as a comma separated list), if not provided then `(top5-by-visitors)` is used by default (which charts top 5 values by visitor count). Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                granularity (str, required): Time granularity for chart data points, `hourly`, `daily`, `weekly` or `monthly`.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsOperatingSystemsVersionsChartData]:
+                timestamp (str): Timestamp of the data point
+                os_version (str): Operating system version
+                visitors (int): Number of visitors
+                session_bounce_rate (float): Session bounce rate (percentage of sessions that triggered only one request)
+                avg_session_duration_sec (int): Average session duration (in seconds)
+        """
+        if request is None:
+            _missing = [k for k, v in [("granularity", granularity), ("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsOperatingSystemsVersionsChartRequest(**{k: v for k, v in [("os_versions_to_chart", os_versions_to_chart), ("where", where), ("granularity", granularity), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = self._request("web-analytics", "operating-systems-versions-chart", request, WebAnalyticsOperatingSystemsVersionsChartResponse, exclude_none=True)
+        return _resp.data
+
+    def web_analytics_referrers(
+        self,
+        request: WebAnalyticsReferrersRequest | None = None,
+        *,
+        limit: int | None = None,
+        order_by: str | None = None,
+        where: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsReferrersData]:
+        """
+        Referrers.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsReferrersRequest
+                limit (int, optional): The number of results to return. Default: None.
+                order_by (str, optional): Order by metric, as `metric:desc` or `metric:asc`. The following metrics are supported:  **pageviews**: Number of pageview events   type: integer  **visitors**: Number of visitors   type: integer  **visits**: Number of visits   type: integer  **session_bounce_rate**: Session bounce rate (percentage of sessions that triggered only one request)   type: float  **avg_session_length**: Average session length (in seconds)   type: float  **avg_session_duration_sec**: Average session duration (in seconds)   type: integer  **exit_rate**: Exit rate (percentage of pageviews that were the last in the session)   type: float  **exits**: Number of exits   type: integer  **entries**: Number of entries   type: integer  **avg_page_visit_duration_sec**: Average page visit duration (in seconds)   type: integer Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsReferrersData]:
+                source_referer (str): Referer source
+                visitors (int): Number of visitors
+                session_bounce_rate (float): Session bounce rate (percentage of sessions that triggered only one request)
+                avg_session_duration_sec (int): Average session duration (in seconds)
+        """
+        if request is None:
+            _missing = [k for k, v in [("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsReferrersRequest(**{k: v for k, v in [("limit", limit), ("order_by", order_by), ("where", where), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = self._request("web-analytics", "referrers", request, WebAnalyticsReferrersResponse, exclude_none=True)
+        return _resp.data
+
+    def web_analytics_referrers_chart(
+        self,
+        request: WebAnalyticsReferrersChartRequest | None = None,
+        *,
+        source_referers_to_chart: str | None = None,
+        where: str | None = None,
+        granularity: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsReferrersChartData]:
+        """
+        Referrers Chart.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsReferrersChartRequest
+                source_referers_to_chart (str, optional): Specify which values to chart (as a comma separated list), if not provided then `(top5-by-visitors)` is used by default (which charts top 5 values by visitor count). Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                granularity (str, required): Time granularity for chart data points, `hourly`, `daily`, `weekly` or `monthly`.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsReferrersChartData]:
+                timestamp (str): Timestamp of the data point
+                source_referer (str): Referer source
+                visitors (int): Number of visitors
+                session_bounce_rate (float): Session bounce rate (percentage of sessions that triggered only one request)
+                avg_session_duration_sec (int): Average session duration (in seconds)
+        """
+        if request is None:
+            _missing = [k for k, v in [("granularity", granularity), ("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsReferrersChartRequest(**{k: v for k, v in [("source_referers_to_chart", source_referers_to_chart), ("where", where), ("granularity", granularity), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = self._request("web-analytics", "referrers-chart", request, WebAnalyticsReferrersChartResponse, exclude_none=True)
+        return _resp.data
+
+    def web_analytics_source_channels(
+        self,
+        request: WebAnalyticsSourceChannelsRequest | None = None,
+        *,
+        limit: int | None = None,
+        order_by: str | None = None,
+        where: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsSourceChannelsData]:
+        """
+        Source Channels.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsSourceChannelsRequest
+                limit (int, optional): The number of results to return. Default: None.
+                order_by (str, optional): Order by metric, as `metric:desc` or `metric:asc`. The following metrics are supported:  **pageviews**: Number of pageview events   type: integer  **visitors**: Number of visitors   type: integer  **visits**: Number of visits   type: integer  **session_bounce_rate**: Session bounce rate (percentage of sessions that triggered only one request)   type: float  **avg_session_length**: Average session length (in seconds)   type: float  **avg_session_duration_sec**: Average session duration (in seconds)   type: integer  **exit_rate**: Exit rate (percentage of pageviews that were the last in the session)   type: float  **exits**: Number of exits   type: integer  **entries**: Number of entries   type: integer  **avg_page_visit_duration_sec**: Average page visit duration (in seconds)   type: integer Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsSourceChannelsData]:
+                source_channel (str): Source Channel
+                visitors (int): Number of visitors
+                session_bounce_rate (float): Session bounce rate (percentage of sessions that triggered only one request)
+                avg_session_duration_sec (int): Average session duration (in seconds)
+        """
+        if request is None:
+            _missing = [k for k, v in [("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsSourceChannelsRequest(**{k: v for k, v in [("limit", limit), ("order_by", order_by), ("where", where), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = self._request("web-analytics", "source-channels", request, WebAnalyticsSourceChannelsResponse, exclude_none=True)
+        return _resp.data
+
+    def web_analytics_source_channels_chart(
+        self,
+        request: WebAnalyticsSourceChannelsChartRequest | None = None,
+        *,
+        source_channels_to_chart: str | None = None,
+        where: str | None = None,
+        granularity: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsSourceChannelsChartData]:
+        """
+        Source Channels Chart.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsSourceChannelsChartRequest
+                source_channels_to_chart (str, optional): Specify which values to chart (as a comma separated list), if not provided then `(top5-by-visitors)` is used by default (which charts top 5 values by visitor count). Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                granularity (str, required): Time granularity for chart data points, `hourly`, `daily`, `weekly` or `monthly`.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsSourceChannelsChartData]:
+                timestamp (str): Timestamp of the data point
+                source_channel (str): Source Channel
+                visitors (int): Number of visitors
+                session_bounce_rate (float): Session bounce rate (percentage of sessions that triggered only one request)
+                avg_session_duration_sec (int): Average session duration (in seconds)
+        """
+        if request is None:
+            _missing = [k for k, v in [("granularity", granularity), ("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsSourceChannelsChartRequest(**{k: v for k, v in [("source_channels_to_chart", source_channels_to_chart), ("where", where), ("granularity", granularity), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = self._request("web-analytics", "source-channels-chart", request, WebAnalyticsSourceChannelsChartResponse, exclude_none=True)
+        return _resp.data
+
+    def web_analytics_sources(
+        self,
+        request: WebAnalyticsSourcesRequest | None = None,
+        *,
+        limit: int | None = None,
+        order_by: str | None = None,
+        where: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsSourcesData]:
+        """
+        Sources.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsSourcesRequest
+                limit (int, optional): The number of results to return. Default: None.
+                order_by (str, optional): Order by metric, as `metric:desc` or `metric:asc`. The following metrics are supported:  **pageviews**: Number of pageview events   type: integer  **visitors**: Number of visitors   type: integer  **visits**: Number of visits   type: integer  **session_bounce_rate**: Session bounce rate (percentage of sessions that triggered only one request)   type: float  **avg_session_length**: Average session length (in seconds)   type: float  **avg_session_duration_sec**: Average session duration (in seconds)   type: integer  **exit_rate**: Exit rate (percentage of pageviews that were the last in the session)   type: float  **exits**: Number of exits   type: integer  **entries**: Number of entries   type: integer  **avg_page_visit_duration_sec**: Average page visit duration (in seconds)   type: integer Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsSourcesData]:
+                source (str): Source
+                visitors (int): Number of visitors
+                session_bounce_rate (float): Session bounce rate (percentage of sessions that triggered only one request)
+                avg_session_duration_sec (int): Average session duration (in seconds)
+        """
+        if request is None:
+            _missing = [k for k, v in [("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsSourcesRequest(**{k: v for k, v in [("limit", limit), ("order_by", order_by), ("where", where), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = self._request("web-analytics", "sources", request, WebAnalyticsSourcesResponse, exclude_none=True)
+        return _resp.data
+
+    def web_analytics_sources_chart(
+        self,
+        request: WebAnalyticsSourcesChartRequest | None = None,
+        *,
+        sources_to_chart: str | None = None,
+        where: str | None = None,
+        granularity: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsSourcesChartData]:
+        """
+        Sources Chart.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsSourcesChartRequest
+                sources_to_chart (str, optional): Specify which values to chart (as a comma separated list), if not provided then `(top5-by-visitors)` is used by default (which charts top 5 values by visitor count). Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                granularity (str, required): Time granularity for chart data points, `hourly`, `daily`, `weekly` or `monthly`.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsSourcesChartData]:
+                timestamp (str): Timestamp of the data point
+                source (str): Source
+                visitors (int): Number of visitors
+                session_bounce_rate (float): Session bounce rate (percentage of sessions that triggered only one request)
+                avg_session_duration_sec (int): Average session duration (in seconds)
+        """
+        if request is None:
+            _missing = [k for k, v in [("granularity", granularity), ("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsSourcesChartRequest(**{k: v for k, v in [("sources_to_chart", sources_to_chart), ("where", where), ("granularity", granularity), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = self._request("web-analytics", "sources-chart", request, WebAnalyticsSourcesChartResponse, exclude_none=True)
+        return _resp.data
+
+    def web_analytics_stats(
+        self,
+        request: WebAnalyticsStatsRequest | None = None,
+        *,
+        limit: int | None = None,
+        order_by: str | None = None,
+        where: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> WebAnalyticsStatsData | None:
+        """
+        Stats.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsStatsRequest
+                limit (int, optional): The number of results to return. Default: None.
+                order_by (str, optional): Order by metric, as `metric:desc` or `metric:asc`. The following metrics are supported:  **pageviews**: Number of pageview events   type: integer  **visitors**: Number of visitors   type: integer  **visits**: Number of visits   type: integer  **session_bounce_rate**: Session bounce rate (percentage of sessions that triggered only one request)   type: float  **avg_session_length**: Average session length (in seconds)   type: float  **avg_session_duration_sec**: Average session duration (in seconds)   type: integer  **exit_rate**: Exit rate (percentage of pageviews that were the last in the session)   type: float  **exits**: Number of exits   type: integer  **entries**: Number of entries   type: integer  **avg_page_visit_duration_sec**: Average page visit duration (in seconds)   type: integer Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            WebAnalyticsStatsData | None:
+                pageviews (int): Number of pageview events
+                visitors (int): Number of visitors
+                visits (int): Number of visits
+                session_bounce_rate (float): Session bounce rate (percentage of sessions that triggered only one request)
+                avg_session_length (float): Average session length (in seconds)
+                avg_session_duration_sec (int): Average session duration (in seconds)
+        """
+        if request is None:
+            _missing = [k for k, v in [("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsStatsRequest(**{k: v for k, v in [("limit", limit), ("order_by", order_by), ("where", where), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = self._request("web-analytics", "stats", request, WebAnalyticsStatsResponse, exclude_none=True)
+        return _resp.data
+
+    def web_analytics_top_pages(
+        self,
+        request: WebAnalyticsTopPagesRequest | None = None,
+        *,
+        limit: int | None = None,
+        order_by: str | None = None,
+        where: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsTopPagesData]:
+        """
+        Top Pages.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsTopPagesRequest
+                limit (int, optional): The number of results to return. Default: None.
+                order_by (str, optional): Order by metric, as `metric:desc` or `metric:asc`. The following metrics are supported:  **pageviews**: Number of pageview events   type: integer  **visitors**: Number of visitors   type: integer  **visits**: Number of visits   type: integer  **session_bounce_rate**: Session bounce rate (percentage of sessions that triggered only one request)   type: float  **avg_session_length**: Average session length (in seconds)   type: float  **avg_session_duration_sec**: Average session duration (in seconds)   type: integer  **exit_rate**: Exit rate (percentage of pageviews that were the last in the session)   type: float  **exits**: Number of exits   type: integer  **entries**: Number of entries   type: integer  **avg_page_visit_duration_sec**: Average page visit duration (in seconds)   type: integer Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsTopPagesData]:
+                page (str): Page URL
+                pageviews (int): Number of pageview events
+                visitors (int): Number of visitors
+                session_bounce_rate (float): Session bounce rate (percentage of sessions that triggered only one request)
+                avg_page_visit_duration_sec (int): Average page visit duration (in seconds)
+        """
+        if request is None:
+            _missing = [k for k, v in [("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsTopPagesRequest(**{k: v for k, v in [("limit", limit), ("order_by", order_by), ("where", where), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = self._request("web-analytics", "top-pages", request, WebAnalyticsTopPagesResponse, exclude_none=True)
+        return _resp.data
+
+    def web_analytics_top_pages_chart(
+        self,
+        request: WebAnalyticsTopPagesChartRequest | None = None,
+        *,
+        pages_to_chart: str | None = None,
+        where: str | None = None,
+        granularity: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsTopPagesChartData]:
+        """
+        Top Pages Chart.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsTopPagesChartRequest
+                pages_to_chart (str, optional): Specify which values to chart (as a comma separated list), if not provided then `(top5-by-visitors)` is used by default (which charts top 5 values by visitor count). Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                granularity (str, required): Time granularity for chart data points, `hourly`, `daily`, `weekly` or `monthly`.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsTopPagesChartData]:
+                timestamp (str): Timestamp of the data point
+                page (str): Page URL
+                pageviews (int): Number of pageview events
+                visitors (int): Number of visitors
+                session_bounce_rate (float): Session bounce rate (percentage of sessions that triggered only one request)
+                avg_page_visit_duration_sec (int): Average page visit duration (in seconds)
+        """
+        if request is None:
+            _missing = [k for k, v in [("granularity", granularity), ("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsTopPagesChartRequest(**{k: v for k, v in [("pages_to_chart", pages_to_chart), ("where", where), ("granularity", granularity), ("to", to), ("from_", from_), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = self._request("web-analytics", "top-pages-chart", request, WebAnalyticsTopPagesChartResponse, exclude_none=True)
+        return _resp.data
+
+    def web_analytics_utm_params(
+        self,
+        request: WebAnalyticsUtmParamsRequest | None = None,
+        *,
+        limit: int | None = None,
+        order_by: str | None = None,
+        where: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        utm_param: UtmParamEnum | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsUtmParamsData]:
+        """
+        UTM Parameters.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsUtmParamsRequest
+                limit (int, optional): The number of results to return. Default: None.
+                order_by (str, optional): Order by metric, as `metric:desc` or `metric:asc`. The following metrics are supported:  **pageviews**: Number of pageview events   type: integer  **visitors**: Number of visitors   type: integer  **visits**: Number of visits   type: integer  **session_bounce_rate**: Session bounce rate (percentage of sessions that triggered only one request)   type: float  **avg_session_length**: Average session length (in seconds)   type: float  **avg_session_duration_sec**: Average session duration (in seconds)   type: integer  **exit_rate**: Exit rate (percentage of pageviews that were the last in the session)   type: float  **exits**: Number of exits   type: integer  **entries**: Number of entries   type: integer  **avg_page_visit_duration_sec**: Average page visit duration (in seconds)   type: integer Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                utm_param (UtmParamEnum, required): Specify a UTM parameter to use as dimension (one of `utm_source`, `utm_medium`, `utm_campaign`, `utm_term`, or `utm_content`).
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsUtmParamsData]:
+                utm_param (str): UTM parameter value
+                visitors (int): Number of visitors
+                session_bounce_rate (float): Session bounce rate (percentage of sessions that triggered only one request)
+                avg_session_duration_sec (int): Average session duration (in seconds)
+        """
+        if request is None:
+            _missing = [k for k, v in [("utm_param", utm_param), ("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsUtmParamsRequest(**{k: v for k, v in [("limit", limit), ("order_by", order_by), ("where", where), ("to", to), ("from_", from_), ("utm_param", utm_param), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = self._request("web-analytics", "utm-params", request, WebAnalyticsUtmParamsResponse, exclude_none=True)
+        return _resp.data
+
+    def web_analytics_utm_params_chart(
+        self,
+        request: WebAnalyticsUtmParamsChartRequest | None = None,
+        *,
+        utm_params_to_chart: str | None = None,
+        where: str | None = None,
+        granularity: str | None = None,
+        to: str | None = None,
+        from_: str | None = None,
+        utm_param: UtmParamEnum | None = None,
+        project_id: int | None = None,
+    ) -> list[WebAnalyticsUtmParamsChartData]:
+        """
+        UTM Parameters Chart.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: WebAnalyticsUtmParamsChartRequest
+                utm_params_to_chart (str, optional): Specify which values to chart (as a comma separated list), if not provided then `(top5-by-visitors)` is used by default (which charts top 5 values by visitor count). Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                granularity (str, required): Time granularity for chart data points, `hourly`, `daily`, `weekly` or `monthly`.
+                to (str, optional): end datetime for the data query Default: None.
+                from_ (str, optional): start datetime for the data query Default: None. (API name: from)
+                utm_param (UtmParamEnum, required): Specify a UTM parameter to use as dimension (one of `utm_source`, `utm_medium`, `utm_campaign`, `utm_term`, or `utm_content`).
+                project_id (int, required): Project ID
+
+        Returns:
+            list[WebAnalyticsUtmParamsChartData]:
+                timestamp (str): Timestamp of the data point
+                utm_param (str): UTM parameter value
+                visitors (int): Number of visitors
+                session_bounce_rate (float): Session bounce rate (percentage of sessions that triggered only one request)
+                avg_session_duration_sec (int): Average session duration (in seconds)
+        """
+        if request is None:
+            _missing = [k for k, v in [("granularity", granularity), ("utm_param", utm_param), ("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = WebAnalyticsUtmParamsChartRequest(**{k: v for k, v in [("utm_params_to_chart", utm_params_to_chart), ("where", where), ("granularity", granularity), ("to", to), ("from_", from_), ("utm_param", utm_param), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = self._request("web-analytics", "utm-params-chart", request, WebAnalyticsUtmParamsChartResponse, exclude_none=True)
         return _resp.data
 
     # fmt: on

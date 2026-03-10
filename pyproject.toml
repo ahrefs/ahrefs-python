@@ -1,6 +1,6 @@
 [project]
 name = "ahrefs-python"
-version = "0.4.3-alpha"
+version = "0.5.0-alpha"
 description = "Python client for the Ahrefs API"
 readme = "README.md"
 license = "MIT"
@@ -68,6 +68,7 @@ select = ["E", "F", "I", "UP", "B"]
 "src/ahrefs/types/_generated.py" = ["E501"]
 
 [tool.pytest.ini_options]
+pythonpath = ["src"]
 testpaths = ["tests"]
 markers = [
     "integration: requires AHREFS_API_KEY and live API access",

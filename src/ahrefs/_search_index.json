@@ -9930,5 +9930,2358 @@
         }
       ]
     }
+  },
+  {
+    "method": "web_analytics_browser_versions",
+    "section": "web-analytics",
+    "description": "Browser Versions",
+    "parameters": [
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "description": "The number of results to return."
+      },
+      {
+        "name": "order_by",
+        "type": "str",
+        "required": false,
+        "description": "Order by metric, as `metric:desc` or `metric:asc`. The following metrics are supported:  **pageviews**: Number of pageview events   type: integer  **visitors**: Number of visitors   type: integer  **visits**: Number of visits   type: integer  **session_bounce_rate**: Session bounce rate (percentage of sessions that triggered only one request)   type: float  **avg_session_length**: Average session length (in seconds)   type: float  **avg_session_duration_sec**: Average session duration (in seconds)   type: integer  **exit_rate**: Exit rate (percentage of pageviews that were the last in the session)   type: float  **exits**: Number of exits   type: integer  **entries**: Number of entries   type: integer  **avg_page_visit_duration_sec**: Average page visit duration (in seconds)   type: integer"
+      },
+      {
+        "name": "where",
+        "type": "str",
+        "required": false,
+        "description": "Filter expression. See filter-syntax.md for syntax."
+      },
+      {
+        "name": "to",
+        "type": "str",
+        "required": false,
+        "description": "end datetime for the data query"
+      },
+      {
+        "name": "from_",
+        "type": "str",
+        "required": false,
+        "description": "start datetime for the data query"
+      },
+      {
+        "name": "project_id",
+        "type": "int",
+        "required": true,
+        "description": "Project ID"
+      }
+    ],
+    "returns": {
+      "type": "list[WebAnalyticsBrowserVersionsData]",
+      "fields": [
+        {
+          "name": "browser_version",
+          "type": "str",
+          "description": "Browser version"
+        },
+        {
+          "name": "visitors",
+          "type": "int",
+          "description": "Number of visitors"
+        },
+        {
+          "name": "session_bounce_rate",
+          "type": "float",
+          "description": "Session bounce rate (percentage of sessions that triggered only one request)"
+        },
+        {
+          "name": "avg_session_duration_sec",
+          "type": "int",
+          "description": "Average session duration (in seconds)"
+        }
+      ]
+    }
+  },
+  {
+    "method": "web_analytics_browser_versions_chart",
+    "section": "web-analytics",
+    "description": "Browser Versions Chart",
+    "parameters": [
+      {
+        "name": "browser_version_to_chart",
+        "type": "str",
+        "required": false,
+        "description": "Specify which values to chart (as a comma separated list), if not provided then `(top5-by-visitors)` is used by default (which charts top 5 values by visitor count)."
+      },
+      {
+        "name": "where",
+        "type": "str",
+        "required": false,
+        "description": "Filter expression. See filter-syntax.md for syntax."
+      },
+      {
+        "name": "granularity",
+        "type": "str",
+        "required": true,
+        "description": "Time granularity for chart data points, `hourly`, `daily`, `weekly` or `monthly`."
+      },
+      {
+        "name": "to",
+        "type": "str",
+        "required": false,
+        "description": "end datetime for the data query"
+      },
+      {
+        "name": "from_",
+        "type": "str",
+        "required": false,
+        "description": "start datetime for the data query"
+      },
+      {
+        "name": "project_id",
+        "type": "int",
+        "required": true,
+        "description": "Project ID"
+      }
+    ],
+    "returns": {
+      "type": "list[WebAnalyticsBrowserVersionsChartData]",
+      "fields": [
+        {
+          "name": "timestamp",
+          "type": "str",
+          "description": "Timestamp of the data point"
+        },
+        {
+          "name": "browser_version",
+          "type": "str",
+          "description": "Browser version"
+        },
+        {
+          "name": "visitors",
+          "type": "int",
+          "description": "Number of visitors"
+        },
+        {
+          "name": "session_bounce_rate",
+          "type": "float",
+          "description": "Session bounce rate (percentage of sessions that triggered only one request)"
+        },
+        {
+          "name": "avg_session_duration_sec",
+          "type": "int",
+          "description": "Average session duration (in seconds)"
+        }
+      ]
+    }
+  },
+  {
+    "method": "web_analytics_browsers",
+    "section": "web-analytics",
+    "description": "Browsers",
+    "parameters": [
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "description": "The number of results to return."
+      },
+      {
+        "name": "order_by",
+        "type": "str",
+        "required": false,
+        "description": "Order by metric, as `metric:desc` or `metric:asc`. The following metrics are supported:  **pageviews**: Number of pageview events   type: integer  **visitors**: Number of visitors   type: integer  **visits**: Number of visits   type: integer  **session_bounce_rate**: Session bounce rate (percentage of sessions that triggered only one request)   type: float  **avg_session_length**: Average session length (in seconds)   type: float  **avg_session_duration_sec**: Average session duration (in seconds)   type: integer  **exit_rate**: Exit rate (percentage of pageviews that were the last in the session)   type: float  **exits**: Number of exits   type: integer  **entries**: Number of entries   type: integer  **avg_page_visit_duration_sec**: Average page visit duration (in seconds)   type: integer"
+      },
+      {
+        "name": "where",
+        "type": "str",
+        "required": false,
+        "description": "Filter expression. See filter-syntax.md for syntax."
+      },
+      {
+        "name": "to",
+        "type": "str",
+        "required": false,
+        "description": "end datetime for the data query"
+      },
+      {
+        "name": "from_",
+        "type": "str",
+        "required": false,
+        "description": "start datetime for the data query"
+      },
+      {
+        "name": "project_id",
+        "type": "int",
+        "required": true,
+        "description": "Project ID"
+      }
+    ],
+    "returns": {
+      "type": "list[WebAnalyticsBrowsersData]",
+      "fields": [
+        {
+          "name": "browser",
+          "type": "str",
+          "description": "Browser"
+        },
+        {
+          "name": "visitors",
+          "type": "int",
+          "description": "Number of visitors"
+        },
+        {
+          "name": "session_bounce_rate",
+          "type": "float",
+          "description": "Session bounce rate (percentage of sessions that triggered only one request)"
+        },
+        {
+          "name": "avg_session_duration_sec",
+          "type": "int",
+          "description": "Average session duration (in seconds)"
+        }
+      ]
+    }
+  },
+  {
+    "method": "web_analytics_browsers_chart",
+    "section": "web-analytics",
+    "description": "Browsers Chart",
+    "parameters": [
+      {
+        "name": "browser_to_chart",
+        "type": "str",
+        "required": false,
+        "description": "Specify which values to chart (as a comma separated list), if not provided then `(top5-by-visitors)` is used by default (which charts top 5 values by visitor count)."
+      },
+      {
+        "name": "where",
+        "type": "str",
+        "required": false,
+        "description": "Filter expression. See filter-syntax.md for syntax."
+      },
+      {
+        "name": "granularity",
+        "type": "str",
+        "required": true,
+        "description": "Time granularity for chart data points, `hourly`, `daily`, `weekly` or `monthly`."
+      },
+      {
+        "name": "to",
+        "type": "str",
+        "required": false,
+        "description": "end datetime for the data query"
+      },
+      {
+        "name": "from_",
+        "type": "str",
+        "required": false,
+        "description": "start datetime for the data query"
+      },
+      {
+        "name": "project_id",
+        "type": "int",
+        "required": true,
+        "description": "Project ID"
+      }
+    ],
+    "returns": {
+      "type": "list[WebAnalyticsBrowsersChartData]",
+      "fields": [
+        {
+          "name": "timestamp",
+          "type": "str",
+          "description": "Timestamp of the data point"
+        },
+        {
+          "name": "browser",
+          "type": "str",
+          "description": "Browser"
+        },
+        {
+          "name": "visitors",
+          "type": "int",
+          "description": "Number of visitors"
+        },
+        {
+          "name": "session_bounce_rate",
+          "type": "float",
+          "description": "Session bounce rate (percentage of sessions that triggered only one request)"
+        },
+        {
+          "name": "avg_session_duration_sec",
+          "type": "int",
+          "description": "Average session duration (in seconds)"
+        }
+      ]
+    }
+  },
+  {
+    "method": "web_analytics_chart",
+    "section": "web-analytics",
+    "description": "Chart",
+    "parameters": [
+      {
+        "name": "where",
+        "type": "str",
+        "required": false,
+        "description": "Filter expression. See filter-syntax.md for syntax."
+      },
+      {
+        "name": "granularity",
+        "type": "str",
+        "required": true,
+        "description": "Time granularity for chart data points, `hourly`, `daily`, `weekly` or `monthly`."
+      },
+      {
+        "name": "to",
+        "type": "str",
+        "required": false,
+        "description": "end datetime for the data query"
+      },
+      {
+        "name": "from_",
+        "type": "str",
+        "required": false,
+        "description": "start datetime for the data query"
+      },
+      {
+        "name": "project_id",
+        "type": "int",
+        "required": true,
+        "description": "Project ID"
+      }
+    ],
+    "returns": {
+      "type": "list[WebAnalyticsChartData]",
+      "fields": [
+        {
+          "name": "timestamp",
+          "type": "str",
+          "description": "Timestamp of the data point"
+        },
+        {
+          "name": "pageviews",
+          "type": "int",
+          "description": "Number of pageview events"
+        },
+        {
+          "name": "visitors",
+          "type": "int",
+          "description": "Number of visitors"
+        },
+        {
+          "name": "visits",
+          "type": "int",
+          "description": "Number of visits"
+        },
+        {
+          "name": "session_bounce_rate",
+          "type": "float",
+          "description": "Session bounce rate (percentage of sessions that triggered only one request)"
+        },
+        {
+          "name": "avg_session_length",
+          "type": "float",
+          "description": "Average session length (in seconds)"
+        },
+        {
+          "name": "avg_session_duration_sec",
+          "type": "int",
+          "description": "Average session duration (in seconds)"
+        }
+      ]
+    }
+  },
+  {
+    "method": "web_analytics_cities",
+    "section": "web-analytics",
+    "description": "Cities",
+    "parameters": [
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "description": "The number of results to return."
+      },
+      {
+        "name": "order_by",
+        "type": "str",
+        "required": false,
+        "description": "Order by metric, as `metric:desc` or `metric:asc`. The following metrics are supported:  **pageviews**: Number of pageview events   type: integer  **visitors**: Number of visitors   type: integer  **visits**: Number of visits   type: integer  **session_bounce_rate**: Session bounce rate (percentage of sessions that triggered only one request)   type: float  **avg_session_length**: Average session length (in seconds)   type: float  **avg_session_duration_sec**: Average session duration (in seconds)   type: integer  **exit_rate**: Exit rate (percentage of pageviews that were the last in the session)   type: float  **exits**: Number of exits   type: integer  **entries**: Number of entries   type: integer  **avg_page_visit_duration_sec**: Average page visit duration (in seconds)   type: integer"
+      },
+      {
+        "name": "where",
+        "type": "str",
+        "required": false,
+        "description": "Filter expression. See filter-syntax.md for syntax."
+      },
+      {
+        "name": "to",
+        "type": "str",
+        "required": false,
+        "description": "end datetime for the data query"
+      },
+      {
+        "name": "from_",
+        "type": "str",
+        "required": false,
+        "description": "start datetime for the data query"
+      },
+      {
+        "name": "project_id",
+        "type": "int",
+        "required": true,
+        "description": "Project ID"
+      }
+    ],
+    "returns": {
+      "type": "list[WebAnalyticsCitiesData]",
+      "fields": [
+        {
+          "name": "city",
+          "type": "str",
+          "description": "City"
+        },
+        {
+          "name": "visitors",
+          "type": "int",
+          "description": "Number of visitors"
+        }
+      ]
+    }
+  },
+  {
+    "method": "web_analytics_cities_chart",
+    "section": "web-analytics",
+    "description": "Cities Chart",
+    "parameters": [
+      {
+        "name": "cities_to_chart",
+        "type": "str",
+        "required": false,
+        "description": "Specify which values to chart (as a comma separated list), if not provided then `(top5-by-visitors)` is used by default (which charts top 5 values by visitor count)."
+      },
+      {
+        "name": "where",
+        "type": "str",
+        "required": false,
+        "description": "Filter expression. See filter-syntax.md for syntax."
+      },
+      {
+        "name": "granularity",
+        "type": "str",
+        "required": true,
+        "description": "Time granularity for chart data points, `hourly`, `daily`, `weekly` or `monthly`."
+      },
+      {
+        "name": "to",
+        "type": "str",
+        "required": false,
+        "description": "end datetime for the data query"
+      },
+      {
+        "name": "from_",
+        "type": "str",
+        "required": false,
+        "description": "start datetime for the data query"
+      },
+      {
+        "name": "project_id",
+        "type": "int",
+        "required": true,
+        "description": "Project ID"
+      }
+    ],
+    "returns": {
+      "type": "list[WebAnalyticsCitiesChartData]",
+      "fields": [
+        {
+          "name": "timestamp",
+          "type": "str",
+          "description": "Timestamp of the data point"
+        },
+        {
+          "name": "city",
+          "type": "str",
+          "description": "City"
+        },
+        {
+          "name": "visitors",
+          "type": "int",
+          "description": "Number of visitors"
+        }
+      ]
+    }
+  },
+  {
+    "method": "web_analytics_continents",
+    "section": "web-analytics",
+    "description": "Continents",
+    "parameters": [
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "description": "The number of results to return."
+      },
+      {
+        "name": "order_by",
+        "type": "str",
+        "required": false,
+        "description": "Order by metric, as `metric:desc` or `metric:asc`. The following metrics are supported:  **pageviews**: Number of pageview events   type: integer  **visitors**: Number of visitors   type: integer  **visits**: Number of visits   type: integer  **session_bounce_rate**: Session bounce rate (percentage of sessions that triggered only one request)   type: float  **avg_session_length**: Average session length (in seconds)   type: float  **avg_session_duration_sec**: Average session duration (in seconds)   type: integer  **exit_rate**: Exit rate (percentage of pageviews that were the last in the session)   type: float  **exits**: Number of exits   type: integer  **entries**: Number of entries   type: integer  **avg_page_visit_duration_sec**: Average page visit duration (in seconds)   type: integer"
+      },
+      {
+        "name": "where",
+        "type": "str",
+        "required": false,
+        "description": "Filter expression. See filter-syntax.md for syntax."
+      },
+      {
+        "name": "to",
+        "type": "str",
+        "required": false,
+        "description": "end datetime for the data query"
+      },
+      {
+        "name": "from_",
+        "type": "str",
+        "required": false,
+        "description": "start datetime for the data query"
+      },
+      {
+        "name": "project_id",
+        "type": "int",
+        "required": true,
+        "description": "Project ID"
+      }
+    ],
+    "returns": {
+      "type": "list[WebAnalyticsContinentsData]",
+      "fields": [
+        {
+          "name": "continent",
+          "type": "str",
+          "description": "Continent"
+        },
+        {
+          "name": "visitors",
+          "type": "int",
+          "description": "Number of visitors"
+        }
+      ]
+    }
+  },
+  {
+    "method": "web_analytics_continents_chart",
+    "section": "web-analytics",
+    "description": "Continents Chart",
+    "parameters": [
+      {
+        "name": "continents_to_chart",
+        "type": "str",
+        "required": false,
+        "description": "Specify which values to chart (as a comma separated list), if not provided then `(top5-by-visitors)` is used by default (which charts top 5 values by visitor count)."
+      },
+      {
+        "name": "where",
+        "type": "str",
+        "required": false,
+        "description": "Filter expression. See filter-syntax.md for syntax."
+      },
+      {
+        "name": "granularity",
+        "type": "str",
+        "required": true,
+        "description": "Time granularity for chart data points, `hourly`, `daily`, `weekly` or `monthly`."
+      },
+      {
+        "name": "to",
+        "type": "str",
+        "required": false,
+        "description": "end datetime for the data query"
+      },
+      {
+        "name": "from_",
+        "type": "str",
+        "required": false,
+        "description": "start datetime for the data query"
+      },
+      {
+        "name": "project_id",
+        "type": "int",
+        "required": true,
+        "description": "Project ID"
+      }
+    ],
+    "returns": {
+      "type": "list[WebAnalyticsContinentsChartData]",
+      "fields": [
+        {
+          "name": "timestamp",
+          "type": "str",
+          "description": "Timestamp of the data point"
+        },
+        {
+          "name": "continent",
+          "type": "str",
+          "description": "Continent"
+        },
+        {
+          "name": "visitors",
+          "type": "int",
+          "description": "Number of visitors"
+        }
+      ]
+    }
+  },
+  {
+    "method": "web_analytics_countries",
+    "section": "web-analytics",
+    "description": "Countries",
+    "parameters": [
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "description": "The number of results to return."
+      },
+      {
+        "name": "order_by",
+        "type": "str",
+        "required": false,
+        "description": "Order by metric, as `metric:desc` or `metric:asc`. The following metrics are supported:  **pageviews**: Number of pageview events   type: integer  **visitors**: Number of visitors   type: integer  **visits**: Number of visits   type: integer  **session_bounce_rate**: Session bounce rate (percentage of sessions that triggered only one request)   type: float  **avg_session_length**: Average session length (in seconds)   type: float  **avg_session_duration_sec**: Average session duration (in seconds)   type: integer  **exit_rate**: Exit rate (percentage of pageviews that were the last in the session)   type: float  **exits**: Number of exits   type: integer  **entries**: Number of entries   type: integer  **avg_page_visit_duration_sec**: Average page visit duration (in seconds)   type: integer"
+      },
+      {
+        "name": "where",
+        "type": "str",
+        "required": false,
+        "description": "Filter expression. See filter-syntax.md for syntax."
+      },
+      {
+        "name": "to",
+        "type": "str",
+        "required": false,
+        "description": "end datetime for the data query"
+      },
+      {
+        "name": "from_",
+        "type": "str",
+        "required": false,
+        "description": "start datetime for the data query"
+      },
+      {
+        "name": "project_id",
+        "type": "int",
+        "required": true,
+        "description": "Project ID"
+      }
+    ],
+    "returns": {
+      "type": "list[WebAnalyticsCountriesData]",
+      "fields": [
+        {
+          "name": "country",
+          "type": "str",
+          "description": "Country"
+        },
+        {
+          "name": "visitors",
+          "type": "int",
+          "description": "Number of visitors"
+        }
+      ]
+    }
+  },
+  {
+    "method": "web_analytics_countries_chart",
+    "section": "web-analytics",
+    "description": "Countries Chart",
+    "parameters": [
+      {
+        "name": "countries_to_chart",
+        "type": "str",
+        "required": false,
+        "description": "Specify which values to chart (as a comma separated list), if not provided then `(top5-by-visitors)` is used by default (which charts top 5 values by visitor count)."
+      },
+      {
+        "name": "where",
+        "type": "str",
+        "required": false,
+        "description": "Filter expression. See filter-syntax.md for syntax."
+      },
+      {
+        "name": "granularity",
+        "type": "str",
+        "required": true,
+        "description": "Time granularity for chart data points, `hourly`, `daily`, `weekly` or `monthly`."
+      },
+      {
+        "name": "to",
+        "type": "str",
+        "required": false,
+        "description": "end datetime for the data query"
+      },
+      {
+        "name": "from_",
+        "type": "str",
+        "required": false,
+        "description": "start datetime for the data query"
+      },
+      {
+        "name": "project_id",
+        "type": "int",
+        "required": true,
+        "description": "Project ID"
+      }
+    ],
+    "returns": {
+      "type": "list[WebAnalyticsCountriesChartData]",
+      "fields": [
+        {
+          "name": "timestamp",
+          "type": "str",
+          "description": "Timestamp of the data point"
+        },
+        {
+          "name": "country",
+          "type": "str",
+          "description": "Country"
+        },
+        {
+          "name": "visitors",
+          "type": "int",
+          "description": "Number of visitors"
+        }
+      ]
+    }
+  },
+  {
+    "method": "web_analytics_devices",
+    "section": "web-analytics",
+    "description": "Devices",
+    "parameters": [
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "description": "The number of results to return."
+      },
+      {
+        "name": "order_by",
+        "type": "str",
+        "required": false,
+        "description": "Order by metric, as `metric:desc` or `metric:asc`. The following metrics are supported:  **pageviews**: Number of pageview events   type: integer  **visitors**: Number of visitors   type: integer  **visits**: Number of visits   type: integer  **session_bounce_rate**: Session bounce rate (percentage of sessions that triggered only one request)   type: float  **avg_session_length**: Average session length (in seconds)   type: float  **avg_session_duration_sec**: Average session duration (in seconds)   type: integer  **exit_rate**: Exit rate (percentage of pageviews that were the last in the session)   type: float  **exits**: Number of exits   type: integer  **entries**: Number of entries   type: integer  **avg_page_visit_duration_sec**: Average page visit duration (in seconds)   type: integer"
+      },
+      {
+        "name": "where",
+        "type": "str",
+        "required": false,
+        "description": "Filter expression. See filter-syntax.md for syntax."
+      },
+      {
+        "name": "to",
+        "type": "str",
+        "required": false,
+        "description": "end datetime for the data query"
+      },
+      {
+        "name": "from_",
+        "type": "str",
+        "required": false,
+        "description": "start datetime for the data query"
+      },
+      {
+        "name": "project_id",
+        "type": "int",
+        "required": true,
+        "description": "Project ID"
+      }
+    ],
+    "returns": {
+      "type": "list[WebAnalyticsDevicesData]",
+      "fields": [
+        {
+          "name": "device",
+          "type": "str",
+          "description": "Device type"
+        },
+        {
+          "name": "visitors",
+          "type": "int",
+          "description": "Number of visitors"
+        },
+        {
+          "name": "session_bounce_rate",
+          "type": "float",
+          "description": "Session bounce rate (percentage of sessions that triggered only one request)"
+        },
+        {
+          "name": "avg_session_duration_sec",
+          "type": "int",
+          "description": "Average session duration (in seconds)"
+        }
+      ]
+    }
+  },
+  {
+    "method": "web_analytics_devices_chart",
+    "section": "web-analytics",
+    "description": "Devices Chart",
+    "parameters": [
+      {
+        "name": "devices_to_chart",
+        "type": "str",
+        "required": false,
+        "description": "Specify which values to chart (as a comma separated list), if not provided then `(top5-by-visitors)` is used by default (which charts top 5 values by visitor count)."
+      },
+      {
+        "name": "where",
+        "type": "str",
+        "required": false,
+        "description": "Filter expression. See filter-syntax.md for syntax."
+      },
+      {
+        "name": "granularity",
+        "type": "str",
+        "required": true,
+        "description": "Time granularity for chart data points, `hourly`, `daily`, `weekly` or `monthly`."
+      },
+      {
+        "name": "to",
+        "type": "str",
+        "required": false,
+        "description": "end datetime for the data query"
+      },
+      {
+        "name": "from_",
+        "type": "str",
+        "required": false,
+        "description": "start datetime for the data query"
+      },
+      {
+        "name": "project_id",
+        "type": "int",
+        "required": true,
+        "description": "Project ID"
+      }
+    ],
+    "returns": {
+      "type": "list[WebAnalyticsDevicesChartData]",
+      "fields": [
+        {
+          "name": "timestamp",
+          "type": "str",
+          "description": "Timestamp of the data point"
+        },
+        {
+          "name": "device",
+          "type": "str",
+          "description": "Device type"
+        },
+        {
+          "name": "visitors",
+          "type": "int",
+          "description": "Number of visitors"
+        },
+        {
+          "name": "session_bounce_rate",
+          "type": "float",
+          "description": "Session bounce rate (percentage of sessions that triggered only one request)"
+        },
+        {
+          "name": "avg_session_duration_sec",
+          "type": "int",
+          "description": "Average session duration (in seconds)"
+        }
+      ]
+    }
+  },
+  {
+    "method": "web_analytics_entry_pages",
+    "section": "web-analytics",
+    "description": "Entry Pages",
+    "parameters": [
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "description": "The number of results to return."
+      },
+      {
+        "name": "order_by",
+        "type": "str",
+        "required": false,
+        "description": "Order by metric, as `metric:desc` or `metric:asc`. The following metrics are supported:  **pageviews**: Number of pageview events   type: integer  **visitors**: Number of visitors   type: integer  **visits**: Number of visits   type: integer  **session_bounce_rate**: Session bounce rate (percentage of sessions that triggered only one request)   type: float  **avg_session_length**: Average session length (in seconds)   type: float  **avg_session_duration_sec**: Average session duration (in seconds)   type: integer  **exit_rate**: Exit rate (percentage of pageviews that were the last in the session)   type: float  **exits**: Number of exits   type: integer  **entries**: Number of entries   type: integer  **avg_page_visit_duration_sec**: Average page visit duration (in seconds)   type: integer"
+      },
+      {
+        "name": "where",
+        "type": "str",
+        "required": false,
+        "description": "Filter expression. See filter-syntax.md for syntax."
+      },
+      {
+        "name": "to",
+        "type": "str",
+        "required": false,
+        "description": "end datetime for the data query"
+      },
+      {
+        "name": "from_",
+        "type": "str",
+        "required": false,
+        "description": "start datetime for the data query"
+      },
+      {
+        "name": "project_id",
+        "type": "int",
+        "required": true,
+        "description": "Project ID"
+      }
+    ],
+    "returns": {
+      "type": "list[WebAnalyticsEntryPagesData]",
+      "fields": [
+        {
+          "name": "entry_page",
+          "type": "str",
+          "description": "Entry page URL"
+        },
+        {
+          "name": "visitors",
+          "type": "int",
+          "description": "Number of visitors"
+        },
+        {
+          "name": "entries",
+          "type": "int",
+          "description": "Number of entries"
+        },
+        {
+          "name": "avg_session_duration_sec",
+          "type": "int",
+          "description": "Average session duration (in seconds)"
+        }
+      ]
+    }
+  },
+  {
+    "method": "web_analytics_entry_pages_chart",
+    "section": "web-analytics",
+    "description": "Entry Pages Chart",
+    "parameters": [
+      {
+        "name": "entry_pages_to_chart",
+        "type": "str",
+        "required": false,
+        "description": "Specify which values to chart (as a comma separated list), if not provided then `(top5-by-visitors)` is used by default (which charts top 5 values by visitor count)."
+      },
+      {
+        "name": "where",
+        "type": "str",
+        "required": false,
+        "description": "Filter expression. See filter-syntax.md for syntax."
+      },
+      {
+        "name": "granularity",
+        "type": "str",
+        "required": true,
+        "description": "Time granularity for chart data points, `hourly`, `daily`, `weekly` or `monthly`."
+      },
+      {
+        "name": "to",
+        "type": "str",
+        "required": false,
+        "description": "end datetime for the data query"
+      },
+      {
+        "name": "from_",
+        "type": "str",
+        "required": false,
+        "description": "start datetime for the data query"
+      },
+      {
+        "name": "project_id",
+        "type": "int",
+        "required": true,
+        "description": "Project ID"
+      }
+    ],
+    "returns": {
+      "type": "list[WebAnalyticsEntryPagesChartData]",
+      "fields": [
+        {
+          "name": "timestamp",
+          "type": "str",
+          "description": "Timestamp of the data point"
+        },
+        {
+          "name": "entry_page",
+          "type": "str",
+          "description": "Entry page URL"
+        },
+        {
+          "name": "visitors",
+          "type": "int",
+          "description": "Number of visitors"
+        },
+        {
+          "name": "entries",
+          "type": "int",
+          "description": "Number of entries"
+        },
+        {
+          "name": "avg_session_duration_sec",
+          "type": "int",
+          "description": "Average session duration (in seconds)"
+        }
+      ]
+    }
+  },
+  {
+    "method": "web_analytics_exit_pages",
+    "section": "web-analytics",
+    "description": "Exit Pages",
+    "parameters": [
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "description": "The number of results to return."
+      },
+      {
+        "name": "order_by",
+        "type": "str",
+        "required": false,
+        "description": "Order by metric, as `metric:desc` or `metric:asc`. The following metrics are supported:  **pageviews**: Number of pageview events   type: integer  **visitors**: Number of visitors   type: integer  **visits**: Number of visits   type: integer  **session_bounce_rate**: Session bounce rate (percentage of sessions that triggered only one request)   type: float  **avg_session_length**: Average session length (in seconds)   type: float  **avg_session_duration_sec**: Average session duration (in seconds)   type: integer  **exit_rate**: Exit rate (percentage of pageviews that were the last in the session)   type: float  **exits**: Number of exits   type: integer  **entries**: Number of entries   type: integer  **avg_page_visit_duration_sec**: Average page visit duration (in seconds)   type: integer"
+      },
+      {
+        "name": "where",
+        "type": "str",
+        "required": false,
+        "description": "Filter expression. See filter-syntax.md for syntax."
+      },
+      {
+        "name": "to",
+        "type": "str",
+        "required": false,
+        "description": "end datetime for the data query"
+      },
+      {
+        "name": "from_",
+        "type": "str",
+        "required": false,
+        "description": "start datetime for the data query"
+      },
+      {
+        "name": "project_id",
+        "type": "int",
+        "required": true,
+        "description": "Project ID"
+      }
+    ],
+    "returns": {
+      "type": "list[WebAnalyticsExitPagesData]",
+      "fields": [
+        {
+          "name": "exit_page",
+          "type": "str",
+          "description": "Exit page URL"
+        },
+        {
+          "name": "visitors",
+          "type": "int",
+          "description": "Number of visitors"
+        },
+        {
+          "name": "exits",
+          "type": "int",
+          "description": "Number of exits"
+        },
+        {
+          "name": "exit_rate",
+          "type": "float",
+          "description": "Exit rate (percentage of pageviews that were the last in the session)"
+        }
+      ]
+    }
+  },
+  {
+    "method": "web_analytics_exit_pages_chart",
+    "section": "web-analytics",
+    "description": "Exit Pages Chart",
+    "parameters": [
+      {
+        "name": "exit_pages_to_chart",
+        "type": "str",
+        "required": false,
+        "description": "Specify which values to chart (as a comma separated list), if not provided then `(top5-by-visitors)` is used by default (which charts top 5 values by visitor count)."
+      },
+      {
+        "name": "where",
+        "type": "str",
+        "required": false,
+        "description": "Filter expression. See filter-syntax.md for syntax."
+      },
+      {
+        "name": "granularity",
+        "type": "str",
+        "required": true,
+        "description": "Time granularity for chart data points, `hourly`, `daily`, `weekly` or `monthly`."
+      },
+      {
+        "name": "to",
+        "type": "str",
+        "required": false,
+        "description": "end datetime for the data query"
+      },
+      {
+        "name": "from_",
+        "type": "str",
+        "required": false,
+        "description": "start datetime for the data query"
+      },
+      {
+        "name": "project_id",
+        "type": "int",
+        "required": true,
+        "description": "Project ID"
+      }
+    ],
+    "returns": {
+      "type": "list[WebAnalyticsExitPagesChartData]",
+      "fields": [
+        {
+          "name": "timestamp",
+          "type": "str",
+          "description": "Timestamp of the data point"
+        },
+        {
+          "name": "exit_page",
+          "type": "str",
+          "description": "Exit page URL"
+        },
+        {
+          "name": "visitors",
+          "type": "int",
+          "description": "Number of visitors"
+        },
+        {
+          "name": "exits",
+          "type": "int",
+          "description": "Number of exits"
+        },
+        {
+          "name": "exit_rate",
+          "type": "float",
+          "description": "Exit rate (percentage of pageviews that were the last in the session)"
+        }
+      ]
+    }
+  },
+  {
+    "method": "web_analytics_languages",
+    "section": "web-analytics",
+    "description": "Languages",
+    "parameters": [
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "description": "The number of results to return."
+      },
+      {
+        "name": "order_by",
+        "type": "str",
+        "required": false,
+        "description": "Order by metric, as `metric:desc` or `metric:asc`. The following metrics are supported:  **pageviews**: Number of pageview events   type: integer  **visitors**: Number of visitors   type: integer  **visits**: Number of visits   type: integer  **session_bounce_rate**: Session bounce rate (percentage of sessions that triggered only one request)   type: float  **avg_session_length**: Average session length (in seconds)   type: float  **avg_session_duration_sec**: Average session duration (in seconds)   type: integer  **exit_rate**: Exit rate (percentage of pageviews that were the last in the session)   type: float  **exits**: Number of exits   type: integer  **entries**: Number of entries   type: integer  **avg_page_visit_duration_sec**: Average page visit duration (in seconds)   type: integer"
+      },
+      {
+        "name": "where",
+        "type": "str",
+        "required": false,
+        "description": "Filter expression. See filter-syntax.md for syntax."
+      },
+      {
+        "name": "to",
+        "type": "str",
+        "required": false,
+        "description": "end datetime for the data query"
+      },
+      {
+        "name": "from_",
+        "type": "str",
+        "required": false,
+        "description": "start datetime for the data query"
+      },
+      {
+        "name": "project_id",
+        "type": "int",
+        "required": true,
+        "description": "Project ID"
+      }
+    ],
+    "returns": {
+      "type": "list[WebAnalyticsLanguagesData]",
+      "fields": [
+        {
+          "name": "browser_language",
+          "type": "str",
+          "description": "Browser language"
+        },
+        {
+          "name": "visitors",
+          "type": "int",
+          "description": "Number of visitors"
+        }
+      ]
+    }
+  },
+  {
+    "method": "web_analytics_languages_chart",
+    "section": "web-analytics",
+    "description": "Languages Chart",
+    "parameters": [
+      {
+        "name": "browser_language_to_chart",
+        "type": "str",
+        "required": false,
+        "description": "Specify which values to chart (as a comma separated list), if not provided then `(top5-by-visitors)` is used by default (which charts top 5 values by visitor count)."
+      },
+      {
+        "name": "where",
+        "type": "str",
+        "required": false,
+        "description": "Filter expression. See filter-syntax.md for syntax."
+      },
+      {
+        "name": "granularity",
+        "type": "str",
+        "required": true,
+        "description": "Time granularity for chart data points, `hourly`, `daily`, `weekly` or `monthly`."
+      },
+      {
+        "name": "to",
+        "type": "str",
+        "required": false,
+        "description": "end datetime for the data query"
+      },
+      {
+        "name": "from_",
+        "type": "str",
+        "required": false,
+        "description": "start datetime for the data query"
+      },
+      {
+        "name": "project_id",
+        "type": "int",
+        "required": true,
+        "description": "Project ID"
+      }
+    ],
+    "returns": {
+      "type": "list[WebAnalyticsLanguagesChartData]",
+      "fields": [
+        {
+          "name": "timestamp",
+          "type": "str",
+          "description": "Timestamp of the data point"
+        },
+        {
+          "name": "browser_language",
+          "type": "str",
+          "description": "Browser language"
+        },
+        {
+          "name": "visitors",
+          "type": "int",
+          "description": "Number of visitors"
+        }
+      ]
+    }
+  },
+  {
+    "method": "web_analytics_operating_systems",
+    "section": "web-analytics",
+    "description": "Operating Systems",
+    "parameters": [
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "description": "The number of results to return."
+      },
+      {
+        "name": "order_by",
+        "type": "str",
+        "required": false,
+        "description": "Order by metric, as `metric:desc` or `metric:asc`. The following metrics are supported:  **pageviews**: Number of pageview events   type: integer  **visitors**: Number of visitors   type: integer  **visits**: Number of visits   type: integer  **session_bounce_rate**: Session bounce rate (percentage of sessions that triggered only one request)   type: float  **avg_session_length**: Average session length (in seconds)   type: float  **avg_session_duration_sec**: Average session duration (in seconds)   type: integer  **exit_rate**: Exit rate (percentage of pageviews that were the last in the session)   type: float  **exits**: Number of exits   type: integer  **entries**: Number of entries   type: integer  **avg_page_visit_duration_sec**: Average page visit duration (in seconds)   type: integer"
+      },
+      {
+        "name": "where",
+        "type": "str",
+        "required": false,
+        "description": "Filter expression. See filter-syntax.md for syntax."
+      },
+      {
+        "name": "to",
+        "type": "str",
+        "required": false,
+        "description": "end datetime for the data query"
+      },
+      {
+        "name": "from_",
+        "type": "str",
+        "required": false,
+        "description": "start datetime for the data query"
+      },
+      {
+        "name": "project_id",
+        "type": "int",
+        "required": true,
+        "description": "Project ID"
+      }
+    ],
+    "returns": {
+      "type": "list[WebAnalyticsOperatingSystemsData]",
+      "fields": [
+        {
+          "name": "os",
+          "type": "str",
+          "description": "Operating system"
+        },
+        {
+          "name": "visitors",
+          "type": "int",
+          "description": "Number of visitors"
+        },
+        {
+          "name": "session_bounce_rate",
+          "type": "float",
+          "description": "Session bounce rate (percentage of sessions that triggered only one request)"
+        },
+        {
+          "name": "avg_session_duration_sec",
+          "type": "int",
+          "description": "Average session duration (in seconds)"
+        }
+      ]
+    }
+  },
+  {
+    "method": "web_analytics_operating_systems_chart",
+    "section": "web-analytics",
+    "description": "Operating Systems Chart",
+    "parameters": [
+      {
+        "name": "os_to_chart",
+        "type": "str",
+        "required": false,
+        "description": "Specify which values to chart (as a comma separated list), if not provided then `(top5-by-visitors)` is used by default (which charts top 5 values by visitor count)."
+      },
+      {
+        "name": "where",
+        "type": "str",
+        "required": false,
+        "description": "Filter expression. See filter-syntax.md for syntax."
+      },
+      {
+        "name": "granularity",
+        "type": "str",
+        "required": true,
+        "description": "Time granularity for chart data points, `hourly`, `daily`, `weekly` or `monthly`."
+      },
+      {
+        "name": "to",
+        "type": "str",
+        "required": false,
+        "description": "end datetime for the data query"
+      },
+      {
+        "name": "from_",
+        "type": "str",
+        "required": false,
+        "description": "start datetime for the data query"
+      },
+      {
+        "name": "project_id",
+        "type": "int",
+        "required": true,
+        "description": "Project ID"
+      }
+    ],
+    "returns": {
+      "type": "list[WebAnalyticsOperatingSystemsChartData]",
+      "fields": [
+        {
+          "name": "timestamp",
+          "type": "str",
+          "description": "Timestamp of the data point"
+        },
+        {
+          "name": "os",
+          "type": "str",
+          "description": "Operating system"
+        },
+        {
+          "name": "visitors",
+          "type": "int",
+          "description": "Number of visitors"
+        },
+        {
+          "name": "session_bounce_rate",
+          "type": "float",
+          "description": "Session bounce rate (percentage of sessions that triggered only one request)"
+        },
+        {
+          "name": "avg_session_duration_sec",
+          "type": "int",
+          "description": "Average session duration (in seconds)"
+        }
+      ]
+    }
+  },
+  {
+    "method": "web_analytics_operating_systems_versions",
+    "section": "web-analytics",
+    "description": "Operating Systems Versions",
+    "parameters": [
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "description": "The number of results to return."
+      },
+      {
+        "name": "order_by",
+        "type": "str",
+        "required": false,
+        "description": "Order by metric, as `metric:desc` or `metric:asc`. The following metrics are supported:  **pageviews**: Number of pageview events   type: integer  **visitors**: Number of visitors   type: integer  **visits**: Number of visits   type: integer  **session_bounce_rate**: Session bounce rate (percentage of sessions that triggered only one request)   type: float  **avg_session_length**: Average session length (in seconds)   type: float  **avg_session_duration_sec**: Average session duration (in seconds)   type: integer  **exit_rate**: Exit rate (percentage of pageviews that were the last in the session)   type: float  **exits**: Number of exits   type: integer  **entries**: Number of entries   type: integer  **avg_page_visit_duration_sec**: Average page visit duration (in seconds)   type: integer"
+      },
+      {
+        "name": "where",
+        "type": "str",
+        "required": false,
+        "description": "Filter expression. See filter-syntax.md for syntax."
+      },
+      {
+        "name": "to",
+        "type": "str",
+        "required": false,
+        "description": "end datetime for the data query"
+      },
+      {
+        "name": "from_",
+        "type": "str",
+        "required": false,
+        "description": "start datetime for the data query"
+      },
+      {
+        "name": "project_id",
+        "type": "int",
+        "required": true,
+        "description": "Project ID"
+      }
+    ],
+    "returns": {
+      "type": "list[WebAnalyticsOperatingSystemsVersionsData]",
+      "fields": [
+        {
+          "name": "os_version",
+          "type": "str",
+          "description": "Operating system version"
+        },
+        {
+          "name": "visitors",
+          "type": "int",
+          "description": "Number of visitors"
+        },
+        {
+          "name": "session_bounce_rate",
+          "type": "float",
+          "description": "Session bounce rate (percentage of sessions that triggered only one request)"
+        },
+        {
+          "name": "avg_session_duration_sec",
+          "type": "int",
+          "description": "Average session duration (in seconds)"
+        }
+      ]
+    }
+  },
+  {
+    "method": "web_analytics_operating_systems_versions_chart",
+    "section": "web-analytics",
+    "description": "Operating Systems Versions Chart",
+    "parameters": [
+      {
+        "name": "os_versions_to_chart",
+        "type": "str",
+        "required": false,
+        "description": "Specify which values to chart (as a comma separated list), if not provided then `(top5-by-visitors)` is used by default (which charts top 5 values by visitor count)."
+      },
+      {
+        "name": "where",
+        "type": "str",
+        "required": false,
+        "description": "Filter expression. See filter-syntax.md for syntax."
+      },
+      {
+        "name": "granularity",
+        "type": "str",
+        "required": true,
+        "description": "Time granularity for chart data points, `hourly`, `daily`, `weekly` or `monthly`."
+      },
+      {
+        "name": "to",
+        "type": "str",
+        "required": false,
+        "description": "end datetime for the data query"
+      },
+      {
+        "name": "from_",
+        "type": "str",
+        "required": false,
+        "description": "start datetime for the data query"
+      },
+      {
+        "name": "project_id",
+        "type": "int",
+        "required": true,
+        "description": "Project ID"
+      }
+    ],
+    "returns": {
+      "type": "list[WebAnalyticsOperatingSystemsVersionsChartData]",
+      "fields": [
+        {
+          "name": "timestamp",
+          "type": "str",
+          "description": "Timestamp of the data point"
+        },
+        {
+          "name": "os_version",
+          "type": "str",
+          "description": "Operating system version"
+        },
+        {
+          "name": "visitors",
+          "type": "int",
+          "description": "Number of visitors"
+        },
+        {
+          "name": "session_bounce_rate",
+          "type": "float",
+          "description": "Session bounce rate (percentage of sessions that triggered only one request)"
+        },
+        {
+          "name": "avg_session_duration_sec",
+          "type": "int",
+          "description": "Average session duration (in seconds)"
+        }
+      ]
+    }
+  },
+  {
+    "method": "web_analytics_referrers",
+    "section": "web-analytics",
+    "description": "Referrers",
+    "parameters": [
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "description": "The number of results to return."
+      },
+      {
+        "name": "order_by",
+        "type": "str",
+        "required": false,
+        "description": "Order by metric, as `metric:desc` or `metric:asc`. The following metrics are supported:  **pageviews**: Number of pageview events   type: integer  **visitors**: Number of visitors   type: integer  **visits**: Number of visits   type: integer  **session_bounce_rate**: Session bounce rate (percentage of sessions that triggered only one request)   type: float  **avg_session_length**: Average session length (in seconds)   type: float  **avg_session_duration_sec**: Average session duration (in seconds)   type: integer  **exit_rate**: Exit rate (percentage of pageviews that were the last in the session)   type: float  **exits**: Number of exits   type: integer  **entries**: Number of entries   type: integer  **avg_page_visit_duration_sec**: Average page visit duration (in seconds)   type: integer"
+      },
+      {
+        "name": "where",
+        "type": "str",
+        "required": false,
+        "description": "Filter expression. See filter-syntax.md for syntax."
+      },
+      {
+        "name": "to",
+        "type": "str",
+        "required": false,
+        "description": "end datetime for the data query"
+      },
+      {
+        "name": "from_",
+        "type": "str",
+        "required": false,
+        "description": "start datetime for the data query"
+      },
+      {
+        "name": "project_id",
+        "type": "int",
+        "required": true,
+        "description": "Project ID"
+      }
+    ],
+    "returns": {
+      "type": "list[WebAnalyticsReferrersData]",
+      "fields": [
+        {
+          "name": "source_referer",
+          "type": "str",
+          "description": "Referer source"
+        },
+        {
+          "name": "visitors",
+          "type": "int",
+          "description": "Number of visitors"
+        },
+        {
+          "name": "session_bounce_rate",
+          "type": "float",
+          "description": "Session bounce rate (percentage of sessions that triggered only one request)"
+        },
+        {
+          "name": "avg_session_duration_sec",
+          "type": "int",
+          "description": "Average session duration (in seconds)"
+        }
+      ]
+    }
+  },
+  {
+    "method": "web_analytics_referrers_chart",
+    "section": "web-analytics",
+    "description": "Referrers Chart",
+    "parameters": [
+      {
+        "name": "source_referers_to_chart",
+        "type": "str",
+        "required": false,
+        "description": "Specify which values to chart (as a comma separated list), if not provided then `(top5-by-visitors)` is used by default (which charts top 5 values by visitor count)."
+      },
+      {
+        "name": "where",
+        "type": "str",
+        "required": false,
+        "description": "Filter expression. See filter-syntax.md for syntax."
+      },
+      {
+        "name": "granularity",
+        "type": "str",
+        "required": true,
+        "description": "Time granularity for chart data points, `hourly`, `daily`, `weekly` or `monthly`."
+      },
+      {
+        "name": "to",
+        "type": "str",
+        "required": false,
+        "description": "end datetime for the data query"
+      },
+      {
+        "name": "from_",
+        "type": "str",
+        "required": false,
+        "description": "start datetime for the data query"
+      },
+      {
+        "name": "project_id",
+        "type": "int",
+        "required": true,
+        "description": "Project ID"
+      }
+    ],
+    "returns": {
+      "type": "list[WebAnalyticsReferrersChartData]",
+      "fields": [
+        {
+          "name": "timestamp",
+          "type": "str",
+          "description": "Timestamp of the data point"
+        },
+        {
+          "name": "source_referer",
+          "type": "str",
+          "description": "Referer source"
+        },
+        {
+          "name": "visitors",
+          "type": "int",
+          "description": "Number of visitors"
+        },
+        {
+          "name": "session_bounce_rate",
+          "type": "float",
+          "description": "Session bounce rate (percentage of sessions that triggered only one request)"
+        },
+        {
+          "name": "avg_session_duration_sec",
+          "type": "int",
+          "description": "Average session duration (in seconds)"
+        }
+      ]
+    }
+  },
+  {
+    "method": "web_analytics_source_channels",
+    "section": "web-analytics",
+    "description": "Source Channels",
+    "parameters": [
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "description": "The number of results to return."
+      },
+      {
+        "name": "order_by",
+        "type": "str",
+        "required": false,
+        "description": "Order by metric, as `metric:desc` or `metric:asc`. The following metrics are supported:  **pageviews**: Number of pageview events   type: integer  **visitors**: Number of visitors   type: integer  **visits**: Number of visits   type: integer  **session_bounce_rate**: Session bounce rate (percentage of sessions that triggered only one request)   type: float  **avg_session_length**: Average session length (in seconds)   type: float  **avg_session_duration_sec**: Average session duration (in seconds)   type: integer  **exit_rate**: Exit rate (percentage of pageviews that were the last in the session)   type: float  **exits**: Number of exits   type: integer  **entries**: Number of entries   type: integer  **avg_page_visit_duration_sec**: Average page visit duration (in seconds)   type: integer"
+      },
+      {
+        "name": "where",
+        "type": "str",
+        "required": false,
+        "description": "Filter expression. See filter-syntax.md for syntax."
+      },
+      {
+        "name": "to",
+        "type": "str",
+        "required": false,
+        "description": "end datetime for the data query"
+      },
+      {
+        "name": "from_",
+        "type": "str",
+        "required": false,
+        "description": "start datetime for the data query"
+      },
+      {
+        "name": "project_id",
+        "type": "int",
+        "required": true,
+        "description": "Project ID"
+      }
+    ],
+    "returns": {
+      "type": "list[WebAnalyticsSourceChannelsData]",
+      "fields": [
+        {
+          "name": "source_channel",
+          "type": "str",
+          "description": "Source Channel"
+        },
+        {
+          "name": "visitors",
+          "type": "int",
+          "description": "Number of visitors"
+        },
+        {
+          "name": "session_bounce_rate",
+          "type": "float",
+          "description": "Session bounce rate (percentage of sessions that triggered only one request)"
+        },
+        {
+          "name": "avg_session_duration_sec",
+          "type": "int",
+          "description": "Average session duration (in seconds)"
+        }
+      ]
+    }
+  },
+  {
+    "method": "web_analytics_source_channels_chart",
+    "section": "web-analytics",
+    "description": "Source Channels Chart",
+    "parameters": [
+      {
+        "name": "source_channels_to_chart",
+        "type": "str",
+        "required": false,
+        "description": "Specify which values to chart (as a comma separated list), if not provided then `(top5-by-visitors)` is used by default (which charts top 5 values by visitor count)."
+      },
+      {
+        "name": "where",
+        "type": "str",
+        "required": false,
+        "description": "Filter expression. See filter-syntax.md for syntax."
+      },
+      {
+        "name": "granularity",
+        "type": "str",
+        "required": true,
+        "description": "Time granularity for chart data points, `hourly`, `daily`, `weekly` or `monthly`."
+      },
+      {
+        "name": "to",
+        "type": "str",
+        "required": false,
+        "description": "end datetime for the data query"
+      },
+      {
+        "name": "from_",
+        "type": "str",
+        "required": false,
+        "description": "start datetime for the data query"
+      },
+      {
+        "name": "project_id",
+        "type": "int",
+        "required": true,
+        "description": "Project ID"
+      }
+    ],
+    "returns": {
+      "type": "list[WebAnalyticsSourceChannelsChartData]",
+      "fields": [
+        {
+          "name": "timestamp",
+          "type": "str",
+          "description": "Timestamp of the data point"
+        },
+        {
+          "name": "source_channel",
+          "type": "str",
+          "description": "Source Channel"
+        },
+        {
+          "name": "visitors",
+          "type": "int",
+          "description": "Number of visitors"
+        },
+        {
+          "name": "session_bounce_rate",
+          "type": "float",
+          "description": "Session bounce rate (percentage of sessions that triggered only one request)"
+        },
+        {
+          "name": "avg_session_duration_sec",
+          "type": "int",
+          "description": "Average session duration (in seconds)"
+        }
+      ]
+    }
+  },
+  {
+    "method": "web_analytics_sources",
+    "section": "web-analytics",
+    "description": "Sources",
+    "parameters": [
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "description": "The number of results to return."
+      },
+      {
+        "name": "order_by",
+        "type": "str",
+        "required": false,
+        "description": "Order by metric, as `metric:desc` or `metric:asc`. The following metrics are supported:  **pageviews**: Number of pageview events   type: integer  **visitors**: Number of visitors   type: integer  **visits**: Number of visits   type: integer  **session_bounce_rate**: Session bounce rate (percentage of sessions that triggered only one request)   type: float  **avg_session_length**: Average session length (in seconds)   type: float  **avg_session_duration_sec**: Average session duration (in seconds)   type: integer  **exit_rate**: Exit rate (percentage of pageviews that were the last in the session)   type: float  **exits**: Number of exits   type: integer  **entries**: Number of entries   type: integer  **avg_page_visit_duration_sec**: Average page visit duration (in seconds)   type: integer"
+      },
+      {
+        "name": "where",
+        "type": "str",
+        "required": false,
+        "description": "Filter expression. See filter-syntax.md for syntax."
+      },
+      {
+        "name": "to",
+        "type": "str",
+        "required": false,
+        "description": "end datetime for the data query"
+      },
+      {
+        "name": "from_",
+        "type": "str",
+        "required": false,
+        "description": "start datetime for the data query"
+      },
+      {
+        "name": "project_id",
+        "type": "int",
+        "required": true,
+        "description": "Project ID"
+      }
+    ],
+    "returns": {
+      "type": "list[WebAnalyticsSourcesData]",
+      "fields": [
+        {
+          "name": "source",
+          "type": "str",
+          "description": "Source"
+        },
+        {
+          "name": "visitors",
+          "type": "int",
+          "description": "Number of visitors"
+        },
+        {
+          "name": "session_bounce_rate",
+          "type": "float",
+          "description": "Session bounce rate (percentage of sessions that triggered only one request)"
+        },
+        {
+          "name": "avg_session_duration_sec",
+          "type": "int",
+          "description": "Average session duration (in seconds)"
+        }
+      ]
+    }
+  },
+  {
+    "method": "web_analytics_sources_chart",
+    "section": "web-analytics",
+    "description": "Sources Chart",
+    "parameters": [
+      {
+        "name": "sources_to_chart",
+        "type": "str",
+        "required": false,
+        "description": "Specify which values to chart (as a comma separated list), if not provided then `(top5-by-visitors)` is used by default (which charts top 5 values by visitor count)."
+      },
+      {
+        "name": "where",
+        "type": "str",
+        "required": false,
+        "description": "Filter expression. See filter-syntax.md for syntax."
+      },
+      {
+        "name": "granularity",
+        "type": "str",
+        "required": true,
+        "description": "Time granularity for chart data points, `hourly`, `daily`, `weekly` or `monthly`."
+      },
+      {
+        "name": "to",
+        "type": "str",
+        "required": false,
+        "description": "end datetime for the data query"
+      },
+      {
+        "name": "from_",
+        "type": "str",
+        "required": false,
+        "description": "start datetime for the data query"
+      },
+      {
+        "name": "project_id",
+        "type": "int",
+        "required": true,
+        "description": "Project ID"
+      }
+    ],
+    "returns": {
+      "type": "list[WebAnalyticsSourcesChartData]",
+      "fields": [
+        {
+          "name": "timestamp",
+          "type": "str",
+          "description": "Timestamp of the data point"
+        },
+        {
+          "name": "source",
+          "type": "str",
+          "description": "Source"
+        },
+        {
+          "name": "visitors",
+          "type": "int",
+          "description": "Number of visitors"
+        },
+        {
+          "name": "session_bounce_rate",
+          "type": "float",
+          "description": "Session bounce rate (percentage of sessions that triggered only one request)"
+        },
+        {
+          "name": "avg_session_duration_sec",
+          "type": "int",
+          "description": "Average session duration (in seconds)"
+        }
+      ]
+    }
+  },
+  {
+    "method": "web_analytics_stats",
+    "section": "web-analytics",
+    "description": "Stats",
+    "parameters": [
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "description": "The number of results to return."
+      },
+      {
+        "name": "order_by",
+        "type": "str",
+        "required": false,
+        "description": "Order by metric, as `metric:desc` or `metric:asc`. The following metrics are supported:  **pageviews**: Number of pageview events   type: integer  **visitors**: Number of visitors   type: integer  **visits**: Number of visits   type: integer  **session_bounce_rate**: Session bounce rate (percentage of sessions that triggered only one request)   type: float  **avg_session_length**: Average session length (in seconds)   type: float  **avg_session_duration_sec**: Average session duration (in seconds)   type: integer  **exit_rate**: Exit rate (percentage of pageviews that were the last in the session)   type: float  **exits**: Number of exits   type: integer  **entries**: Number of entries   type: integer  **avg_page_visit_duration_sec**: Average page visit duration (in seconds)   type: integer"
+      },
+      {
+        "name": "where",
+        "type": "str",
+        "required": false,
+        "description": "Filter expression. See filter-syntax.md for syntax."
+      },
+      {
+        "name": "to",
+        "type": "str",
+        "required": false,
+        "description": "end datetime for the data query"
+      },
+      {
+        "name": "from_",
+        "type": "str",
+        "required": false,
+        "description": "start datetime for the data query"
+      },
+      {
+        "name": "project_id",
+        "type": "int",
+        "required": true,
+        "description": "Project ID"
+      }
+    ],
+    "returns": {
+      "type": "WebAnalyticsStatsData | None",
+      "fields": [
+        {
+          "name": "pageviews",
+          "type": "int",
+          "description": "Number of pageview events"
+        },
+        {
+          "name": "visitors",
+          "type": "int",
+          "description": "Number of visitors"
+        },
+        {
+          "name": "visits",
+          "type": "int",
+          "description": "Number of visits"
+        },
+        {
+          "name": "session_bounce_rate",
+          "type": "float",
+          "description": "Session bounce rate (percentage of sessions that triggered only one request)"
+        },
+        {
+          "name": "avg_session_length",
+          "type": "float",
+          "description": "Average session length (in seconds)"
+        },
+        {
+          "name": "avg_session_duration_sec",
+          "type": "int",
+          "description": "Average session duration (in seconds)"
+        }
+      ]
+    }
+  },
+  {
+    "method": "web_analytics_top_pages",
+    "section": "web-analytics",
+    "description": "Top Pages",
+    "parameters": [
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "description": "The number of results to return."
+      },
+      {
+        "name": "order_by",
+        "type": "str",
+        "required": false,
+        "description": "Order by metric, as `metric:desc` or `metric:asc`. The following metrics are supported:  **pageviews**: Number of pageview events   type: integer  **visitors**: Number of visitors   type: integer  **visits**: Number of visits   type: integer  **session_bounce_rate**: Session bounce rate (percentage of sessions that triggered only one request)   type: float  **avg_session_length**: Average session length (in seconds)   type: float  **avg_session_duration_sec**: Average session duration (in seconds)   type: integer  **exit_rate**: Exit rate (percentage of pageviews that were the last in the session)   type: float  **exits**: Number of exits   type: integer  **entries**: Number of entries   type: integer  **avg_page_visit_duration_sec**: Average page visit duration (in seconds)   type: integer"
+      },
+      {
+        "name": "where",
+        "type": "str",
+        "required": false,
+        "description": "Filter expression. See filter-syntax.md for syntax."
+      },
+      {
+        "name": "to",
+        "type": "str",
+        "required": false,
+        "description": "end datetime for the data query"
+      },
+      {
+        "name": "from_",
+        "type": "str",
+        "required": false,
+        "description": "start datetime for the data query"
+      },
+      {
+        "name": "project_id",
+        "type": "int",
+        "required": true,
+        "description": "Project ID"
+      }
+    ],
+    "returns": {
+      "type": "list[WebAnalyticsTopPagesData]",
+      "fields": [
+        {
+          "name": "page",
+          "type": "str",
+          "description": "Page URL"
+        },
+        {
+          "name": "pageviews",
+          "type": "int",
+          "description": "Number of pageview events"
+        },
+        {
+          "name": "visitors",
+          "type": "int",
+          "description": "Number of visitors"
+        },
+        {
+          "name": "session_bounce_rate",
+          "type": "float",
+          "description": "Session bounce rate (percentage of sessions that triggered only one request)"
+        },
+        {
+          "name": "avg_page_visit_duration_sec",
+          "type": "int",
+          "description": "Average page visit duration (in seconds)"
+        }
+      ]
+    }
+  },
+  {
+    "method": "web_analytics_top_pages_chart",
+    "section": "web-analytics",
+    "description": "Top Pages Chart",
+    "parameters": [
+      {
+        "name": "pages_to_chart",
+        "type": "str",
+        "required": false,
+        "description": "Specify which values to chart (as a comma separated list), if not provided then `(top5-by-visitors)` is used by default (which charts top 5 values by visitor count)."
+      },
+      {
+        "name": "where",
+        "type": "str",
+        "required": false,
+        "description": "Filter expression. See filter-syntax.md for syntax."
+      },
+      {
+        "name": "granularity",
+        "type": "str",
+        "required": true,
+        "description": "Time granularity for chart data points, `hourly`, `daily`, `weekly` or `monthly`."
+      },
+      {
+        "name": "to",
+        "type": "str",
+        "required": false,
+        "description": "end datetime for the data query"
+      },
+      {
+        "name": "from_",
+        "type": "str",
+        "required": false,
+        "description": "start datetime for the data query"
+      },
+      {
+        "name": "project_id",
+        "type": "int",
+        "required": true,
+        "description": "Project ID"
+      }
+    ],
+    "returns": {
+      "type": "list[WebAnalyticsTopPagesChartData]",
+      "fields": [
+        {
+          "name": "timestamp",
+          "type": "str",
+          "description": "Timestamp of the data point"
+        },
+        {
+          "name": "page",
+          "type": "str",
+          "description": "Page URL"
+        },
+        {
+          "name": "pageviews",
+          "type": "int",
+          "description": "Number of pageview events"
+        },
+        {
+          "name": "visitors",
+          "type": "int",
+          "description": "Number of visitors"
+        },
+        {
+          "name": "session_bounce_rate",
+          "type": "float",
+          "description": "Session bounce rate (percentage of sessions that triggered only one request)"
+        },
+        {
+          "name": "avg_page_visit_duration_sec",
+          "type": "int",
+          "description": "Average page visit duration (in seconds)"
+        }
+      ]
+    }
+  },
+  {
+    "method": "web_analytics_utm_params",
+    "section": "web-analytics",
+    "description": "UTM Parameters",
+    "parameters": [
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "description": "The number of results to return."
+      },
+      {
+        "name": "order_by",
+        "type": "str",
+        "required": false,
+        "description": "Order by metric, as `metric:desc` or `metric:asc`. The following metrics are supported:  **pageviews**: Number of pageview events   type: integer  **visitors**: Number of visitors   type: integer  **visits**: Number of visits   type: integer  **session_bounce_rate**: Session bounce rate (percentage of sessions that triggered only one request)   type: float  **avg_session_length**: Average session length (in seconds)   type: float  **avg_session_duration_sec**: Average session duration (in seconds)   type: integer  **exit_rate**: Exit rate (percentage of pageviews that were the last in the session)   type: float  **exits**: Number of exits   type: integer  **entries**: Number of entries   type: integer  **avg_page_visit_duration_sec**: Average page visit duration (in seconds)   type: integer"
+      },
+      {
+        "name": "where",
+        "type": "str",
+        "required": false,
+        "description": "Filter expression. See filter-syntax.md for syntax."
+      },
+      {
+        "name": "to",
+        "type": "str",
+        "required": false,
+        "description": "end datetime for the data query"
+      },
+      {
+        "name": "from_",
+        "type": "str",
+        "required": false,
+        "description": "start datetime for the data query"
+      },
+      {
+        "name": "utm_param",
+        "type": "UtmParamEnum",
+        "required": true,
+        "description": "Specify a UTM parameter to use as dimension (one of `utm_source`, `utm_medium`, `utm_campaign`, `utm_term`, or `utm_content`)."
+      },
+      {
+        "name": "project_id",
+        "type": "int",
+        "required": true,
+        "description": "Project ID"
+      }
+    ],
+    "returns": {
+      "type": "list[WebAnalyticsUtmParamsData]",
+      "fields": [
+        {
+          "name": "utm_param",
+          "type": "str",
+          "description": "UTM parameter value"
+        },
+        {
+          "name": "visitors",
+          "type": "int",
+          "description": "Number of visitors"
+        },
+        {
+          "name": "session_bounce_rate",
+          "type": "float",
+          "description": "Session bounce rate (percentage of sessions that triggered only one request)"
+        },
+        {
+          "name": "avg_session_duration_sec",
+          "type": "int",
+          "description": "Average session duration (in seconds)"
+        }
+      ]
+    }
+  },
+  {
+    "method": "web_analytics_utm_params_chart",
+    "section": "web-analytics",
+    "description": "UTM Parameters Chart",
+    "parameters": [
+      {
+        "name": "utm_params_to_chart",
+        "type": "str",
+        "required": false,
+        "description": "Specify which values to chart (as a comma separated list), if not provided then `(top5-by-visitors)` is used by default (which charts top 5 values by visitor count)."
+      },
+      {
+        "name": "where",
+        "type": "str",
+        "required": false,
+        "description": "Filter expression. See filter-syntax.md for syntax."
+      },
+      {
+        "name": "granularity",
+        "type": "str",
+        "required": true,
+        "description": "Time granularity for chart data points, `hourly`, `daily`, `weekly` or `monthly`."
+      },
+      {
+        "name": "to",
+        "type": "str",
+        "required": false,
+        "description": "end datetime for the data query"
+      },
+      {
+        "name": "from_",
+        "type": "str",
+        "required": false,
+        "description": "start datetime for the data query"
+      },
+      {
+        "name": "utm_param",
+        "type": "UtmParamEnum",
+        "required": true,
+        "description": "Specify a UTM parameter to use as dimension (one of `utm_source`, `utm_medium`, `utm_campaign`, `utm_term`, or `utm_content`)."
+      },
+      {
+        "name": "project_id",
+        "type": "int",
+        "required": true,
+        "description": "Project ID"
+      }
+    ],
+    "returns": {
+      "type": "list[WebAnalyticsUtmParamsChartData]",
+      "fields": [
+        {
+          "name": "timestamp",
+          "type": "str",
+          "description": "Timestamp of the data point"
+        },
+        {
+          "name": "utm_param",
+          "type": "str",
+          "description": "UTM parameter value"
+        },
+        {
+          "name": "visitors",
+          "type": "int",
+          "description": "Number of visitors"
+        },
+        {
+          "name": "session_bounce_rate",
+          "type": "float",
+          "description": "Session bounce rate (percentage of sessions that triggered only one request)"
+        },
+        {
+          "name": "avg_session_duration_sec",
+          "type": "int",
+          "description": "Average session duration (in seconds)"
+        }
+      ]
+    }
   }
 ]

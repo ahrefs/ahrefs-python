@@ -10,7 +10,7 @@ class AhrefsError(Exception):
 
     def __init__(self, message: str) -> None:
         super().__init__(message)
-        self.message = message
+        self.message: str = message
 
 
 class APIError(AhrefsError):
@@ -51,7 +51,7 @@ class RateLimitError(APIError):
         retry_after: float | None = None,
     ) -> None:
         super().__init__(message, status_code=429, response_body=response_body)
-        self.retry_after = retry_after
+        self.retry_after: float | None = retry_after
 
 
 class NotFoundError(APIError):
@@ -90,8 +90,8 @@ def raise_for_status(response: httpx.Response) -> None:
     if response.is_success:
         return
 
-    body = response.text
-    status = response.status_code
+    body: str = response.text
+    status: int = response.status_code
 
     if status == 401:
         raise AuthenticationError(response_body=body)
@@ -102,7 +102,7 @@ def raise_for_status(response: httpx.Response) -> None:
         raise RateLimitError(response_body=body, retry_after=retry_after)
     else:
         raise APIError(
-            f"HTTP {status}: {body[:200]}",
+            message=f"HTTP {status}: {body[:200]}",
             status_code=status,
             response_body=body,
         )

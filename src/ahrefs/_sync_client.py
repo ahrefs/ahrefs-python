@@ -69,7 +69,9 @@ class AhrefsClient(GeneratedSyncMethodsMixin):
     ) -> T:
         """Make a typed API request. Called by generated endpoint methods."""
         url = build_url(self._config.base_url, api_section, endpoint)
-        params = request_model.model_dump(mode="json", exclude_none=exclude_none)
+        params = request_model.model_dump(
+            mode="json", by_alias=True, exclude_none=exclude_none
+        )
 
         last_exc: Exception | None = None
         for attempt in range(1 + self._config.max_retries):

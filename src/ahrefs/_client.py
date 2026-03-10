@@ -3,9 +3,10 @@
 from __future__ import annotations
 
 import asyncio
-from typing import TypeVar
+from typing import Any, TypeVar, cast
 
 import httpx
+from httpx import AsyncClient
 from pydantic import BaseModel
 
 from ahrefs._base_client import (
@@ -46,14 +47,14 @@ class AsyncAhrefsClient(GeneratedMethodsMixin):
         max_retries: int | None = None,
         http_client: httpx.AsyncClient | None = None,
     ) -> None:
-        self._config = ClientConfig.from_env_or_args(
+        self._config: ClientConfig = ClientConfig.from_env_or_args(
             api_key=api_key,
             base_url=base_url,
             timeout=timeout,
             max_retries=max_retries,
         )
-        self._owns_client = http_client is None
-        self._client = http_client or httpx.AsyncClient(
+        self._owns_client: bool = http_client is None
+        self._client: AsyncClient = http_client or httpx.AsyncClient(
             timeout=self._config.timeout,
         )
 
@@ -68,8 +69,10 @@ class AsyncAhrefsClient(GeneratedMethodsMixin):
         http_method: str = "GET",
     ) -> T:
         """Make a typed API request. Called by generated endpoint methods."""
-        url = build_url(self._config.base_url, api_section, endpoint)
-        params = request_model.model_dump(mode="json", exclude_none=exclude_none)
+        url: str = build_url(self._config.base_url, api_section, endpoint)
+        params: dict[str, Any] = request_model.model_dump(
+            mode="json", by_alias=True, exclude_none=exclude_none
+        )
 
         last_exc: Exception | None = None
         for attempt in range(1 + self._config.max_retries):
@@ -78,9 +81,9 @@ class AsyncAhrefsClient(GeneratedMethodsMixin):
                     isinstance(last_exc, RateLimitError)
                     and last_exc.retry_after is not None
                 ):
-                    delay = last_exc.retry_after
+                    delay: float = last_exc.retry_after
                 else:
-                    delay = calculate_backoff(attempt - 1)
+                    delay = calculate_backoff(attempt=attempt - 1)
                 await asyncio.sleep(delay)
             try:
                 if http_method == "POST":
@@ -105,13 +108,15 @@ class AsyncAhrefsClient(GeneratedMethodsMixin):
                 else:
                     raise
             except httpx.TimeoutException as exc:
-                last_exc = APITimeoutError(str(exc))
+                last_exc = cast(Exception, APITimeoutError(message=str(exc)))
                 last_exc.__cause__ = exc
             except httpx.NetworkError as exc:
-                last_exc = APIConnectionError(str(exc))
+                last_exc = cast(Exception, APIConnectionError(message=str(exc)))
                 last_exc.__cause__ = exc
 
-        raise last_exc  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
+        if last_exc is None:
+            raise RuntimeError("No exception to re-raise after retries")
+        raise last_exc
 
     async def close(self) -> None:
         """Close the underlying HTTP client if we own it."""

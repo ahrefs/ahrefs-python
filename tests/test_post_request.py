@@ -34,9 +34,7 @@ _BA_REQ = BatchAnalysisRequest(
 class TestPostRequestSendsJsonBody:
     @respx.mock
     def test_post_sends_json_body(self) -> None:
-        route = respx.post(_BA_URL).mock(
-            return_value=httpx.Response(200, json=_BA_OK)
-        )
+        route = respx.post(_BA_URL).mock(return_value=httpx.Response(200, json=_BA_OK))
         client = AhrefsClient(api_key="test-key", max_retries=0)
         data = client.batch_analysis(_BA_REQ)
         assert len(data) == 1
@@ -62,9 +60,7 @@ class TestGetStillWorksNoRegression:
 
         dr_url = "https://api.ahrefs.com/v3/site-explorer/domain-rating"
         dr_ok = {"domain_rating": {"domain_rating": 85.5, "ahrefs_rank": 123}}
-        route = respx.get(dr_url).mock(
-            return_value=httpx.Response(200, json=dr_ok)
-        )
+        route = respx.get(dr_url).mock(return_value=httpx.Response(200, json=dr_ok))
         req = SiteExplorerDomainRatingRequest(target="ahrefs.com", date="2025-01-15")
         client = AhrefsClient(api_key="test-key", max_retries=0)
         data = client.site_explorer_domain_rating(req)
@@ -82,9 +78,7 @@ class TestGetStillWorksNoRegression:
 class TestPostKwargs:
     @respx.mock
     def test_post_with_kwargs(self) -> None:
-        route = respx.post(_BA_URL).mock(
-            return_value=httpx.Response(200, json=_BA_OK)
-        )
+        route = respx.post(_BA_URL).mock(return_value=httpx.Response(200, json=_BA_OK))
         client = AhrefsClient(api_key="test-key", max_retries=0)
         data = client.batch_analysis(
             select=["ahrefs_rank"],
@@ -146,9 +140,7 @@ class TestAsyncPostRequest:
     @respx.mock
     @pytest.mark.asyncio
     async def test_async_post_sends_json_body(self) -> None:
-        route = respx.post(_BA_URL).mock(
-            return_value=httpx.Response(200, json=_BA_OK)
-        )
+        route = respx.post(_BA_URL).mock(return_value=httpx.Response(200, json=_BA_OK))
         async with AsyncAhrefsClient(api_key="test-key", max_retries=0) as client:
             data = await client.batch_analysis(_BA_REQ)
         assert len(data) == 1

@@ -5,7 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
-## [Unreleased]
+## [0.5.0-alpha]
+
+### Added
+
+- Web Analytics API support (34 endpoints) — 17 dimension endpoints and 17 chart variants
+- Python reserved word handling: `from` parameter available as `from_` with automatic API serialization
 
 ## [0.4.3-alpha]
 

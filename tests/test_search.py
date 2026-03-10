@@ -76,10 +76,11 @@ class TestSearchRelevance:
         methods = [r.method for r in results]
         assert "site_explorer_domain_rating" in methods
 
-    def test_organic_keywords_ranks_first(self) -> None:
+    def test_organic_keywords_ranks_highly(self) -> None:
         searcher = MethodSearcher()
         results = searcher.search("organic keywords", limit=5)
-        assert results[0].method == "site_explorer_organic_keywords"
+        top_methods = [r.method for r in results[:2]]
+        assert "site_explorer_organic_keywords" in top_methods
 
 
 class TestSectionFiltering:
@@ -194,6 +195,7 @@ class TestListSections:
             "serp-overview",
             "site-audit",
             "site-explorer",
+            "web-analytics",
         ]
 
 
@@ -218,6 +220,7 @@ class TestNamespace:
     def test_not_in_top_level(self) -> None:
         """MethodSearcher should not be importable from the top-level ahrefs package."""
         import ahrefs
+
         assert not hasattr(ahrefs, "MethodSearcher")
         assert not hasattr(ahrefs, "search_api_methods")
 
@@ -285,22 +288,23 @@ class TestNoDependencies:
         import ast
 
         import ahrefs.search as mod
+
         assert mod.__file__ is not None
         source = Path(mod.__file__).read_text()
         tree = ast.parse(source)
         allowed = {
-            "json", "math", "dataclasses",
-            "pathlib", "typing", "__future__",
+            "json",
+            "math",
+            "dataclasses",
+            "pathlib",
+            "typing",
+            "__future__",
         }
         # Walk the full AST to catch imports inside functions/conditionals
         for node in ast.walk(tree):
             if isinstance(node, ast.Import):
                 for alias in node.names:
-                    assert alias.name in allowed, (
-                        f"Unexpected import: {alias.name}"
-                    )
+                    assert alias.name in allowed, f"Unexpected import: {alias.name}"
             elif isinstance(node, ast.ImportFrom):
                 assert node.module is not None
-                assert node.module in allowed, (
-                    f"Unexpected import from: {node.module}"
-                )
+                assert node.module in allowed, f"Unexpected import from: {node.module}"

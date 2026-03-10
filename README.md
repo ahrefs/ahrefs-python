@@ -380,6 +380,43 @@ See the [full API reference](docs/api-reference.md) for parameters, types, and r
 - `site_explorer_total_search_volume_history()`
 - `site_explorer_url_rating_history()`
 
+**Web Analytics** (34 methods)
+
+- `web_analytics_browser_versions()`
+- `web_analytics_browser_versions_chart()`
+- `web_analytics_browsers()`
+- `web_analytics_browsers_chart()`
+- `web_analytics_chart()`
+- `web_analytics_cities()`
+- `web_analytics_cities_chart()`
+- `web_analytics_continents()`
+- `web_analytics_continents_chart()`
+- `web_analytics_countries()`
+- `web_analytics_countries_chart()`
+- `web_analytics_devices()`
+- `web_analytics_devices_chart()`
+- `web_analytics_entry_pages()`
+- `web_analytics_entry_pages_chart()`
+- `web_analytics_exit_pages()`
+- `web_analytics_exit_pages_chart()`
+- `web_analytics_languages()`
+- `web_analytics_languages_chart()`
+- `web_analytics_operating_systems()`
+- `web_analytics_operating_systems_chart()`
+- `web_analytics_operating_systems_versions()`
+- `web_analytics_operating_systems_versions_chart()`
+- `web_analytics_referrers()`
+- `web_analytics_referrers_chart()`
+- `web_analytics_source_channels()`
+- `web_analytics_source_channels_chart()`
+- `web_analytics_sources()`
+- `web_analytics_sources_chart()`
+- `web_analytics_stats()`
+- `web_analytics_top_pages()`
+- `web_analytics_top_pages_chart()`
+- `web_analytics_utm_params()`
+- `web_analytics_utm_params_chart()`
+
 <!-- METHOD_INDEX_END -->
 
 ## License
