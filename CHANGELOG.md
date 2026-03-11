@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.6.0-alpha]
+
+### Added
+
+- Public API support: `public_crawler_ips()` and `public_crawler_ip_ranges()` for retrieving Ahrefs crawler IP addresses
+- Subscription Info API support: `subscription_info_limits_and_usage()` for checking API usage, limits, and key expiration
+
 ## [0.5.0-alpha]
 
 ### Added

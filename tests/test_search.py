@@ -191,10 +191,12 @@ class TestListSections:
             "batch-analysis",
             "brand-radar",
             "keywords-explorer",
+            "public",
             "rank-tracker",
             "serp-overview",
             "site-audit",
             "site-explorer",
+            "subscription-info",
             "web-analytics",
         ]
 

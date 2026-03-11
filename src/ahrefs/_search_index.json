@@ -1757,6 +1757,38 @@
     }
   },
   {
+    "method": "public_crawler_ip_ranges",
+    "section": "public",
+    "description": "Crawler IP ranges",
+    "parameters": [],
+    "returns": {
+      "type": "list[PublicCrawlerIpRangesData]",
+      "fields": [
+        {
+          "name": "ipv4Prefix",
+          "type": "str",
+          "description": ""
+        }
+      ]
+    }
+  },
+  {
+    "method": "public_crawler_ips",
+    "section": "public",
+    "description": "Crawler IP addresses",
+    "parameters": [],
+    "returns": {
+      "type": "list[PublicCrawlerIpsData]",
+      "fields": [
+        {
+          "name": "ip_address",
+          "type": "str",
+          "description": ""
+        }
+      ]
+    }
+  },
+  {
     "method": "rank_tracker_competitors_overview",
     "section": "rank-tracker",
     "description": "Competitors overview",
@@ -9927,6 +9959,52 @@
           "name": "url_rating",
           "type": "float",
           "description": "The strength of your target page's backlink profile compared to the other websites in our database on a 100-point logarithmic scale."
+        }
+      ]
+    }
+  },
+  {
+    "method": "subscription_info_limits_and_usage",
+    "section": "subscription-info",
+    "description": "Limits and usage",
+    "parameters": [],
+    "returns": {
+      "type": "SubscriptionInfoLimitsAndUsageData | None",
+      "fields": [
+        {
+          "name": "subscription",
+          "type": "str",
+          "description": "Ahrefs subscription plan."
+        },
+        {
+          "name": "usage_reset_date",
+          "type": "str",
+          "description": "Start date of the next billing period when the API units usage will be reset."
+        },
+        {
+          "name": "units_limit_workspace",
+          "type": "int | None",
+          "description": "Total number of API units available to the workspace."
+        },
+        {
+          "name": "units_usage_workspace",
+          "type": "int | None",
+          "description": "Number of API units consumed by the workspace in the current billing month."
+        },
+        {
+          "name": "units_limit_api_key",
+          "type": "int | None",
+          "description": "Limit for the number of API units that can be consumed via this API key per billing month (null = unlimited)."
+        },
+        {
+          "name": "units_usage_api_key",
+          "type": "int",
+          "description": "Number of API units consumed by this API key in the current billing month."
+        },
+        {
+          "name": "api_key_expiration_date",
+          "type": "str",
+          "description": "Date on which this API key will expire and stop working."
         }
       ]
     }

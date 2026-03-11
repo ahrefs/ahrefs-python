@@ -159,6 +159,28 @@ def main() -> None:
 
     run_test("authentication_error", test_auth_error)
 
+    # ── 10. Public Crawler IPs (no auth required, tests auth header accepted) ─
+    def test_public_crawler_ips() -> None:
+        data = client.public_crawler_ips()
+        assert isinstance(data, list), f"expected list, got {type(data)}"
+        assert len(data) > 0, "expected non-empty list"
+        assert data[0].ip_address is not None, "ip_address is None"
+
+    run_test("public_crawler_ips", test_public_crawler_ips)
+
+    # ── 11. Subscription Info Limits and Usage ────────────────────────
+    def test_subscription_info() -> None:
+        data = client.subscription_info_limits_and_usage()
+        assert data is not None, "data is None"
+        assert isinstance(data.subscription, str), (
+            f"expected str, got {type(data.subscription)}"
+        )
+        assert isinstance(data.units_usage_api_key, int), (
+            f"expected int, got {type(data.units_usage_api_key)}"
+        )
+
+    run_test("subscription_info_limits_and_usage", test_subscription_info)
+
     # ── Summary ──────────────────────────────────────────────────────
     client.close()
     print(f"\n{'=' * 50}")

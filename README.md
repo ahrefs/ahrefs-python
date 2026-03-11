@@ -332,6 +332,11 @@ See the [full API reference](docs/api-reference.md) for parameters, types, and r
 - `keywords_explorer_volume_by_country()`
 - `keywords_explorer_volume_history()`
 
+**Public** (2 methods)
+
+- `public_crawler_ip_ranges()`
+- `public_crawler_ips()`
+
 **Rank Tracker** (5 methods)
 
 - `rank_tracker_competitors_overview()`
@@ -379,6 +384,10 @@ See the [full API reference](docs/api-reference.md) for parameters, types, and r
 - `site_explorer_top_pages()`
 - `site_explorer_total_search_volume_history()`
 - `site_explorer_url_rating_history()`
+
+**Subscription Info** (1 method)
+
+- `subscription_info_limits_and_usage()`
 
 **Web Analytics** (34 methods)
 

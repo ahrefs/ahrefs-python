@@ -11,16 +11,21 @@ from pydantic import BaseModel
 from ahrefs.types._coercions import DateStr, HistoryStr, SelectStr  # noqa: F401
 from ahrefs.types._generated import *  # noqa: F401,F403  # type: ignore[reportWildcardImportFromLibrary]
 
-T = TypeVar('T', bound=BaseModel)
+T = TypeVar("T", bound=BaseModel)
 
 
 class GeneratedMethodsMixin:
     """Async endpoint methods. Mixed into AsyncAhrefsClient."""
 
     async def _request(
-        self, api_section: str, endpoint: str, request_model: BaseModel,
-        response_model_class: type[T], *, exclude_none: bool = False,
-        http_method: str = 'GET',
+        self,
+        api_section: str,
+        endpoint: str,
+        request_model: BaseModel,
+        response_model_class: type[T],
+        *,
+        exclude_none: bool = False,
+        http_method: str = "GET",
     ) -> T:
         raise NotImplementedError
 
@@ -823,6 +828,43 @@ class GeneratedMethodsMixin:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = KeywordsExplorerVolumeHistoryRequest(**{k: v for k, v in [("date_to", date_to), ("date_from", date_from), ("country", country), ("keyword", keyword)] if v is not None})  # pyright: ignore[reportArgumentType]
         _resp = await self._request("keywords-explorer", "volume-history", request, KeywordsExplorerVolumeHistoryResponse, exclude_none=True)
+        return _resp.data
+
+    # Public API methods
+    async def public_crawler_ip_ranges(
+        self,
+        request: PublicCrawlerIpRangesRequest | None = None,
+    ) -> list[PublicCrawlerIpRangesData]:
+        """
+        Crawler IP ranges.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Returns:
+            list[PublicCrawlerIpRangesData]:
+                ipv4Prefix (str)
+        """
+        if request is None:
+            request = PublicCrawlerIpRangesRequest()
+        _resp = await self._request("public", "crawler-ip-ranges", request, PublicCrawlerIpRangesResponse)
+        return _resp.data
+
+    async def public_crawler_ips(
+        self,
+        request: PublicCrawlerIpsRequest | None = None,
+    ) -> list[PublicCrawlerIpsData]:
+        """
+        Crawler IP addresses.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Returns:
+            list[PublicCrawlerIpsData]:
+                ip_address (str)
+        """
+        if request is None:
+            request = PublicCrawlerIpsRequest()
+        _resp = await self._request("public", "crawler-ips", request, PublicCrawlerIpsResponse)
         return _resp.data
 
     # Rank Tracker API methods
@@ -2666,6 +2708,31 @@ class GeneratedMethodsMixin:
         _resp = await self._request("site-explorer", "url-rating-history", request, SiteExplorerUrlRatingHistoryResponse, exclude_none=True)
         return _resp.data
 
+    # Subscription Info API methods
+    async def subscription_info_limits_and_usage(
+        self,
+        request: SubscriptionInfoLimitsAndUsageRequest | None = None,
+    ) -> SubscriptionInfoLimitsAndUsageData | None:
+        """
+        Limits and usage.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Returns:
+            SubscriptionInfoLimitsAndUsageData | None:
+                subscription (str): Ahrefs subscription plan.
+                usage_reset_date (str): Start date of the next billing period when the API units usage will be reset.
+                units_limit_workspace (int | None): Total number of API units available to the workspace.
+                units_usage_workspace (int | None): Number of API units consumed by the workspace in the current billing month.
+                units_limit_api_key (int | None): Limit for the number of API units that can be consumed via this API key per billing month (null = unlimited).
+                units_usage_api_key (int): Number of API units consumed by this API key in the current billing month.
+                api_key_expiration_date (str): Date on which this API key will expire and stop working.
+        """
+        if request is None:
+            request = SubscriptionInfoLimitsAndUsageRequest()
+        _resp = await self._request("subscription-info", "limits-and-usage", request, SubscriptionInfoLimitsAndUsageResponse)
+        return _resp.data
+
     # Web Analytics API methods
     async def web_analytics_browser_versions(
         self,
@@ -4043,9 +4110,14 @@ class GeneratedSyncMethodsMixin:
     """Sync endpoint methods. Mixed into AhrefsClient."""
 
     def _request(
-        self, api_section: str, endpoint: str, request_model: BaseModel,
-        response_model_class: type[T], *, exclude_none: bool = False,
-        http_method: str = 'GET',
+        self,
+        api_section: str,
+        endpoint: str,
+        request_model: BaseModel,
+        response_model_class: type[T],
+        *,
+        exclude_none: bool = False,
+        http_method: str = "GET",
     ) -> T:
         raise NotImplementedError
 
@@ -4848,6 +4920,43 @@ class GeneratedSyncMethodsMixin:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = KeywordsExplorerVolumeHistoryRequest(**{k: v for k, v in [("date_to", date_to), ("date_from", date_from), ("country", country), ("keyword", keyword)] if v is not None})  # pyright: ignore[reportArgumentType]
         _resp = self._request("keywords-explorer", "volume-history", request, KeywordsExplorerVolumeHistoryResponse, exclude_none=True)
+        return _resp.data
+
+    # Public API methods
+    def public_crawler_ip_ranges(
+        self,
+        request: PublicCrawlerIpRangesRequest | None = None,
+    ) -> list[PublicCrawlerIpRangesData]:
+        """
+        Crawler IP ranges.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Returns:
+            list[PublicCrawlerIpRangesData]:
+                ipv4Prefix (str)
+        """
+        if request is None:
+            request = PublicCrawlerIpRangesRequest()
+        _resp = self._request("public", "crawler-ip-ranges", request, PublicCrawlerIpRangesResponse)
+        return _resp.data
+
+    def public_crawler_ips(
+        self,
+        request: PublicCrawlerIpsRequest | None = None,
+    ) -> list[PublicCrawlerIpsData]:
+        """
+        Crawler IP addresses.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Returns:
+            list[PublicCrawlerIpsData]:
+                ip_address (str)
+        """
+        if request is None:
+            request = PublicCrawlerIpsRequest()
+        _resp = self._request("public", "crawler-ips", request, PublicCrawlerIpsResponse)
         return _resp.data
 
     # Rank Tracker API methods
@@ -6689,6 +6798,31 @@ class GeneratedSyncMethodsMixin:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteExplorerUrlRatingHistoryRequest(**{k: v for k, v in [("history_grouping", history_grouping), ("date_to", date_to), ("date_from", date_from), ("target", target)] if v is not None})  # pyright: ignore[reportArgumentType]
         _resp = self._request("site-explorer", "url-rating-history", request, SiteExplorerUrlRatingHistoryResponse, exclude_none=True)
+        return _resp.data
+
+    # Subscription Info API methods
+    def subscription_info_limits_and_usage(
+        self,
+        request: SubscriptionInfoLimitsAndUsageRequest | None = None,
+    ) -> SubscriptionInfoLimitsAndUsageData | None:
+        """
+        Limits and usage.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Returns:
+            SubscriptionInfoLimitsAndUsageData | None:
+                subscription (str): Ahrefs subscription plan.
+                usage_reset_date (str): Start date of the next billing period when the API units usage will be reset.
+                units_limit_workspace (int | None): Total number of API units available to the workspace.
+                units_usage_workspace (int | None): Number of API units consumed by the workspace in the current billing month.
+                units_limit_api_key (int | None): Limit for the number of API units that can be consumed via this API key per billing month (null = unlimited).
+                units_usage_api_key (int): Number of API units consumed by this API key in the current billing month.
+                api_key_expiration_date (str): Date on which this API key will expire and stop working.
+        """
+        if request is None:
+            request = SubscriptionInfoLimitsAndUsageRequest()
+        _resp = self._request("subscription-info", "limits-and-usage", request, SubscriptionInfoLimitsAndUsageResponse)
         return _resp.data
 
     # Web Analytics API methods
