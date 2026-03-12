@@ -191,6 +191,7 @@ class TestListSections:
             "batch-analysis",
             "brand-radar",
             "keywords-explorer",
+            "management",
             "public",
             "rank-tracker",
             "serp-overview",

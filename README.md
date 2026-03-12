@@ -332,6 +332,22 @@ See the [full API reference](docs/api-reference.md) for parameters, types, and r
 - `keywords_explorer_volume_by_country()`
 - `keywords_explorer_volume_history()`
 
+**Management** (13 methods)
+
+- `management_keyword_list_keywords()`
+- `management_set_keyword_list_keywords()`
+- `management_keyword_list_keywords_delete()`
+- `management_locations()`
+- `management_project_competitors()`
+- `management_create_project_competitors()`
+- `management_project_competitors_delete()`
+- `management_project_keywords()`
+- `management_set_project_keywords()`
+- `management_project_keywords_delete()`
+- `management_projects()`
+- `management_create_projects()`
+- `management_update_project()`
+
 **Public** (2 methods)
 
 - `public_crawler_ip_ranges()`

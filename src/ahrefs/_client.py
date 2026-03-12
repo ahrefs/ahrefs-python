@@ -67,6 +67,7 @@ class AsyncAhrefsClient(GeneratedMethodsMixin):
         *,
         exclude_none: bool = False,
         http_method: str = "GET",
+        query_params: dict[str, Any] | None = None,
     ) -> T:
         """Make a typed API request. Called by generated endpoint methods."""
         url: str = build_url(self._config.base_url, api_section, endpoint)
@@ -86,10 +87,22 @@ class AsyncAhrefsClient(GeneratedMethodsMixin):
                     delay = calculate_backoff(attempt=attempt - 1)
                 await asyncio.sleep(delay)
             try:
-                if http_method == "POST":
-                    response = await self._client.post(
+                if http_method in ("POST", "PUT", "PATCH"):
+                    body: dict[str, Any] = params
+                    url_params: dict[str, Any] | None = (
+                        {k: v for k, v in query_params.items() if v is not None}
+                        if query_params
+                        else None
+                    )
+                    if url_params:
+                        body = {
+                            k: v for k, v in params.items() if k not in url_params
+                        }
+                    response = await self._client.request(
+                        http_method,
                         url,
-                        json=params,
+                        json=body,
+                        params=url_params or None,
                         headers=build_headers(self._config.api_key),
                     )
                 else:

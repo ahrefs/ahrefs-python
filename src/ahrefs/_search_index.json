@@ -2,7 +2,7 @@
   {
     "method": "batch_analysis",
     "section": "batch-analysis",
-    "description": "Batch Analysis",
+    "description": "Batch Analysis [POST]",
     "parameters": [
       {
         "name": "select",
@@ -1752,6 +1752,612 @@
           "name": "volume",
           "type": "int",
           "description": "An estimation of the number of searches for a keyword over a given month."
+        }
+      ]
+    }
+  },
+  {
+    "method": "management_keyword_list_keywords",
+    "section": "management",
+    "description": "Keywords list",
+    "parameters": [
+      {
+        "name": "keyword_list_id",
+        "type": "int",
+        "required": true,
+        "description": "The id of an existing keyword list."
+      }
+    ],
+    "returns": {
+      "type": "list[ManagementKeywordListKeywordsData]",
+      "fields": [
+        {
+          "name": "keyword",
+          "type": "str",
+          "description": "The keyword added to the project."
+        }
+      ]
+    }
+  },
+  {
+    "method": "management_set_keyword_list_keywords",
+    "section": "management",
+    "description": "Keywords list [PUT]",
+    "parameters": [
+      {
+        "name": "keyword_list_id",
+        "type": "int",
+        "required": true,
+        "description": "The id of an existing keyword list."
+      },
+      {
+        "name": "keywords",
+        "type": "list[str]",
+        "required": true,
+        "description": "A list of keywords to add."
+      }
+    ],
+    "returns": {
+      "type": "list[ManagementKeywordListKeywordsData]",
+      "fields": [
+        {
+          "name": "keyword",
+          "type": "str",
+          "description": "The keyword added to the project."
+        }
+      ]
+    }
+  },
+  {
+    "method": "management_keyword_list_keywords_delete",
+    "section": "management",
+    "description": "Keywords list [PUT]",
+    "parameters": [
+      {
+        "name": "keyword_list_id",
+        "type": "int",
+        "required": true,
+        "description": "The id of an existing keyword list."
+      },
+      {
+        "name": "keywords",
+        "type": "list[str]",
+        "required": true,
+        "description": "A list of keywords to delete."
+      }
+    ],
+    "returns": {
+      "type": "list[ManagementKeywordListKeywordsDeleteData]",
+      "fields": [
+        {
+          "name": "keyword",
+          "type": "str",
+          "description": "The keyword added to the project."
+        }
+      ]
+    }
+  },
+  {
+    "method": "management_locations",
+    "section": "management",
+    "description": "Locations and languages",
+    "parameters": [
+      {
+        "name": "us_state",
+        "type": "UsStateEnum",
+        "required": false,
+        "description": "A two-letter US state code (ISO 3166-2:US). Required only if `country_code` is set to `us`"
+      },
+      {
+        "name": "country_code",
+        "type": "CountryEnum",
+        "required": true,
+        "description": "A two-letter country code (ISO 3166-1 alpha-2)."
+      }
+    ],
+    "returns": {
+      "type": "ManagementLocationsData | None",
+      "fields": [
+        {
+          "name": "country_code",
+          "type": "str",
+          "description": "The country code of the location."
+        },
+        {
+          "name": "languages",
+          "type": "list[list[Any] | None]",
+          "description": "A list of language codes and names for the specified country code."
+        },
+        {
+          "name": "locations",
+          "type": "list[list[Any] | None]",
+          "description": "A list of location IDs and names for the specified country code."
+        }
+      ]
+    }
+  },
+  {
+    "method": "management_project_competitors",
+    "section": "management",
+    "description": "Competitors",
+    "parameters": [
+      {
+        "name": "project_id",
+        "type": "int",
+        "required": true,
+        "description": "The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#`"
+      }
+    ],
+    "returns": {
+      "type": "list[ManagementProjectCompetitorsData]",
+      "fields": [
+        {
+          "name": "url",
+          "type": "str",
+          "description": "The URL of the project's target."
+        },
+        {
+          "name": "mode",
+          "type": "str",
+          "description": "The scope of the target. Possible values: `exact`, `prefix`, `domain`, `subdomains`."
+        }
+      ]
+    }
+  },
+  {
+    "method": "management_create_project_competitors",
+    "section": "management",
+    "description": "Competitors [POST]",
+    "parameters": [
+      {
+        "name": "project_id",
+        "type": "int",
+        "required": true,
+        "description": "The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#`"
+      },
+      {
+        "name": "competitors",
+        "type": "list[ManagementCreateProjectCompetitorsCompetitor]",
+        "required": true,
+        "description": "A list of competitors to add."
+      }
+    ],
+    "returns": {
+      "type": "list[ManagementProjectCompetitorsData]",
+      "fields": [
+        {
+          "name": "url",
+          "type": "str",
+          "description": "The URL of the project's target."
+        },
+        {
+          "name": "mode",
+          "type": "str",
+          "description": "The scope of the target. Possible values: `exact`, `prefix`, `domain`, `subdomains`."
+        }
+      ]
+    }
+  },
+  {
+    "method": "management_project_competitors_delete",
+    "section": "management",
+    "description": "Delete competitors [POST]",
+    "parameters": [
+      {
+        "name": "project_id",
+        "type": "int",
+        "required": true,
+        "description": "The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#`"
+      },
+      {
+        "name": "competitors",
+        "type": "list[ManagementProjectCompetitorsDeleteCompetitor]",
+        "required": true,
+        "description": "A list of competitors to delete."
+      }
+    ],
+    "returns": {
+      "type": "list[ManagementProjectCompetitorsDeleteData]",
+      "fields": [
+        {
+          "name": "url",
+          "type": "str",
+          "description": "The URL of the project's target."
+        },
+        {
+          "name": "mode",
+          "type": "str",
+          "description": "The scope of the target. Possible values: `exact`, `prefix`, `domain`, `subdomains`."
+        }
+      ]
+    }
+  },
+  {
+    "method": "management_project_keywords",
+    "section": "management",
+    "description": "Keywords",
+    "parameters": [
+      {
+        "name": "project_id",
+        "type": "int",
+        "required": true,
+        "description": "The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#`"
+      }
+    ],
+    "returns": {
+      "type": "list[ManagementProjectKeywordsData]",
+      "fields": [
+        {
+          "name": "keyword",
+          "type": "str",
+          "description": "The keyword added to the project."
+        },
+        {
+          "name": "language_code",
+          "type": "str",
+          "description": "The code of the language assigned to a given keyword."
+        },
+        {
+          "name": "language",
+          "type": "str",
+          "description": "The name of the language assigned to a given keyword."
+        },
+        {
+          "name": "location_id",
+          "type": "int",
+          "description": "The ID of the location assigned to a given keyword."
+        },
+        {
+          "name": "location",
+          "type": "str",
+          "description": "The name of the location assigned to a given keyword."
+        },
+        {
+          "name": "tags",
+          "type": "list[str | None]",
+          "description": "A list of tags assigned to a given keyword."
+        }
+      ]
+    }
+  },
+  {
+    "method": "management_set_project_keywords",
+    "section": "management",
+    "description": "Keywords [PUT]",
+    "parameters": [
+      {
+        "name": "project_id",
+        "type": "int",
+        "required": true,
+        "description": "The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#`"
+      },
+      {
+        "name": "locations",
+        "type": "list[ManagementSetProjectKeywordsLocation]",
+        "required": true,
+        "description": "A list of locations to assign to given keywords. You can use the 'Locations and languages' endpoint to get country codes, language codes and location IDs."
+      },
+      {
+        "name": "keywords",
+        "type": "list[ManagementSetProjectKeywordsKeyword]",
+        "required": true,
+        "description": "A list of keywords to add."
+      }
+    ],
+    "returns": {
+      "type": "list[ManagementProjectKeywordsData]",
+      "fields": [
+        {
+          "name": "keyword",
+          "type": "str",
+          "description": "The keyword added to the project."
+        },
+        {
+          "name": "language_code",
+          "type": "str",
+          "description": "The code of the language assigned to a given keyword."
+        },
+        {
+          "name": "language",
+          "type": "str",
+          "description": "The name of the language assigned to a given keyword."
+        },
+        {
+          "name": "location_id",
+          "type": "int",
+          "description": "The ID of the location assigned to a given keyword."
+        },
+        {
+          "name": "location",
+          "type": "str",
+          "description": "The name of the location assigned to a given keyword."
+        },
+        {
+          "name": "tags",
+          "type": "list[str | None]",
+          "description": "A list of tags assigned to a given keyword."
+        }
+      ]
+    }
+  },
+  {
+    "method": "management_project_keywords_delete",
+    "section": "management",
+    "description": "Delete Keywords [PUT]",
+    "parameters": [
+      {
+        "name": "project_id",
+        "type": "int",
+        "required": true,
+        "description": "The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#`"
+      },
+      {
+        "name": "keywords",
+        "type": "list[ManagementProjectKeywordsDeleteKeywordDelete]",
+        "required": true,
+        "description": "A list of keywords to delete. You can use the 'Locations and languages' endpoint to get country codes, language codes and location IDs."
+      }
+    ],
+    "returns": {
+      "type": "list[ManagementProjectKeywordsDeleteData]",
+      "fields": [
+        {
+          "name": "keyword",
+          "type": "str",
+          "description": "The keyword added to the project."
+        },
+        {
+          "name": "language_code",
+          "type": "str",
+          "description": "The code of the language assigned to a given keyword."
+        },
+        {
+          "name": "language",
+          "type": "str",
+          "description": "The name of the language assigned to a given keyword."
+        },
+        {
+          "name": "location_id",
+          "type": "int",
+          "description": "The ID of the location assigned to a given keyword."
+        },
+        {
+          "name": "location",
+          "type": "str",
+          "description": "The name of the location assigned to a given keyword."
+        },
+        {
+          "name": "tags",
+          "type": "list[str | None]",
+          "description": "A list of tags assigned to a given keyword."
+        }
+      ]
+    }
+  },
+  {
+    "method": "management_projects",
+    "section": "management",
+    "description": "Projects",
+    "parameters": [
+      {
+        "name": "owned_by",
+        "type": "str",
+        "required": false,
+        "description": "The email of the project owner"
+      },
+      {
+        "name": "access",
+        "type": "AccessEnum",
+        "required": false,
+        "description": "The access type of the project."
+      },
+      {
+        "name": "has_keywords",
+        "type": "bool",
+        "required": false,
+        "description": "Has Rank Tracker keywords."
+      },
+      {
+        "name": "project_id",
+        "type": "int",
+        "required": false,
+        "description": "The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#`"
+      }
+    ],
+    "returns": {
+      "type": "list[ManagementProjectsData]",
+      "fields": [
+        {
+          "name": "project_id",
+          "type": "str",
+          "description": "The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#`."
+        },
+        {
+          "name": "project_name",
+          "type": "str",
+          "description": "The project name."
+        },
+        {
+          "name": "url",
+          "type": "str",
+          "description": "The URL of the project's target."
+        },
+        {
+          "name": "mode",
+          "type": "str",
+          "description": "The scope of the target. Possible values: `exact`, `prefix`, `domain`, `subdomains`."
+        },
+        {
+          "name": "protocol",
+          "type": "str",
+          "description": "The protocol of the target. Possible values: `both`, `http`, `https`."
+        },
+        {
+          "name": "access",
+          "type": "str",
+          "description": "The access level of the project. Possible values: `private`, `shared`."
+        },
+        {
+          "name": "owned_by",
+          "type": "str | None",
+          "description": "The email of the project owner."
+        },
+        {
+          "name": "keyword_count",
+          "type": "int",
+          "description": "The number of keywords in the project."
+        },
+        {
+          "name": "web_analytics_data_key",
+          "type": "str",
+          "description": "Web Analytics Data Key."
+        }
+      ]
+    }
+  },
+  {
+    "method": "management_create_projects",
+    "section": "management",
+    "description": "Projects [POST]",
+    "parameters": [
+      {
+        "name": "owned_by",
+        "type": "str",
+        "required": false,
+        "description": "The email of the project owner. If not provided, the project is assigned to the Workspace owner."
+      },
+      {
+        "name": "access",
+        "type": "AccessEnum",
+        "required": false,
+        "description": "The access type of the project."
+      },
+      {
+        "name": "protocol",
+        "type": "ProtocolEnum",
+        "required": true,
+        "description": "The protocol of the project's target."
+      },
+      {
+        "name": "url",
+        "type": "str",
+        "required": true,
+        "description": "The URL of the project's target."
+      },
+      {
+        "name": "mode",
+        "type": "ModeEnum",
+        "required": true,
+        "description": "The scope of the target."
+      },
+      {
+        "name": "project_name",
+        "type": "str",
+        "required": true,
+        "description": "The name of the project."
+      }
+    ],
+    "returns": {
+      "type": "list[ManagementProjectsData]",
+      "fields": [
+        {
+          "name": "project_id",
+          "type": "str",
+          "description": "The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#`."
+        },
+        {
+          "name": "project_name",
+          "type": "str",
+          "description": "The project name."
+        },
+        {
+          "name": "url",
+          "type": "str",
+          "description": "The URL of the project's target."
+        },
+        {
+          "name": "mode",
+          "type": "str",
+          "description": "The scope of the target. Possible values: `exact`, `prefix`, `domain`, `subdomains`."
+        },
+        {
+          "name": "protocol",
+          "type": "str",
+          "description": "The protocol of the target. Possible values: `both`, `http`, `https`."
+        },
+        {
+          "name": "access",
+          "type": "str",
+          "description": "The access level of the project. Possible values: `private`, `shared`."
+        },
+        {
+          "name": "owned_by",
+          "type": "str | None",
+          "description": "The email of the project owner."
+        },
+        {
+          "name": "keyword_count",
+          "type": "int",
+          "description": "The number of keywords in the project."
+        },
+        {
+          "name": "web_analytics_data_key",
+          "type": "str",
+          "description": "Web Analytics Data Key."
+        }
+      ]
+    }
+  },
+  {
+    "method": "management_update_project",
+    "section": "management",
+    "description": "Update Project [PATCH]",
+    "parameters": [
+      {
+        "name": "access",
+        "type": "AccessEnum",
+        "required": true,
+        "description": "The new access setting for the project."
+      },
+      {
+        "name": "project_id",
+        "type": "int",
+        "required": true,
+        "description": "The ID of the project whose access setting you want to update. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#`"
+      }
+    ],
+    "returns": {
+      "type": "ManagementUpdateProjectData | None",
+      "fields": [
+        {
+          "name": "project_id",
+          "type": "str",
+          "description": "The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#`."
+        },
+        {
+          "name": "project_name",
+          "type": "str",
+          "description": "The project name."
+        },
+        {
+          "name": "url",
+          "type": "str",
+          "description": "The URL of the project's target."
+        },
+        {
+          "name": "mode",
+          "type": "str",
+          "description": "The scope of the target. Possible values: `exact`, `prefix`, `domain`, `subdomains`."
+        },
+        {
+          "name": "protocol",
+          "type": "str",
+          "description": "The protocol of the target. Possible values: `both`, `http`, `https`."
+        },
+        {
+          "name": "access",
+          "type": "str",
+          "description": "The access level of the project. Possible values: `private`, `shared`."
         }
       ]
     }
