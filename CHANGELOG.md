@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.7.0-alpha]
+
+### Added
+
+- Management API support (13 endpoints) — manage Rank Tracker projects, keywords, keyword lists, and competitors
+- PUT and PATCH HTTP method support
+- HTTP method tags (`[POST]`, `[PUT]`, `[PATCH]`) in docstrings and API reference for write endpoints
+
 ## [0.6.0-alpha]
 
 ### Added

@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import time
-from typing import TypeVar
+from typing import Any, TypeVar
 
 import httpx
 from pydantic import BaseModel
@@ -66,6 +66,7 @@ class AhrefsClient(GeneratedSyncMethodsMixin):
         *,
         exclude_none: bool = False,
         http_method: str = "GET",
+        query_params: dict[str, Any] | None = None,
     ) -> T:
         """Make a typed API request. Called by generated endpoint methods."""
         url = build_url(self._config.base_url, api_section, endpoint)
@@ -85,10 +86,22 @@ class AhrefsClient(GeneratedSyncMethodsMixin):
                     delay = calculate_backoff(attempt - 1)
                 time.sleep(delay)
             try:
-                if http_method == "POST":
-                    response = self._client.post(
+                if http_method in ("POST", "PUT", "PATCH"):
+                    body = params
+                    url_params = (
+                        {k: v for k, v in query_params.items() if v is not None}
+                        if query_params
+                        else None
+                    )
+                    if url_params:
+                        body = {
+                            k: v for k, v in params.items() if k not in url_params
+                        }
+                    response = self._client.request(
+                        http_method,
                         url,
-                        json=params,
+                        json=body,
+                        params=url_params or None,
                         headers=build_headers(self._config.api_key),
                     )
                 else:

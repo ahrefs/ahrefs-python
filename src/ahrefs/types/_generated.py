@@ -12,6 +12,11 @@ from pydantic import BaseModel, Field
 from ahrefs.types._coercions import DateStr, HistoryStr, SelectStr
 
 
+class AccessEnum(StrEnum):
+    PRIVATE = "private"
+    SHARED = "shared"
+
+
 class AggregationEnum(StrEnum):
     SIMILAR_LINKS = "similar_links"
     _1_PER_DOMAIN = "1_per_domain"
@@ -730,6 +735,59 @@ class TldClassSourceEnum(StrEnum):
     GOV = "gov"
     EDU = "edu"
     NORMAL = "normal"
+
+
+class UsStateEnum(StrEnum):
+    AL = "al"
+    AK = "ak"
+    AZ = "az"
+    AR = "ar"
+    CA = "ca"
+    CO = "co"
+    CT = "ct"
+    DE = "de"
+    DC = "dc"
+    FL = "fl"
+    GA = "ga"
+    HI = "hi"
+    ID = "id"
+    IL = "il"
+    IN = "in"
+    IA = "ia"
+    KS = "ks"
+    KY = "ky"
+    LA = "la"
+    ME = "me"
+    MD = "md"
+    MA = "ma"
+    MI = "mi"
+    MN = "mn"
+    MS = "ms"
+    MO = "mo"
+    MT = "mt"
+    NE = "ne"
+    NV = "nv"
+    NH = "nh"
+    NJ = "nj"
+    NM = "nm"
+    NY = "ny"
+    NC = "nc"
+    ND = "nd"
+    OH = "oh"
+    OK = "ok"
+    OR = "or"
+    PA = "pa"
+    RI = "ri"
+    SC = "sc"
+    SD = "sd"
+    TN = "tn"
+    TX = "tx"
+    UT = "ut"
+    VA = "va"
+    WA = "wa"
+    WV = "wv"
+    WI = "wi"
+    WY = "wy"
 
 
 class UtmParamEnum(StrEnum):
@@ -2114,6 +2172,499 @@ class KeywordsExplorerVolumeHistoryResponse(BaseModel):
     def data(self) -> list[KeywordsExplorerVolumeHistoryData]:
         """Unwrap the response payload."""
         return self.metrics or []
+
+
+# ============== Management API ==============
+
+
+# Models for management/keyword-list-keywords
+class ManagementKeywordListKeywordsRequest(BaseModel):
+    """Request model for ManagementKeywordListKeywordsRequest."""
+
+    keyword_list_id: int = Field(..., description="The id of an existing keyword list.")
+
+
+class ManagementKeywordListKeywordsData(BaseModel):
+    """Individual data item for /keyword-list-keywords endpoint"""
+
+    keyword: str | None = Field(
+        default=None, description="The keyword added to the project."
+    )
+
+
+class ManagementKeywordListKeywordsResponse(BaseModel):
+    """Response model for /keyword-list-keywords endpoint"""
+
+    keywords: list[ManagementKeywordListKeywordsData] | None = Field(
+        default=None, description="The keywords field"
+    )
+
+    @property
+    def data(self) -> list[ManagementKeywordListKeywordsData]:
+        """Unwrap the response payload."""
+        return self.keywords or []
+
+
+
+class ManagementSetKeywordListKeywordsRequest(BaseModel):
+    """Request model for ManagementSetKeywordListKeywordsRequest."""
+
+    keyword_list_id: int = Field(..., description="The id of an existing keyword list.")
+    keywords: list[str] = Field(..., description="A list of keywords to add.")
+
+# Models for management/keyword-list-keywords-delete
+class ManagementKeywordListKeywordsDeleteRequest(BaseModel):
+    """Request model for ManagementKeywordListKeywordsDeleteRequest."""
+
+    keyword_list_id: int = Field(..., description="The id of an existing keyword list.")
+    keywords: list[str] = Field(..., description="A list of keywords to delete.")
+
+
+class ManagementKeywordListKeywordsDeleteData(BaseModel):
+    """Individual data item for /keyword-list-keywords-delete endpoint"""
+
+    keyword: str | None = Field(
+        default=None, description="The keyword added to the project."
+    )
+
+
+class ManagementKeywordListKeywordsDeleteResponse(BaseModel):
+    """Response model for /keyword-list-keywords-delete endpoint"""
+
+    keywords: list[ManagementKeywordListKeywordsDeleteData] | None = Field(
+        default=None, description="The keywords field"
+    )
+
+    @property
+    def data(self) -> list[ManagementKeywordListKeywordsDeleteData]:
+        """Unwrap the response payload."""
+        return self.keywords or []
+
+
+# Models for management/locations
+class ManagementLocationsRequest(BaseModel):
+    """Request model for ManagementLocationsRequest."""
+
+    us_state: UsStateEnum | None = Field(
+        default=None,
+        description="A two-letter US state code (ISO 3166-2:US). Required only if `country_code` is set to `us`",
+    )
+    country_code: CountryEnum = Field(
+        ..., description="A two-letter country code (ISO 3166-1 alpha-2)."
+    )
+
+
+class ManagementLocationsData(BaseModel):
+    """Individual data item for /locations endpoint"""
+
+    country_code: str | None = Field(
+        default=None, description="The country code of the location."
+    )
+    languages: list[list[Any] | None] | None = Field(
+        default=None,
+        description="A list of language codes and names for the specified country code.",
+    )
+    locations: list[list[Any] | None] | None = Field(
+        default=None,
+        description="A list of location IDs and names for the specified country code.",
+    )
+
+
+class ManagementLocationsResponse(BaseModel):
+    """Response model for /locations endpoint"""
+
+    location: ManagementLocationsData | None = Field(
+        default=None, description="The location field"
+    )
+
+    @property
+    def data(self) -> ManagementLocationsData | None:
+        """Unwrap the response payload."""
+        return self.location
+
+
+# Models for management/project-competitors
+class ManagementProjectCompetitorsRequest(BaseModel):
+    """Request model for ManagementProjectCompetitorsRequest."""
+
+    project_id: int = Field(
+        ...,
+        description="The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#`",
+    )
+
+
+class ManagementProjectCompetitorsData(BaseModel):
+    """Individual data item for /project-competitors endpoint"""
+
+    url: str | None = Field(
+        default=None, description="The URL of the project's target."
+    )
+    mode: str | None = Field(
+        default=None,
+        description="The scope of the target. Possible values: `exact`, `prefix`, `domain`, `subdomains`.",
+    )
+
+
+class ManagementProjectCompetitorsResponse(BaseModel):
+    """Response model for /project-competitors endpoint"""
+
+    competitors: list[ManagementProjectCompetitorsData] | None = Field(
+        default=None, description="The competitors field"
+    )
+
+    @property
+    def data(self) -> list[ManagementProjectCompetitorsData]:
+        """Unwrap the response payload."""
+        return self.competitors or []
+
+
+
+class ManagementCreateProjectCompetitorsCompetitor(BaseModel):
+    """Request model for ManagementCreateProjectCompetitorsCompetitor."""
+
+    url: str = Field(..., description="The URL of the project's target.")
+    mode: str = Field(
+        ...,
+        description="The scope of the target. Possible values: `exact`, `prefix`, `domain`, `subdomains`.",
+    )
+
+
+class ManagementCreateProjectCompetitorsRequest(BaseModel):
+    """Request model for ManagementCreateProjectCompetitorsRequest."""
+
+    project_id: int = Field(
+        ...,
+        description="The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#`",
+    )
+    competitors: list[ManagementCreateProjectCompetitorsCompetitor] = Field(
+        ..., description="A list of competitors to add."
+    )
+
+# Models for management/project-competitors-delete
+class ManagementProjectCompetitorsDeleteCompetitor(BaseModel):
+    """Request model for ManagementProjectCompetitorsDeleteCompetitor."""
+
+    url: str = Field(..., description="The URL of the project's target.")
+    mode: str = Field(
+        ...,
+        description="The scope of the target. Possible values: `exact`, `prefix`, `domain`, `subdomains`.",
+    )
+
+
+class ManagementProjectCompetitorsDeleteRequest(BaseModel):
+    """Request model for ManagementProjectCompetitorsDeleteRequest."""
+
+    project_id: int = Field(
+        ...,
+        description="The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#`",
+    )
+    competitors: list[ManagementProjectCompetitorsDeleteCompetitor] = Field(
+        ..., description="A list of competitors to delete."
+    )
+
+
+class ManagementProjectCompetitorsDeleteData(BaseModel):
+    """Individual data item for /project-competitors-delete endpoint"""
+
+    url: str | None = Field(
+        default=None, description="The URL of the project's target."
+    )
+    mode: str | None = Field(
+        default=None,
+        description="The scope of the target. Possible values: `exact`, `prefix`, `domain`, `subdomains`.",
+    )
+
+
+class ManagementProjectCompetitorsDeleteResponse(BaseModel):
+    """Response model for /project-competitors-delete endpoint"""
+
+    competitors: list[ManagementProjectCompetitorsDeleteData] | None = Field(
+        default=None, description="The competitors field"
+    )
+
+    @property
+    def data(self) -> list[ManagementProjectCompetitorsDeleteData]:
+        """Unwrap the response payload."""
+        return self.competitors or []
+
+
+# Models for management/project-keywords
+class ManagementProjectKeywordsRequest(BaseModel):
+    """Request model for ManagementProjectKeywordsRequest."""
+
+    project_id: int = Field(
+        ...,
+        description="The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#`",
+    )
+
+
+class ManagementProjectKeywordsData(BaseModel):
+    """Individual data item for /project-keywords endpoint"""
+
+    keyword: str | None = Field(
+        default=None, description="The keyword added to the project."
+    )
+    language_code: str | None = Field(
+        default=None,
+        description="The code of the language assigned to a given keyword.",
+    )
+    language: str | None = Field(
+        default=None,
+        description="The name of the language assigned to a given keyword.",
+    )
+    location_id: int | None = Field(
+        default=None, description="The ID of the location assigned to a given keyword."
+    )
+    location: str | None = Field(
+        default=None,
+        description="The name of the location assigned to a given keyword.",
+    )
+    tags: list[str | None] | None = Field(
+        default=None, description="A list of tags assigned to a given keyword."
+    )
+
+
+class ManagementProjectKeywordsResponse(BaseModel):
+    """Response model for /project-keywords endpoint"""
+
+    keywords: list[ManagementProjectKeywordsData] | None = Field(
+        default=None, description="The keywords field"
+    )
+
+    @property
+    def data(self) -> list[ManagementProjectKeywordsData]:
+        """Unwrap the response payload."""
+        return self.keywords or []
+
+
+
+class ManagementSetProjectKeywordsLocation(BaseModel):
+    """Request model for ManagementSetProjectKeywordsLocation."""
+
+    country: str = Field(..., description="The country code.")
+    language: str | None = Field(default=None, description="The language code.")
+    location_id: int | None = Field(default=None, description="The location ID.")
+
+
+class ManagementSetProjectKeywordsKeyword(BaseModel):
+    """Request model for ManagementSetProjectKeywordsKeyword."""
+
+    keyword: str = Field(..., description="The keyword to add.")
+    tags: list[str | None] | None = Field(
+        default=None, description="A list of tags to assign to a given keyword."
+    )
+
+
+class ManagementSetProjectKeywordsRequest(BaseModel):
+    """Request model for ManagementSetProjectKeywordsRequest."""
+
+    project_id: int = Field(
+        ...,
+        description="The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#`",
+    )
+    locations: list[ManagementSetProjectKeywordsLocation] = Field(
+        ...,
+        description="A list of locations to assign to given keywords. You can use the 'Locations and languages' endpoint to get country codes, language codes and location IDs.",
+    )
+    keywords: list[ManagementSetProjectKeywordsKeyword] = Field(
+        ..., description="A list of keywords to add."
+    )
+
+# Models for management/project-keywords-delete
+class ManagementProjectKeywordsDeleteKeywordDelete(BaseModel):
+    """Request model for ManagementProjectKeywordsDeleteKeywordDelete."""
+
+    keyword: str = Field(..., description="The keyword to delete.")
+    country: str | None = Field(default=None, description="The country code.")
+    language: str | None = Field(default=None, description="The language code.")
+    location_id: int | None = Field(default=None, description="The location ID.")
+
+
+class ManagementProjectKeywordsDeleteRequest(BaseModel):
+    """Request model for ManagementProjectKeywordsDeleteRequest."""
+
+    project_id: int = Field(
+        ...,
+        description="The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#`",
+    )
+    keywords: list[ManagementProjectKeywordsDeleteKeywordDelete] = Field(
+        ...,
+        description="A list of keywords to delete. You can use the 'Locations and languages' endpoint to get country codes, language codes and location IDs.",
+    )
+
+
+class ManagementProjectKeywordsDeleteData(BaseModel):
+    """Individual data item for /project-keywords-delete endpoint"""
+
+    keyword: str | None = Field(
+        default=None, description="The keyword added to the project."
+    )
+    language_code: str | None = Field(
+        default=None,
+        description="The code of the language assigned to a given keyword.",
+    )
+    language: str | None = Field(
+        default=None,
+        description="The name of the language assigned to a given keyword.",
+    )
+    location_id: int | None = Field(
+        default=None, description="The ID of the location assigned to a given keyword."
+    )
+    location: str | None = Field(
+        default=None,
+        description="The name of the location assigned to a given keyword.",
+    )
+    tags: list[str | None] | None = Field(
+        default=None, description="A list of tags assigned to a given keyword."
+    )
+
+
+class ManagementProjectKeywordsDeleteResponse(BaseModel):
+    """Response model for /project-keywords-delete endpoint"""
+
+    keywords: list[ManagementProjectKeywordsDeleteData] | None = Field(
+        default=None, description="The keywords field"
+    )
+
+    @property
+    def data(self) -> list[ManagementProjectKeywordsDeleteData]:
+        """Unwrap the response payload."""
+        return self.keywords or []
+
+
+# Models for management/projects
+class ManagementProjectsRequest(BaseModel):
+    """Request model for ManagementProjectsRequest."""
+
+    owned_by: str | None = Field(
+        default=None, description="The email of the project owner"
+    )
+    access: AccessEnum | None = Field(
+        default=None, description="The access type of the project."
+    )
+    has_keywords: bool | None = Field(
+        default=None, description="Has Rank Tracker keywords."
+    )
+    project_id: int | None = Field(
+        default=None,
+        description="The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#`",
+    )
+
+
+class ManagementProjectsData(BaseModel):
+    """Individual data item for /projects endpoint"""
+
+    project_id: str | None = Field(
+        default=None,
+        description="The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#`.",
+    )
+    project_name: str | None = Field(default=None, description="The project name.")
+    url: str | None = Field(
+        default=None, description="The URL of the project's target."
+    )
+    mode: str | None = Field(
+        default=None,
+        description="The scope of the target. Possible values: `exact`, `prefix`, `domain`, `subdomains`.",
+    )
+    protocol: str | None = Field(
+        default=None,
+        description="The protocol of the target. Possible values: `both`, `http`, `https`.",
+    )
+    access: str | None = Field(
+        default=None,
+        description="The access level of the project. Possible values: `private`, `shared`.",
+    )
+    owned_by: str | None = Field(
+        default=None, description="The email of the project owner."
+    )
+    keyword_count: int | None = Field(
+        default=None, description="The number of keywords in the project."
+    )
+    web_analytics_data_key: str | None = Field(
+        default=None, description="Web Analytics Data Key."
+    )
+
+
+class ManagementProjectsResponse(BaseModel):
+    """Response model for /projects endpoint"""
+
+    projects: list[ManagementProjectsData] | None = Field(
+        default=None, description="The projects field"
+    )
+
+    @property
+    def data(self) -> list[ManagementProjectsData]:
+        """Unwrap the response payload."""
+        return self.projects or []
+
+
+
+class ManagementCreateProjectsRequest(BaseModel):
+    """Request model for ManagementCreateProjectsRequest."""
+
+    owned_by: str | None = Field(
+        default=None,
+        description="The email of the project owner. If not provided, the project is assigned to the Workspace owner.",
+    )
+    access: AccessEnum = Field(
+        default=AccessEnum.PRIVATE, description="The access type of the project."
+    )
+    protocol: ProtocolEnum = Field(
+        ..., description="The protocol of the project's target."
+    )
+    url: str = Field(..., description="The URL of the project's target.")
+    mode: ModeEnum = Field(..., description="The scope of the target.")
+    project_name: str = Field(..., description="The name of the project.")
+
+# Models for management/update-project
+class ManagementUpdateProjectRequest(BaseModel):
+    """Request model for ManagementUpdateProjectRequest."""
+
+    access: AccessEnum = Field(
+        ..., description="The new access setting for the project."
+    )
+    project_id: int = Field(
+        ...,
+        description="The ID of the project whose access setting you want to update. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#`",
+    )
+
+
+class ManagementUpdateProjectData(BaseModel):
+    """Individual data item for /update-project endpoint"""
+
+    project_id: str | None = Field(
+        default=None,
+        description="The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#`.",
+    )
+    project_name: str | None = Field(default=None, description="The project name.")
+    url: str | None = Field(
+        default=None, description="The URL of the project's target."
+    )
+    mode: str | None = Field(
+        default=None,
+        description="The scope of the target. Possible values: `exact`, `prefix`, `domain`, `subdomains`.",
+    )
+    protocol: str | None = Field(
+        default=None,
+        description="The protocol of the target. Possible values: `both`, `http`, `https`.",
+    )
+    access: str | None = Field(
+        default=None,
+        description="The access level of the project. Possible values: `private`, `shared`.",
+    )
+
+
+class ManagementUpdateProjectResponse(BaseModel):
+    """Response model for /update-project endpoint"""
+
+    project: ManagementUpdateProjectData | None = Field(
+        default=None, description="The project field"
+    )
+
+    @property
+    def data(self) -> ManagementUpdateProjectData | None:
+        """Unwrap the response payload."""
+        return self.project
 
 
 # ============== Public API ==============

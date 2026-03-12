@@ -4,7 +4,7 @@
 
 from __future__ import annotations
 
-from typing import TypeVar
+from typing import Any, TypeVar
 
 from pydantic import BaseModel
 
@@ -26,6 +26,7 @@ class GeneratedMethodsMixin:
         *,
         exclude_none: bool = False,
         http_method: str = "GET",
+        query_params: dict[str, Any] | None = None,
     ) -> T:
         raise NotImplementedError
 
@@ -42,7 +43,7 @@ class GeneratedMethodsMixin:
         targets: list[BatchAnalysisTarget] | None = None,
     ) -> list[BatchAnalysisData]:
         """
-        Batch Analysis.
+        Batch Analysis [POST].
 
         Args:
             request: BatchAnalysisRequest
@@ -828,6 +829,430 @@ class GeneratedMethodsMixin:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = KeywordsExplorerVolumeHistoryRequest(**{k: v for k, v in [("date_to", date_to), ("date_from", date_from), ("country", country), ("keyword", keyword)] if v is not None})  # pyright: ignore[reportArgumentType]
         _resp = await self._request("keywords-explorer", "volume-history", request, KeywordsExplorerVolumeHistoryResponse, exclude_none=True)
+        return _resp.data
+
+    # Management API methods
+    async def management_keyword_list_keywords(
+        self,
+        request: ManagementKeywordListKeywordsRequest | None = None,
+        *,
+        keyword_list_id: int | None = None,
+    ) -> list[ManagementKeywordListKeywordsData]:
+        """
+        Keywords list.
+
+        **Requests to this endpoint are free and do not consume any API units.**
+
+        Args:
+            request: ManagementKeywordListKeywordsRequest
+                keyword_list_id (int, required): The id of an existing keyword list.
+
+        Returns:
+            list[ManagementKeywordListKeywordsData]:
+                keyword (str): The keyword added to the project.
+        """
+        if request is None:
+            _missing = [k for k, v in [("keyword_list_id", keyword_list_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = ManagementKeywordListKeywordsRequest(**{k: v for k, v in [("keyword_list_id", keyword_list_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = await self._request("management", "keyword-list-keywords", request, ManagementKeywordListKeywordsResponse)
+        return _resp.data
+
+    async def management_set_keyword_list_keywords(
+        self,
+        request: ManagementSetKeywordListKeywordsRequest | None = None,
+        *,
+        keyword_list_id: int | None = None,
+        keywords: list[str] | None = None,
+    ) -> list[ManagementKeywordListKeywordsData]:
+        """
+        Keywords list [PUT].
+
+        **Requests to this endpoint are free and do not consume any API units.**
+
+        Args:
+            request: ManagementSetKeywordListKeywordsRequest
+                keyword_list_id (int, required): The id of an existing keyword list.
+                keywords (list[str], required): A list of keywords to add.
+
+        Returns:
+            list[ManagementKeywordListKeywordsData]:
+                keyword (str): The keyword added to the project.
+        """
+        if request is None:
+            _missing = [k for k, v in [("keyword_list_id", keyword_list_id), ("keywords", keywords)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = ManagementSetKeywordListKeywordsRequest(**{k: v for k, v in [("keyword_list_id", keyword_list_id), ("keywords", keywords)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = await self._request("management", "keyword-list-keywords", request, ManagementKeywordListKeywordsResponse, http_method="PUT", query_params={k: v for k, v in {"keyword_list_id": request.keyword_list_id}.items() if v is not None})
+        return _resp.data
+
+    async def management_keyword_list_keywords_delete(
+        self,
+        request: ManagementKeywordListKeywordsDeleteRequest | None = None,
+        *,
+        keyword_list_id: int | None = None,
+        keywords: list[str] | None = None,
+    ) -> list[ManagementKeywordListKeywordsDeleteData]:
+        """
+        Keywords list [PUT].
+
+        **Requests to this endpoint are free and do not consume any API units.**
+
+        Args:
+            request: ManagementKeywordListKeywordsDeleteRequest
+                keyword_list_id (int, required): The id of an existing keyword list.
+                keywords (list[str], required): A list of keywords to delete.
+
+        Returns:
+            list[ManagementKeywordListKeywordsDeleteData]:
+                keyword (str): The keyword added to the project.
+        """
+        if request is None:
+            _missing = [k for k, v in [("keyword_list_id", keyword_list_id), ("keywords", keywords)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = ManagementKeywordListKeywordsDeleteRequest(**{k: v for k, v in [("keyword_list_id", keyword_list_id), ("keywords", keywords)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = await self._request("management", "keyword-list-keywords-delete", request, ManagementKeywordListKeywordsDeleteResponse, http_method="PUT", query_params={k: v for k, v in {"keyword_list_id": request.keyword_list_id}.items() if v is not None})
+        return _resp.data
+
+    async def management_locations(
+        self,
+        request: ManagementLocationsRequest | None = None,
+        *,
+        us_state: UsStateEnum | None = None,
+        country_code: CountryEnum | None = None,
+    ) -> ManagementLocationsData | None:
+        """
+        Locations and languages.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: ManagementLocationsRequest
+                us_state (UsStateEnum, optional): A two-letter US state code (ISO 3166-2:US). Required only if `country_code` is set to `us` Default: None.
+                country_code (CountryEnum, required): A two-letter country code (ISO 3166-1 alpha-2).
+
+        Returns:
+            ManagementLocationsData | None:
+                country_code (str): The country code of the location.
+                languages (list[list[Any] | None]): A list of language codes and names for the specified country code.
+                locations (list[list[Any] | None]): A list of location IDs and names for the specified country code.
+        """
+        if request is None:
+            _missing = [k for k, v in [("country_code", country_code)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = ManagementLocationsRequest(**{k: v for k, v in [("us_state", us_state), ("country_code", country_code)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = await self._request("management", "locations", request, ManagementLocationsResponse, exclude_none=True)
+        return _resp.data
+
+    async def management_project_competitors(
+        self,
+        request: ManagementProjectCompetitorsRequest | None = None,
+        *,
+        project_id: int | None = None,
+    ) -> list[ManagementProjectCompetitorsData]:
+        """
+        Competitors.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: ManagementProjectCompetitorsRequest
+                project_id (int, required): The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#`
+
+        Returns:
+            list[ManagementProjectCompetitorsData]:
+                url (str): The URL of the project's target.
+                mode (str): The scope of the target. Possible values: `exact`, `prefix`, `domain`, `subdomains`.
+        """
+        if request is None:
+            _missing = [k for k, v in [("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = ManagementProjectCompetitorsRequest(**{k: v for k, v in [("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = await self._request("management", "project-competitors", request, ManagementProjectCompetitorsResponse)
+        return _resp.data
+
+    async def management_create_project_competitors(
+        self,
+        request: ManagementCreateProjectCompetitorsRequest | None = None,
+        *,
+        project_id: int | None = None,
+        competitors: list[ManagementCreateProjectCompetitorsCompetitor] | None = None,
+    ) -> list[ManagementProjectCompetitorsData]:
+        """
+        Competitors [POST].
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: ManagementCreateProjectCompetitorsRequest
+                project_id (int, required): The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#`
+                competitors (list[ManagementCreateProjectCompetitorsCompetitor], required): A list of competitors to add.
+
+        Returns:
+            list[ManagementProjectCompetitorsData]:
+                url (str): The URL of the project's target.
+                mode (str): The scope of the target. Possible values: `exact`, `prefix`, `domain`, `subdomains`.
+        """
+        if request is None:
+            _missing = [k for k, v in [("project_id", project_id), ("competitors", competitors)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = ManagementCreateProjectCompetitorsRequest(**{k: v for k, v in [("project_id", project_id), ("competitors", competitors)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = await self._request("management", "project-competitors", request, ManagementProjectCompetitorsResponse, http_method="POST", query_params={k: v for k, v in {"project_id": request.project_id}.items() if v is not None})
+        return _resp.data
+
+    async def management_project_competitors_delete(
+        self,
+        request: ManagementProjectCompetitorsDeleteRequest | None = None,
+        *,
+        project_id: int | None = None,
+        competitors: list[ManagementProjectCompetitorsDeleteCompetitor] | None = None,
+    ) -> list[ManagementProjectCompetitorsDeleteData]:
+        """
+        Delete competitors [POST].
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: ManagementProjectCompetitorsDeleteRequest
+                project_id (int, required): The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#`
+                competitors (list[ManagementProjectCompetitorsDeleteCompetitor], required): A list of competitors to delete.
+
+        Returns:
+            list[ManagementProjectCompetitorsDeleteData]:
+                url (str): The URL of the project's target.
+                mode (str): The scope of the target. Possible values: `exact`, `prefix`, `domain`, `subdomains`.
+        """
+        if request is None:
+            _missing = [k for k, v in [("project_id", project_id), ("competitors", competitors)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = ManagementProjectCompetitorsDeleteRequest(**{k: v for k, v in [("project_id", project_id), ("competitors", competitors)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = await self._request("management", "project-competitors-delete", request, ManagementProjectCompetitorsDeleteResponse, http_method="POST", query_params={k: v for k, v in {"project_id": request.project_id}.items() if v is not None})
+        return _resp.data
+
+    async def management_project_keywords(
+        self,
+        request: ManagementProjectKeywordsRequest | None = None,
+        *,
+        project_id: int | None = None,
+    ) -> list[ManagementProjectKeywordsData]:
+        """
+        Keywords.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: ManagementProjectKeywordsRequest
+                project_id (int, required): The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#`
+
+        Returns:
+            list[ManagementProjectKeywordsData]:
+                keyword (str): The keyword added to the project.
+                language_code (str): The code of the language assigned to a given keyword.
+                language (str): The name of the language assigned to a given keyword.
+                location_id (int): The ID of the location assigned to a given keyword.
+                location (str): The name of the location assigned to a given keyword.
+                tags (list[str | None]): A list of tags assigned to a given keyword.
+        """
+        if request is None:
+            _missing = [k for k, v in [("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = ManagementProjectKeywordsRequest(**{k: v for k, v in [("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = await self._request("management", "project-keywords", request, ManagementProjectKeywordsResponse)
+        return _resp.data
+
+    async def management_set_project_keywords(
+        self,
+        request: ManagementSetProjectKeywordsRequest | None = None,
+        *,
+        project_id: int | None = None,
+        locations: list[ManagementSetProjectKeywordsLocation] | None = None,
+        keywords: list[ManagementSetProjectKeywordsKeyword] | None = None,
+    ) -> list[ManagementProjectKeywordsData]:
+        """
+        Keywords [PUT].
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: ManagementSetProjectKeywordsRequest
+                project_id (int, required): The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#`
+                locations (list[ManagementSetProjectKeywordsLocation], required): A list of locations to assign to given keywords. You can use the 'Locations and languages' endpoint to get country codes, language codes and location IDs.
+                keywords (list[ManagementSetProjectKeywordsKeyword], required): A list of keywords to add.
+
+        Returns:
+            list[ManagementProjectKeywordsData]:
+                keyword (str): The keyword added to the project.
+                language_code (str): The code of the language assigned to a given keyword.
+                language (str): The name of the language assigned to a given keyword.
+                location_id (int): The ID of the location assigned to a given keyword.
+                location (str): The name of the location assigned to a given keyword.
+                tags (list[str | None]): A list of tags assigned to a given keyword.
+        """
+        if request is None:
+            _missing = [k for k, v in [("project_id", project_id), ("locations", locations), ("keywords", keywords)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = ManagementSetProjectKeywordsRequest(**{k: v for k, v in [("project_id", project_id), ("locations", locations), ("keywords", keywords)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = await self._request("management", "project-keywords", request, ManagementProjectKeywordsResponse, http_method="PUT", query_params={k: v for k, v in {"project_id": request.project_id}.items() if v is not None})
+        return _resp.data
+
+    async def management_project_keywords_delete(
+        self,
+        request: ManagementProjectKeywordsDeleteRequest | None = None,
+        *,
+        project_id: int | None = None,
+        keywords: list[ManagementProjectKeywordsDeleteKeywordDelete] | None = None,
+    ) -> list[ManagementProjectKeywordsDeleteData]:
+        """
+        Delete Keywords [PUT].
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: ManagementProjectKeywordsDeleteRequest
+                project_id (int, required): The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#`
+                keywords (list[ManagementProjectKeywordsDeleteKeywordDelete], required): A list of keywords to delete. You can use the 'Locations and languages' endpoint to get country codes, language codes and location IDs.
+
+        Returns:
+            list[ManagementProjectKeywordsDeleteData]:
+                keyword (str): The keyword added to the project.
+                language_code (str): The code of the language assigned to a given keyword.
+                language (str): The name of the language assigned to a given keyword.
+                location_id (int): The ID of the location assigned to a given keyword.
+                location (str): The name of the location assigned to a given keyword.
+                tags (list[str | None]): A list of tags assigned to a given keyword.
+        """
+        if request is None:
+            _missing = [k for k, v in [("project_id", project_id), ("keywords", keywords)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = ManagementProjectKeywordsDeleteRequest(**{k: v for k, v in [("project_id", project_id), ("keywords", keywords)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = await self._request("management", "project-keywords-delete", request, ManagementProjectKeywordsDeleteResponse, http_method="PUT", query_params={k: v for k, v in {"project_id": request.project_id}.items() if v is not None})
+        return _resp.data
+
+    async def management_projects(
+        self,
+        request: ManagementProjectsRequest | None = None,
+        *,
+        owned_by: str | None = None,
+        access: AccessEnum | None = None,
+        has_keywords: bool | None = None,
+        project_id: int | None = None,
+    ) -> list[ManagementProjectsData]:
+        """
+        Projects.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: ManagementProjectsRequest
+                owned_by (str, optional): The email of the project owner Default: None.
+                access (AccessEnum, optional): The access type of the project. Default: None.
+                has_keywords (bool, optional): Has Rank Tracker keywords. Default: None.
+                project_id (int, optional): The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#` Default: None.
+
+        Returns:
+            list[ManagementProjectsData]:
+                project_id (str): The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#`.
+                project_name (str): The project name.
+                url (str): The URL of the project's target.
+                mode (str): The scope of the target. Possible values: `exact`, `prefix`, `domain`, `subdomains`.
+                protocol (str): The protocol of the target. Possible values: `both`, `http`, `https`.
+                access (str): The access level of the project. Possible values: `private`, `shared`.
+                owned_by (str | None): The email of the project owner.
+                keyword_count (int): The number of keywords in the project.
+                web_analytics_data_key (str): Web Analytics Data Key.
+        """
+        if request is None:
+            request = ManagementProjectsRequest(**{k: v for k, v in [("owned_by", owned_by), ("access", access), ("has_keywords", has_keywords), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = await self._request("management", "projects", request, ManagementProjectsResponse, exclude_none=True)
+        return _resp.data
+
+    async def management_create_projects(
+        self,
+        request: ManagementCreateProjectsRequest | None = None,
+        *,
+        owned_by: str | None = None,
+        access: AccessEnum | None = None,
+        protocol: ProtocolEnum | None = None,
+        url: str | None = None,
+        mode: ModeEnum | None = None,
+        project_name: str | None = None,
+    ) -> list[ManagementProjectsData]:
+        """
+        Projects [POST].
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: ManagementCreateProjectsRequest
+                owned_by (str, optional): The email of the project owner. If not provided, the project is assigned to the Workspace owner. Default: None.
+                access (AccessEnum, optional): The access type of the project. Default: 'private'.
+                protocol (ProtocolEnum, required): The protocol of the project's target.
+                url (str, required): The URL of the project's target.
+                mode (ModeEnum, required): The scope of the target.
+                project_name (str, required): The name of the project.
+
+        Returns:
+            list[ManagementProjectsData]:
+                project_id (str): The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#`.
+                project_name (str): The project name.
+                url (str): The URL of the project's target.
+                mode (str): The scope of the target. Possible values: `exact`, `prefix`, `domain`, `subdomains`.
+                protocol (str): The protocol of the target. Possible values: `both`, `http`, `https`.
+                access (str): The access level of the project. Possible values: `private`, `shared`.
+                owned_by (str | None): The email of the project owner.
+                keyword_count (int): The number of keywords in the project.
+                web_analytics_data_key (str): Web Analytics Data Key.
+        """
+        if request is None:
+            _missing = [k for k, v in [("protocol", protocol), ("url", url), ("mode", mode), ("project_name", project_name)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = ManagementCreateProjectsRequest(**{k: v for k, v in [("owned_by", owned_by), ("access", access), ("protocol", protocol), ("url", url), ("mode", mode), ("project_name", project_name)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = await self._request("management", "projects", request, ManagementProjectsResponse, exclude_none=True, http_method="POST")
+        return _resp.data
+
+    async def management_update_project(
+        self,
+        request: ManagementUpdateProjectRequest | None = None,
+        *,
+        access: AccessEnum | None = None,
+        project_id: int | None = None,
+    ) -> ManagementUpdateProjectData | None:
+        """
+        Update Project [PATCH].
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: ManagementUpdateProjectRequest
+                access (AccessEnum, required): The new access setting for the project.
+                project_id (int, required): The ID of the project whose access setting you want to update. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#`
+
+        Returns:
+            ManagementUpdateProjectData | None:
+                project_id (str): The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#`.
+                project_name (str): The project name.
+                url (str): The URL of the project's target.
+                mode (str): The scope of the target. Possible values: `exact`, `prefix`, `domain`, `subdomains`.
+                protocol (str): The protocol of the target. Possible values: `both`, `http`, `https`.
+                access (str): The access level of the project. Possible values: `private`, `shared`.
+        """
+        if request is None:
+            _missing = [k for k, v in [("access", access), ("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = ManagementUpdateProjectRequest(**{k: v for k, v in [("access", access), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = await self._request("management", "update-project", request, ManagementUpdateProjectResponse, http_method="PATCH")
         return _resp.data
 
     # Public API methods
@@ -4118,6 +4543,7 @@ class GeneratedSyncMethodsMixin:
         *,
         exclude_none: bool = False,
         http_method: str = "GET",
+        query_params: dict[str, Any] | None = None,
     ) -> T:
         raise NotImplementedError
 
@@ -4134,7 +4560,7 @@ class GeneratedSyncMethodsMixin:
         targets: list[BatchAnalysisTarget] | None = None,
     ) -> list[BatchAnalysisData]:
         """
-        Batch Analysis.
+        Batch Analysis [POST].
 
         Args:
             request: BatchAnalysisRequest
@@ -4920,6 +5346,430 @@ class GeneratedSyncMethodsMixin:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = KeywordsExplorerVolumeHistoryRequest(**{k: v for k, v in [("date_to", date_to), ("date_from", date_from), ("country", country), ("keyword", keyword)] if v is not None})  # pyright: ignore[reportArgumentType]
         _resp = self._request("keywords-explorer", "volume-history", request, KeywordsExplorerVolumeHistoryResponse, exclude_none=True)
+        return _resp.data
+
+    # Management API methods
+    def management_keyword_list_keywords(
+        self,
+        request: ManagementKeywordListKeywordsRequest | None = None,
+        *,
+        keyword_list_id: int | None = None,
+    ) -> list[ManagementKeywordListKeywordsData]:
+        """
+        Keywords list.
+
+        **Requests to this endpoint are free and do not consume any API units.**
+
+        Args:
+            request: ManagementKeywordListKeywordsRequest
+                keyword_list_id (int, required): The id of an existing keyword list.
+
+        Returns:
+            list[ManagementKeywordListKeywordsData]:
+                keyword (str): The keyword added to the project.
+        """
+        if request is None:
+            _missing = [k for k, v in [("keyword_list_id", keyword_list_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = ManagementKeywordListKeywordsRequest(**{k: v for k, v in [("keyword_list_id", keyword_list_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = self._request("management", "keyword-list-keywords", request, ManagementKeywordListKeywordsResponse)
+        return _resp.data
+
+    def management_set_keyword_list_keywords(
+        self,
+        request: ManagementSetKeywordListKeywordsRequest | None = None,
+        *,
+        keyword_list_id: int | None = None,
+        keywords: list[str] | None = None,
+    ) -> list[ManagementKeywordListKeywordsData]:
+        """
+        Keywords list [PUT].
+
+        **Requests to this endpoint are free and do not consume any API units.**
+
+        Args:
+            request: ManagementSetKeywordListKeywordsRequest
+                keyword_list_id (int, required): The id of an existing keyword list.
+                keywords (list[str], required): A list of keywords to add.
+
+        Returns:
+            list[ManagementKeywordListKeywordsData]:
+                keyword (str): The keyword added to the project.
+        """
+        if request is None:
+            _missing = [k for k, v in [("keyword_list_id", keyword_list_id), ("keywords", keywords)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = ManagementSetKeywordListKeywordsRequest(**{k: v for k, v in [("keyword_list_id", keyword_list_id), ("keywords", keywords)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = self._request("management", "keyword-list-keywords", request, ManagementKeywordListKeywordsResponse, http_method="PUT", query_params={k: v for k, v in {"keyword_list_id": request.keyword_list_id}.items() if v is not None})
+        return _resp.data
+
+    def management_keyword_list_keywords_delete(
+        self,
+        request: ManagementKeywordListKeywordsDeleteRequest | None = None,
+        *,
+        keyword_list_id: int | None = None,
+        keywords: list[str] | None = None,
+    ) -> list[ManagementKeywordListKeywordsDeleteData]:
+        """
+        Keywords list [PUT].
+
+        **Requests to this endpoint are free and do not consume any API units.**
+
+        Args:
+            request: ManagementKeywordListKeywordsDeleteRequest
+                keyword_list_id (int, required): The id of an existing keyword list.
+                keywords (list[str], required): A list of keywords to delete.
+
+        Returns:
+            list[ManagementKeywordListKeywordsDeleteData]:
+                keyword (str): The keyword added to the project.
+        """
+        if request is None:
+            _missing = [k for k, v in [("keyword_list_id", keyword_list_id), ("keywords", keywords)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = ManagementKeywordListKeywordsDeleteRequest(**{k: v for k, v in [("keyword_list_id", keyword_list_id), ("keywords", keywords)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = self._request("management", "keyword-list-keywords-delete", request, ManagementKeywordListKeywordsDeleteResponse, http_method="PUT", query_params={k: v for k, v in {"keyword_list_id": request.keyword_list_id}.items() if v is not None})
+        return _resp.data
+
+    def management_locations(
+        self,
+        request: ManagementLocationsRequest | None = None,
+        *,
+        us_state: UsStateEnum | None = None,
+        country_code: CountryEnum | None = None,
+    ) -> ManagementLocationsData | None:
+        """
+        Locations and languages.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: ManagementLocationsRequest
+                us_state (UsStateEnum, optional): A two-letter US state code (ISO 3166-2:US). Required only if `country_code` is set to `us` Default: None.
+                country_code (CountryEnum, required): A two-letter country code (ISO 3166-1 alpha-2).
+
+        Returns:
+            ManagementLocationsData | None:
+                country_code (str): The country code of the location.
+                languages (list[list[Any] | None]): A list of language codes and names for the specified country code.
+                locations (list[list[Any] | None]): A list of location IDs and names for the specified country code.
+        """
+        if request is None:
+            _missing = [k for k, v in [("country_code", country_code)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = ManagementLocationsRequest(**{k: v for k, v in [("us_state", us_state), ("country_code", country_code)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = self._request("management", "locations", request, ManagementLocationsResponse, exclude_none=True)
+        return _resp.data
+
+    def management_project_competitors(
+        self,
+        request: ManagementProjectCompetitorsRequest | None = None,
+        *,
+        project_id: int | None = None,
+    ) -> list[ManagementProjectCompetitorsData]:
+        """
+        Competitors.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: ManagementProjectCompetitorsRequest
+                project_id (int, required): The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#`
+
+        Returns:
+            list[ManagementProjectCompetitorsData]:
+                url (str): The URL of the project's target.
+                mode (str): The scope of the target. Possible values: `exact`, `prefix`, `domain`, `subdomains`.
+        """
+        if request is None:
+            _missing = [k for k, v in [("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = ManagementProjectCompetitorsRequest(**{k: v for k, v in [("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = self._request("management", "project-competitors", request, ManagementProjectCompetitorsResponse)
+        return _resp.data
+
+    def management_create_project_competitors(
+        self,
+        request: ManagementCreateProjectCompetitorsRequest | None = None,
+        *,
+        project_id: int | None = None,
+        competitors: list[ManagementCreateProjectCompetitorsCompetitor] | None = None,
+    ) -> list[ManagementProjectCompetitorsData]:
+        """
+        Competitors [POST].
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: ManagementCreateProjectCompetitorsRequest
+                project_id (int, required): The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#`
+                competitors (list[ManagementCreateProjectCompetitorsCompetitor], required): A list of competitors to add.
+
+        Returns:
+            list[ManagementProjectCompetitorsData]:
+                url (str): The URL of the project's target.
+                mode (str): The scope of the target. Possible values: `exact`, `prefix`, `domain`, `subdomains`.
+        """
+        if request is None:
+            _missing = [k for k, v in [("project_id", project_id), ("competitors", competitors)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = ManagementCreateProjectCompetitorsRequest(**{k: v for k, v in [("project_id", project_id), ("competitors", competitors)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = self._request("management", "project-competitors", request, ManagementProjectCompetitorsResponse, http_method="POST", query_params={k: v for k, v in {"project_id": request.project_id}.items() if v is not None})
+        return _resp.data
+
+    def management_project_competitors_delete(
+        self,
+        request: ManagementProjectCompetitorsDeleteRequest | None = None,
+        *,
+        project_id: int | None = None,
+        competitors: list[ManagementProjectCompetitorsDeleteCompetitor] | None = None,
+    ) -> list[ManagementProjectCompetitorsDeleteData]:
+        """
+        Delete competitors [POST].
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: ManagementProjectCompetitorsDeleteRequest
+                project_id (int, required): The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#`
+                competitors (list[ManagementProjectCompetitorsDeleteCompetitor], required): A list of competitors to delete.
+
+        Returns:
+            list[ManagementProjectCompetitorsDeleteData]:
+                url (str): The URL of the project's target.
+                mode (str): The scope of the target. Possible values: `exact`, `prefix`, `domain`, `subdomains`.
+        """
+        if request is None:
+            _missing = [k for k, v in [("project_id", project_id), ("competitors", competitors)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = ManagementProjectCompetitorsDeleteRequest(**{k: v for k, v in [("project_id", project_id), ("competitors", competitors)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = self._request("management", "project-competitors-delete", request, ManagementProjectCompetitorsDeleteResponse, http_method="POST", query_params={k: v for k, v in {"project_id": request.project_id}.items() if v is not None})
+        return _resp.data
+
+    def management_project_keywords(
+        self,
+        request: ManagementProjectKeywordsRequest | None = None,
+        *,
+        project_id: int | None = None,
+    ) -> list[ManagementProjectKeywordsData]:
+        """
+        Keywords.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: ManagementProjectKeywordsRequest
+                project_id (int, required): The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#`
+
+        Returns:
+            list[ManagementProjectKeywordsData]:
+                keyword (str): The keyword added to the project.
+                language_code (str): The code of the language assigned to a given keyword.
+                language (str): The name of the language assigned to a given keyword.
+                location_id (int): The ID of the location assigned to a given keyword.
+                location (str): The name of the location assigned to a given keyword.
+                tags (list[str | None]): A list of tags assigned to a given keyword.
+        """
+        if request is None:
+            _missing = [k for k, v in [("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = ManagementProjectKeywordsRequest(**{k: v for k, v in [("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = self._request("management", "project-keywords", request, ManagementProjectKeywordsResponse)
+        return _resp.data
+
+    def management_set_project_keywords(
+        self,
+        request: ManagementSetProjectKeywordsRequest | None = None,
+        *,
+        project_id: int | None = None,
+        locations: list[ManagementSetProjectKeywordsLocation] | None = None,
+        keywords: list[ManagementSetProjectKeywordsKeyword] | None = None,
+    ) -> list[ManagementProjectKeywordsData]:
+        """
+        Keywords [PUT].
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: ManagementSetProjectKeywordsRequest
+                project_id (int, required): The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#`
+                locations (list[ManagementSetProjectKeywordsLocation], required): A list of locations to assign to given keywords. You can use the 'Locations and languages' endpoint to get country codes, language codes and location IDs.
+                keywords (list[ManagementSetProjectKeywordsKeyword], required): A list of keywords to add.
+
+        Returns:
+            list[ManagementProjectKeywordsData]:
+                keyword (str): The keyword added to the project.
+                language_code (str): The code of the language assigned to a given keyword.
+                language (str): The name of the language assigned to a given keyword.
+                location_id (int): The ID of the location assigned to a given keyword.
+                location (str): The name of the location assigned to a given keyword.
+                tags (list[str | None]): A list of tags assigned to a given keyword.
+        """
+        if request is None:
+            _missing = [k for k, v in [("project_id", project_id), ("locations", locations), ("keywords", keywords)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = ManagementSetProjectKeywordsRequest(**{k: v for k, v in [("project_id", project_id), ("locations", locations), ("keywords", keywords)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = self._request("management", "project-keywords", request, ManagementProjectKeywordsResponse, http_method="PUT", query_params={k: v for k, v in {"project_id": request.project_id}.items() if v is not None})
+        return _resp.data
+
+    def management_project_keywords_delete(
+        self,
+        request: ManagementProjectKeywordsDeleteRequest | None = None,
+        *,
+        project_id: int | None = None,
+        keywords: list[ManagementProjectKeywordsDeleteKeywordDelete] | None = None,
+    ) -> list[ManagementProjectKeywordsDeleteData]:
+        """
+        Delete Keywords [PUT].
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: ManagementProjectKeywordsDeleteRequest
+                project_id (int, required): The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#`
+                keywords (list[ManagementProjectKeywordsDeleteKeywordDelete], required): A list of keywords to delete. You can use the 'Locations and languages' endpoint to get country codes, language codes and location IDs.
+
+        Returns:
+            list[ManagementProjectKeywordsDeleteData]:
+                keyword (str): The keyword added to the project.
+                language_code (str): The code of the language assigned to a given keyword.
+                language (str): The name of the language assigned to a given keyword.
+                location_id (int): The ID of the location assigned to a given keyword.
+                location (str): The name of the location assigned to a given keyword.
+                tags (list[str | None]): A list of tags assigned to a given keyword.
+        """
+        if request is None:
+            _missing = [k for k, v in [("project_id", project_id), ("keywords", keywords)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = ManagementProjectKeywordsDeleteRequest(**{k: v for k, v in [("project_id", project_id), ("keywords", keywords)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = self._request("management", "project-keywords-delete", request, ManagementProjectKeywordsDeleteResponse, http_method="PUT", query_params={k: v for k, v in {"project_id": request.project_id}.items() if v is not None})
+        return _resp.data
+
+    def management_projects(
+        self,
+        request: ManagementProjectsRequest | None = None,
+        *,
+        owned_by: str | None = None,
+        access: AccessEnum | None = None,
+        has_keywords: bool | None = None,
+        project_id: int | None = None,
+    ) -> list[ManagementProjectsData]:
+        """
+        Projects.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: ManagementProjectsRequest
+                owned_by (str, optional): The email of the project owner Default: None.
+                access (AccessEnum, optional): The access type of the project. Default: None.
+                has_keywords (bool, optional): Has Rank Tracker keywords. Default: None.
+                project_id (int, optional): The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#` Default: None.
+
+        Returns:
+            list[ManagementProjectsData]:
+                project_id (str): The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#`.
+                project_name (str): The project name.
+                url (str): The URL of the project's target.
+                mode (str): The scope of the target. Possible values: `exact`, `prefix`, `domain`, `subdomains`.
+                protocol (str): The protocol of the target. Possible values: `both`, `http`, `https`.
+                access (str): The access level of the project. Possible values: `private`, `shared`.
+                owned_by (str | None): The email of the project owner.
+                keyword_count (int): The number of keywords in the project.
+                web_analytics_data_key (str): Web Analytics Data Key.
+        """
+        if request is None:
+            request = ManagementProjectsRequest(**{k: v for k, v in [("owned_by", owned_by), ("access", access), ("has_keywords", has_keywords), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = self._request("management", "projects", request, ManagementProjectsResponse, exclude_none=True)
+        return _resp.data
+
+    def management_create_projects(
+        self,
+        request: ManagementCreateProjectsRequest | None = None,
+        *,
+        owned_by: str | None = None,
+        access: AccessEnum | None = None,
+        protocol: ProtocolEnum | None = None,
+        url: str | None = None,
+        mode: ModeEnum | None = None,
+        project_name: str | None = None,
+    ) -> list[ManagementProjectsData]:
+        """
+        Projects [POST].
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: ManagementCreateProjectsRequest
+                owned_by (str, optional): The email of the project owner. If not provided, the project is assigned to the Workspace owner. Default: None.
+                access (AccessEnum, optional): The access type of the project. Default: 'private'.
+                protocol (ProtocolEnum, required): The protocol of the project's target.
+                url (str, required): The URL of the project's target.
+                mode (ModeEnum, required): The scope of the target.
+                project_name (str, required): The name of the project.
+
+        Returns:
+            list[ManagementProjectsData]:
+                project_id (str): The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#`.
+                project_name (str): The project name.
+                url (str): The URL of the project's target.
+                mode (str): The scope of the target. Possible values: `exact`, `prefix`, `domain`, `subdomains`.
+                protocol (str): The protocol of the target. Possible values: `both`, `http`, `https`.
+                access (str): The access level of the project. Possible values: `private`, `shared`.
+                owned_by (str | None): The email of the project owner.
+                keyword_count (int): The number of keywords in the project.
+                web_analytics_data_key (str): Web Analytics Data Key.
+        """
+        if request is None:
+            _missing = [k for k, v in [("protocol", protocol), ("url", url), ("mode", mode), ("project_name", project_name)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = ManagementCreateProjectsRequest(**{k: v for k, v in [("owned_by", owned_by), ("access", access), ("protocol", protocol), ("url", url), ("mode", mode), ("project_name", project_name)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = self._request("management", "projects", request, ManagementProjectsResponse, exclude_none=True, http_method="POST")
+        return _resp.data
+
+    def management_update_project(
+        self,
+        request: ManagementUpdateProjectRequest | None = None,
+        *,
+        access: AccessEnum | None = None,
+        project_id: int | None = None,
+    ) -> ManagementUpdateProjectData | None:
+        """
+        Update Project [PATCH].
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: ManagementUpdateProjectRequest
+                access (AccessEnum, required): The new access setting for the project.
+                project_id (int, required): The ID of the project whose access setting you want to update. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#`
+
+        Returns:
+            ManagementUpdateProjectData | None:
+                project_id (str): The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#`.
+                project_name (str): The project name.
+                url (str): The URL of the project's target.
+                mode (str): The scope of the target. Possible values: `exact`, `prefix`, `domain`, `subdomains`.
+                protocol (str): The protocol of the target. Possible values: `both`, `http`, `https`.
+                access (str): The access level of the project. Possible values: `private`, `shared`.
+        """
+        if request is None:
+            _missing = [k for k, v in [("access", access), ("project_id", project_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = ManagementUpdateProjectRequest(**{k: v for k, v in [("access", access), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = self._request("management", "update-project", request, ManagementUpdateProjectResponse, http_method="PATCH")
         return _resp.data
 
     # Public API methods
