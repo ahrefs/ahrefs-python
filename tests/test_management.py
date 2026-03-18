@@ -1,4 +1,9 @@
-"""Tests for Management API endpoints (PUT, PATCH, query_params + body)."""
+"""Tests for Management API endpoints (PUT, PATCH, query_params + body).
+
+Test fixtures for live testing:
+  - Project: id=9549866, name="gerwyn-test-agent-a"
+  - Keyword list: id=1464605 (from Rank Tracker UI URL, not discoverable via API)
+"""
 
 import json
 from typing import cast

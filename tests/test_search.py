@@ -182,6 +182,81 @@ class TestFormatForContext:
         results = searcher.search("domain rating", limit=-1)
         assert results == []
 
+    def test_small_enum_values_inline(self) -> None:
+        result = MethodSearchResult(
+            method="test_method",
+            section="test",
+            description="Test.",
+            score=1.0,
+            parameters=[
+                {
+                    "name": "mode",
+                    "type": "ModeEnum",
+                    "required": True,
+                    "description": "Search mode",
+                    "enum_values": ["exact", "prefix", "domain", "subdomains"],
+                },
+            ],
+            returns={"type": "str", "fields": []},
+        )
+        output = result.format_for_context()
+        assert "ModeEnum (exact, prefix, domain, subdomains)" in output
+
+    def test_large_enum_values_truncated(self) -> None:
+        values = [f"val_{i}" for i in range(200)]
+        result = MethodSearchResult(
+            method="test_method",
+            section="test",
+            description="Test.",
+            score=1.0,
+            parameters=[
+                {
+                    "name": "country",
+                    "type": "CountryEnum",
+                    "required": False,
+                    "description": "",
+                    "enum_values": values,
+                },
+            ],
+            returns={"type": "str", "fields": []},
+        )
+        output = result.format_for_context()
+        assert "... and 180 more" in output
+        # First 20 values should be present
+        assert "val_0" in output
+        assert "val_19" in output
+        # 21st value should not be present
+        assert "val_20" not in output
+
+    def test_no_enum_values(self) -> None:
+        result = MethodSearchResult(
+            method="test_method",
+            section="test",
+            description="Test.",
+            score=1.0,
+            parameters=[
+                {
+                    "name": "target",
+                    "type": "str",
+                    "required": True,
+                    "description": "Target URL",
+                },
+            ],
+            returns={"type": "str", "fields": []},
+        )
+        output = result.format_for_context()
+        assert "- target (str, required): Target URL" in output
+
+    def test_enum_values_from_live_index(self) -> None:
+        """Verify enum values render from real search index data."""
+        searcher = MethodSearcher()
+        results = searcher.search("backlinks", limit=10)
+        bl = [r for r in results if r.method == "site_explorer_all_backlinks"]
+        assert len(bl) == 1
+        output = bl[0].format_for_context()
+        # mode parameter should show ModeEnum with values
+        assert "ModeEnum (exact, prefix, domain, subdomains)" in output
+
 
 class TestListSections:
     def test_all_sections(self) -> None:

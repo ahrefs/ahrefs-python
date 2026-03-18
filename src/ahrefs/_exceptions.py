@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import json
+
 import httpx
 
 
@@ -85,6 +87,35 @@ def _parse_retry_after(response: httpx.Response) -> float | None:
         return None
 
 
+def _extract_error_message(body: str) -> str:
+    """Extract a human-readable message from an API error body.
+
+    Parses JSON bodies for ``message`` or ``error`` fields.
+    Falls back to the raw text truncated to 200 characters.
+    """
+    try:
+        data = json.loads(body)
+        if isinstance(data, dict):
+            for key in ("message", "error"):
+                value = data.get(key)
+                if isinstance(value, str) and value:
+                    return value
+    except (json.JSONDecodeError, ValueError):
+        pass
+    return body[:200]
+
+
+_404_HINT = (
+    "Hint: This can mean the data is not available for the requested date, "
+    "the target was not found in the index, or a parameter value is incorrect."
+)
+
+
+def _enrich_404_message(message: str) -> str:
+    """Append a contextual hint to a 404 error message."""
+    return f"{message}\n{_404_HINT}"
+
+
 def raise_for_status(response: httpx.Response) -> None:
     """Translate HTTP error responses into typed exceptions."""
     if response.is_success:
@@ -92,17 +123,20 @@ def raise_for_status(response: httpx.Response) -> None:
 
     body: str = response.text
     status: int = response.status_code
+    message: str = _extract_error_message(body)
 
     if status == 401:
-        raise AuthenticationError(response_body=body)
+        raise AuthenticationError(message=message, response_body=body)
     elif status == 404:
-        raise NotFoundError(response_body=body)
+        raise NotFoundError(message=_enrich_404_message(message), response_body=body)
     elif status == 429:
         retry_after = _parse_retry_after(response)
-        raise RateLimitError(response_body=body, retry_after=retry_after)
+        raise RateLimitError(
+            message=message, response_body=body, retry_after=retry_after
+        )
     else:
         raise APIError(
-            message=f"HTTP {status}: {body[:200]}",
+            message=f"HTTP {status}: {message}",
             status_code=status,
             response_body=body,
         )

@@ -53,7 +53,7 @@ class MethodSearchResult:
     section: str
     description: str
     score: float
-    parameters: list[dict[str, str | bool]]
+    parameters: list[dict[str, str | bool | list[str]]]
     returns: dict[str, str | list[dict[str, str]]]
 
     def format_for_context(self) -> str:
@@ -71,8 +71,17 @@ class MethodSearchResult:
         lines.append("Parameters:")
         for p in self.parameters:
             req = "required" if p["required"] else "optional"
+            type_str = str(p["type"])
+            enum_vals = p.get("enum_values")
+            if isinstance(enum_vals, list) and enum_vals:
+                if len(enum_vals) > 20:
+                    shown = ", ".join(str(v) for v in enum_vals[:20])
+                    remaining = len(enum_vals) - 20
+                    type_str = f"{type_str} ({shown}, ... and {remaining} more)"
+                else:
+                    type_str = f"{type_str} ({', '.join(str(v) for v in enum_vals)})"
             desc_part = f": {p['description']}" if p.get("description") else ""
-            lines.append(f"- {p['name']} ({p['type']}, {req}){desc_part}")
+            lines.append(f"- {p['name']} ({type_str}, {req}){desc_part}")
         lines.append("")
 
         ret: dict[str, str | list[dict[str, str]]] = self.returns

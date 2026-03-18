@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.7.1-alpha]
+
+### Changed
+
+- Error messages now extract structured content from API responses instead of showing raw JSON
+- `NotFoundError` includes a contextual hint about common 404 causes (date availability, target not found, incorrect parameters)
+- Method search results now show valid enum values inline (e.g. `ModeEnum (exact, prefix, domain, subdomains)`)
+- History endpoints clearly labeled as "Time-series." and point-in-time siblings as "Point-in-time snapshot." in search results
+
 ## [0.7.0-alpha]
 
 ### Added
