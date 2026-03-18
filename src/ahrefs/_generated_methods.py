@@ -101,11 +101,11 @@ class GeneratedMethodsMixin:
         request: BrandRadarAiResponsesRequest | None = None,
         *,
         timeout: int | None = None,
-        limit: int | None = None,
         where: str | None = None,
         select: SelectStr | None = None,
+        limit: int | None = None,
         date: DateStr | None = None,
-        country: CountryEnum | None = None,
+        country: list[CountryEnum | None] | None = None,
         order_by: OrderByEnum | None = None,
         report_id: str | None = None,
         prompts: PromptsEnum | None = None,
@@ -122,11 +122,11 @@ class GeneratedMethodsMixin:
         Args:
             request: BrandRadarAiResponsesRequest
                 timeout (int, optional): A manual timeout duration in seconds. Default: None.
-                limit (int, optional): The number of results to return. Default: 1000.
                 where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
                 select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
+                limit (int, optional): The number of results to return. Default: 1000.
                 date (DateStr, optional): The date to search for in YYYY-MM-DD format. Default: None.
-                country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
+                country (list[CountryEnum | None], optional): A comma-separated list of two-letter country codes (ISO 3166-1 alpha-2). Default: [].
                 order_by (OrderByEnum, optional): A column to order the results by. Default: 'relevance'.
                 report_id (str, optional): The ID of the report to use. If one is given, other parameters are taken from the report (brand, competitors, market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` Default: None.
                 prompts (PromptsEnum, optional): The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided. Default: None.
@@ -141,13 +141,15 @@ class GeneratedMethodsMixin:
                 links (list[dict[str, Any] | None]): (10 units) The links used for the response.
                 question (str): The question asked by the user.
                 response (str): (10 units) The response from the model.
+                search_queries (list[str | None]): The search query used by the chatbot to find information for the response. Only available when `data_source` is set to `chatgpt` or `perplexity`.
+                tags (list[str | None]): Tags assigned to the query.
                 volume (int): (10 units) Estimated monthly searches. This is based on our estimates for Google, combining the search volumes of related keywords where this question appears in People Also Ask section.
         """
         if request is None:
             _missing = [k for k, v in [("select", select), ("data_source", data_source)] if v is None]
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
-            request = BrandRadarAiResponsesRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("where", where), ("select", select), ("date", date), ("country", country), ("order_by", order_by), ("report_id", report_id), ("prompts", prompts), ("data_source", data_source), ("market", market), ("competitors", competitors), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
+            request = BrandRadarAiResponsesRequest(**{k: v for k, v in [("timeout", timeout), ("where", where), ("select", select), ("limit", limit), ("date", date), ("country", country), ("order_by", order_by), ("report_id", report_id), ("prompts", prompts), ("data_source", data_source), ("market", market), ("competitors", competitors), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
         _resp = await self._request("brand-radar", "ai-responses", request, BrandRadarAiResponsesResponse, exclude_none=True)
         return _resp.data
 
@@ -159,7 +161,7 @@ class GeneratedMethodsMixin:
         select: SelectStr | None = None,
         limit: int | None = None,
         date: DateStr | None = None,
-        country: CountryEnum | None = None,
+        country: list[CountryEnum | None] | None = None,
         report_id: str | None = None,
         prompts: PromptsEnum | None = None,
         data_source: DataSourceEnum | None = None,
@@ -178,7 +180,7 @@ class GeneratedMethodsMixin:
                 select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
                 limit (int, optional): The number of results to return. Default: 1000.
                 date (DateStr, optional): The date to search for in YYYY-MM-DD format. Default: None.
-                country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
+                country (list[CountryEnum | None], optional): A comma-separated list of two-letter country codes (ISO 3166-1 alpha-2). Default: [].
                 report_id (str, optional): The ID of the report to use. If one is given, other parameters are taken from the report (brand, competitors, market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` Default: None.
                 prompts (PromptsEnum, optional): The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided. Default: None.
                 data_source (DataSourceEnum, required): The chatbot model to use.
@@ -210,7 +212,7 @@ class GeneratedMethodsMixin:
         select: SelectStr | None = None,
         limit: int | None = None,
         date: DateStr | None = None,
-        country: CountryEnum | None = None,
+        country: list[CountryEnum | None] | None = None,
         report_id: str | None = None,
         prompts: PromptsEnum | None = None,
         data_source: DataSourceEnum | None = None,
@@ -229,7 +231,7 @@ class GeneratedMethodsMixin:
                 select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
                 limit (int, optional): The number of results to return. Default: 1000.
                 date (DateStr, optional): The date to search for in YYYY-MM-DD format. Default: None.
-                country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
+                country (list[CountryEnum | None], optional): A comma-separated list of two-letter country codes (ISO 3166-1 alpha-2). Default: [].
                 report_id (str, optional): The ID of the report to use. If one is given, other parameters are taken from the report (brand, competitors, market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` Default: None.
                 prompts (PromptsEnum, optional): The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided. Default: None.
                 data_source (DataSourceEnum, required): The chatbot model to use.
@@ -259,7 +261,7 @@ class GeneratedMethodsMixin:
         where: str | None = None,
         date_to: DateStr | None = None,
         date_from: DateStr | None = None,
-        country: CountryEnum | None = None,
+        country: list[CountryEnum | None] | None = None,
         report_id: str | None = None,
         prompts: PromptsEnum | None = None,
         data_source: DataSourceEnum | None = None,
@@ -276,7 +278,7 @@ class GeneratedMethodsMixin:
                 where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
                 date_to (DateStr, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
                 date_from (DateStr, required): The start date of the historical period in YYYY-MM-DD format.
-                country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
+                country (list[CountryEnum | None], optional): A comma-separated list of two-letter country codes (ISO 3166-1 alpha-2). Default: [].
                 report_id (str, optional): The ID of the report to use. If one is given, other parameters are taken from the report (market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` Default: None.
                 prompts (PromptsEnum, optional): The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided. Default: None.
                 data_source (DataSourceEnum, required): The chatbot model to use.
@@ -302,7 +304,7 @@ class GeneratedMethodsMixin:
         *,
         where: str | None = None,
         select: SelectStr | None = None,
-        country: CountryEnum | None = None,
+        country: list[CountryEnum | None] | None = None,
         report_id: str | None = None,
         prompts: PromptsEnum | None = None,
         data_source: DataSourceEnum | None = None,
@@ -319,7 +321,7 @@ class GeneratedMethodsMixin:
             request: BrandRadarImpressionsOverviewRequest
                 where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
                 select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
-                country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
+                country (list[CountryEnum | None], optional): A comma-separated list of two-letter country codes (ISO 3166-1 alpha-2). Default: [].
                 report_id (str, optional): The ID of the report to use. If one is given, other parameters are taken from the report (brand, competitors, market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` Default: None.
                 prompts (PromptsEnum, optional): The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided. Default: None.
                 data_source (DataSourceEnum, required): The chatbot model to use.
@@ -351,7 +353,7 @@ class GeneratedMethodsMixin:
         where: str | None = None,
         date_to: DateStr | None = None,
         date_from: DateStr | None = None,
-        country: CountryEnum | None = None,
+        country: list[CountryEnum | None] | None = None,
         report_id: str | None = None,
         prompts: PromptsEnum | None = None,
         data_source: DataSourceEnum | None = None,
@@ -368,7 +370,7 @@ class GeneratedMethodsMixin:
                 where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
                 date_to (DateStr, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
                 date_from (DateStr, required): The start date of the historical period in YYYY-MM-DD format.
-                country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
+                country (list[CountryEnum | None], optional): A comma-separated list of two-letter country codes (ISO 3166-1 alpha-2). Default: [].
                 report_id (str, optional): The ID of the report to use. If one is given, other parameters are taken from the report (market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` Default: None.
                 prompts (PromptsEnum, optional): The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided. Default: None.
                 data_source (DataSourceEnum, required): The chatbot model to use.
@@ -394,7 +396,7 @@ class GeneratedMethodsMixin:
         *,
         where: str | None = None,
         select: SelectStr | None = None,
-        country: CountryEnum | None = None,
+        country: list[CountryEnum | None] | None = None,
         report_id: str | None = None,
         prompts: PromptsEnum | None = None,
         data_source: DataSourceEnum | None = None,
@@ -411,7 +413,7 @@ class GeneratedMethodsMixin:
             request: BrandRadarMentionsOverviewRequest
                 where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
                 select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
-                country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
+                country (list[CountryEnum | None], optional): A comma-separated list of two-letter country codes (ISO 3166-1 alpha-2). Default: [].
                 report_id (str, optional): The ID of the report to use. If one is given, other parameters are taken from the report (brand, competitors, market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` Default: None.
                 prompts (PromptsEnum, optional): The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided. Default: None.
                 data_source (DataSourceEnum, required): The chatbot model to use.
@@ -443,7 +445,7 @@ class GeneratedMethodsMixin:
         where: str | None = None,
         date_to: DateStr | None = None,
         date_from: DateStr | None = None,
-        country: CountryEnum | None = None,
+        country: list[CountryEnum | None] | None = None,
         report_id: str | None = None,
         prompts: PromptsEnum | None = None,
         data_source: DataSourceEnum | None = None,
@@ -461,7 +463,7 @@ class GeneratedMethodsMixin:
                 where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
                 date_to (DateStr, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
                 date_from (DateStr, required): The start date of the historical period in YYYY-MM-DD format.
-                country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
+                country (list[CountryEnum | None], optional): A comma-separated list of two-letter country codes (ISO 3166-1 alpha-2). Default: [].
                 report_id (str, optional): The ID of the report to use. If one is given, other parameters are taken from the report (brand, competitors, market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` Default: None.
                 prompts (PromptsEnum, optional): The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided. Default: None.
                 data_source (DataSourceEnum, required): The chatbot model to use.
@@ -487,7 +489,7 @@ class GeneratedMethodsMixin:
         request: BrandRadarSovOverviewRequest | None = None,
         *,
         where: str | None = None,
-        country: CountryEnum | None = None,
+        country: list[CountryEnum | None] | None = None,
         report_id: str | None = None,
         prompts: PromptsEnum | None = None,
         data_source: DataSourceEnum | None = None,
@@ -503,7 +505,7 @@ class GeneratedMethodsMixin:
         Args:
             request: BrandRadarSovOverviewRequest
                 where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
-                country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
+                country (list[CountryEnum | None], optional): A comma-separated list of two-letter country codes (ISO 3166-1 alpha-2). Default: [].
                 report_id (str, optional): The ID of the report to use. If one is given, other parameters are taken from the report (brand, competitors, market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` Default: None.
                 prompts (PromptsEnum, optional): The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided. Default: None.
                 data_source (DataSourceEnum, required): The chatbot model to use.
@@ -565,7 +567,7 @@ class GeneratedMethodsMixin:
                 difficulty (int | None): (10 units) An estimation of how hard it is to rank in the top 10 organic search results for a keyword on a 100-point scale.
                 first_seen (str | None): The date when we first checked search engine results for a keyword.
                 global_volume (int | None): (10 units) How many times per month, on average, people search for the target keyword across all countries in our database.
-                intents (dict[str, Any] | None): (10 units) Indicates the purpose behind the user's search query. Object fields: `informational`, `navigational`, `commercial`, `transactional`, `branded` or `local`. All the fields are of type `bool`, with posible values `true` or `false`.
+                intents (dict[str, Any] | None): (10 units) Indicates the purpose behind the user's search query. Object fields: `informational`, `navigational`, `commercial`, `transactional`, `branded` or `local`. All the fields are of type `bool`, with possible values `true` or `false`.
                 keyword (str)
                 parent_topic (str | None): Parent Topic determines if you can rank for your target keyword while targeting a more general topic on your page instead. To identify the Parent Topic, we take the #1 ranking page for your keyword and find the keyword responsible for sending the most traffic to that page.
                 serp_features (list[SerpFeaturesItemEnum | None]): The enriched results on a search engine results page (SERP) that are not traditional organic results.
@@ -633,7 +635,7 @@ class GeneratedMethodsMixin:
                 difficulty (int | None): (10 units) An estimation of how hard it is to rank in the top 10 organic search results for a keyword on a 100-point scale.
                 first_seen (str | None): The date when we first checked search engine results for a keyword.
                 global_volume (int | None): (10 units) How many times per month, on average, people search for the target keyword across all countries in our database.
-                intents (dict[str, Any] | None): (10 units) Indicates the purpose behind the user's search query. Object fields: `informational`, `navigational`, `commercial`, `transactional`, `branded` or `local`. All the fields are of type `bool`, with posible values `true` or `false`.
+                intents (dict[str, Any] | None): (10 units) Indicates the purpose behind the user's search query. Object fields: `informational`, `navigational`, `commercial`, `transactional`, `branded` or `local`. All the fields are of type `bool`, with possible values `true` or `false`.
                 keyword (str)
                 parent_topic (str | None): Parent Topic determines if you can rank for your target keyword while targeting a more general topic on your page instead. To identify the Parent Topic, we take the #1 ranking page for your keyword and find the keyword responsible for sending the most traffic to that page.
                 parent_volume (int | None): (10 units) The search volume of the parent topic.
@@ -695,7 +697,7 @@ class GeneratedMethodsMixin:
                 difficulty (int | None): (10 units) An estimation of how hard it is to rank in the top 10 organic search results for a keyword on a 100-point scale.
                 first_seen (str | None): The date when we first checked search engine results for a keyword.
                 global_volume (int | None): (10 units) How many times per month, on average, people search for the target keyword across all countries in our database.
-                intents (dict[str, Any] | None): (10 units) Indicates the purpose behind the user's search query. Object fields: `informational`, `navigational`, `commercial`, `transactional`, `branded` or `local`. All the fields are of type `bool`, with posible values `true` or `false`.
+                intents (dict[str, Any] | None): (10 units) Indicates the purpose behind the user's search query. Object fields: `informational`, `navigational`, `commercial`, `transactional`, `branded` or `local`. All the fields are of type `bool`, with possible values `true` or `false`.
                 keyword (str)
                 parent_topic (str | None): Parent Topic determines if you can rank for your target keyword while targeting a more general topic on your page instead. To identify the Parent Topic, we take the #1 ranking page for your keyword and find the keyword responsible for sending the most traffic to that page.
                 serp_features (list[SerpFeaturesItemEnum | None]): The enriched results on a search engine results page (SERP) that are not traditional organic results.
@@ -750,7 +752,7 @@ class GeneratedMethodsMixin:
                 difficulty (int | None): (10 units) An estimation of how hard it is to rank in the top 10 organic search results for a keyword on a 100-point scale.
                 first_seen (str | None): The date when we first checked search engine results for a keyword.
                 global_volume (int | None): (10 units) How many times per month, on average, people search for the target keyword across all countries in our database.
-                intents (dict[str, Any] | None): (10 units) Indicates the purpose behind the user's search query. Object fields: `informational`, `navigational`, `commercial`, `transactional`, `branded` or `local`. All the fields are of type `bool`, with posible values `true` or `false`.
+                intents (dict[str, Any] | None): (10 units) Indicates the purpose behind the user's search query. Object fields: `informational`, `navigational`, `commercial`, `transactional`, `branded` or `local`. All the fields are of type `bool`, with possible values `true` or `false`.
                 keyword (str)
                 parent_topic (str | None): Parent Topic determines if you can rank for your target keyword while targeting a more general topic on your page instead. To identify the Parent Topic, we take the #1 ranking page for your keyword and find the keyword responsible for sending the most traffic to that page.
                 serp_features (list[SerpFeaturesItemEnum | None]): The enriched results on a search engine results page (SERP) that are not traditional organic results.
@@ -832,6 +834,101 @@ class GeneratedMethodsMixin:
         return _resp.data
 
     # Management API methods
+    async def management_brand_radar_prompts(
+        self,
+        request: ManagementBrandRadarPromptsRequest | None = None,
+        *,
+        report_id: str | None = None,
+    ) -> list[ManagementBrandRadarPromptsData]:
+        """
+        Brand Radar prompts.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: ManagementBrandRadarPromptsRequest
+                report_id (str, required): The ID of the report to use. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...`
+
+        Returns:
+            list[ManagementBrandRadarPromptsData]:
+                prompt (str): The text of the prompt.
+                country (str): The country of the prompt.
+                created_at (str): The date the prompt was created.
+        """
+        if request is None:
+            _missing = [k for k, v in [("report_id", report_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = ManagementBrandRadarPromptsRequest(**{k: v for k, v in [("report_id", report_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = await self._request("management", "brand-radar-prompts", request, ManagementBrandRadarPromptsResponse)
+        return _resp.data
+
+    async def management_create_brand_radar_prompts(
+        self,
+        request: ManagementCreateBrandRadarPromptsRequest | None = None,
+        *,
+        report_id: str | None = None,
+        countries: list[str] | None = None,
+        prompts: list[str] | None = None,
+    ) -> list[ManagementBrandRadarPromptsData]:
+        """
+        Brand Radar prompts [POST].
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: ManagementCreateBrandRadarPromptsRequest
+                report_id (str, required): The ID of the report to use. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...`
+                countries (list[str], required): A comma-separated list of two-letter country codes (ISO 3166-1 alpha-2).
+                prompts (list[str], required): A comma-separated list of custom prompts. They must be valid utf8 and less than 300 characters.
+
+        Returns:
+            list[ManagementBrandRadarPromptsData]:
+                prompt (str): The text of the prompt.
+                country (str): The country of the prompt.
+                created_at (str): The date the prompt was created.
+        """
+        if request is None:
+            _missing = [k for k, v in [("report_id", report_id), ("countries", countries), ("prompts", prompts)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = ManagementCreateBrandRadarPromptsRequest(**{k: v for k, v in [("report_id", report_id), ("countries", countries), ("prompts", prompts)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = await self._request("management", "brand-radar-prompts", request, ManagementBrandRadarPromptsResponse, http_method="POST", query_params={k: v for k, v in {"report_id": request.report_id}.items() if v is not None})
+        return _resp.data
+
+    async def management_brand_radar_prompts_delete(
+        self,
+        request: ManagementBrandRadarPromptsDeleteRequest | None = None,
+        *,
+        report_id: str | None = None,
+        countries: list[str] | None = None,
+        prompts: list[str] | None = None,
+    ) -> list[ManagementBrandRadarPromptsDeleteData]:
+        """
+        Delete Brand Radar prompts [PUT].
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: ManagementBrandRadarPromptsDeleteRequest
+                report_id (str, required): The ID of the report to use. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...`
+                countries (list[str], optional): A comma-separated list of two-letter country codes (ISO 3166-1 alpha-2). Default: None.
+                prompts (list[str], required): A comma-separated list of custom prompts. They must be valid utf8 and less than 300 characters.
+
+        Returns:
+            list[ManagementBrandRadarPromptsDeleteData]:
+                prompt (str): The text of the prompt.
+                country (str): The country of the prompt.
+                created_at (str): The date the prompt was created.
+        """
+        if request is None:
+            _missing = [k for k, v in [("report_id", report_id), ("prompts", prompts)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = ManagementBrandRadarPromptsDeleteRequest(**{k: v for k, v in [("report_id", report_id), ("countries", countries), ("prompts", prompts)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = await self._request("management", "brand-radar-prompts-delete", request, ManagementBrandRadarPromptsDeleteResponse, exclude_none=True, http_method="PUT", query_params={k: v for k, v in {"report_id": request.report_id}.items() if v is not None})
+        return _resp.data
+
     async def management_keyword_list_keywords(
         self,
         request: ManagementKeywordListKeywordsRequest | None = None,
@@ -1328,7 +1425,7 @@ class GeneratedMethodsMixin:
 
         Returns:
             list[RankTrackerCompetitorsOverviewData]:
-                competitors_list (list[dict[str, Any] | None]): Competitors information for a given keyword. The following fields are included: `url`, `url_prev`, `position`, `position_prev`, `best_position_kind`, `best_position_kind`, `traffic`, `traffic_prev`, `value`, `value_prev`. Fields ending in `prev` are included only in the compared view.
+                competitors_list (list[dict[str, Any] | None]): Competitors information for a given keyword. The following fields are included: `url`, `url_prev`, `position`, `position_prev`, `best_position_kind`, `best_position_kind_prev`, `traffic`, `traffic_prev`, `value`, `value_prev`. Fields ending in `prev` are included only in the compared view.
                 country (CountryEnum1): The country that a given keyword is being tracked in. A two-letter country code (ISO 3166-1 alpha-2).
                 keyword (str): The keyword your target ranks for.
                 keyword_difficulty (int | None): An estimation of how hard it is to rank in the top 10 organic search results for a keyword on a 100-point scale.
@@ -1791,7 +1888,7 @@ class GeneratedMethodsMixin:
                 content_length (int | None): The character length of content displayed on the page
                 content_length_diff (int | None): The character length of content displayed on the page
                 content_length_prev (int | None): The character length of content displayed on the page
-                ... and 575 more fields. See SiteAuditPageExplorerData for all fields.
+                ... and 578 more fields. See SiteAuditPageExplorerData for all fields.
         """
         if request is None:
             _missing = [k for k, v in [("project_id", project_id)] if v is None]
@@ -1805,6 +1902,8 @@ class GeneratedMethodsMixin:
         self,
         request: SiteAuditProjectsRequest | None = None,
         *,
+        project_url: str | None = None,
+        project_name: str | None = None,
         date: str | None = None,
         project_id: int | None = None,
     ) -> list[SiteAuditProjectsData]:
@@ -1815,6 +1914,8 @@ class GeneratedMethodsMixin:
 
         Args:
             request: SiteAuditProjectsRequest
+                project_url (str, optional): Filters projects by target URL (ignores protocol and trailing slash). Default: None.
+                project_name (str, optional): Filters projects by name. Default: None.
                 date (str, optional): A timestamp in `YYYY-MM-DDThh:mm:ss` format specifying the crawl date to retrieve metrics from. Defaults to the most recent available crawl if omitted. For scheduled crawls, we return data from the latest crawl finished before the specified timestamp. For Always-on audit crawls, we return data as of the provided date and time. If the time component is omitted, it defaults to `00:00:00`. The timestamp is interpreted in UTC. Default: None.
                 project_id (int, optional): The unique identifier of the project. You can find it in the URL of your Site Audit project in Ahrefs: `https://app.ahrefs.com/site-audit/#project_id#` Default: None.
 
@@ -1834,7 +1935,7 @@ class GeneratedMethodsMixin:
                 total (int | None): Number of total crawled internal URLs
         """
         if request is None:
-            request = SiteAuditProjectsRequest(**{k: v for k, v in [("date", date), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+            request = SiteAuditProjectsRequest(**{k: v for k, v in [("project_url", project_url), ("project_name", project_name), ("date", date), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
         _resp = await self._request("site-audit", "projects", request, SiteAuditProjectsResponse, exclude_none=True)
         return _resp.data
 
@@ -1995,122 +2096,6 @@ class GeneratedMethodsMixin:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteExplorerBacklinksStatsRequest(**{k: v for k, v in [("protocol", protocol), ("target", target), ("mode", mode), ("date", date)] if v is not None})  # pyright: ignore[reportArgumentType]
         _resp = await self._request("site-explorer", "backlinks-stats", request, SiteExplorerBacklinksStatsResponse, exclude_none=True)
-        return _resp.data
-
-    async def site_explorer_best_by_external_links(
-        self,
-        request: SiteExplorerBestByExternalLinksRequest | None = None,
-        *,
-        timeout: int | None = None,
-        limit: int | None = None,
-        order_by: str | None = None,
-        where: str | None = None,
-        select: SelectStr | None = None,
-        protocol: ProtocolEnum | None = None,
-        target: str | None = None,
-        mode: ModeEnum | None = None,
-        history: HistoryStr | None = None,
-    ) -> list[SiteExplorerBestByExternalLinksData]:
-        """
-        Best by External Links.
-
-        Args:
-            request: SiteExplorerBestByExternalLinksRequest
-                timeout (int, optional): A manual timeout duration in seconds. Default: None.
-                limit (int, optional): The number of results to return. Default: 1000.
-                order_by (str, optional): A column to order results by. See the response schema for valid column identifiers, except for `http_code_target`, `languages_target`, `last_visited_target`, `powered_by_target`, `target_redirect`, `title_target`, `url_rating_target`, which are not supported in `order_by` for this endpoint. Default: None.
-                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
-                select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
-                protocol (ProtocolEnum, optional): The protocol of your target. Default: 'both'.
-                target (str, required): The target of the search: a domain or a URL.
-                mode (ModeEnum, optional): The scope of the search based on the target you entered. Default: 'subdomains'.
-                history (str, optional): A time frame to add lost backlinks to the report. Choose between `live` (no history), `since:<date>` (history since a specified date), and `all_time` (full history). The date should be in YYYY-MM-DD format. Default: 'all_time'.
-
-        Returns:
-            list[SiteExplorerBestByExternalLinksData]:
-                dofollow_to_target (int): The number of links to your target page that don’t have the “nofollow” attribute.
-                first_seen_link (str): The date we first found a link to your target.
-                http_code_target (int | None): The return code from HTTP protocol returned during the target page crawl.
-                is_spam (bool): Indicates whether the backlink comes from a known spammy domain.
-                languages_target (list[str | None]): The languages listed in the target page metadata or detected by the crawler to appear in the HTML.
-                last_seen (str | None): The date your target page lost its last live link.
-                last_visited_source (str): The date we last verified a live link to your target page.
-                last_visited_target (str | None): The date we last crawled your target page.
-                links_to_target (int): The number of inbound backlinks the target page has.
-                lost_links_to_target (int): The number of backlinks lost during the selected time period.
-                new_links_to_target (int): The number of new backlinks found during the selected time period.
-                nofollow_to_target (int): The number of links to your target page that have the “nofollow” attribute.
-                powered_by_target (list[str | None]): Web technologies used to build and serve the target page content.
-                redirects_to_target (int): The number of inbound redirects to your target page.
-                refdomains_target (int): (5 units) The number of unique referring domains linking to the target page.
-                target_redirect (str | None): The target's redirect if any.
-                title_target (str | None): The html title of the target page.
-                top_domain_rating_source (float): The highest Domain Rating (DR) counted out of all referring domains. DR shows the strength of a website’s backlink profile compared to the others in our database on a 100-point scale.
-                url_rating_target (float | None): The strength of the target page's backlink profile compared to the others in our database on a 100-point scale.
-                url_to (str): The URL the backlink points to.
-                url_to_plain (str): The target page URL optimized for use as a filter.
-        """
-        if request is None:
-            _missing = [k for k, v in [("select", select), ("target", target)] if v is None]
-            if _missing:
-                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
-            request = SiteExplorerBestByExternalLinksRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("order_by", order_by), ("where", where), ("select", select), ("protocol", protocol), ("target", target), ("mode", mode), ("history", history)] if v is not None})  # pyright: ignore[reportArgumentType]
-        _resp = await self._request("site-explorer", "best-by-external-links", request, SiteExplorerBestByExternalLinksResponse, exclude_none=True)
-        return _resp.data
-
-    async def site_explorer_best_by_internal_links(
-        self,
-        request: SiteExplorerBestByInternalLinksRequest | None = None,
-        *,
-        timeout: int | None = None,
-        limit: int | None = None,
-        order_by: str | None = None,
-        where: str | None = None,
-        select: SelectStr | None = None,
-        protocol: ProtocolEnum | None = None,
-        target: str | None = None,
-        mode: ModeEnum | None = None,
-    ) -> list[SiteExplorerBestByInternalLinksData]:
-        """
-        Best by Internal Links.
-
-        Args:
-            request: SiteExplorerBestByInternalLinksRequest
-                timeout (int, optional): A manual timeout duration in seconds. Default: None.
-                limit (int, optional): The number of results to return. Default: 1000.
-                order_by (str, optional): A column to order results by. See the response schema for valid column identifiers, except for `http_code_target`, `languages_target`, `last_visited_target`, `powered_by_target`, `target_redirect`, `title_target`, `url_rating_target`, which are not supported in `order_by` for this endpoint. Default: None.
-                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
-                select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
-                protocol (ProtocolEnum, optional): The protocol of your target. Default: 'both'.
-                target (str, required): The target of the search: a domain or a URL.
-                mode (ModeEnum, optional): The scope of the search based on the target you entered. Default: 'subdomains'.
-
-        Returns:
-            list[SiteExplorerBestByInternalLinksData]:
-                canonical_to_target (int): The number of inbound canonical links to your target page.
-                dofollow_to_target (int): The number of links to your target page that don’t have the “nofollow” attribute.
-                first_seen_link (str): The date we first found a link to your target.
-                http_code_target (int | None): The return code from HTTP protocol returned during the target page crawl.
-                languages_target (list[str | None]): The languages listed in the target page metadata or detected by the crawler to appear in the HTML.
-                last_seen (str | None): The date your target page lost its last live link.
-                last_visited_source (str): The date we last verified a live link to your target page.
-                last_visited_target (str | None): The date we last crawled your target page.
-                links_to_target (int): The number of inbound backlinks the target page has.
-                nofollow_to_target (int): The number of links to your target page that have the “nofollow” attribute.
-                powered_by_target (list[str | None]): Web technologies used to build and serve the target page content.
-                redirects_to_target (int): The number of inbound redirects to your target page.
-                target_redirect (str | None): The target's redirect if any.
-                title_target (str | None): The html title of the target page.
-                url_rating_target (float | None): The strength of the target page's backlink profile compared to the others in our database on a 100-point scale.
-                url_to (str): The URL the backlink points to.
-                url_to_plain (str): The target page URL optimized for use as a filter.
-        """
-        if request is None:
-            _missing = [k for k, v in [("select", select), ("target", target)] if v is None]
-            if _missing:
-                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
-            request = SiteExplorerBestByInternalLinksRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("order_by", order_by), ("where", where), ("select", select), ("protocol", protocol), ("target", target), ("mode", mode)] if v is not None})  # pyright: ignore[reportArgumentType]
-        _resp = await self._request("site-explorer", "best-by-internal-links", request, SiteExplorerBestByInternalLinksResponse, exclude_none=True)
         return _resp.data
 
     async def site_explorer_broken_backlinks(
@@ -2733,6 +2718,126 @@ class GeneratedMethodsMixin:
         _resp = await self._request("site-explorer", "outlinks-stats", request, SiteExplorerOutlinksStatsResponse, exclude_none=True)
         return _resp.data
 
+    async def site_explorer_pages_by_backlinks(
+        self,
+        request: SiteExplorerPagesByBacklinksRequest | None = None,
+        *,
+        timeout: int | None = None,
+        limit: int | None = None,
+        order_by: str | None = None,
+        where: str | None = None,
+        select: SelectStr | None = None,
+        protocol: ProtocolEnum | None = None,
+        target: str | None = None,
+        mode: ModeEnum | None = None,
+        history: HistoryStr | None = None,
+    ) -> list[SiteExplorerPagesByBacklinksData]:
+        """
+        Best pages by backlinks.
+
+        Formerly `/best-by-external-links`
+
+        Args:
+            request: SiteExplorerPagesByBacklinksRequest
+                timeout (int, optional): A manual timeout duration in seconds. Default: None.
+                limit (int, optional): The number of results to return. Default: 1000.
+                order_by (str, optional): A column to order results by. See the response schema for valid column identifiers, except for `http_code_target`, `languages_target`, `last_visited_target`, `powered_by_target`, `target_redirect`, `title_target`, `url_rating_target`, which are not supported in `order_by` for this endpoint. Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
+                protocol (ProtocolEnum, optional): The protocol of your target. Default: 'both'.
+                target (str, required): The target of the search: a domain or a URL.
+                mode (ModeEnum, optional): The scope of the search based on the target you entered. Default: 'subdomains'.
+                history (str, optional): A time frame to add lost backlinks to the report. Choose between `live` (no history), `since:<date>` (history since a specified date), and `all_time` (full history). The date should be in YYYY-MM-DD format. Default: 'all_time'.
+
+        Returns:
+            list[SiteExplorerPagesByBacklinksData]:
+                dofollow_to_target (int): The number of links to your target page that don’t have the “nofollow” attribute.
+                first_seen_link (str): The date we first found a link to your target.
+                http_code_target (int | None): The return code from HTTP protocol returned during the target page crawl.
+                is_spam (bool): Indicates whether the backlink comes from a known spammy domain.
+                languages_target (list[str | None]): The languages listed in the target page metadata or detected by the crawler to appear in the HTML.
+                last_seen (str | None): The date your target page lost its last live link.
+                last_visited_source (str): The date we last verified a live link to your target page.
+                last_visited_target (str | None): The date we last crawled your target page.
+                links_to_target (int): The number of inbound backlinks the target page has.
+                lost_links_to_target (int): The number of backlinks lost during the selected time period.
+                new_links_to_target (int): The number of new backlinks found during the selected time period.
+                nofollow_to_target (int): The number of links to your target page that have the “nofollow” attribute.
+                powered_by_target (list[str | None]): Web technologies used to build and serve the target page content.
+                redirects_to_target (int): The number of inbound redirects to your target page.
+                refdomains_target (int): (5 units) The number of unique referring domains linking to the target page.
+                target_redirect (str | None): The target's redirect if any.
+                title_target (str | None): The html title of the target page.
+                top_domain_rating_source (float): The highest Domain Rating (DR) counted out of all referring domains. DR shows the strength of a website’s backlink profile compared to the others in our database on a 100-point scale.
+                url_rating_target (float | None): The strength of the target page's backlink profile compared to the others in our database on a 100-point scale.
+                url_to (str): The URL the backlink points to.
+                url_to_plain (str): The target page URL optimized for use as a filter.
+        """
+        if request is None:
+            _missing = [k for k, v in [("select", select), ("target", target)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = SiteExplorerPagesByBacklinksRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("order_by", order_by), ("where", where), ("select", select), ("protocol", protocol), ("target", target), ("mode", mode), ("history", history)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = await self._request("site-explorer", "pages-by-backlinks", request, SiteExplorerPagesByBacklinksResponse, exclude_none=True)
+        return _resp.data
+
+    async def site_explorer_pages_by_internal_links(
+        self,
+        request: SiteExplorerPagesByInternalLinksRequest | None = None,
+        *,
+        timeout: int | None = None,
+        limit: int | None = None,
+        order_by: str | None = None,
+        where: str | None = None,
+        select: SelectStr | None = None,
+        protocol: ProtocolEnum | None = None,
+        target: str | None = None,
+        mode: ModeEnum | None = None,
+    ) -> list[SiteExplorerPagesByInternalLinksData]:
+        """
+        Best pages by internal links.
+
+        Formerly `/best-by-internal-links`
+
+        Args:
+            request: SiteExplorerPagesByInternalLinksRequest
+                timeout (int, optional): A manual timeout duration in seconds. Default: None.
+                limit (int, optional): The number of results to return. Default: 1000.
+                order_by (str, optional): A column to order results by. See the response schema for valid column identifiers, except for `http_code_target`, `languages_target`, `last_visited_target`, `powered_by_target`, `target_redirect`, `title_target`, `url_rating_target`, which are not supported in `order_by` for this endpoint. Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
+                protocol (ProtocolEnum, optional): The protocol of your target. Default: 'both'.
+                target (str, required): The target of the search: a domain or a URL.
+                mode (ModeEnum, optional): The scope of the search based on the target you entered. Default: 'subdomains'.
+
+        Returns:
+            list[SiteExplorerPagesByInternalLinksData]:
+                canonical_to_target (int): The number of inbound canonical links to your target page.
+                dofollow_to_target (int): The number of links to your target page that don’t have the “nofollow” attribute.
+                first_seen_link (str): The date we first found a link to your target.
+                http_code_target (int | None): The return code from HTTP protocol returned during the target page crawl.
+                languages_target (list[str | None]): The languages listed in the target page metadata or detected by the crawler to appear in the HTML.
+                last_seen (str | None): The date your target page lost its last live link.
+                last_visited_source (str): The date we last verified a live link to your target page.
+                last_visited_target (str | None): The date we last crawled your target page.
+                links_to_target (int): The number of inbound backlinks the target page has.
+                nofollow_to_target (int): The number of links to your target page that have the “nofollow” attribute.
+                powered_by_target (list[str | None]): Web technologies used to build and serve the target page content.
+                redirects_to_target (int): The number of inbound redirects to your target page.
+                target_redirect (str | None): The target's redirect if any.
+                title_target (str | None): The html title of the target page.
+                url_rating_target (float | None): The strength of the target page's backlink profile compared to the others in our database on a 100-point scale.
+                url_to (str): The URL the backlink points to.
+                url_to_plain (str): The target page URL optimized for use as a filter.
+        """
+        if request is None:
+            _missing = [k for k, v in [("select", select), ("target", target)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = SiteExplorerPagesByInternalLinksRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("order_by", order_by), ("where", where), ("select", select), ("protocol", protocol), ("target", target), ("mode", mode)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = await self._request("site-explorer", "pages-by-internal-links", request, SiteExplorerPagesByInternalLinksResponse, exclude_none=True)
+        return _resp.data
+
     async def site_explorer_pages_by_traffic(
         self,
         request: SiteExplorerPagesByTrafficRequest | None = None,
@@ -2780,6 +2885,7 @@ class GeneratedMethodsMixin:
         self,
         request: SiteExplorerPagesHistoryRequest | None = None,
         *,
+        page_positions: PagePositionsEnum | None = None,
         history_grouping: HistoryGroupingEnum | None = None,
         date_to: DateStr | None = None,
         date_from: DateStr | None = None,
@@ -2793,6 +2899,7 @@ class GeneratedMethodsMixin:
 
         Args:
             request: SiteExplorerPagesHistoryRequest
+                page_positions (PagePositionsEnum, optional): Filter pages by their ranking position. `top10` returns only pages ranking in the top 10, `top100` returns all pages ranking in the top 100. Default: 'top100'.
                 history_grouping (HistoryGroupingEnum, optional): The time interval used to group historical data. Default: 'monthly'.
                 date_to (DateStr, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
                 date_from (DateStr, required): The start date of the historical period in YYYY-MM-DD format.
@@ -2810,7 +2917,7 @@ class GeneratedMethodsMixin:
             _missing = [k for k, v in [("date_from", date_from), ("target", target)] if v is None]
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
-            request = SiteExplorerPagesHistoryRequest(**{k: v for k, v in [("history_grouping", history_grouping), ("date_to", date_to), ("date_from", date_from), ("country", country), ("protocol", protocol), ("target", target), ("mode", mode)] if v is not None})  # pyright: ignore[reportArgumentType]
+            request = SiteExplorerPagesHistoryRequest(**{k: v for k, v in [("page_positions", page_positions), ("history_grouping", history_grouping), ("date_to", date_to), ("date_from", date_from), ("country", country), ("protocol", protocol), ("target", target), ("mode", mode)] if v is not None})  # pyright: ignore[reportArgumentType]
         _resp = await self._request("site-explorer", "pages-history", request, SiteExplorerPagesHistoryResponse, exclude_none=True)
         return _resp.data
 
@@ -4618,11 +4725,11 @@ class GeneratedSyncMethodsMixin:
         request: BrandRadarAiResponsesRequest | None = None,
         *,
         timeout: int | None = None,
-        limit: int | None = None,
         where: str | None = None,
         select: SelectStr | None = None,
+        limit: int | None = None,
         date: DateStr | None = None,
-        country: CountryEnum | None = None,
+        country: list[CountryEnum | None] | None = None,
         order_by: OrderByEnum | None = None,
         report_id: str | None = None,
         prompts: PromptsEnum | None = None,
@@ -4639,11 +4746,11 @@ class GeneratedSyncMethodsMixin:
         Args:
             request: BrandRadarAiResponsesRequest
                 timeout (int, optional): A manual timeout duration in seconds. Default: None.
-                limit (int, optional): The number of results to return. Default: 1000.
                 where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
                 select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
+                limit (int, optional): The number of results to return. Default: 1000.
                 date (DateStr, optional): The date to search for in YYYY-MM-DD format. Default: None.
-                country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
+                country (list[CountryEnum | None], optional): A comma-separated list of two-letter country codes (ISO 3166-1 alpha-2). Default: [].
                 order_by (OrderByEnum, optional): A column to order the results by. Default: 'relevance'.
                 report_id (str, optional): The ID of the report to use. If one is given, other parameters are taken from the report (brand, competitors, market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` Default: None.
                 prompts (PromptsEnum, optional): The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided. Default: None.
@@ -4658,13 +4765,15 @@ class GeneratedSyncMethodsMixin:
                 links (list[dict[str, Any] | None]): (10 units) The links used for the response.
                 question (str): The question asked by the user.
                 response (str): (10 units) The response from the model.
+                search_queries (list[str | None]): The search query used by the chatbot to find information for the response. Only available when `data_source` is set to `chatgpt` or `perplexity`.
+                tags (list[str | None]): Tags assigned to the query.
                 volume (int): (10 units) Estimated monthly searches. This is based on our estimates for Google, combining the search volumes of related keywords where this question appears in People Also Ask section.
         """
         if request is None:
             _missing = [k for k, v in [("select", select), ("data_source", data_source)] if v is None]
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
-            request = BrandRadarAiResponsesRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("where", where), ("select", select), ("date", date), ("country", country), ("order_by", order_by), ("report_id", report_id), ("prompts", prompts), ("data_source", data_source), ("market", market), ("competitors", competitors), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
+            request = BrandRadarAiResponsesRequest(**{k: v for k, v in [("timeout", timeout), ("where", where), ("select", select), ("limit", limit), ("date", date), ("country", country), ("order_by", order_by), ("report_id", report_id), ("prompts", prompts), ("data_source", data_source), ("market", market), ("competitors", competitors), ("brand", brand)] if v is not None})  # pyright: ignore[reportArgumentType]
         _resp = self._request("brand-radar", "ai-responses", request, BrandRadarAiResponsesResponse, exclude_none=True)
         return _resp.data
 
@@ -4676,7 +4785,7 @@ class GeneratedSyncMethodsMixin:
         select: SelectStr | None = None,
         limit: int | None = None,
         date: DateStr | None = None,
-        country: CountryEnum | None = None,
+        country: list[CountryEnum | None] | None = None,
         report_id: str | None = None,
         prompts: PromptsEnum | None = None,
         data_source: DataSourceEnum | None = None,
@@ -4695,7 +4804,7 @@ class GeneratedSyncMethodsMixin:
                 select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
                 limit (int, optional): The number of results to return. Default: 1000.
                 date (DateStr, optional): The date to search for in YYYY-MM-DD format. Default: None.
-                country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
+                country (list[CountryEnum | None], optional): A comma-separated list of two-letter country codes (ISO 3166-1 alpha-2). Default: [].
                 report_id (str, optional): The ID of the report to use. If one is given, other parameters are taken from the report (brand, competitors, market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` Default: None.
                 prompts (PromptsEnum, optional): The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided. Default: None.
                 data_source (DataSourceEnum, required): The chatbot model to use.
@@ -4727,7 +4836,7 @@ class GeneratedSyncMethodsMixin:
         select: SelectStr | None = None,
         limit: int | None = None,
         date: DateStr | None = None,
-        country: CountryEnum | None = None,
+        country: list[CountryEnum | None] | None = None,
         report_id: str | None = None,
         prompts: PromptsEnum | None = None,
         data_source: DataSourceEnum | None = None,
@@ -4746,7 +4855,7 @@ class GeneratedSyncMethodsMixin:
                 select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
                 limit (int, optional): The number of results to return. Default: 1000.
                 date (DateStr, optional): The date to search for in YYYY-MM-DD format. Default: None.
-                country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
+                country (list[CountryEnum | None], optional): A comma-separated list of two-letter country codes (ISO 3166-1 alpha-2). Default: [].
                 report_id (str, optional): The ID of the report to use. If one is given, other parameters are taken from the report (brand, competitors, market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` Default: None.
                 prompts (PromptsEnum, optional): The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided. Default: None.
                 data_source (DataSourceEnum, required): The chatbot model to use.
@@ -4776,7 +4885,7 @@ class GeneratedSyncMethodsMixin:
         where: str | None = None,
         date_to: DateStr | None = None,
         date_from: DateStr | None = None,
-        country: CountryEnum | None = None,
+        country: list[CountryEnum | None] | None = None,
         report_id: str | None = None,
         prompts: PromptsEnum | None = None,
         data_source: DataSourceEnum | None = None,
@@ -4793,7 +4902,7 @@ class GeneratedSyncMethodsMixin:
                 where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
                 date_to (DateStr, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
                 date_from (DateStr, required): The start date of the historical period in YYYY-MM-DD format.
-                country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
+                country (list[CountryEnum | None], optional): A comma-separated list of two-letter country codes (ISO 3166-1 alpha-2). Default: [].
                 report_id (str, optional): The ID of the report to use. If one is given, other parameters are taken from the report (market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` Default: None.
                 prompts (PromptsEnum, optional): The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided. Default: None.
                 data_source (DataSourceEnum, required): The chatbot model to use.
@@ -4819,7 +4928,7 @@ class GeneratedSyncMethodsMixin:
         *,
         where: str | None = None,
         select: SelectStr | None = None,
-        country: CountryEnum | None = None,
+        country: list[CountryEnum | None] | None = None,
         report_id: str | None = None,
         prompts: PromptsEnum | None = None,
         data_source: DataSourceEnum | None = None,
@@ -4836,7 +4945,7 @@ class GeneratedSyncMethodsMixin:
             request: BrandRadarImpressionsOverviewRequest
                 where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
                 select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
-                country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
+                country (list[CountryEnum | None], optional): A comma-separated list of two-letter country codes (ISO 3166-1 alpha-2). Default: [].
                 report_id (str, optional): The ID of the report to use. If one is given, other parameters are taken from the report (brand, competitors, market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` Default: None.
                 prompts (PromptsEnum, optional): The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided. Default: None.
                 data_source (DataSourceEnum, required): The chatbot model to use.
@@ -4868,7 +4977,7 @@ class GeneratedSyncMethodsMixin:
         where: str | None = None,
         date_to: DateStr | None = None,
         date_from: DateStr | None = None,
-        country: CountryEnum | None = None,
+        country: list[CountryEnum | None] | None = None,
         report_id: str | None = None,
         prompts: PromptsEnum | None = None,
         data_source: DataSourceEnum | None = None,
@@ -4885,7 +4994,7 @@ class GeneratedSyncMethodsMixin:
                 where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
                 date_to (DateStr, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
                 date_from (DateStr, required): The start date of the historical period in YYYY-MM-DD format.
-                country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
+                country (list[CountryEnum | None], optional): A comma-separated list of two-letter country codes (ISO 3166-1 alpha-2). Default: [].
                 report_id (str, optional): The ID of the report to use. If one is given, other parameters are taken from the report (market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` Default: None.
                 prompts (PromptsEnum, optional): The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided. Default: None.
                 data_source (DataSourceEnum, required): The chatbot model to use.
@@ -4911,7 +5020,7 @@ class GeneratedSyncMethodsMixin:
         *,
         where: str | None = None,
         select: SelectStr | None = None,
-        country: CountryEnum | None = None,
+        country: list[CountryEnum | None] | None = None,
         report_id: str | None = None,
         prompts: PromptsEnum | None = None,
         data_source: DataSourceEnum | None = None,
@@ -4928,7 +5037,7 @@ class GeneratedSyncMethodsMixin:
             request: BrandRadarMentionsOverviewRequest
                 where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
                 select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
-                country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
+                country (list[CountryEnum | None], optional): A comma-separated list of two-letter country codes (ISO 3166-1 alpha-2). Default: [].
                 report_id (str, optional): The ID of the report to use. If one is given, other parameters are taken from the report (brand, competitors, market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` Default: None.
                 prompts (PromptsEnum, optional): The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided. Default: None.
                 data_source (DataSourceEnum, required): The chatbot model to use.
@@ -4960,7 +5069,7 @@ class GeneratedSyncMethodsMixin:
         where: str | None = None,
         date_to: DateStr | None = None,
         date_from: DateStr | None = None,
-        country: CountryEnum | None = None,
+        country: list[CountryEnum | None] | None = None,
         report_id: str | None = None,
         prompts: PromptsEnum | None = None,
         data_source: DataSourceEnum | None = None,
@@ -4978,7 +5087,7 @@ class GeneratedSyncMethodsMixin:
                 where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
                 date_to (DateStr, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
                 date_from (DateStr, required): The start date of the historical period in YYYY-MM-DD format.
-                country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
+                country (list[CountryEnum | None], optional): A comma-separated list of two-letter country codes (ISO 3166-1 alpha-2). Default: [].
                 report_id (str, optional): The ID of the report to use. If one is given, other parameters are taken from the report (brand, competitors, market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` Default: None.
                 prompts (PromptsEnum, optional): The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided. Default: None.
                 data_source (DataSourceEnum, required): The chatbot model to use.
@@ -5004,7 +5113,7 @@ class GeneratedSyncMethodsMixin:
         request: BrandRadarSovOverviewRequest | None = None,
         *,
         where: str | None = None,
-        country: CountryEnum | None = None,
+        country: list[CountryEnum | None] | None = None,
         report_id: str | None = None,
         prompts: PromptsEnum | None = None,
         data_source: DataSourceEnum | None = None,
@@ -5020,7 +5129,7 @@ class GeneratedSyncMethodsMixin:
         Args:
             request: BrandRadarSovOverviewRequest
                 where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
-                country (CountryEnum, optional): A two-letter country code (ISO 3166-1 alpha-2). Default: None.
+                country (list[CountryEnum | None], optional): A comma-separated list of two-letter country codes (ISO 3166-1 alpha-2). Default: [].
                 report_id (str, optional): The ID of the report to use. If one is given, other parameters are taken from the report (brand, competitors, market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` Default: None.
                 prompts (PromptsEnum, optional): The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided. Default: None.
                 data_source (DataSourceEnum, required): The chatbot model to use.
@@ -5082,7 +5191,7 @@ class GeneratedSyncMethodsMixin:
                 difficulty (int | None): (10 units) An estimation of how hard it is to rank in the top 10 organic search results for a keyword on a 100-point scale.
                 first_seen (str | None): The date when we first checked search engine results for a keyword.
                 global_volume (int | None): (10 units) How many times per month, on average, people search for the target keyword across all countries in our database.
-                intents (dict[str, Any] | None): (10 units) Indicates the purpose behind the user's search query. Object fields: `informational`, `navigational`, `commercial`, `transactional`, `branded` or `local`. All the fields are of type `bool`, with posible values `true` or `false`.
+                intents (dict[str, Any] | None): (10 units) Indicates the purpose behind the user's search query. Object fields: `informational`, `navigational`, `commercial`, `transactional`, `branded` or `local`. All the fields are of type `bool`, with possible values `true` or `false`.
                 keyword (str)
                 parent_topic (str | None): Parent Topic determines if you can rank for your target keyword while targeting a more general topic on your page instead. To identify the Parent Topic, we take the #1 ranking page for your keyword and find the keyword responsible for sending the most traffic to that page.
                 serp_features (list[SerpFeaturesItemEnum | None]): The enriched results on a search engine results page (SERP) that are not traditional organic results.
@@ -5150,7 +5259,7 @@ class GeneratedSyncMethodsMixin:
                 difficulty (int | None): (10 units) An estimation of how hard it is to rank in the top 10 organic search results for a keyword on a 100-point scale.
                 first_seen (str | None): The date when we first checked search engine results for a keyword.
                 global_volume (int | None): (10 units) How many times per month, on average, people search for the target keyword across all countries in our database.
-                intents (dict[str, Any] | None): (10 units) Indicates the purpose behind the user's search query. Object fields: `informational`, `navigational`, `commercial`, `transactional`, `branded` or `local`. All the fields are of type `bool`, with posible values `true` or `false`.
+                intents (dict[str, Any] | None): (10 units) Indicates the purpose behind the user's search query. Object fields: `informational`, `navigational`, `commercial`, `transactional`, `branded` or `local`. All the fields are of type `bool`, with possible values `true` or `false`.
                 keyword (str)
                 parent_topic (str | None): Parent Topic determines if you can rank for your target keyword while targeting a more general topic on your page instead. To identify the Parent Topic, we take the #1 ranking page for your keyword and find the keyword responsible for sending the most traffic to that page.
                 parent_volume (int | None): (10 units) The search volume of the parent topic.
@@ -5212,7 +5321,7 @@ class GeneratedSyncMethodsMixin:
                 difficulty (int | None): (10 units) An estimation of how hard it is to rank in the top 10 organic search results for a keyword on a 100-point scale.
                 first_seen (str | None): The date when we first checked search engine results for a keyword.
                 global_volume (int | None): (10 units) How many times per month, on average, people search for the target keyword across all countries in our database.
-                intents (dict[str, Any] | None): (10 units) Indicates the purpose behind the user's search query. Object fields: `informational`, `navigational`, `commercial`, `transactional`, `branded` or `local`. All the fields are of type `bool`, with posible values `true` or `false`.
+                intents (dict[str, Any] | None): (10 units) Indicates the purpose behind the user's search query. Object fields: `informational`, `navigational`, `commercial`, `transactional`, `branded` or `local`. All the fields are of type `bool`, with possible values `true` or `false`.
                 keyword (str)
                 parent_topic (str | None): Parent Topic determines if you can rank for your target keyword while targeting a more general topic on your page instead. To identify the Parent Topic, we take the #1 ranking page for your keyword and find the keyword responsible for sending the most traffic to that page.
                 serp_features (list[SerpFeaturesItemEnum | None]): The enriched results on a search engine results page (SERP) that are not traditional organic results.
@@ -5267,7 +5376,7 @@ class GeneratedSyncMethodsMixin:
                 difficulty (int | None): (10 units) An estimation of how hard it is to rank in the top 10 organic search results for a keyword on a 100-point scale.
                 first_seen (str | None): The date when we first checked search engine results for a keyword.
                 global_volume (int | None): (10 units) How many times per month, on average, people search for the target keyword across all countries in our database.
-                intents (dict[str, Any] | None): (10 units) Indicates the purpose behind the user's search query. Object fields: `informational`, `navigational`, `commercial`, `transactional`, `branded` or `local`. All the fields are of type `bool`, with posible values `true` or `false`.
+                intents (dict[str, Any] | None): (10 units) Indicates the purpose behind the user's search query. Object fields: `informational`, `navigational`, `commercial`, `transactional`, `branded` or `local`. All the fields are of type `bool`, with possible values `true` or `false`.
                 keyword (str)
                 parent_topic (str | None): Parent Topic determines if you can rank for your target keyword while targeting a more general topic on your page instead. To identify the Parent Topic, we take the #1 ranking page for your keyword and find the keyword responsible for sending the most traffic to that page.
                 serp_features (list[SerpFeaturesItemEnum | None]): The enriched results on a search engine results page (SERP) that are not traditional organic results.
@@ -5349,6 +5458,101 @@ class GeneratedSyncMethodsMixin:
         return _resp.data
 
     # Management API methods
+    def management_brand_radar_prompts(
+        self,
+        request: ManagementBrandRadarPromptsRequest | None = None,
+        *,
+        report_id: str | None = None,
+    ) -> list[ManagementBrandRadarPromptsData]:
+        """
+        Brand Radar prompts.
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: ManagementBrandRadarPromptsRequest
+                report_id (str, required): The ID of the report to use. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...`
+
+        Returns:
+            list[ManagementBrandRadarPromptsData]:
+                prompt (str): The text of the prompt.
+                country (str): The country of the prompt.
+                created_at (str): The date the prompt was created.
+        """
+        if request is None:
+            _missing = [k for k, v in [("report_id", report_id)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = ManagementBrandRadarPromptsRequest(**{k: v for k, v in [("report_id", report_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = self._request("management", "brand-radar-prompts", request, ManagementBrandRadarPromptsResponse)
+        return _resp.data
+
+    def management_create_brand_radar_prompts(
+        self,
+        request: ManagementCreateBrandRadarPromptsRequest | None = None,
+        *,
+        report_id: str | None = None,
+        countries: list[str] | None = None,
+        prompts: list[str] | None = None,
+    ) -> list[ManagementBrandRadarPromptsData]:
+        """
+        Brand Radar prompts [POST].
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: ManagementCreateBrandRadarPromptsRequest
+                report_id (str, required): The ID of the report to use. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...`
+                countries (list[str], required): A comma-separated list of two-letter country codes (ISO 3166-1 alpha-2).
+                prompts (list[str], required): A comma-separated list of custom prompts. They must be valid utf8 and less than 300 characters.
+
+        Returns:
+            list[ManagementBrandRadarPromptsData]:
+                prompt (str): The text of the prompt.
+                country (str): The country of the prompt.
+                created_at (str): The date the prompt was created.
+        """
+        if request is None:
+            _missing = [k for k, v in [("report_id", report_id), ("countries", countries), ("prompts", prompts)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = ManagementCreateBrandRadarPromptsRequest(**{k: v for k, v in [("report_id", report_id), ("countries", countries), ("prompts", prompts)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = self._request("management", "brand-radar-prompts", request, ManagementBrandRadarPromptsResponse, http_method="POST", query_params={k: v for k, v in {"report_id": request.report_id}.items() if v is not None})
+        return _resp.data
+
+    def management_brand_radar_prompts_delete(
+        self,
+        request: ManagementBrandRadarPromptsDeleteRequest | None = None,
+        *,
+        report_id: str | None = None,
+        countries: list[str] | None = None,
+        prompts: list[str] | None = None,
+    ) -> list[ManagementBrandRadarPromptsDeleteData]:
+        """
+        Delete Brand Radar prompts [PUT].
+
+        >Requests to this endpoint are free and do not consume any API units.
+
+        Args:
+            request: ManagementBrandRadarPromptsDeleteRequest
+                report_id (str, required): The ID of the report to use. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...`
+                countries (list[str], optional): A comma-separated list of two-letter country codes (ISO 3166-1 alpha-2). Default: None.
+                prompts (list[str], required): A comma-separated list of custom prompts. They must be valid utf8 and less than 300 characters.
+
+        Returns:
+            list[ManagementBrandRadarPromptsDeleteData]:
+                prompt (str): The text of the prompt.
+                country (str): The country of the prompt.
+                created_at (str): The date the prompt was created.
+        """
+        if request is None:
+            _missing = [k for k, v in [("report_id", report_id), ("prompts", prompts)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = ManagementBrandRadarPromptsDeleteRequest(**{k: v for k, v in [("report_id", report_id), ("countries", countries), ("prompts", prompts)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = self._request("management", "brand-radar-prompts-delete", request, ManagementBrandRadarPromptsDeleteResponse, exclude_none=True, http_method="PUT", query_params={k: v for k, v in {"report_id": request.report_id}.items() if v is not None})
+        return _resp.data
+
     def management_keyword_list_keywords(
         self,
         request: ManagementKeywordListKeywordsRequest | None = None,
@@ -5845,7 +6049,7 @@ class GeneratedSyncMethodsMixin:
 
         Returns:
             list[RankTrackerCompetitorsOverviewData]:
-                competitors_list (list[dict[str, Any] | None]): Competitors information for a given keyword. The following fields are included: `url`, `url_prev`, `position`, `position_prev`, `best_position_kind`, `best_position_kind`, `traffic`, `traffic_prev`, `value`, `value_prev`. Fields ending in `prev` are included only in the compared view.
+                competitors_list (list[dict[str, Any] | None]): Competitors information for a given keyword. The following fields are included: `url`, `url_prev`, `position`, `position_prev`, `best_position_kind`, `best_position_kind_prev`, `traffic`, `traffic_prev`, `value`, `value_prev`. Fields ending in `prev` are included only in the compared view.
                 country (CountryEnum1): The country that a given keyword is being tracked in. A two-letter country code (ISO 3166-1 alpha-2).
                 keyword (str): The keyword your target ranks for.
                 keyword_difficulty (int | None): An estimation of how hard it is to rank in the top 10 organic search results for a keyword on a 100-point scale.
@@ -6308,7 +6512,7 @@ class GeneratedSyncMethodsMixin:
                 content_length (int | None): The character length of content displayed on the page
                 content_length_diff (int | None): The character length of content displayed on the page
                 content_length_prev (int | None): The character length of content displayed on the page
-                ... and 575 more fields. See SiteAuditPageExplorerData for all fields.
+                ... and 578 more fields. See SiteAuditPageExplorerData for all fields.
         """
         if request is None:
             _missing = [k for k, v in [("project_id", project_id)] if v is None]
@@ -6322,6 +6526,8 @@ class GeneratedSyncMethodsMixin:
         self,
         request: SiteAuditProjectsRequest | None = None,
         *,
+        project_url: str | None = None,
+        project_name: str | None = None,
         date: str | None = None,
         project_id: int | None = None,
     ) -> list[SiteAuditProjectsData]:
@@ -6332,6 +6538,8 @@ class GeneratedSyncMethodsMixin:
 
         Args:
             request: SiteAuditProjectsRequest
+                project_url (str, optional): Filters projects by target URL (ignores protocol and trailing slash). Default: None.
+                project_name (str, optional): Filters projects by name. Default: None.
                 date (str, optional): A timestamp in `YYYY-MM-DDThh:mm:ss` format specifying the crawl date to retrieve metrics from. Defaults to the most recent available crawl if omitted. For scheduled crawls, we return data from the latest crawl finished before the specified timestamp. For Always-on audit crawls, we return data as of the provided date and time. If the time component is omitted, it defaults to `00:00:00`. The timestamp is interpreted in UTC. Default: None.
                 project_id (int, optional): The unique identifier of the project. You can find it in the URL of your Site Audit project in Ahrefs: `https://app.ahrefs.com/site-audit/#project_id#` Default: None.
 
@@ -6351,7 +6559,7 @@ class GeneratedSyncMethodsMixin:
                 total (int | None): Number of total crawled internal URLs
         """
         if request is None:
-            request = SiteAuditProjectsRequest(**{k: v for k, v in [("date", date), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
+            request = SiteAuditProjectsRequest(**{k: v for k, v in [("project_url", project_url), ("project_name", project_name), ("date", date), ("project_id", project_id)] if v is not None})  # pyright: ignore[reportArgumentType]
         _resp = self._request("site-audit", "projects", request, SiteAuditProjectsResponse, exclude_none=True)
         return _resp.data
 
@@ -6512,122 +6720,6 @@ class GeneratedSyncMethodsMixin:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
             request = SiteExplorerBacklinksStatsRequest(**{k: v for k, v in [("protocol", protocol), ("target", target), ("mode", mode), ("date", date)] if v is not None})  # pyright: ignore[reportArgumentType]
         _resp = self._request("site-explorer", "backlinks-stats", request, SiteExplorerBacklinksStatsResponse, exclude_none=True)
-        return _resp.data
-
-    def site_explorer_best_by_external_links(
-        self,
-        request: SiteExplorerBestByExternalLinksRequest | None = None,
-        *,
-        timeout: int | None = None,
-        limit: int | None = None,
-        order_by: str | None = None,
-        where: str | None = None,
-        select: SelectStr | None = None,
-        protocol: ProtocolEnum | None = None,
-        target: str | None = None,
-        mode: ModeEnum | None = None,
-        history: HistoryStr | None = None,
-    ) -> list[SiteExplorerBestByExternalLinksData]:
-        """
-        Best by External Links.
-
-        Args:
-            request: SiteExplorerBestByExternalLinksRequest
-                timeout (int, optional): A manual timeout duration in seconds. Default: None.
-                limit (int, optional): The number of results to return. Default: 1000.
-                order_by (str, optional): A column to order results by. See the response schema for valid column identifiers, except for `http_code_target`, `languages_target`, `last_visited_target`, `powered_by_target`, `target_redirect`, `title_target`, `url_rating_target`, which are not supported in `order_by` for this endpoint. Default: None.
-                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
-                select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
-                protocol (ProtocolEnum, optional): The protocol of your target. Default: 'both'.
-                target (str, required): The target of the search: a domain or a URL.
-                mode (ModeEnum, optional): The scope of the search based on the target you entered. Default: 'subdomains'.
-                history (str, optional): A time frame to add lost backlinks to the report. Choose between `live` (no history), `since:<date>` (history since a specified date), and `all_time` (full history). The date should be in YYYY-MM-DD format. Default: 'all_time'.
-
-        Returns:
-            list[SiteExplorerBestByExternalLinksData]:
-                dofollow_to_target (int): The number of links to your target page that don’t have the “nofollow” attribute.
-                first_seen_link (str): The date we first found a link to your target.
-                http_code_target (int | None): The return code from HTTP protocol returned during the target page crawl.
-                is_spam (bool): Indicates whether the backlink comes from a known spammy domain.
-                languages_target (list[str | None]): The languages listed in the target page metadata or detected by the crawler to appear in the HTML.
-                last_seen (str | None): The date your target page lost its last live link.
-                last_visited_source (str): The date we last verified a live link to your target page.
-                last_visited_target (str | None): The date we last crawled your target page.
-                links_to_target (int): The number of inbound backlinks the target page has.
-                lost_links_to_target (int): The number of backlinks lost during the selected time period.
-                new_links_to_target (int): The number of new backlinks found during the selected time period.
-                nofollow_to_target (int): The number of links to your target page that have the “nofollow” attribute.
-                powered_by_target (list[str | None]): Web technologies used to build and serve the target page content.
-                redirects_to_target (int): The number of inbound redirects to your target page.
-                refdomains_target (int): (5 units) The number of unique referring domains linking to the target page.
-                target_redirect (str | None): The target's redirect if any.
-                title_target (str | None): The html title of the target page.
-                top_domain_rating_source (float): The highest Domain Rating (DR) counted out of all referring domains. DR shows the strength of a website’s backlink profile compared to the others in our database on a 100-point scale.
-                url_rating_target (float | None): The strength of the target page's backlink profile compared to the others in our database on a 100-point scale.
-                url_to (str): The URL the backlink points to.
-                url_to_plain (str): The target page URL optimized for use as a filter.
-        """
-        if request is None:
-            _missing = [k for k, v in [("select", select), ("target", target)] if v is None]
-            if _missing:
-                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
-            request = SiteExplorerBestByExternalLinksRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("order_by", order_by), ("where", where), ("select", select), ("protocol", protocol), ("target", target), ("mode", mode), ("history", history)] if v is not None})  # pyright: ignore[reportArgumentType]
-        _resp = self._request("site-explorer", "best-by-external-links", request, SiteExplorerBestByExternalLinksResponse, exclude_none=True)
-        return _resp.data
-
-    def site_explorer_best_by_internal_links(
-        self,
-        request: SiteExplorerBestByInternalLinksRequest | None = None,
-        *,
-        timeout: int | None = None,
-        limit: int | None = None,
-        order_by: str | None = None,
-        where: str | None = None,
-        select: SelectStr | None = None,
-        protocol: ProtocolEnum | None = None,
-        target: str | None = None,
-        mode: ModeEnum | None = None,
-    ) -> list[SiteExplorerBestByInternalLinksData]:
-        """
-        Best by Internal Links.
-
-        Args:
-            request: SiteExplorerBestByInternalLinksRequest
-                timeout (int, optional): A manual timeout duration in seconds. Default: None.
-                limit (int, optional): The number of results to return. Default: 1000.
-                order_by (str, optional): A column to order results by. See the response schema for valid column identifiers, except for `http_code_target`, `languages_target`, `last_visited_target`, `powered_by_target`, `target_redirect`, `title_target`, `url_rating_target`, which are not supported in `order_by` for this endpoint. Default: None.
-                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
-                select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
-                protocol (ProtocolEnum, optional): The protocol of your target. Default: 'both'.
-                target (str, required): The target of the search: a domain or a URL.
-                mode (ModeEnum, optional): The scope of the search based on the target you entered. Default: 'subdomains'.
-
-        Returns:
-            list[SiteExplorerBestByInternalLinksData]:
-                canonical_to_target (int): The number of inbound canonical links to your target page.
-                dofollow_to_target (int): The number of links to your target page that don’t have the “nofollow” attribute.
-                first_seen_link (str): The date we first found a link to your target.
-                http_code_target (int | None): The return code from HTTP protocol returned during the target page crawl.
-                languages_target (list[str | None]): The languages listed in the target page metadata or detected by the crawler to appear in the HTML.
-                last_seen (str | None): The date your target page lost its last live link.
-                last_visited_source (str): The date we last verified a live link to your target page.
-                last_visited_target (str | None): The date we last crawled your target page.
-                links_to_target (int): The number of inbound backlinks the target page has.
-                nofollow_to_target (int): The number of links to your target page that have the “nofollow” attribute.
-                powered_by_target (list[str | None]): Web technologies used to build and serve the target page content.
-                redirects_to_target (int): The number of inbound redirects to your target page.
-                target_redirect (str | None): The target's redirect if any.
-                title_target (str | None): The html title of the target page.
-                url_rating_target (float | None): The strength of the target page's backlink profile compared to the others in our database on a 100-point scale.
-                url_to (str): The URL the backlink points to.
-                url_to_plain (str): The target page URL optimized for use as a filter.
-        """
-        if request is None:
-            _missing = [k for k, v in [("select", select), ("target", target)] if v is None]
-            if _missing:
-                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
-            request = SiteExplorerBestByInternalLinksRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("order_by", order_by), ("where", where), ("select", select), ("protocol", protocol), ("target", target), ("mode", mode)] if v is not None})  # pyright: ignore[reportArgumentType]
-        _resp = self._request("site-explorer", "best-by-internal-links", request, SiteExplorerBestByInternalLinksResponse, exclude_none=True)
         return _resp.data
 
     def site_explorer_broken_backlinks(
@@ -7250,6 +7342,126 @@ class GeneratedSyncMethodsMixin:
         _resp = self._request("site-explorer", "outlinks-stats", request, SiteExplorerOutlinksStatsResponse, exclude_none=True)
         return _resp.data
 
+    def site_explorer_pages_by_backlinks(
+        self,
+        request: SiteExplorerPagesByBacklinksRequest | None = None,
+        *,
+        timeout: int | None = None,
+        limit: int | None = None,
+        order_by: str | None = None,
+        where: str | None = None,
+        select: SelectStr | None = None,
+        protocol: ProtocolEnum | None = None,
+        target: str | None = None,
+        mode: ModeEnum | None = None,
+        history: HistoryStr | None = None,
+    ) -> list[SiteExplorerPagesByBacklinksData]:
+        """
+        Best pages by backlinks.
+
+        Formerly `/best-by-external-links`
+
+        Args:
+            request: SiteExplorerPagesByBacklinksRequest
+                timeout (int, optional): A manual timeout duration in seconds. Default: None.
+                limit (int, optional): The number of results to return. Default: 1000.
+                order_by (str, optional): A column to order results by. See the response schema for valid column identifiers, except for `http_code_target`, `languages_target`, `last_visited_target`, `powered_by_target`, `target_redirect`, `title_target`, `url_rating_target`, which are not supported in `order_by` for this endpoint. Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
+                protocol (ProtocolEnum, optional): The protocol of your target. Default: 'both'.
+                target (str, required): The target of the search: a domain or a URL.
+                mode (ModeEnum, optional): The scope of the search based on the target you entered. Default: 'subdomains'.
+                history (str, optional): A time frame to add lost backlinks to the report. Choose between `live` (no history), `since:<date>` (history since a specified date), and `all_time` (full history). The date should be in YYYY-MM-DD format. Default: 'all_time'.
+
+        Returns:
+            list[SiteExplorerPagesByBacklinksData]:
+                dofollow_to_target (int): The number of links to your target page that don’t have the “nofollow” attribute.
+                first_seen_link (str): The date we first found a link to your target.
+                http_code_target (int | None): The return code from HTTP protocol returned during the target page crawl.
+                is_spam (bool): Indicates whether the backlink comes from a known spammy domain.
+                languages_target (list[str | None]): The languages listed in the target page metadata or detected by the crawler to appear in the HTML.
+                last_seen (str | None): The date your target page lost its last live link.
+                last_visited_source (str): The date we last verified a live link to your target page.
+                last_visited_target (str | None): The date we last crawled your target page.
+                links_to_target (int): The number of inbound backlinks the target page has.
+                lost_links_to_target (int): The number of backlinks lost during the selected time period.
+                new_links_to_target (int): The number of new backlinks found during the selected time period.
+                nofollow_to_target (int): The number of links to your target page that have the “nofollow” attribute.
+                powered_by_target (list[str | None]): Web technologies used to build and serve the target page content.
+                redirects_to_target (int): The number of inbound redirects to your target page.
+                refdomains_target (int): (5 units) The number of unique referring domains linking to the target page.
+                target_redirect (str | None): The target's redirect if any.
+                title_target (str | None): The html title of the target page.
+                top_domain_rating_source (float): The highest Domain Rating (DR) counted out of all referring domains. DR shows the strength of a website’s backlink profile compared to the others in our database on a 100-point scale.
+                url_rating_target (float | None): The strength of the target page's backlink profile compared to the others in our database on a 100-point scale.
+                url_to (str): The URL the backlink points to.
+                url_to_plain (str): The target page URL optimized for use as a filter.
+        """
+        if request is None:
+            _missing = [k for k, v in [("select", select), ("target", target)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = SiteExplorerPagesByBacklinksRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("order_by", order_by), ("where", where), ("select", select), ("protocol", protocol), ("target", target), ("mode", mode), ("history", history)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = self._request("site-explorer", "pages-by-backlinks", request, SiteExplorerPagesByBacklinksResponse, exclude_none=True)
+        return _resp.data
+
+    def site_explorer_pages_by_internal_links(
+        self,
+        request: SiteExplorerPagesByInternalLinksRequest | None = None,
+        *,
+        timeout: int | None = None,
+        limit: int | None = None,
+        order_by: str | None = None,
+        where: str | None = None,
+        select: SelectStr | None = None,
+        protocol: ProtocolEnum | None = None,
+        target: str | None = None,
+        mode: ModeEnum | None = None,
+    ) -> list[SiteExplorerPagesByInternalLinksData]:
+        """
+        Best pages by internal links.
+
+        Formerly `/best-by-internal-links`
+
+        Args:
+            request: SiteExplorerPagesByInternalLinksRequest
+                timeout (int, optional): A manual timeout duration in seconds. Default: None.
+                limit (int, optional): The number of results to return. Default: 1000.
+                order_by (str, optional): A column to order results by. See the response schema for valid column identifiers, except for `http_code_target`, `languages_target`, `last_visited_target`, `powered_by_target`, `target_redirect`, `title_target`, `url_rating_target`, which are not supported in `order_by` for this endpoint. Default: None.
+                where (str, optional): Filter expression. See filter-syntax.md for syntax. Default: None.
+                select (str, required): A comma-separated list of columns to return. See response schema for valid column identifiers.
+                protocol (ProtocolEnum, optional): The protocol of your target. Default: 'both'.
+                target (str, required): The target of the search: a domain or a URL.
+                mode (ModeEnum, optional): The scope of the search based on the target you entered. Default: 'subdomains'.
+
+        Returns:
+            list[SiteExplorerPagesByInternalLinksData]:
+                canonical_to_target (int): The number of inbound canonical links to your target page.
+                dofollow_to_target (int): The number of links to your target page that don’t have the “nofollow” attribute.
+                first_seen_link (str): The date we first found a link to your target.
+                http_code_target (int | None): The return code from HTTP protocol returned during the target page crawl.
+                languages_target (list[str | None]): The languages listed in the target page metadata or detected by the crawler to appear in the HTML.
+                last_seen (str | None): The date your target page lost its last live link.
+                last_visited_source (str): The date we last verified a live link to your target page.
+                last_visited_target (str | None): The date we last crawled your target page.
+                links_to_target (int): The number of inbound backlinks the target page has.
+                nofollow_to_target (int): The number of links to your target page that have the “nofollow” attribute.
+                powered_by_target (list[str | None]): Web technologies used to build and serve the target page content.
+                redirects_to_target (int): The number of inbound redirects to your target page.
+                target_redirect (str | None): The target's redirect if any.
+                title_target (str | None): The html title of the target page.
+                url_rating_target (float | None): The strength of the target page's backlink profile compared to the others in our database on a 100-point scale.
+                url_to (str): The URL the backlink points to.
+                url_to_plain (str): The target page URL optimized for use as a filter.
+        """
+        if request is None:
+            _missing = [k for k, v in [("select", select), ("target", target)] if v is None]
+            if _missing:
+                raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
+            request = SiteExplorerPagesByInternalLinksRequest(**{k: v for k, v in [("timeout", timeout), ("limit", limit), ("order_by", order_by), ("where", where), ("select", select), ("protocol", protocol), ("target", target), ("mode", mode)] if v is not None})  # pyright: ignore[reportArgumentType]
+        _resp = self._request("site-explorer", "pages-by-internal-links", request, SiteExplorerPagesByInternalLinksResponse, exclude_none=True)
+        return _resp.data
+
     def site_explorer_pages_by_traffic(
         self,
         request: SiteExplorerPagesByTrafficRequest | None = None,
@@ -7297,6 +7509,7 @@ class GeneratedSyncMethodsMixin:
         self,
         request: SiteExplorerPagesHistoryRequest | None = None,
         *,
+        page_positions: PagePositionsEnum | None = None,
         history_grouping: HistoryGroupingEnum | None = None,
         date_to: DateStr | None = None,
         date_from: DateStr | None = None,
@@ -7310,6 +7523,7 @@ class GeneratedSyncMethodsMixin:
 
         Args:
             request: SiteExplorerPagesHistoryRequest
+                page_positions (PagePositionsEnum, optional): Filter pages by their ranking position. `top10` returns only pages ranking in the top 10, `top100` returns all pages ranking in the top 100. Default: 'top100'.
                 history_grouping (HistoryGroupingEnum, optional): The time interval used to group historical data. Default: 'monthly'.
                 date_to (DateStr, optional): The end date of the historical period in YYYY-MM-DD format. Default: None.
                 date_from (DateStr, required): The start date of the historical period in YYYY-MM-DD format.
@@ -7327,7 +7541,7 @@ class GeneratedSyncMethodsMixin:
             _missing = [k for k, v in [("date_from", date_from), ("target", target)] if v is None]
             if _missing:
                 raise ValueError(f"Missing required argument(s): {', '.join(_missing)}")
-            request = SiteExplorerPagesHistoryRequest(**{k: v for k, v in [("history_grouping", history_grouping), ("date_to", date_to), ("date_from", date_from), ("country", country), ("protocol", protocol), ("target", target), ("mode", mode)] if v is not None})  # pyright: ignore[reportArgumentType]
+            request = SiteExplorerPagesHistoryRequest(**{k: v for k, v in [("page_positions", page_positions), ("history_grouping", history_grouping), ("date_to", date_to), ("date_from", date_from), ("country", country), ("protocol", protocol), ("target", target), ("mode", mode)] if v is not None})  # pyright: ignore[reportArgumentType]
         _resp = self._request("site-explorer", "pages-history", request, SiteExplorerPagesHistoryResponse, exclude_none=True)
         return _resp.data
 

@@ -332,8 +332,11 @@ See the [full API reference](docs/api-reference.md) for parameters, types, and r
 - `keywords_explorer_volume_by_country()`
 - `keywords_explorer_volume_history()`
 
-**Management** (13 methods)
+**Management** (16 methods)
 
+- `management_brand_radar_prompts()`
+- `management_create_brand_radar_prompts()`
+- `management_brand_radar_prompts_delete()`
 - `management_keyword_list_keywords()`
 - `management_set_keyword_list_keywords()`
 - `management_keyword_list_keywords_delete()`
@@ -377,8 +380,6 @@ See the [full API reference](docs/api-reference.md) for parameters, types, and r
 - `site_explorer_all_backlinks()`
 - `site_explorer_anchors()`
 - `site_explorer_backlinks_stats()`
-- `site_explorer_best_by_external_links()`
-- `site_explorer_best_by_internal_links()`
 - `site_explorer_broken_backlinks()`
 - `site_explorer_domain_rating()`
 - `site_explorer_domain_rating_history()`
@@ -392,6 +393,8 @@ See the [full API reference](docs/api-reference.md) for parameters, types, and r
 - `site_explorer_organic_competitors()`
 - `site_explorer_organic_keywords()`
 - `site_explorer_outlinks_stats()`
+- `site_explorer_pages_by_backlinks()`
+- `site_explorer_pages_by_internal_links()`
 - `site_explorer_pages_by_traffic()`
 - `site_explorer_pages_history()`
 - `site_explorer_paid_pages()`

@@ -14,6 +14,7 @@ from ahrefs._base_client import (
     build_headers,
     build_url,
     calculate_backoff,
+    flatten_list_params,
 )
 from ahrefs._exceptions import (
     APIConnectionError,
@@ -95,6 +96,7 @@ class AsyncAhrefsClient(GeneratedMethodsMixin):
                         else None
                     )
                     if url_params:
+                        url_params = flatten_list_params(url_params)
                         body = {
                             k: v for k, v in params.items() if k not in url_params
                         }
@@ -108,7 +110,7 @@ class AsyncAhrefsClient(GeneratedMethodsMixin):
                 else:
                     response = await self._client.get(
                         url,
-                        params=params,
+                        params=flatten_list_params(params),
                         headers=build_headers(self._config.api_key),
                     )
                 raise_for_status(response)

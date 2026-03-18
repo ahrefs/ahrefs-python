@@ -5,6 +5,7 @@ from __future__ import annotations
 import os
 import random
 from dataclasses import dataclass, field
+from typing import Any
 
 from ahrefs._exceptions import AuthenticationError
 from ahrefs._version import __version__
@@ -53,6 +54,23 @@ def build_headers(api_key: str) -> dict[str, str]:
 
 def build_url(base_url: str, api_section: str, endpoint: str) -> str:
     return f"{base_url}/{api_section}/{endpoint}"
+
+
+def flatten_list_params(params: dict[str, Any]) -> dict[str, Any]:
+    """Join list-valued query params as CSV (OpenAPI explode=false).
+
+    - None items within lists are filtered out before joining.
+    - Empty lists (after filtering) are removed (key omitted from query string).
+    """
+    result: dict[str, Any] = {}
+    for k, v in params.items():
+        if isinstance(v, list):
+            items = [str(i) for i in v if i is not None]
+            if items:
+                result[k] = ",".join(items)
+        else:
+            result[k] = v
+    return result
 
 
 def calculate_backoff(attempt: int, base: float = 0.5, max_delay: float = 8.0) -> float:

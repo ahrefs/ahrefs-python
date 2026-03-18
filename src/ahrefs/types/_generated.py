@@ -641,6 +641,11 @@ class OutputJsonPhpEnum(StrEnum):
     PHP = "php"
 
 
+class PagePositionsEnum(StrEnum):
+    TOP10 = "top10"
+    TOP100 = "top100"
+
+
 class PromptsEnum(StrEnum):
     AHREFS = "ahrefs"
     CUSTOM = "custom"
@@ -998,7 +1003,6 @@ class BrandRadarAiResponsesRequest(BaseModel):
     timeout: int | None = Field(
         default=None, description="A manual timeout duration in seconds."
     )
-    limit: int = Field(default=1000, description="The number of results to return.")
     where: str | None = Field(
         default=None, description="Filter expression. See filter-syntax.md for syntax."
     )
@@ -1006,11 +1010,13 @@ class BrandRadarAiResponsesRequest(BaseModel):
         ...,
         description="A comma-separated list of columns to return. See response schema for valid column identifiers.",
     )
+    limit: int = Field(default=1000, description="The number of results to return.")
     date: DateStr | None = Field(
         default=None, description="The date to search for in YYYY-MM-DD format."
     )
-    country: CountryEnum | None = Field(
-        default=None, description="A two-letter country code (ISO 3166-1 alpha-2)."
+    country: list[CountryEnum | None] = Field(
+        default=[],
+        description="A comma-separated list of two-letter country codes (ISO 3166-1 alpha-2).",
     )
     order_by: OrderByEnum = Field(
         default=OrderByEnum.RELEVANCE, description="A column to order the results by."
@@ -1052,6 +1058,13 @@ class BrandRadarAiResponsesData(BaseModel):
     response: str | None = Field(
         default=None, description="(10 units) The response from the model."
     )
+    search_queries: list[str | None] | None = Field(
+        default=None,
+        description="The search query used by the chatbot to find information for the response. Only available when `data_source` is set to `chatgpt` or `perplexity`.",
+    )
+    tags: list[str | None] | None = Field(
+        default=None, description="Tags assigned to the query."
+    )
     volume: int | None = Field(
         default=None,
         description="(10 units) Estimated monthly searches. This is based on our estimates for Google, combining the search volumes of related keywords where this question appears in People Also Ask section.",
@@ -1086,8 +1099,9 @@ class BrandRadarCitedDomainsRequest(BaseModel):
     date: DateStr | None = Field(
         default=None, description="The date to search for in YYYY-MM-DD format."
     )
-    country: CountryEnum | None = Field(
-        default=None, description="A two-letter country code (ISO 3166-1 alpha-2)."
+    country: list[CountryEnum | None] = Field(
+        default=[],
+        description="A comma-separated list of two-letter country codes (ISO 3166-1 alpha-2).",
     )
     report_id: str | None = Field(
         default=None,
@@ -1159,8 +1173,9 @@ class BrandRadarCitedPagesRequest(BaseModel):
     date: DateStr | None = Field(
         default=None, description="The date to search for in YYYY-MM-DD format."
     )
-    country: CountryEnum | None = Field(
-        default=None, description="A two-letter country code (ISO 3166-1 alpha-2)."
+    country: list[CountryEnum | None] = Field(
+        default=[],
+        description="A comma-separated list of two-letter country codes (ISO 3166-1 alpha-2).",
     )
     report_id: str | None = Field(
         default=None,
@@ -1227,8 +1242,9 @@ class BrandRadarImpressionsHistoryRequest(BaseModel):
     date_from: DateStr = Field(
         ..., description="The start date of the historical period in YYYY-MM-DD format."
     )
-    country: CountryEnum | None = Field(
-        default=None, description="A two-letter country code (ISO 3166-1 alpha-2)."
+    country: list[CountryEnum | None] = Field(
+        default=[],
+        description="A comma-separated list of two-letter country codes (ISO 3166-1 alpha-2).",
     )
     report_id: str | None = Field(
         default=None,
@@ -1280,8 +1296,9 @@ class BrandRadarImpressionsOverviewRequest(BaseModel):
         ...,
         description="A comma-separated list of columns to return. See response schema for valid column identifiers.",
     )
-    country: CountryEnum | None = Field(
-        default=None, description="A two-letter country code (ISO 3166-1 alpha-2)."
+    country: list[CountryEnum | None] = Field(
+        default=[],
+        description="A comma-separated list of two-letter country codes (ISO 3166-1 alpha-2).",
     )
     report_id: str | None = Field(
         default=None,
@@ -1361,8 +1378,9 @@ class BrandRadarMentionsHistoryRequest(BaseModel):
     date_from: DateStr = Field(
         ..., description="The start date of the historical period in YYYY-MM-DD format."
     )
-    country: CountryEnum | None = Field(
-        default=None, description="A two-letter country code (ISO 3166-1 alpha-2)."
+    country: list[CountryEnum | None] = Field(
+        default=[],
+        description="A comma-separated list of two-letter country codes (ISO 3166-1 alpha-2).",
     )
     report_id: str | None = Field(
         default=None,
@@ -1414,8 +1432,9 @@ class BrandRadarMentionsOverviewRequest(BaseModel):
         ...,
         description="A comma-separated list of columns to return. See response schema for valid column identifiers.",
     )
-    country: CountryEnum | None = Field(
-        default=None, description="A two-letter country code (ISO 3166-1 alpha-2)."
+    country: list[CountryEnum | None] = Field(
+        default=[],
+        description="A comma-separated list of two-letter country codes (ISO 3166-1 alpha-2).",
     )
     report_id: str | None = Field(
         default=None,
@@ -1495,8 +1514,9 @@ class BrandRadarSovHistoryRequest(BaseModel):
     date_from: DateStr = Field(
         ..., description="The start date of the historical period in YYYY-MM-DD format."
     )
-    country: CountryEnum | None = Field(
-        default=None, description="A two-letter country code (ISO 3166-1 alpha-2)."
+    country: list[CountryEnum | None] = Field(
+        default=[],
+        description="A comma-separated list of two-letter country codes (ISO 3166-1 alpha-2).",
     )
     report_id: str | None = Field(
         default=None,
@@ -1550,8 +1570,9 @@ class BrandRadarSovOverviewRequest(BaseModel):
     where: str | None = Field(
         default=None, description="Filter expression. See filter-syntax.md for syntax."
     )
-    country: CountryEnum | None = Field(
-        default=None, description="A two-letter country code (ISO 3166-1 alpha-2)."
+    country: list[CountryEnum | None] = Field(
+        default=[],
+        description="A comma-separated list of two-letter country codes (ISO 3166-1 alpha-2).",
     )
     report_id: str | None = Field(
         default=None,
@@ -1671,7 +1692,7 @@ class KeywordsExplorerMatchingTermsData(BaseModel):
     )
     intents: dict[str, Any] | None = Field(
         default=None,
-        description="(10 units) Indicates the purpose behind the user's search query. Object fields: `informational`, `navigational`, `commercial`, `transactional`, `branded` or `local`. All the fields are of type `bool`, with posible values `true` or `false`.",
+        description="(10 units) Indicates the purpose behind the user's search query. Object fields: `informational`, `navigational`, `commercial`, `transactional`, `branded` or `local`. All the fields are of type `bool`, with possible values `true` or `false`.",
     )
     keyword: str | None = Field(default=None)
     parent_topic: str | None = Field(
@@ -1803,7 +1824,7 @@ class KeywordsExplorerOverviewData(BaseModel):
     )
     intents: dict[str, Any] | None = Field(
         default=None,
-        description="(10 units) Indicates the purpose behind the user's search query. Object fields: `informational`, `navigational`, `commercial`, `transactional`, `branded` or `local`. All the fields are of type `bool`, with posible values `true` or `false`.",
+        description="(10 units) Indicates the purpose behind the user's search query. Object fields: `informational`, `navigational`, `commercial`, `transactional`, `branded` or `local`. All the fields are of type `bool`, with possible values `true` or `false`.",
     )
     keyword: str | None = Field(default=None)
     parent_topic: str | None = Field(
@@ -1937,7 +1958,7 @@ class KeywordsExplorerRelatedTermsData(BaseModel):
     )
     intents: dict[str, Any] | None = Field(
         default=None,
-        description="(10 units) Indicates the purpose behind the user's search query. Object fields: `informational`, `navigational`, `commercial`, `transactional`, `branded` or `local`. All the fields are of type `bool`, with posible values `true` or `false`.",
+        description="(10 units) Indicates the purpose behind the user's search query. Object fields: `informational`, `navigational`, `commercial`, `transactional`, `branded` or `local`. All the fields are of type `bool`, with possible values `true` or `false`.",
     )
     keyword: str | None = Field(default=None)
     parent_topic: str | None = Field(
@@ -2047,7 +2068,7 @@ class KeywordsExplorerSearchSuggestionsData(BaseModel):
     )
     intents: dict[str, Any] | None = Field(
         default=None,
-        description="(10 units) Indicates the purpose behind the user's search query. Object fields: `informational`, `navigational`, `commercial`, `transactional`, `branded` or `local`. All the fields are of type `bool`, with posible values `true` or `false`.",
+        description="(10 units) Indicates the purpose behind the user's search query. Object fields: `informational`, `navigational`, `commercial`, `transactional`, `branded` or `local`. All the fields are of type `bool`, with possible values `true` or `false`.",
     )
     keyword: str | None = Field(default=None)
     parent_topic: str | None = Field(
@@ -2175,6 +2196,97 @@ class KeywordsExplorerVolumeHistoryResponse(BaseModel):
 
 
 # ============== Management API ==============
+
+
+# Models for management/brand-radar-prompts
+class ManagementBrandRadarPromptsRequest(BaseModel):
+    """Request model for ManagementBrandRadarPromptsRequest."""
+
+    report_id: str = Field(
+        ...,
+        description="The ID of the report to use. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...`",
+    )
+
+
+class ManagementBrandRadarPromptsData(BaseModel):
+    """Individual data item for /brand-radar-prompts endpoint"""
+
+    prompt: str | None = Field(default=None, description="The text of the prompt.")
+    country: str | None = Field(default=None, description="The country of the prompt.")
+    created_at: str | None = Field(
+        default=None, description="The date the prompt was created."
+    )
+
+
+class ManagementBrandRadarPromptsResponse(BaseModel):
+    """Response model for /brand-radar-prompts endpoint"""
+
+    prompts: list[ManagementBrandRadarPromptsData] | None = Field(
+        default=None, description="The prompts field"
+    )
+
+    @property
+    def data(self) -> list[ManagementBrandRadarPromptsData]:
+        """Unwrap the response payload."""
+        return self.prompts or []
+
+
+
+class ManagementCreateBrandRadarPromptsRequest(BaseModel):
+    """Request model for ManagementCreateBrandRadarPromptsRequest."""
+
+    report_id: str = Field(
+        ...,
+        description="The ID of the report to use. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...`",
+    )
+    countries: list[str] = Field(
+        ...,
+        description="A comma-separated list of two-letter country codes (ISO 3166-1 alpha-2).",
+    )
+    prompts: list[str] = Field(
+        ...,
+        description="A comma-separated list of custom prompts. They must be valid utf8 and less than 300 characters.",
+    )
+
+# Models for management/brand-radar-prompts-delete
+class ManagementBrandRadarPromptsDeleteRequest(BaseModel):
+    """Request model for ManagementBrandRadarPromptsDeleteRequest."""
+
+    report_id: str = Field(
+        ...,
+        description="The ID of the report to use. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...`",
+    )
+    countries: list[str] | None = Field(
+        default=None,
+        description="A comma-separated list of two-letter country codes (ISO 3166-1 alpha-2).",
+    )
+    prompts: list[str] = Field(
+        ...,
+        description="A comma-separated list of custom prompts. They must be valid utf8 and less than 300 characters.",
+    )
+
+
+class ManagementBrandRadarPromptsDeleteData(BaseModel):
+    """Individual data item for /brand-radar-prompts-delete endpoint"""
+
+    prompt: str | None = Field(default=None, description="The text of the prompt.")
+    country: str | None = Field(default=None, description="The country of the prompt.")
+    created_at: str | None = Field(
+        default=None, description="The date the prompt was created."
+    )
+
+
+class ManagementBrandRadarPromptsDeleteResponse(BaseModel):
+    """Response model for /brand-radar-prompts-delete endpoint"""
+
+    prompts: list[ManagementBrandRadarPromptsDeleteData] | None = Field(
+        default=None, description="The prompts field"
+    )
+
+    @property
+    def data(self) -> list[ManagementBrandRadarPromptsDeleteData]:
+        """Unwrap the response payload."""
+        return self.prompts or []
 
 
 # Models for management/keyword-list-keywords
@@ -2766,7 +2878,7 @@ class RankTrackerCompetitorsOverviewData(BaseModel):
 
     competitors_list: list[dict[str, Any] | None] | None = Field(
         default=None,
-        description="Competitors information for a given keyword. The following fields are included: `url`, `url_prev`, `position`, `position_prev`, `best_position_kind`, `best_position_kind`, `traffic`, `traffic_prev`, `value`, `value_prev`. Fields ending in `prev` are included only in the compared view.",
+        description="Competitors information for a given keyword. The following fields are included: `url`, `url_prev`, `position`, `position_prev`, `best_position_kind`, `best_position_kind_prev`, `traffic`, `traffic_prev`, `value`, `value_prev`. Fields ending in `prev` are included only in the compared view.",
     )
     country: CountryEnum1 | None = Field(
         default=None,
@@ -5890,6 +6002,18 @@ class SiteAuditPageExplorerData(BaseModel):
     size_prev: int | None = Field(
         default=None, description="The size of the page or resource, measured in bytes"
     )
+    size_uncompressed: int | None = Field(
+        default=None,
+        description="The size of the downloaded page or resource after decompression, measured in bytes",
+    )
+    size_uncompressed_diff: int | None = Field(
+        default=None,
+        description="The size of the downloaded page or resource after decompression, measured in bytes",
+    )
+    size_uncompressed_prev: int | None = Field(
+        default=None,
+        description="The size of the downloaded page or resource after decompression, measured in bytes",
+    )
     source: list[str | None] | None = Field(
         default=None, description="Source from which the URL can be reached"
     )
@@ -5974,6 +6098,13 @@ class SiteAuditPageExplorerResponse(BaseModel):
 class SiteAuditProjectsRequest(BaseModel):
     """Request model for SiteAuditProjectsRequest."""
 
+    project_url: str | None = Field(
+        default=None,
+        description="Filters projects by target URL (ignores protocol and trailing slash).",
+    )
+    project_name: str | None = Field(
+        default=None, description="Filters projects by name."
+    )
     date: str | None = Field(
         default=None,
         description="A timestamp in `YYYY-MM-DDThh:mm:ss` format specifying the crawl date to retrieve metrics from. Defaults to the most recent available crawl if omitted. For scheduled crawls, we return data from the latest crawl finished before the specified timestamp. For Always-on audit crawls, we return data as of the provided date and time. If the time component is omitted, it defaults to `00:00:00`. The timestamp is interpreted in UTC.",
@@ -6534,238 +6665,6 @@ class SiteExplorerBacklinksStatsResponse(BaseModel):
     def data(self) -> SiteExplorerBacklinksStatsData | None:
         """Unwrap the response payload."""
         return self.metrics
-
-
-# Models for site-explorer/best-by-external-links
-class SiteExplorerBestByExternalLinksRequest(BaseModel):
-    """Request model for SiteExplorerBestByExternalLinksRequest."""
-
-    timeout: int | None = Field(
-        default=None, description="A manual timeout duration in seconds."
-    )
-    limit: int = Field(default=1000, description="The number of results to return.")
-    order_by: str | None = Field(
-        default=None,
-        description="A column to order results by. See the response schema for valid column identifiers, except for `http_code_target`, `languages_target`, `last_visited_target`, `powered_by_target`, `target_redirect`, `title_target`, `url_rating_target`, which are not supported in `order_by` for this endpoint.",
-    )
-    where: str | None = Field(
-        default=None, description="Filter expression. See filter-syntax.md for syntax."
-    )
-    select: SelectStr = Field(
-        ...,
-        description="A comma-separated list of columns to return. See response schema for valid column identifiers.",
-    )
-    protocol: ProtocolEnum = Field(
-        default=ProtocolEnum.BOTH, description="The protocol of your target."
-    )
-    target: str = Field(..., description="The target of the search: a domain or a URL.")
-    mode: ModeEnum = Field(
-        default=ModeEnum.SUBDOMAINS,
-        description="The scope of the search based on the target you entered.",
-    )
-    history: HistoryStr = Field(
-        default="all_time",
-        description="A time frame to add lost backlinks to the report. Choose between `live` (no history), `since:<date>` (history since a specified date), and `all_time` (full history). The date should be in YYYY-MM-DD format.",
-    )
-
-
-class SiteExplorerBestByExternalLinksData(BaseModel):
-    """Individual data item for /best-by-external-links endpoint"""
-
-    dofollow_to_target: int | None = Field(
-        default=None,
-        description="The number of links to your target page that don’t have the “nofollow” attribute.",
-    )
-    first_seen_link: str | None = Field(
-        default=None, description="The date we first found a link to your target."
-    )
-    http_code_target: int | None = Field(
-        default=None,
-        description="The return code from HTTP protocol returned during the target page crawl.",
-    )
-    is_spam: bool | None = Field(
-        default=None,
-        description="Indicates whether the backlink comes from a known spammy domain.",
-    )
-    languages_target: list[str | None] | None = Field(
-        default=None,
-        description="The languages listed in the target page metadata or detected by the crawler to appear in the HTML.",
-    )
-    last_seen: str | None = Field(
-        default=None, description="The date your target page lost its last live link."
-    )
-    last_visited_source: str | None = Field(
-        default=None,
-        description="The date we last verified a live link to your target page.",
-    )
-    last_visited_target: str | None = Field(
-        default=None, description="The date we last crawled your target page."
-    )
-    links_to_target: int | None = Field(
-        default=None, description="The number of inbound backlinks the target page has."
-    )
-    lost_links_to_target: int | None = Field(
-        default=None,
-        description="The number of backlinks lost during the selected time period.",
-    )
-    new_links_to_target: int | None = Field(
-        default=None,
-        description="The number of new backlinks found during the selected time period.",
-    )
-    nofollow_to_target: int | None = Field(
-        default=None,
-        description="The number of links to your target page that have the “nofollow” attribute.",
-    )
-    powered_by_target: list[str | None] | None = Field(
-        default=None,
-        description="Web technologies used to build and serve the target page content.",
-    )
-    redirects_to_target: int | None = Field(
-        default=None, description="The number of inbound redirects to your target page."
-    )
-    refdomains_target: int | None = Field(
-        default=None,
-        description="(5 units) The number of unique referring domains linking to the target page.",
-    )
-    target_redirect: str | None = Field(
-        default=None, description="The target's redirect if any."
-    )
-    title_target: str | None = Field(
-        default=None, description="The html title of the target page."
-    )
-    top_domain_rating_source: float | None = Field(
-        default=None,
-        description="The highest Domain Rating (DR) counted out of all referring domains. DR shows the strength of a website’s backlink profile compared to the others in our database on a 100-point scale.",
-    )
-    url_rating_target: float | None = Field(
-        default=None,
-        description="The strength of the target page's backlink profile compared to the others in our database on a 100-point scale.",
-    )
-    url_to: str | None = Field(
-        default=None, description="The URL the backlink points to."
-    )
-    url_to_plain: str | None = Field(
-        default=None, description="The target page URL optimized for use as a filter."
-    )
-
-
-class SiteExplorerBestByExternalLinksResponse(BaseModel):
-    """Response model for /best-by-external-links endpoint"""
-
-    pages: list[SiteExplorerBestByExternalLinksData] | None = Field(
-        default=None, description="The pages field"
-    )
-
-    @property
-    def data(self) -> list[SiteExplorerBestByExternalLinksData]:
-        """Unwrap the response payload."""
-        return self.pages or []
-
-
-# Models for site-explorer/best-by-internal-links
-class SiteExplorerBestByInternalLinksRequest(BaseModel):
-    """Request model for SiteExplorerBestByInternalLinksRequest."""
-
-    timeout: int | None = Field(
-        default=None, description="A manual timeout duration in seconds."
-    )
-    limit: int = Field(default=1000, description="The number of results to return.")
-    order_by: str | None = Field(
-        default=None,
-        description="A column to order results by. See the response schema for valid column identifiers, except for `http_code_target`, `languages_target`, `last_visited_target`, `powered_by_target`, `target_redirect`, `title_target`, `url_rating_target`, which are not supported in `order_by` for this endpoint.",
-    )
-    where: str | None = Field(
-        default=None, description="Filter expression. See filter-syntax.md for syntax."
-    )
-    select: SelectStr = Field(
-        ...,
-        description="A comma-separated list of columns to return. See response schema for valid column identifiers.",
-    )
-    protocol: ProtocolEnum = Field(
-        default=ProtocolEnum.BOTH, description="The protocol of your target."
-    )
-    target: str = Field(..., description="The target of the search: a domain or a URL.")
-    mode: ModeEnum = Field(
-        default=ModeEnum.SUBDOMAINS,
-        description="The scope of the search based on the target you entered.",
-    )
-
-
-class SiteExplorerBestByInternalLinksData(BaseModel):
-    """Individual data item for /best-by-internal-links endpoint"""
-
-    canonical_to_target: int | None = Field(
-        default=None,
-        description="The number of inbound canonical links to your target page.",
-    )
-    dofollow_to_target: int | None = Field(
-        default=None,
-        description="The number of links to your target page that don’t have the “nofollow” attribute.",
-    )
-    first_seen_link: str | None = Field(
-        default=None, description="The date we first found a link to your target."
-    )
-    http_code_target: int | None = Field(
-        default=None,
-        description="The return code from HTTP protocol returned during the target page crawl.",
-    )
-    languages_target: list[str | None] | None = Field(
-        default=None,
-        description="The languages listed in the target page metadata or detected by the crawler to appear in the HTML.",
-    )
-    last_seen: str | None = Field(
-        default=None, description="The date your target page lost its last live link."
-    )
-    last_visited_source: str | None = Field(
-        default=None,
-        description="The date we last verified a live link to your target page.",
-    )
-    last_visited_target: str | None = Field(
-        default=None, description="The date we last crawled your target page."
-    )
-    links_to_target: int | None = Field(
-        default=None, description="The number of inbound backlinks the target page has."
-    )
-    nofollow_to_target: int | None = Field(
-        default=None,
-        description="The number of links to your target page that have the “nofollow” attribute.",
-    )
-    powered_by_target: list[str | None] | None = Field(
-        default=None,
-        description="Web technologies used to build and serve the target page content.",
-    )
-    redirects_to_target: int | None = Field(
-        default=None, description="The number of inbound redirects to your target page."
-    )
-    target_redirect: str | None = Field(
-        default=None, description="The target's redirect if any."
-    )
-    title_target: str | None = Field(
-        default=None, description="The html title of the target page."
-    )
-    url_rating_target: float | None = Field(
-        default=None,
-        description="The strength of the target page's backlink profile compared to the others in our database on a 100-point scale.",
-    )
-    url_to: str | None = Field(
-        default=None, description="The URL the backlink points to."
-    )
-    url_to_plain: str | None = Field(
-        default=None, description="The target page URL optimized for use as a filter."
-    )
-
-
-class SiteExplorerBestByInternalLinksResponse(BaseModel):
-    """Response model for /best-by-internal-links endpoint"""
-
-    pages: list[SiteExplorerBestByInternalLinksData] | None = Field(
-        default=None, description="The pages field"
-    )
-
-    @property
-    def data(self) -> list[SiteExplorerBestByInternalLinksData]:
-        """Unwrap the response payload."""
-        return self.pages or []
 
 
 # Models for site-explorer/broken-backlinks
@@ -8161,6 +8060,238 @@ class SiteExplorerOutlinksStatsResponse(BaseModel):
         return self.metrics
 
 
+# Models for site-explorer/pages-by-backlinks
+class SiteExplorerPagesByBacklinksRequest(BaseModel):
+    """Request model for SiteExplorerPagesByBacklinksRequest."""
+
+    timeout: int | None = Field(
+        default=None, description="A manual timeout duration in seconds."
+    )
+    limit: int = Field(default=1000, description="The number of results to return.")
+    order_by: str | None = Field(
+        default=None,
+        description="A column to order results by. See the response schema for valid column identifiers, except for `http_code_target`, `languages_target`, `last_visited_target`, `powered_by_target`, `target_redirect`, `title_target`, `url_rating_target`, which are not supported in `order_by` for this endpoint.",
+    )
+    where: str | None = Field(
+        default=None, description="Filter expression. See filter-syntax.md for syntax."
+    )
+    select: SelectStr = Field(
+        ...,
+        description="A comma-separated list of columns to return. See response schema for valid column identifiers.",
+    )
+    protocol: ProtocolEnum = Field(
+        default=ProtocolEnum.BOTH, description="The protocol of your target."
+    )
+    target: str = Field(..., description="The target of the search: a domain or a URL.")
+    mode: ModeEnum = Field(
+        default=ModeEnum.SUBDOMAINS,
+        description="The scope of the search based on the target you entered.",
+    )
+    history: HistoryStr = Field(
+        default="all_time",
+        description="A time frame to add lost backlinks to the report. Choose between `live` (no history), `since:<date>` (history since a specified date), and `all_time` (full history). The date should be in YYYY-MM-DD format.",
+    )
+
+
+class SiteExplorerPagesByBacklinksData(BaseModel):
+    """Individual data item for /pages-by-backlinks endpoint"""
+
+    dofollow_to_target: int | None = Field(
+        default=None,
+        description="The number of links to your target page that don’t have the “nofollow” attribute.",
+    )
+    first_seen_link: str | None = Field(
+        default=None, description="The date we first found a link to your target."
+    )
+    http_code_target: int | None = Field(
+        default=None,
+        description="The return code from HTTP protocol returned during the target page crawl.",
+    )
+    is_spam: bool | None = Field(
+        default=None,
+        description="Indicates whether the backlink comes from a known spammy domain.",
+    )
+    languages_target: list[str | None] | None = Field(
+        default=None,
+        description="The languages listed in the target page metadata or detected by the crawler to appear in the HTML.",
+    )
+    last_seen: str | None = Field(
+        default=None, description="The date your target page lost its last live link."
+    )
+    last_visited_source: str | None = Field(
+        default=None,
+        description="The date we last verified a live link to your target page.",
+    )
+    last_visited_target: str | None = Field(
+        default=None, description="The date we last crawled your target page."
+    )
+    links_to_target: int | None = Field(
+        default=None, description="The number of inbound backlinks the target page has."
+    )
+    lost_links_to_target: int | None = Field(
+        default=None,
+        description="The number of backlinks lost during the selected time period.",
+    )
+    new_links_to_target: int | None = Field(
+        default=None,
+        description="The number of new backlinks found during the selected time period.",
+    )
+    nofollow_to_target: int | None = Field(
+        default=None,
+        description="The number of links to your target page that have the “nofollow” attribute.",
+    )
+    powered_by_target: list[str | None] | None = Field(
+        default=None,
+        description="Web technologies used to build and serve the target page content.",
+    )
+    redirects_to_target: int | None = Field(
+        default=None, description="The number of inbound redirects to your target page."
+    )
+    refdomains_target: int | None = Field(
+        default=None,
+        description="(5 units) The number of unique referring domains linking to the target page.",
+    )
+    target_redirect: str | None = Field(
+        default=None, description="The target's redirect if any."
+    )
+    title_target: str | None = Field(
+        default=None, description="The html title of the target page."
+    )
+    top_domain_rating_source: float | None = Field(
+        default=None,
+        description="The highest Domain Rating (DR) counted out of all referring domains. DR shows the strength of a website’s backlink profile compared to the others in our database on a 100-point scale.",
+    )
+    url_rating_target: float | None = Field(
+        default=None,
+        description="The strength of the target page's backlink profile compared to the others in our database on a 100-point scale.",
+    )
+    url_to: str | None = Field(
+        default=None, description="The URL the backlink points to."
+    )
+    url_to_plain: str | None = Field(
+        default=None, description="The target page URL optimized for use as a filter."
+    )
+
+
+class SiteExplorerPagesByBacklinksResponse(BaseModel):
+    """Response model for /pages-by-backlinks endpoint"""
+
+    pages: list[SiteExplorerPagesByBacklinksData] | None = Field(
+        default=None, description="The pages field"
+    )
+
+    @property
+    def data(self) -> list[SiteExplorerPagesByBacklinksData]:
+        """Unwrap the response payload."""
+        return self.pages or []
+
+
+# Models for site-explorer/pages-by-internal-links
+class SiteExplorerPagesByInternalLinksRequest(BaseModel):
+    """Request model for SiteExplorerPagesByInternalLinksRequest."""
+
+    timeout: int | None = Field(
+        default=None, description="A manual timeout duration in seconds."
+    )
+    limit: int = Field(default=1000, description="The number of results to return.")
+    order_by: str | None = Field(
+        default=None,
+        description="A column to order results by. See the response schema for valid column identifiers, except for `http_code_target`, `languages_target`, `last_visited_target`, `powered_by_target`, `target_redirect`, `title_target`, `url_rating_target`, which are not supported in `order_by` for this endpoint.",
+    )
+    where: str | None = Field(
+        default=None, description="Filter expression. See filter-syntax.md for syntax."
+    )
+    select: SelectStr = Field(
+        ...,
+        description="A comma-separated list of columns to return. See response schema for valid column identifiers.",
+    )
+    protocol: ProtocolEnum = Field(
+        default=ProtocolEnum.BOTH, description="The protocol of your target."
+    )
+    target: str = Field(..., description="The target of the search: a domain or a URL.")
+    mode: ModeEnum = Field(
+        default=ModeEnum.SUBDOMAINS,
+        description="The scope of the search based on the target you entered.",
+    )
+
+
+class SiteExplorerPagesByInternalLinksData(BaseModel):
+    """Individual data item for /pages-by-internal-links endpoint"""
+
+    canonical_to_target: int | None = Field(
+        default=None,
+        description="The number of inbound canonical links to your target page.",
+    )
+    dofollow_to_target: int | None = Field(
+        default=None,
+        description="The number of links to your target page that don’t have the “nofollow” attribute.",
+    )
+    first_seen_link: str | None = Field(
+        default=None, description="The date we first found a link to your target."
+    )
+    http_code_target: int | None = Field(
+        default=None,
+        description="The return code from HTTP protocol returned during the target page crawl.",
+    )
+    languages_target: list[str | None] | None = Field(
+        default=None,
+        description="The languages listed in the target page metadata or detected by the crawler to appear in the HTML.",
+    )
+    last_seen: str | None = Field(
+        default=None, description="The date your target page lost its last live link."
+    )
+    last_visited_source: str | None = Field(
+        default=None,
+        description="The date we last verified a live link to your target page.",
+    )
+    last_visited_target: str | None = Field(
+        default=None, description="The date we last crawled your target page."
+    )
+    links_to_target: int | None = Field(
+        default=None, description="The number of inbound backlinks the target page has."
+    )
+    nofollow_to_target: int | None = Field(
+        default=None,
+        description="The number of links to your target page that have the “nofollow” attribute.",
+    )
+    powered_by_target: list[str | None] | None = Field(
+        default=None,
+        description="Web technologies used to build and serve the target page content.",
+    )
+    redirects_to_target: int | None = Field(
+        default=None, description="The number of inbound redirects to your target page."
+    )
+    target_redirect: str | None = Field(
+        default=None, description="The target's redirect if any."
+    )
+    title_target: str | None = Field(
+        default=None, description="The html title of the target page."
+    )
+    url_rating_target: float | None = Field(
+        default=None,
+        description="The strength of the target page's backlink profile compared to the others in our database on a 100-point scale.",
+    )
+    url_to: str | None = Field(
+        default=None, description="The URL the backlink points to."
+    )
+    url_to_plain: str | None = Field(
+        default=None, description="The target page URL optimized for use as a filter."
+    )
+
+
+class SiteExplorerPagesByInternalLinksResponse(BaseModel):
+    """Response model for /pages-by-internal-links endpoint"""
+
+    pages: list[SiteExplorerPagesByInternalLinksData] | None = Field(
+        default=None, description="The pages field"
+    )
+
+    @property
+    def data(self) -> list[SiteExplorerPagesByInternalLinksData]:
+        """Unwrap the response payload."""
+        return self.pages or []
+
+
 # Models for site-explorer/pages-by-traffic
 class SiteExplorerPagesByTrafficRequest(BaseModel):
     """Request model for SiteExplorerPagesByTrafficRequest."""
@@ -8242,6 +8373,10 @@ class SiteExplorerPagesByTrafficResponse(BaseModel):
 class SiteExplorerPagesHistoryRequest(BaseModel):
     """Request model for SiteExplorerPagesHistoryRequest."""
 
+    page_positions: PagePositionsEnum = Field(
+        default=PagePositionsEnum.TOP100,
+        description="Filter pages by their ranking position. `top10` returns only pages ranking in the top 10, `top100` returns all pages ranking in the top 100.",
+    )
     history_grouping: HistoryGroupingEnum = Field(
         default=HistoryGroupingEnum.MONTHLY,
         description="The time interval used to group historical data.",

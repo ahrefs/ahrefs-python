@@ -7,9 +7,9 @@ from pydantic import BaseModel, ValidationError
 
 from ahrefs.types._coercions import DateStr, HistoryStr, SelectStr
 from ahrefs.types._generated import (
-    SiteExplorerBestByExternalLinksRequest,
     SiteExplorerDomainRatingRequest,
     SiteExplorerOrganicKeywordsRequest,
+    SiteExplorerPagesByBacklinksRequest,
 )
 
 
@@ -99,13 +99,13 @@ class TestRequestModelRoundTrip:
         assert data["select"] == "keyword,position"
 
     def test_history_valid(self) -> None:
-        req = SiteExplorerBestByExternalLinksRequest(
+        req = SiteExplorerPagesByBacklinksRequest(
             target="x", select="url_to", history="live"
         )
         assert req.history == "live"
 
     def test_history_invalid_rejected(self) -> None:
         with pytest.raises(ValidationError, match="recent"):
-            SiteExplorerBestByExternalLinksRequest(
+            SiteExplorerPagesByBacklinksRequest(
                 target="x", select="url_to", history="recent"
             )

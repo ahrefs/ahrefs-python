@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.8.0-alpha]
+
+### Breaking
+
+- `site_explorer_best_by_external_links()` renamed to `site_explorer_pages_by_backlinks()`
+- `site_explorer_best_by_internal_links()` renamed to `site_explorer_pages_by_internal_links()`
+- Corresponding type renames: `SiteExplorerBestByExternalLinks{Data,Request}` → `SiteExplorerPagesByBacklinks{Data,Request}`, same for internal links
+- Brand Radar `country` parameter changed from `CountryEnum | None` to `list[CountryEnum | None]` across all 9 brand-radar endpoints — wrap single values in a list
+
+### Added
+
+- `management_brand_radar_prompts()`, `management_create_brand_radar_prompts()`, `management_brand_radar_prompts_delete()` — manage Brand Radar custom prompts
+- `PagePositionsEnum` for filtering `site_explorer_pages_history()` by ranking position (`top10`, `top100`)
+- `search_queries` filter and response field on Brand Radar endpoints
+- `tags` response field on `brand_radar_ai_responses()`
+- `size_uncompressed`, `size_uncompressed_diff`, `size_uncompressed_prev` fields on `site_audit_page_explorer()`
+- `project_url`, `project_name` filter parameters on `site_audit_projects()`
+
+### Fixed
+
+- List-valued query parameters (e.g. `country`) now serialize as CSV instead of repeated keys, matching the API's expected format
+
 ## [0.7.1-alpha]
 
 ### Changed
