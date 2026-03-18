@@ -70,8 +70,8 @@ class AhrefsClient(GeneratedSyncMethodsMixin):
         query_params: dict[str, Any] | None = None,
     ) -> T:
         """Make a typed API request. Called by generated endpoint methods."""
-        url = build_url(self._config.base_url, api_section, endpoint)
-        params = request_model.model_dump(
+        url: str = build_url(self._config.base_url, api_section, endpoint)
+        params: dict[str, Any] = request_model.model_dump(
             mode="json", by_alias=True, exclude_none=exclude_none
         )
 
@@ -82,14 +82,14 @@ class AhrefsClient(GeneratedSyncMethodsMixin):
                     isinstance(last_exc, RateLimitError)
                     and last_exc.retry_after is not None
                 ):
-                    delay = last_exc.retry_after
+                    delay: float = last_exc.retry_after
                 else:
                     delay = calculate_backoff(attempt - 1)
                 time.sleep(delay)
             try:
                 if http_method in ("POST", "PUT", "PATCH"):
-                    body = params
-                    url_params = (
+                    body: dict[str, Any] = params
+                    url_params: dict[str, Any] | None = (
                         {k: v for k, v in query_params.items() if v is not None}
                         if query_params
                         else None
