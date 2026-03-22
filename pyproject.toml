@@ -1,6 +1,6 @@
 [project]
 name = "ahrefs-python"
-version = "0.8.0-alpha"
+version = "0.9.0-alpha"
 description = "Python client for the Ahrefs API"
 readme = "README.md"
 license = "MIT"

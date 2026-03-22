@@ -19,6 +19,7 @@ Python client for the [Ahrefs API](https://ahrefs.com/api). Typed request and re
   - [Working with Responses](#working-with-responses)
   - [Common Examples](#common-examples)
   - [Error Handling](#error-handling)
+  - [Public Endpoints](#public-endpoints)
   - [Configuration](#configuration)
   - [Automatic Retries](#automatic-retries)
   - [Async Support](#async-support)
@@ -231,11 +232,25 @@ except ahrefs.APIConnectionError:
 
 All exceptions inherit from `ahrefs.AhrefsError`.
 
+### Public Endpoints
+
+The public crawler endpoints are free and don't require an API key:
+
+```python
+from ahrefs import AhrefsClient
+
+with AhrefsClient() as client:
+    ips = client.public_crawler_ips()
+    ranges = client.public_crawler_ip_ranges()
+```
+
+Only `public_*` methods work without an API key. All other methods require authentication — calling them without a key will raise `AuthenticationError`.
+
 ### Configuration
 
 ```python
 client = ahrefs.AhrefsClient(
-    api_key="...",           # or set AHREFS_API_KEY env var
+    api_key="...",           # optional for public endpoints; or set AHREFS_API_KEY env var
     base_url="...",          # override API base URL (default: https://api.ahrefs.com/v3)
     timeout=30.0,            # request timeout in seconds (default: 60)
     max_retries=3,           # retries on transient errors (default: 2)

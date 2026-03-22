@@ -5,7 +5,6 @@ import pytest
 
 from ahrefs import AhrefsClient, AsyncAhrefsClient
 from ahrefs._base_client import DEFAULT_BASE_URL, DEFAULT_MAX_RETRIES, DEFAULT_TIMEOUT
-from ahrefs._exceptions import AuthenticationError
 
 
 class TestClientConstruction:
@@ -20,10 +19,11 @@ class TestClientConstruction:
         assert client._config.api_key == "env-key"
         client.close()
 
-    def test_missing_api_key_raises(self, monkeypatch: pytest.MonkeyPatch) -> None:
+    def test_missing_api_key_sets_none(self, monkeypatch: pytest.MonkeyPatch) -> None:
         monkeypatch.delenv("AHREFS_API_KEY", raising=False)
-        with pytest.raises(AuthenticationError, match="No API key"):
-            AhrefsClient()
+        client = AhrefsClient()
+        assert client._config.api_key is None
+        client.close()
 
     def test_default_config(self) -> None:
         client = AhrefsClient(api_key="test")
@@ -51,14 +51,18 @@ class TestClientConstruction:
 
 
 class TestAsyncClientConstruction:
-    def test_explicit_api_key(self) -> None:
-        client = AsyncAhrefsClient(api_key="test-key")
-        assert client._config.api_key == "test-key"
+    @pytest.mark.asyncio
+    async def test_explicit_api_key(self) -> None:
+        async with AsyncAhrefsClient(api_key="test-key") as client:
+            assert client._config.api_key == "test-key"
 
-    def test_missing_api_key_raises(self, monkeypatch: pytest.MonkeyPatch) -> None:
+    @pytest.mark.asyncio
+    async def test_missing_api_key_sets_none(
+        self, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
         monkeypatch.delenv("AHREFS_API_KEY", raising=False)
-        with pytest.raises(AuthenticationError, match="No API key"):
-            AsyncAhrefsClient()
+        async with AsyncAhrefsClient() as client:
+            assert client._config.api_key is None
 
 
 class TestContextManager:

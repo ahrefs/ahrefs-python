@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.9.0-alpha]
+
+### Added
+
+- Public endpoints (`public_crawler_ips()`, `public_crawler_ip_ranges()`) can now be called without an API key
+- `api_key` is now optional — clients created without a key can access free public endpoints
+
 ## [0.8.0-alpha]
 
 ### Breaking

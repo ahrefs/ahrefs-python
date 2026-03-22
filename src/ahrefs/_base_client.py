@@ -7,7 +7,6 @@ import random
 from dataclasses import dataclass, field
 from typing import Any
 
-from ahrefs._exceptions import AuthenticationError
 from ahrefs._version import __version__
 
 DEFAULT_BASE_URL = "https://api.ahrefs.com/v3"
@@ -19,7 +18,7 @@ DEFAULT_MAX_RETRIES = 2
 class ClientConfig:
     """Immutable configuration for the Ahrefs client."""
 
-    api_key: str = field(repr=False)
+    api_key: str | None = field(default=None, repr=False)
     base_url: str = DEFAULT_BASE_URL
     timeout: float = DEFAULT_TIMEOUT
     max_retries: int = DEFAULT_MAX_RETRIES
@@ -32,11 +31,8 @@ class ClientConfig:
         timeout: float | None = None,
         max_retries: int | None = None,
     ) -> ClientConfig:
-        resolved_key = api_key or os.environ.get("AHREFS_API_KEY")
-        if not resolved_key:
-            raise AuthenticationError(
-                "No API key provided. Pass api_key= or set AHREFS_API_KEY env var."
-            )
+        normalized = (api_key or "").strip() or None
+        resolved_key = normalized or os.environ.get("AHREFS_API_KEY") or None
         return cls(
             api_key=resolved_key,
             base_url=base_url or DEFAULT_BASE_URL,
@@ -45,11 +41,11 @@ class ClientConfig:
         )
 
 
-def build_headers(api_key: str) -> dict[str, str]:
-    return {
-        "Authorization": f"Bearer {api_key}",
-        "User-Agent": f"ahrefs-python/{__version__}",
-    }
+def build_headers(api_key: str | None) -> dict[str, str]:
+    headers = {"User-Agent": f"ahrefs-python/{__version__}"}
+    if api_key is not None:
+        headers["Authorization"] = f"Bearer {api_key}"
+    return headers
 
 
 def build_url(base_url: str, api_section: str, endpoint: str) -> str:
